@@ -10,6 +10,7 @@ import Home from "./Home";
 
 //remember to set proxy for the backend server!!
 
+// backend_route = ""
 
 function App() {
   // const [user, setUser] = useState  ({});
@@ -30,27 +31,24 @@ function App() {
 
   return (
     <div className="app">
-    <BrowserRouter>
       <Header />
       <main>
         <NavBar/>
         <Switch>
-            <Route path="/">
-                <Home 
-                // setUser={setUser}
-                // user = {user}
-                />
+            <Route exact path="/">
+              <About />
             </Route>
             <Route path="/home">
-              <About />
-
+              <Home />
             </Route>
-            <Route path="/ ___ ">
-
+            <Route path="/generate">
+              <Generate />
+            </Route>
+            <Route path="/Login">
+              <Login />
             </Route>
         </Switch>
       </main>
-    </BrowserRouter>
     </div>
   );
 }

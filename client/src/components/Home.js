@@ -7,29 +7,29 @@ const Home = () => {
 
   useEffect(() => {
     // Fetch data for boards
-    fetch('your-api-endpoint/boards')
+    fetch('flask-endpoint/boards')
       .then(response => response.json())
       .then(data => setBoards(data));
 
     // Fetch data for questions
-    fetch('your-api-endpoint/questions')
+    fetch('flask-endpoint/questions')
       .then(response => response.json())
       .then(data => setQuestions(data));
 
     // Fetch data for posts
-    fetch('your-api-endpoint/posts')
+    fetch('flask-endpoint/posts')
       .then(response => response.json())
       .then(data => setPosts(data));
   }, []); // Empty dependency array means this effect runs once after the initial render
 
   const handleDelete = (category, id) => {
     // Make a DELETE request to your Flask API to delete the item
-    fetch(`your-api-endpoint/${category}/${id}`, {
+    fetch(`flask-endpoint/${category}/${id}`, {
       method: 'DELETE',
     })
       .then(response => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error('Invalid Network Response');
         }
         // Remove the deleted item from the state
         switch (category) {
