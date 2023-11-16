@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
 
 # Remote library imports
-from flask_restful import Api, Resource
+from flask import Flask, jsonify, make_response, request, session
+from flask_restful import Resource
 from flask_migrate import Migrate
-from flask import Flask, make_response, jsonify, request, session
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import MetaData
-from flask_bcrypt import Bcrypt
 from flask_cors import CORS
 
 # Local imports
-from models import db, User, Question, Forum, Board, Deck, Wheel, Truck, Motor, Battery, Controller, Remote, Max_speed, Range
+from config import app, db, api
+from models import db, Board, Deck, Wheel, Truck, Motor, Battery, Controller, Remote, Max_speed, Range
 import os
 
+
+### This puts app.db in server directory???
 # BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 # DATABASE = os.environ.get(
 #     "DB_URI", f"sqlite:///{os.path.join(BASE_DIR, 'app.db')}")
@@ -21,22 +21,22 @@ import os
 # Instantiate app, set attributes
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
 app.json.compact = False
 
-# Define metadata, instantiate db
-metadata = MetaData(naming_convention={
-    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
-})
-db = SQLAlchemy(metadata=metadata)
-migrate = Migrate(app, db)
+# Instantiate db
 db.init_app(app)
+migrate = Migrate()
+migrate.init_app(app, db)
 
+# Secret Key
 # app.secret_key = " "
 
 
 # Instantiate CORS
-CORS(app)
+# CORS(app)
+# CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+
 
 
 ### ------------------ ROUTES ------------------ ###

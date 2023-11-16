@@ -7,19 +7,18 @@ import random
 
 # Local imports
 from app import app
-from models import db, User, Question, Forum, Board, Deck, Wheel, Truck, Motor, Battery, Controller, Remote, Max_speed, Range
-
+# from models import db, User, Question, Forum, Board, Deck, Wheel, Truck, Motor, Battery, Controller, Remote, Max_speed, Range
+from models import db, Board, Deck, Wheel, Truck, Motor, Battery, Controller, Remote, Max_speed, Range
 
 if __name__ == '__main__':
     with app.app_context():
         print("Starting seed...")
-        
         print("Clearing db...")
         # faker = Faker()
 
-        User.query.delete()
-        Question.query.delete()
-        Forum.query.delete()
+        # User.query.delete()
+        # Question.query.delete()
+        # Forum.query.delete()
         Board.query.delete()
         Deck.query.delete()
         Wheel.query.delete()
@@ -59,12 +58,9 @@ if __name__ == '__main__':
 
 
         # Create users
-        user1 = User(username='user1', password_hash='password1', fname='John', lname='Doe', rider_style='Style1')
-        user2 = User(username='user2', password_hash='password2', fname='Jane', lname='Doe', rider_style='Style2')
+        # user1 = User(username='user1', password_hash='password1', fname='John', lname='Doe', rider_style='Style1')
+        # user2 = User(username='user2', password_hash='password2', fname='Jane', lname='Doe', rider_style='Style2')
 
-        # Create boards
-        board1 = Board(user=user1)
-        board2 = Board(user=user2)
 
         # Create decks
         deck1 = Deck(type='Type1', length='Length1', material='Material1')
@@ -102,20 +98,29 @@ if __name__ == '__main__':
         range1 = Range(range='Range1')
         range2 = Range(range='Range2')
 
+        # Create boards
+        # board1 = Board(user=user1)
+        # board2 = Board(user=user2)
+        board1 = Board(deck=deck1, wheel=wheel1, truck=truck1, motor=motor1, battery=battery1, controller=controller1, remote=remote1, max_speed=max_speed1, range=range1)
+        board2 = Board(deck=deck2, wheel=wheel2, truck=truck2, motor=motor2, battery=battery2, controller=controller2, remote=remote2, max_speed=max_speed2, range=range2)
+
+
         # Create questions
-        question1 = Question(user=user1)
-        question2 = Question(user=user2)
+        # question1 = Question(user=user1)
+        # question2 = Question(user=user2)
 
         # Create forums
-        forum1 = Forum(user=user1)
-        forum2 = Forum(user=user2)
+        # forum1 = Forum(user=user1)
+        # forum2 = Forum(user=user2)
 
         # Commit to the database
-        db.session.add_all([user1, user2, board1, board2, deck1, deck2, wheel1, wheel2, truck1, truck2,
+        # db.session.add_all([user1, user2, board1, board2, deck1, deck2, wheel1, wheel2, truck1, truck2,
+        #                     motor1, motor2, battery1, battery2, controller1, controller2, remote1, remote2,
+        #                     max_speed1, max_speed2, range1, range2, question1, question2, forum1, forum2])
+        db.session.add_all([board1, board2, deck1, deck2, wheel1, wheel2, truck1, truck2,
                             motor1, motor2, battery1, battery2, controller1, controller2, remote1, remote2,
-                            max_speed1, max_speed2, range1, range2, question1, question2, forum1, forum2])
+                            max_speed1, max_speed2, range1, range2])
         db.session.commit()
-
 
 
         print("Seeding complete!")

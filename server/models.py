@@ -6,26 +6,26 @@ from config import db
 ### ------------------ USER (ONE) ------------------ ###
 
 
-class User(db.Model, SerializerMixin):
-    __tablename__ = 'users'
+# class User(db.Model, SerializerMixin):
+#     __tablename__ = 'users'
 
-    serializer_rule = ('-boards.users', '-questions.users', '-forums.users')
+#     serializer_rule = ('-boards.users', '-questions.users', '-forums.users')
 
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    username = db.Column(db.String, unique=True, nullable=False)
-    password_hash = db.Column(db.String, nullable=False)
-    fname = db.Column(db.String, nullable=False)
-    lname = db.Column(db.String, nullable=False)
-    rider_style = db.Column(db.String, nullable=False)
+#     id = db.Column(db.Integer, primary_key=True, unique=True)
+#     username = db.Column(db.String, unique=True, nullable=False)
+#     password_hash = db.Column(db.String, nullable=False)
+#     fname = db.Column(db.String, nullable=False)
+#     lname = db.Column(db.String, nullable=False)
+#     rider_style = db.Column(db.String, nullable=False)
 
 
 
-    boards = db.relationship('Board', back_populates='users')
-    questions = db.relationship('Question', back_populates='users')
-    forums = db.relationship('Forum', back_populates='users')
+#     boards = db.relationship('Board', back_populates='users')
+#     questions = db.relationship('Question', back_populates='users')
+#     forums = db.relationship('Forum', back_populates='users')
 
-    def __repr__(self):
-        return f''
+#     def __repr__(self):
+#         return f''
 
 
 ### ------------------ BOARD (ONE) ------------------ ###
@@ -60,8 +60,8 @@ class Board(db.Model, SerializerMixin):
     max_speed = db.relationship('Max_speed', back_populates='boards')
     range = db.relationship('Range', back_populates='boards')
 
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    users = db.relationship('User', back_populates='boards')
+    # user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    # users = db.relationship('User', back_populates='boards')
 
 
 
@@ -196,16 +196,16 @@ class Range(db.Model, SerializerMixin):
 ### ------------------ QUESTION (MANY) ------------------ ###
 
 
-class Question(db.Model, SerializerMixin):
-    __tablename__ = 'questions'
+# class Question(db.Model, SerializerMixin):
+#     __tablename__ = 'questions'
 
-    serializer_rule = ('-users.questions',)
+#     serializer_rule = ('-users.questions',)
 
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+#     id = db.Column(db.Integer, primary_key=True, unique=True)
+#     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
 
-    users = db.relationship('User', back_populates='questions')
+#     users = db.relationship('User', back_populates='questions')
 
 
 
@@ -213,15 +213,15 @@ class Question(db.Model, SerializerMixin):
 ### ------------------ FORUM (ONE) ------------------ ###
 
 
-class Forum(db.Model, SerializerMixin):
-    __tablename__ = 'forums'
+# class Forum(db.Model, SerializerMixin):
+#     __tablename__ = 'forums'
 
-    serializer_rule = ('-users.forums',)
+#     serializer_rule = ('-users.forums',)
 
-    id = db.Column(db.Integer, primary_key=True, unique=True)
+#     id = db.Column(db.Integer, primary_key=True, unique=True)
 
 
-    users = db.relationship('User', back_populates='forums')
+#     users = db.relationship('User', back_populates='forums')
 
 
 
