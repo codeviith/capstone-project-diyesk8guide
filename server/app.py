@@ -41,6 +41,12 @@ migrate.init_app(app, db)
 
 ### ------------------ ROUTES ------------------ ###
 
+@app.route('/')
+def home():
+    return '<h1>Server Home</h1>'
+
+
+
 ### ------------------ USER SIGNUP ------------------ ###
 
 ### ------------------ SESSION LOGIN-LOGOUT ------------------ ###
@@ -49,17 +55,59 @@ migrate.init_app(app, db)
 
 ### ------------------ BOARDS ------------------ ###
 
+app.get('/boards')
+def get_boards():
+    boards = Board.query.all()
+    return make_response([board.to_dict() for board in boards], 200)
+
+
+app.delete('/boards/<int:board_id>')
+def delete_board_by_id():
+    board = Board.query.filter(Board.id == id).first()
+
+    if board:
+        db.session.delete(board)
+        db.session.commit()
+        return ({"message": "Board deleted successfully."}), 200
+    else:
+        return ({"error": "Board not found."}), 404
+
+
 ### ------------------ QUESTIONS ------------------ ###
 
-### ------------------ POSTS ------------------ ###
 
 
-
-@app.route('/')
-def home():
-    return '<h1>Server Home</h1>'
+### ------------------ FORUMS ------------------ ###
 
 
+app.get('/forums')
+def get_posts():
+    posts = Forum.query.all()
+    return make_response([post.to_dict() for post in posts], 200)
+
+
+app.patch('/forum/<int:id>')
+def edit_post_by_id(id):
+    data = request.json
+
+    Forum.query.filter(Forum.id == id).update(data)
+    db.session.commit()
+    
+    post = Forum.query.filter(Forum.id == id).first()
+    
+    return make_response(jsonify(post.to_dict()), 200)
+
+
+app.delete('/forum/<int:id>')
+def delete_post_by_id():
+    post = Forum.query.filter(Forum.id == id).first()
+
+    if post:
+        db.session.delete(post)
+        db.session.commit()
+        return ({"message": "Post deleted successfully."}), 200
+    else:
+        return ({"error": "Post not found."}), 404
 
 
 
