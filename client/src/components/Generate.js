@@ -1,0 +1,21 @@
+import React, {useState, useEffect} from "react";
+import { Link, Switch, Route, BrowserRouter } from "react-router-dom";
+import About from "./About";
+import NavBar from "./NavBar";
+
+
+function Generate() {
+  const [eboards, setEboards] = useState([])
+  const [query, setQuery] = useState("")
+
+
+
+
+  return (
+    <div>
+      
+    </div>
+  )
+}
+
+export default Generate
