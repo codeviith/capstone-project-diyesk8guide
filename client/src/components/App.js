@@ -44,8 +44,14 @@ function App() {
             <Route path="/generate">
               <Generate />
             </Route>
-            <Route path="/Login">
+            <Route path="/login">
               <Login />
+            </Route>
+            <Route path="/game">
+              {/* <Game /> */}
+            </Route>
+            <Route path="/wizard">
+              {/* <Wizard /> */}
             </Route>
         </Switch>
       </main>

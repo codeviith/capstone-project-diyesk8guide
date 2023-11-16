@@ -30,8 +30,7 @@ const Generate = () => {
   const [boardData, setBoardData] = useState(null);
 
   const handleGenerate = () => {
-    // Fetch data for 'Board' class from your Flask API
-    fetch('your-api-endpoint/boards')
+    fetch('flask-endpoint/boards')
       .then(response => response.json())
       .then(data => setBoardData(data))
       .catch(error => console.error('Error fetching board data:', error));

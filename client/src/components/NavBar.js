@@ -4,12 +4,12 @@ function NavBar() {
     return (
         <nav>
             <NavLink to="/">About</NavLink>
-            <NavLink to="/">Home</NavLink>
-            <NavLink to="/">Generate</NavLink>
-            <NavLink to="/">Wizard</NavLink>
-            <NavLink to="/">Game</NavLink>
-            <NavLink to="/">Q&A</NavLink>
-            <NavLink to="/">Login</NavLink>
+            <NavLink to="/home">Home</NavLink>
+            <NavLink to="/generate">Generate</NavLink>
+            <NavLink to="/wizard">Wizard</NavLink>
+            <NavLink to="/game">Game</NavLink>
+            <NavLink to="/qna">Q&A</NavLink>
+            <NavLink to="/login">Login</NavLink>
         </nav>
     )
 }
