@@ -12,11 +12,12 @@ from config import db
 #     serializer_rule = ('-boards.users', '-questions.users', '-forums.users')
 
 #     id = db.Column(db.Integer, primary_key=True, unique=True)
-#     username = db.Column(db.String, unique=True, nullable=False)
+#     email = db.Column(db.String, unique=True, nullable=False)
 #     password_hash = db.Column(db.String, nullable=False)
 #     fname = db.Column(db.String, nullable=False)
 #     lname = db.Column(db.String, nullable=False)
-#     rider_style = db.Column(db.String, nullable=False)
+    # rider_stance = db.Column(db.String, nullable=False)
+    # boards_owned = db.Column(db.String)
 
 
 
@@ -218,7 +219,8 @@ class Range(db.Model, SerializerMixin):
 
 #     serializer_rule = ('-users.forums',)
 
-#     id = db.Column(db.Integer, primary_key=True, unique=True)
+    # id = db.Column(db.Integer, primary_key=True, unique=True)
+    # post = db.Column(db.String, nullable=False)
 
 
 #     users = db.relationship('User', back_populates='forums')

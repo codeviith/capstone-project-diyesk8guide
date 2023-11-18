@@ -4,7 +4,7 @@ function Header() {
   return (
     <header className='header'>
         <h1>
-        Eboard Central -Your One-Stop Site for DIY Builds    
+        DIYesk8Guide -Your One-Stop Site for DIY Builds    
         </h1>
     </header>
   )

@@ -4,6 +4,7 @@ import Generate from './Generate';
 import Header from './Header';
 import NavBar from "./NavBar";
 import Login from "./Login";
+import Signup from "./Signup";
 import About from "./About";
 import Home from "./Home";
 
@@ -52,6 +53,9 @@ function App() {
             </Route>
             <Route path="/wizard">
               {/* <Wizard /> */}
+            </Route>
+            <Route path="/signup">
+              <Signup />
             </Route>
         </Switch>
       </main>

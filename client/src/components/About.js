@@ -12,6 +12,17 @@ function About() {
         <span>
           Whether you're a seasoned skateboarder seeking an electrifying upgrade or a DIY enthusiast eager to embark on a thrilling project, this is the place for you.
         </span>
+        <div className="about_images">
+          <img src="" alt="" className="src" />
+          <img src="" alt="" className="src" />
+          <img src="" alt="" className="src" />
+          <img src="" alt="" className="src" />
+          <img src="" alt="" className="src" />
+          <img src="" alt="" className="src" />
+          <img src="" alt="" className="src" />
+          <img src="" alt="" className="src" />
+          <img src="" alt="" className="src" />
+        </div>
       </div>
     );
 }
