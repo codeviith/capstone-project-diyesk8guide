@@ -1,76 +1,3 @@
-// import React, {useState, useEffect} from "react";
-// import { Link, Switch, Route, BrowserRouter } from "react-router-dom";
-// import About from "./About";
-// import NavBar from "./NavBar";
-
-
-// function Generate() {
-//   const [eboards, setEboards] = useState([])
-//   const [query, setQuery] = useState("")
-
-
-//   return (
-//     <div>
-      
-//     </div>
-//   )
-// }
-
-// export default Generate
-
-
-
-
-
-
-// import React, {useState, useEffect} from "react";
-
-
-// const Generate = () => {
-//   const [boardData, setBoardData] = useState(null);
-
-//   const handleGenerate = () => {
-//     fetch('flask-endpoint/boards')
-//       .then(response => response.json())
-//       .then(data => setBoardData(data))
-//       .catch(error => console.error('Error fetching board data:', error));
-//   };
-
-//   return (
-//     <div>
-//       <h2>Generate Component</h2>
-      
-//       <button onClick={handleGenerate}>Generate</button>
-
-//       <div>
-//         <h3>Picture Container (To be added later)</h3>
-//         {/* Placeholder for picture container */}
-//       </div>
-
-//       <div>
-//         <h3>Data Container</h3>
-//         {boardData ? (
-//           <ul>
-//             {boardData.map(board => (
-//               <li key={board.id}>
-//                 <strong>{board.name}</strong> - {board.description}
-//               </li>
-//             ))}
-//           </ul>
-//         ) : (
-//           <p>No data generated yet. Click "Generate" to fetch data.</p>
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Generate;
-
-
-
-
-
 
 import React, { useState, useEffect } from 'react';
 
@@ -86,15 +13,14 @@ const Generate = () => {
 
     // For demonstration purposes, using a placeholder array for board data
     setBoardsData([
-      { id: 1, name: 'Board 1', specs: 'Specs for Board 1' },
-      { id: 2, name: 'Board 2', specs: 'Specs for Board 2' },
+      { id: 1, name: 'All Around Cruiser', specs: 'Specs for {boardsData.name}' }
       // Add more board data as needed
     ]);
-  }, []); // Empty dependency array means this effect runs once after the initial render
+  }, []);
 
   const handleGenerateBoard = () => {
     // Fetch data from 'Boards' model in Flask
-    fetch('your-api-endpoint/boards')
+    fetch('/boards')
       .then(response => response.json())
       .then(data => setBoardsData(data))
       .catch(error => console.error('Error fetching board data:', error));
@@ -104,7 +30,7 @@ const Generate = () => {
   const renderImageContainer = () => (
     <div>
       <h2>Image goes here</h2>
-      {/* Placeholder for image container */}
+      {/* Logic for image with matching specs goes here */}
     </div>
   );
 
@@ -116,7 +42,8 @@ const Generate = () => {
         <ul>
           {boardsData.map(board => (
             <li key={board.id}>
-              <strong>{board.name}</strong> - {board.specs}
+              <strong>{board.name}</strong>
+              <ul>{board.specs} </ul> 
             </li>
           ))}
         </ul>

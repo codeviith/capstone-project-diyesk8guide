@@ -6,7 +6,9 @@ import NavBar from "./NavBar";
 import Login from "./Login";
 import Signup from "./Signup";
 import About from "./About";
+import Guru from './Guru';
 import Home from "./Home";
+import Qna from './Qna';
 
 
 //remember to set proxy for the backend server!!
@@ -51,8 +53,11 @@ function App() {
             <Route path="/game">
               {/* <Game /> */}
             </Route>
-            <Route path="/wizard">
-              {/* <Wizard /> */}
+            <Route path="/guru">
+              <Guru />
+            </Route>
+            <Route path="/qna">
+              <Qna />
             </Route>
             <Route path="/signup">
               <Signup />

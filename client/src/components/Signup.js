@@ -126,7 +126,7 @@ const Signup = () => {
         </label>
         <br />
 
-        <button type="submit">Create an Account</button>
+        <button type="submit">Create Account</button>
       </form>
     </div>
   );
@@ -134,60 +134,3 @@ const Signup = () => {
 
 export default Signup;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//     {/* Signup Form */}
-//     <form onSubmit={handleSignupSubmit}>
-//     <h3>Sign Up</h3>
-//     <label>First Name:
-//       <input
-//         type="text"
-//         value={signupData.firstName}
-//         onChange={(e) => setSignupData({ ...signupData, firstName: e.target.value })}
-//       />
-//     </label>
-//     <br />
-//     <label>Last Name:
-//       <input
-//         type="text"
-//         value={signupData.lastName}
-//         onChange={(e) => setSignupData({ ...signupData, lastName: e.target.value })}
-//       />
-//     </label>
-//     <br />
-//     <label>Email:
-//       <input
-//         type="email"
-//         value={signupData.email}
-//         onChange={(e) => setSignupData({ ...signupData, email: e.target.value })}
-//       />
-//     </label>
-//     <br />
-//     <label>Rider Style:
-//       <input
-//         type="text"
-//         value={signupData.riderStyle}
-//         onChange={(e) => setSignupData({ ...signupData, riderStyle: e.target.value })}
-//       />
-//     </label>
-//     <br />
-//     <button type="submit">Sign Up</button>
-//   </form>
