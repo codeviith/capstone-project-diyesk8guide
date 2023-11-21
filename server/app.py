@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # Remote library imports
-from flask import Flask, jsonify, make_response, request, session
+from flask import Flask, jsonify, make_response, request, session, json
 from flask_restful import Resource
 from flask_migrate import Migrate
 from flask_cors import CORS
@@ -11,6 +11,11 @@ from config import app, db, api
 from models import db, Board, Deck, Wheel, Truck, Motor, Battery, Controller, Remote, Max_speed, Range
 import os
 
+# API imports
+# import openai
+# from openai import OpenAI
+
+# client = OpenAI()
 
 ### This puts app.db in server directory???
 # BASE_DIR = os.path.abspath(os.path.dirname(__file__))
@@ -29,8 +34,14 @@ db.init_app(app)
 migrate = Migrate()
 migrate.init_app(app, db)
 
-# Secret Key
-# app.secret_key = " "
+
+# API Secret Key
+# openai_api_key = os.getenv('OPENAI_API_KEY')
+# openai.api_key = openai_api_key
+
+
+# another way of getting the secret key??
+# os.environ.get('OPENAI_API_KEY')
 
 
 # Instantiate CORS
@@ -39,11 +50,47 @@ migrate.init_app(app, db)
 
 
 
-### ------------------ ROUTES ------------------ ###
+# @app.route('/')
+# def home():
+#     return '<h1>Server Home</h1>'
 
-@app.route('/')
-def home():
-    return '<h1>Server Home</h1>'
+GPT_MODEL = "gpt-3.5-turbo-0613"
+
+openai_URL = "https://api.openai.com/"
+
+
+# def openai_data_request(messages, tools=None, tool_choice=None, model=GPT_MODEL):
+#     headers: {
+#         "content-Type": "appliation/json",
+#         "Authorization": "Bearer" + openai_api_key
+#     }
+#     json_data = {"model": model, "messages": messages}
+#     try:
+#         response = request.post(
+#             openai_URL + "v1/chat/completions",
+#             headers=headers,
+#             json=json_data
+#         )
+#     except Exception as e:
+#         print("Unable to generate Response.")
+#         print(f'Exception: {e}')
+#         return e
+
+
+
+completion = client.chat.completions.create(
+model="gpt-3.5-turbo",
+messages=[
+    {"role": "system", "content": "You are a helpful assistant."},
+    {"role": "user", "content": "Hello!"}
+])
+
+
+### ------------------ OPENAI API REQUESTS ------------------ ###
+@app.post('/generateSpecs')
+def generate_specs():
+    pass
+
 
 
 ### ------------------ USER SIGNUP ------------------ ###
@@ -75,6 +122,7 @@ def check_session():
         return {'error': 'Invalid Session.'}, 401
     
     return {'message': 'Session Valid, Access Granted'}, 200
+
 
 @app.route('/login', methods=['POST'])
 def login():
