@@ -30,6 +30,8 @@ if __name__ == '__main__':
         Max_speed.query.delete()
         Range.query.delete()
 
+        print("Database cleared")
+
 
         # print("Creating users...")
         # user1 = User(email="user1@example.com", password="pwd1")
