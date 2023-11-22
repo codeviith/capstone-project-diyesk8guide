@@ -5,6 +5,7 @@ from flask import Flask, jsonify, make_response, request, session, json
 from flask_restful import Resource
 from flask_migrate import Migrate
 from flask_cors import CORS
+from dotenv import load_dotenv
 
 # Local imports
 from config import app, db, api
@@ -13,10 +14,8 @@ from guru_assistant import guru_assistant
 import os
 
 # API imports
-import openai
 from openai import OpenAI
 
-# client = OpenAI()
 
 ### This puts app.db in server directory???
 # BASE_DIR = os.path.abspath(os.path.dirname(__file__))
@@ -37,8 +36,11 @@ migrate.init_app(app, db)
 
 
 # API Secret Key
+load_dotenv()
 openai_api_key = os.environ.get('OPENAI_API_KEY')
-openai.api_key = openai_api_key
+client = OpenAI(api_key=openai_api_key)
+# openai.api_key = openai_api_key
+
 
 # another way of getting the secret key using os.getenv??
 # os.getenv('OPENAI_API_KEY')
@@ -82,6 +84,9 @@ CORS(app)
 guru_instructions = "You are an expert in electric skateboards who will be responding to and answering questions from prospective buiders, aka users. Please follow the instructions below: 1. You will come up with the most appropriate response that suits the best for builder's question. If you are unable to provide an appropriate response to the builder, then please refer them to the following websites: https://electric-skateboard.builders/ , https://forum.esk8.news/ 2. If you don't find a match within the aforementioned website, then please refrain from answering the question and come up with a reasonable excuse or reason. 3. Please refrain from engaing in any other conversation that isn't related to the field of electric skateboards, and in the case that the builder asks questions that is unrelated to and/or outside the scope of electric skateboards, then please respond with: 'I apologize but I can only answer questions that are related to electric skateboards.'"
 ### ------------------ OPENAI API REQUESTS ------------------ ###
 
+
+### Not using guru_assistant.py
+
 @app.post('/guru_assistant')
 def guru_assistant():
     data = request.get_json()
@@ -97,7 +102,7 @@ def guru_assistant():
             {"role": "system", "content": guru_instructions},
             {"role": "user", "content": f'I have a question about: {user_input}.'}
             ]
-        completion = openai.ChatCompletion.create(
+        completion = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=messages,
             max_tokens=500
@@ -116,23 +121,52 @@ def guru_assistant():
         )
 
 
-### How to write route to call on guru_assistant(user_input) function?
+
+# Using guru_assistant.py and calling on guru_assistant(user_input) function.
+# Is this how it should look like?
+
+# @app.post('/guru_assistant')
+# def guru_assistant():
+#     data = request.get_json()
+#     user_input = data.get('user_input')
+
+#     if not user_input:
+#         return make_response(
+#             jsonify({"error": "User input cannot be empty."}), 400
+#         )
+    
+#     try:
+#         answer = guru_assistant(user_input)
+
+#         return make_response(
+#             jsonify({"content": answer}), 200
+#         )
+    
+#     except Exception as e:
+#         print(e)
+        
+#         return make_response(
+#             jsonify({"error": "Cannot formulate a response."}), 500
+#         )
+
+
+
 
 
 
 ### ------------------ USER SIGNUP ------------------ ###
 
 
-@app.route('/signup', methods=['POST'])
-def signup():
-    data = request.get_json()
-    new_user = User(email=data['email'])
-    new_user.password_hash = data['password']
+# @app.route('/signup', methods=['POST'])
+# def signup():
+#     data = request.get_json()
+#     new_user = User(email=data['email'])
+#     new_user.password_hash = data['password']
 
-    db.session.add(new_user)
-    db.session.commit()
+#     db.session.add(new_user)
+#     db.session.commit()
 
-    return {'message': 'Registration Successful!'}, 201
+#     return {'message': 'Registration Successful!'}, 201
 
 
 
@@ -140,44 +174,44 @@ def signup():
 
 
 
-@app.route('/check_session')
-def check_session():
-    user_id = session.get('user_id')
-    user = User.query.filter(User.id == user_id).first()
+# @app.route('/check_session')
+# def check_session():
+#     user_id = session.get('user_id')
+#     user = User.query.filter(User.id == user_id).first()
 
-    if not user:
-        return {'error': 'Invalid Session.'}, 401
+#     if not user:
+#         return {'error': 'Invalid Session.'}, 401
     
-    return {'message': 'Session Valid, Access Granted'}, 200
+#     return {'message': 'Session Valid, Access Granted'}, 200
 
 
-@app.route('/login', methods=['POST'])
-def login():
-    data = request.get_json()
+# @app.route('/login', methods=['POST'])
+# def login():
+#     data = request.get_json()
 
-    # check if user exists
-    user = User.query.filter(User.email == data['email']).first()
+#     # check if user exists
+#     user = User.query.filter(User.email == data['email']).first()
 
-    if not user:
-        return make_response(jsonify({'error': 'User not found.'}), 404)
+#     if not user:
+#         return make_response(jsonify({'error': 'User not found.'}), 404)
     
-    if user.authenticate(data['password']):  # check if pwd match
-        session['user_id'] = user.id
-        user_data = {
-            'id': user.id,
-            'email': user.email
-        }
-        return make_response(jsonify({'message': 'Login successful!', 'user': user_data}), 200)
-    else:
-        # password did not match, send error resp
-        return make_response(jsonify({'error': 'Invalid email or password.'}), 401)
+#     if user.authenticate(data['password']):  # check if pwd match
+#         session['user_id'] = user.id
+#         user_data = {
+#             'id': user.id,
+#             'email': user.email
+#         }
+#         return make_response(jsonify({'message': 'Login successful!', 'user': user_data}), 200)
+#     else:
+#         # password did not match, send error resp
+#         return make_response(jsonify({'error': 'Invalid email or password.'}), 401)
 
 
-@app.delete('/logout')
-def logout():
-    session.pop('user_id')
+# @app.delete('/logout')
+# def logout():
+#     session.pop('user_id')
 
-    return {'message': 'Successfully logged out.'}, 200
+#     return {'message': 'Successfully logged out.'}, 200
 
 
 
@@ -212,34 +246,34 @@ def delete_board_by_id():
 ### ------------------ FORUMS ------------------ ###
 
 
-app.get('/forums')
-def get_posts():
-    posts = Forum.query.all()
-    return make_response(jsonify([post.to_dict() for post in posts]), 200)
+# app.get('/forums')
+# def get_posts():
+#     posts = Forum.query.all()
+#     return make_response(jsonify([post.to_dict() for post in posts]), 200)
 
 
-app.patch('/forum/<int:id>')
-def edit_post_by_id(id):
-    data = request.json
+# app.patch('/forum/<int:id>')
+# def edit_post_by_id(id):
+#     data = request.json
 
-    Forum.query.filter(Forum.id == id).update(data)
-    db.session.commit()
+#     Forum.query.filter(Forum.id == id).update(data)
+#     db.session.commit()
     
-    post = Forum.query.filter(Forum.id == id).first()
+#     post = Forum.query.filter(Forum.id == id).first()
     
-    return make_response(jsonify(post.to_dict()), 200)
+#     return make_response(jsonify(post.to_dict()), 200)
 
 
-app.delete('/forum/<int:id>')
-def delete_post_by_id():
-    post = Forum.query.filter(Forum.id == id).first()
+# app.delete('/forum/<int:id>')
+# def delete_post_by_id():
+#     post = Forum.query.filter(Forum.id == id).first()
 
-    if post:
-        db.session.delete(post)
-        db.session.commit()
-        return {"message": "Post deleted successfully."}, 200
-    else:
-        return {"error": "Post not found."}, 404
+#     if post:
+#         db.session.delete(post)
+#         db.session.commit()
+#         return {"message": "Post deleted successfully."}, 200
+#     else:
+#         return {"error": "Post not found."}, 404
 
 
 
