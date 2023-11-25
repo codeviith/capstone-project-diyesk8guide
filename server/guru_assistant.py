@@ -6,7 +6,7 @@ from IPython.display import display
 from flask import Flask, make_response, jsonify, request, session
 
 # load_dotenv()
-key = "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"
+key = ""
 # key = os.environ.get('OPENAI_API_KEY')
 # key = os.getenv("OPENAIAP_SECRET_KEY")
 
@@ -21,7 +21,7 @@ client = OpenAI(api_key=key)
 
 guru_instructions = """
     You are an expert in electric skateboards who will be responding to
-    and answering questions from prospective buiders, aka users. 
+    and answering questions from prospective builders, aka users. 
     Please follow the instructions below:
 
     1. You will come up with the most appropriate response that suits the best for 

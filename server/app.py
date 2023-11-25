@@ -81,9 +81,8 @@ CORS(app)
 
 
 
-guru_instructions = "You are an expert in electric skateboards who will be responding to and answering questions from prospective buiders, aka users. Please follow the instructions below: 1. You will come up with the most appropriate response that suits the best for builder's question. If you are unable to provide an appropriate response to the builder, then please refer them to the following websites: https://electric-skateboard.builders/ , https://forum.esk8.news/ 2. If you don't find a match within the aforementioned website, then please refrain from answering the question and come up with a reasonable excuse or reason. 3. Please refrain from engaing in any other conversation that isn't related to the field of electric skateboards, and in the case that the builder asks questions that is unrelated to and/or outside the scope of electric skateboards, then please respond with: 'I apologize but I can only answer questions that are related to electric skateboards.'"
 ### ------------------ OPENAI API REQUESTS ------------------ ###
-
+guru_instructions = "You are an expert in electric skateboards who will be answering questions from prospective builders, aka users. Please follow the instructions below: 1. You will come up with the most appropriate response that suits best for the builder's question. If you are unable to provide an appropriate response to the builder, then please refer them to the following websites: https://electric-skateboard.builders/ , https://forum.esk8.news/ 2. Please refrain from engaing in any other conversation that isn't related to the field of electric skateboards, and in the case that the builder asks a question that is unrelated to and/or outside the scope of electric skateboards, please respond with: 'I apologize but I can only answer questions that are related to electric skateboards.' and end with an appropriate response."
 
 ### Not using guru_assistant.py
 
@@ -110,6 +109,11 @@ def guru_assistant():
 
         answer = completion.choices[0].message.content
 
+        #Save user input and the generated response into the database
+        guru_entry = Guru(user_input=user_input, answer=answer)
+        db.session.add(guru_entry)
+        db.session.commit()
+
         return make_response(
             jsonify({"content": answer}), 200
         )
@@ -119,6 +123,47 @@ def guru_assistant():
         return make_response(
             jsonify({"error": "Cannot formulate a response."}), 500
         )
+
+
+
+
+# @app.route('/guru_assistant', methods=['POST'])
+# def guru_assistant():
+#     data = request.get_json()
+#     user_input = data.get('user_input')
+
+#     if not user_input:
+#         return make_response(
+#             jsonify({"error": "User input cannot be empty."}), 400
+#         )
+    
+#     try:
+#         messages = [
+#             {"role": "system", "content": guru_instructions},
+#             {"role": "user", "content": f'I have a question about: {user_input}.'}
+#             ]
+#         completion = client.chat.completions.create(
+#             model="gpt-3.5-turbo",
+#             messages=messages,
+#             max_tokens=500
+#         )
+
+#         answer = completion.choices[0].message.content
+
+#         return make_response(
+#             jsonify({"content": answer}), 200
+#         )
+#     except Exception as e:
+#         print(e)
+        
+#         return make_response(
+#             jsonify({"error": "Cannot formulate a response."}), 500
+#         )
+
+
+
+
+
 
 
 

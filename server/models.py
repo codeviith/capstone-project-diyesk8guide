@@ -194,19 +194,22 @@ class Range(db.Model, SerializerMixin):
 ### unsure where these go ###
 
 
-### ------------------ QUESTION (MANY) ------------------ ###
+### ------------------ GURU (MANY) ------------------ ###
 
 
-# class Question(db.Model, SerializerMixin):
-#     __tablename__ = 'questions'
+class Guru(db.Model, SerializerMixin):
+    __tablename__ = 'gurus'
 
-#     serializer_rule = ('-users.questions',)
+    # serializer_rule = ('-users.gurus',)
 
-#     id = db.Column(db.Integer, primary_key=True, unique=True)
-#     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    id = db.Column(db.Integer, primary_key=True, unique=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_input = db.Column(db.String, nullable=False)
+    answer = db.Column(db.String, nullable=False)
 
 
-#     users = db.relationship('User', back_populates='questions')
+    # users = db.relationship('User', back_populates='gurus')
+
 
 
 
@@ -217,6 +220,7 @@ class Range(db.Model, SerializerMixin):
 # class Forum(db.Model, SerializerMixin):
 #     __tablename__ = 'forums'
 
+
 #     serializer_rule = ('-users.forums',)
 
     # id = db.Column(db.Integer, primary_key=True, unique=True)
@@ -224,6 +228,7 @@ class Range(db.Model, SerializerMixin):
 
 
 #     users = db.relationship('User', back_populates='forums')
+
 
 
 
