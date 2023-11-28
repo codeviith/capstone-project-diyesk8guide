@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 
 # Local imports
 from config import app, db, api
-from models import db, Board, Deck, Wheel, Truck, Motor, Battery, Controller, Remote, Max_speed, Range
+from models import db, Board, Guru, User, Deck, Wheel, Truck, Motor, Battery, Controller, Remote, Max_speed, Range
 from guru_assistant import guru_assistant
 import os
 
@@ -272,16 +272,106 @@ def get_boards():
     return make_response(jsonify([board.to_dict() for board in boards]), 200)
 
 
-app.delete('/boards/<int:board_id>')
-def delete_board_by_id():
-    board = Board.query.filter(Board.id == id).first()
+# app.delete('/boards/<int:board_id>')
+# def delete_board_by_id():
+#     board = Board.query.filter(Board.id == id).first()
 
-    if board:
-        db.session.delete(board)
-        db.session.commit()
-        return {"message": "Board deleted successfully."}, 200
-    else:
-        return {"error": "Board not found."}, 404
+#     if board:
+#         db.session.delete(board)
+#         db.session.commit()
+#         return {"message": "Board deleted successfully."}, 200
+#     else:
+#         return {"error": "Board not found."}, 404
+
+########
+
+# def filter_boards(motor_power=None, rider_level=None, terrain_type=None, range_type=None):
+#     boards = Board.query
+
+#     # Filter based on motor power
+#     if motor_power:
+#         boards = boards.join(Motor).filter(Motor.type == motor_power)
+
+#     # Add similar logic for other filters (rider_level, terrain_type, range_type)
+
+#     boards = boards.all()
+#     return boards
+
+
+
+# @app.route('/boards', methods=['GET'])
+# def get_boards():
+#     # Retrieve query parameters from the request
+#     motor_power = request.args.get('motor_power')
+#     rider_level = request.args.get('rider_level')
+#     terrain_type = request.args.get('terrain_type')
+#     range_type = request.args.get('range_type')
+
+#     # Filter boards based on the selected options
+#     boards = filter_boards(motor_power=motor_power, rider_level=rider_level, terrain_type=terrain_type, range_type=range_type)
+
+#     # Serialize the boards and return as JSON
+#     serialized_boards = [board.to_dict() for board in boards]
+#     return jsonify(serialized_boards)
+
+
+
+# def filter_boards(rider_level=None, terrain_type=None, range_type=None):
+#     boards = Board.query
+
+#     # Add filters based on rider level, terrain type, and range type
+#     if rider_level:
+#         # Filter based on rider level
+#         boards = boards.join(User).filter(User.rider_stance == rider_level)
+
+#     if terrain_type:
+#         # Filter based on terrain type
+#         boards = boards.join(Wheel).filter(Wheel.type == terrain_type)
+
+#     if range_type:
+#         # Add similar logic for other filters (e.g., range type)
+#         boards = boards.join(Range).filter(Range.range == range_type)
+
+#     boards = boards.all()
+#     return boards
+
+
+# @app.route('/boards', methods=['GET'])
+# def get_boards():
+#     # Retrieve query parameters from the request
+#     rider_level = request.args.get('rider_level')
+#     terrain_type = request.args.get('terrain_type')
+#     range_type = request.args.get('range_type')
+
+#     # Filter boards based on the selected options
+#     boards = filter_boards(rider_level=rider_level, terrain_type=terrain_type, range_type=range_type)
+
+#     # Serialize the boards and return as JSON
+#     serialized_boards = [board.to_dict() for board in boards]
+#     return jsonify(serialized_boards)
+
+
+
+#######
+
+
+@app.route('/update_wheel', methods=['PUT'])
+def update_wheel():
+    data = request.json
+    wheel_size = data.get('wheelSize', '')
+    wheel_type = data.get('wheelType', '')
+
+    # Update the Wheel database with the new values
+    wheel_entry = Wheel(size=wheel_size, type=wheel_type)
+    Wheel.query.delete()
+    db.session.add(wheel_entry)
+    db.session.commit()
+
+    return {"message": "Wheel updated successfully."}, 200
+
+
+
+#######
 
 
 ### ------------------ QUESTIONS ------------------ ###
