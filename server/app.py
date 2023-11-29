@@ -355,23 +355,86 @@ def get_boards():
 #######
 
 
-@app.route('/update_wheel', methods=['PUT'])
-def update_wheel():
+# @app.route('/update_wheel', methods=['PUT'])
+# def update_wheel():
+#     data = request.json
+#     wheel_size = data.get('wheelSize', '')
+#     wheel_type = data.get('wheelType', '')
+
+#     # Update the Wheel database with the new values
+#     wheel_entry = Wheel(size=wheel_size, type=wheel_type)
+#     Wheel.query.delete()
+#     db.session.add(wheel_entry)
+#     db.session.commit()
+
+#     return {"message": "Wheel updated successfully."}, 200
+
+
+
+########
+# appending data directly onto Board:
+
+@app.route('/update_board', methods=['PUT'])
+def update_board():
     data = request.json
+    deck_type = data.get('deckType', '')
+    deck_length = data.get('deckLength', '')
+    deck_material = data.get('deckMaterial', '')
+    truck_type = data.get('truckType', '')
+    truck_width = data.get('truckWidth', '')
+    controller_feature = data.get('controllerFeature', '')
+    controller_type = data.get('controllerType', '')
+    remote_feature = data.get('remoteFeature', '')
+    remote_type = data.get('remoteType', '')
+    motor_size = data.get('motorSize', '')
+    motor_kv = data.get('motorKv', '')
     wheel_size = data.get('wheelSize', '')
     wheel_type = data.get('wheelType', '')
+    battery_voltage = data.get('batteryVoltage', '')
+    battery_type = data.get('batteryType', '')
+    battery_capacity = data.get('batteryCapacity', '')
+    battery_configuration = data.get('batteryConfiguration', '')
+    range_mileage = data.get('mileage', '')
 
     # Update the Wheel database with the new values
-    wheel_entry = Wheel(size=wheel_size, type=wheel_type)
-    Wheel.query.delete()
-    db.session.add(wheel_entry)
+    sample_board_entry = Board(deck_type=deck_type, deck_length=deck_length, deck_material=deck_material, truck_type=truck_type, truck_width=truck_width, controller_feature=controller_feature, controller_type=controller_type, remote_feature=remote_feature, remote_type=remote_type, motor_size=motor_size, motor_kv=motor_kv, wheel_size=wheel_size, wheel_type=wheel_type, battery_voltage=battery_voltage, battery_type=battery_type, battery_capacity=battery_capacity, battery_configuration=battery_configuration, range_mileage=range_mileage)
+    Board.query.delete()
+    db.session.add(sample_board_entry)
     db.session.commit()
 
     return {"message": "Wheel updated successfully."}, 200
 
 
 
-#######
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#########
 
 
 ### ------------------ QUESTIONS ------------------ ###

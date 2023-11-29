@@ -66,6 +66,42 @@ class Board(db.Model, SerializerMixin):
 
 
 
+
+
+class Board(db.Model, SerializerMixin):
+    __tablename__ = 'boards'
+
+    serializer_rule = ('-users.boards',)
+
+    id = db.Column(db.Integer, primary_key=True, unique=True)
+
+    deck_type = db.Column(db.String, nullable=False)
+    deck_length = db.Column(db.String, nullable=False)
+    deck_material = db.Column(db.String, nullable=False)
+    truck_type = db.Column(db.String, nullable=False)
+    truck_width = db.Column(db.String, nullable=False)
+    controller_feature = db.Column(db.String, nullable=False)
+    controller_type = db.Column(db.String, nullable=False)
+    remote_feature = db.Column(db.String, nullable=False)
+    remote_type = db.Column(db.String, nullable=False)
+    motor_size = db.Column(db.String, nullable=False)
+    motor_kv = db.Column(db.String, nullable=False)
+    wheel_size = db.Column(db.String, nullable=False)
+    wheel_type = db.Column(db.String, nullable=False)
+    battery_voltage = db.Column(db.String, nullable=False)
+    battery_type = db.Column(db.String, nullable=False)
+    battery_capacity = db.Column(db.String, nullable=False)
+    battery_configuration = db.Column(db.String, nullable=False)
+    range_mileage = db.Column(db.String, nullable=False)
+
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    users = db.relationship('User', back_populates='boards')
+
+
+
+
+
+
 ### ------------------ DECK (MANY) ------------------ ###
 class Deck(db.Model, SerializerMixin):
     __tablename__ = 'decks'
@@ -114,7 +150,6 @@ class Motor(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True, unique=True)
     size = db.Column(db.String, nullable=False)
-    type = db.Column(db.String, nullable=False)
     kv = db.Column(db.String, nullable=False)
 
     boards = db.relationship('Board', back_populates='motor')
@@ -168,7 +203,7 @@ class Max_speed(db.Model, SerializerMixin):
     serializer_rule = ('-boards.max_speed',)
 
     id = db.Column(db.Integer, primary_key=True, unique=True)
-    speed = db.Column(db.String, nullable=False)
+    mph = db.Column(db.String, nullable=False)
 
     boards = db.relationship('Board', back_populates='max_speed')
 
@@ -180,7 +215,7 @@ class Range(db.Model, SerializerMixin):
     serializer_rule = ('-boards.range',)
 
     id = db.Column(db.Integer, primary_key=True, unique=True)
-    range = db.Column(db.String, nullable=False)
+    mileage = db.Column(db.String, nullable=False)
 
     boards = db.relationship('Board', back_populates='range')
 
