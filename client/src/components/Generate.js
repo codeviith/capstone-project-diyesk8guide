@@ -36,19 +36,8 @@ function Generate() {
   const [mileage, setMileage] = useState('');
   const [imageURL, setImageURL] = useState('')
 
-  // const [randomSTImage, setRandomSTImage] = useState('');
-  // const [randomATImage, setRandomATImage] = useState('');
-
-
-  // let street_images = [st_img1, st_img2, st_img3, st_img4];
-  // let all_terrain_images = [at_img1, at_img2, at_img3];
-
-  // let random_ST_index = Math.floor(Math.random() * street_images.length);
-  // let random_ST_Image = street_images[random_ST_index];
-
-  // let random_AT_index = Math.floor(Math.random() * all_terrain_images.length);
-  // let random_AT_Image = all_terrain_images[random_AT_index];
-
+  let streetImages = [st_img1, st_img2, st_img3, st_img4];
+  let allTerrainImages = [at_img1, at_img2, at_img3];
 
 
   useEffect(() => {
@@ -144,12 +133,6 @@ function Generate() {
 
 
   const handleGenerateBoard = async () => {
-    let streetImages = [st_img1, st_img2, st_img3, st_img4];
-    let allTerrainImages = [at_img1, at_img2, at_img3];
-
-    // setRandomSTImage(streetImages[Math.floor(Math.random() * streetImages.length)]);
-    // setRandomATImage(allTerrainImages[Math.floor(Math.random() * allTerrainImages.length)]);
-
     // Set values for board spec based on user's selection input
     if (riderLevel === 'Beginner') {
       setTruckType('Single Kingspin'); 
