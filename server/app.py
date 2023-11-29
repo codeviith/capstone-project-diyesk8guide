@@ -286,14 +286,6 @@ def get_latest_board():
         return make_response(jsonify({}), 404)
 
 
-# @app.route('/boards/<int:board_id>', methods=['DELETE'])
-# def delete_board(board_id):
-#     try:
-#         # Logic to delete the board with board_id
-#         return jsonify({'success': True, 'message': 'Board deleted successfully'})
-#     except Exception as e:
-#         return jsonify({'success': False, 'message': str(e)}), 500
-
 
 @app.route('/boards/<int:board_id>', methods=['DELETE'])
 def delete_board_by_id(board_id):
@@ -401,7 +393,7 @@ def delete_board_by_id(board_id):
 def update_board():
     data = request.json
 
-    print(data)
+    # print(data)
 
     deck_type = data.get('deckType', '')
     deck_length = data.get('deckLength', '')
@@ -421,6 +413,7 @@ def update_board():
     battery_capacity = data.get('batteryCapacity', '')
     battery_configuration = data.get('batteryConfiguration', '')
     range_mileage = data.get('mileage', '')
+    # img_url = data.get('img_url', '')
 
     # Update the Wheel database with the new values
     sample_board_entry = Board(deck_type=deck_type, deck_length=deck_length, deck_material=deck_material, truck_type=truck_type, truck_width=truck_width, controller_feature=controller_feature, controller_type=controller_type, remote_feature=remote_feature, remote_type=remote_type, motor_size=motor_size, motor_kv=motor_kv, wheel_size=wheel_size, wheel_type=wheel_type, battery_voltage=battery_voltage, battery_type=battery_type, battery_capacity=battery_capacity, battery_configuration=battery_configuration, range_mileage=range_mileage)

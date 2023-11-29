@@ -57,6 +57,8 @@ class Board(db.Model, SerializerMixin):
     battery_capacity = db.Column(db.String, nullable=False)
     battery_configuration = db.Column(db.String, nullable=False)
     range_mileage = db.Column(db.String, nullable=False)
+    
+    image_url = db.Column(db.String, nullable=False)
 
     timestamp = db.Column(DateTime, default=datetime.utcnow, nullable=False)
 
