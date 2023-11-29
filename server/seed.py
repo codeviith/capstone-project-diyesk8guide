@@ -30,6 +30,8 @@ if __name__ == '__main__':
         Max_speed.query.delete()
         Range.query.delete()
         Guru.query.delete()
+        
+        db.session.commit()
 
         print("Database cleared")
 

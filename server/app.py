@@ -6,10 +6,12 @@ from flask_restful import Resource
 from flask_migrate import Migrate
 from flask_cors import CORS
 from dotenv import load_dotenv
+from sqlalchemy import desc
 
 # Local imports
 from config import app, db, api
-from models import db, Board, Guru, User, Deck, Wheel, Truck, Motor, Battery, Controller, Remote, Max_speed, Range
+from models import db, Board, Guru, User 
+# Deck, Wheel, Truck, Motor, Battery, Controller, Remote, Max_speed, Range
 from guru_assistant import guru_assistant
 import os
 
@@ -266,10 +268,30 @@ def guru_assistant():
 
 ### ------------------ BOARDS ------------------ ###
 
-app.get('/boards')
+# @app.route('/boards', methods=['GET'])
+# def get_boards():
+#     boards = Board.query.all()
+#     return make_response(jsonify([board.to_dict() for board in boards]), 200)
+
+
+@app.route('/boards')
 def get_boards():
     boards = Board.query.all()
-    return make_response(jsonify([board.to_dict() for board in boards]), 200)
+    data = [board.to_dict() for board in boards]
+    print('Backend Data:', data)
+    return make_response(jsonify(data), 200)
+
+
+@app.route('/boards')
+def get_latest_board():
+    # Query the boards, order by timestamp in descending order, and retrieve the first one
+    latest_board = Board.query.order_by(desc(Board.timestamp)).first()
+
+    if latest_board:
+        return make_response(jsonify(latest_board.to_dict()), 200)
+    else:
+        return make_response(jsonify({}), 404)
+
 
 
 # app.delete('/boards/<int:board_id>')
@@ -374,7 +396,7 @@ def get_boards():
 ########
 # appending data directly onto Board:
 
-@app.route('/update_board', methods=['PUT'])
+@app.post('/update_board')
 def update_board():
     data = request.json
     deck_type = data.get('deckType', '')
@@ -398,36 +420,11 @@ def update_board():
 
     # Update the Wheel database with the new values
     sample_board_entry = Board(deck_type=deck_type, deck_length=deck_length, deck_material=deck_material, truck_type=truck_type, truck_width=truck_width, controller_feature=controller_feature, controller_type=controller_type, remote_feature=remote_feature, remote_type=remote_type, motor_size=motor_size, motor_kv=motor_kv, wheel_size=wheel_size, wheel_type=wheel_type, battery_voltage=battery_voltage, battery_type=battery_type, battery_capacity=battery_capacity, battery_configuration=battery_configuration, range_mileage=range_mileage)
-    Board.query.delete()
+    # Board.query.delete()
     db.session.add(sample_board_entry)
     db.session.commit()
 
     return {"message": "Wheel updated successfully."}, 200
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

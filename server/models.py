@@ -1,5 +1,7 @@
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
+from datetime import datetime
+from sqlalchemy import DateTime, desc
 
 from config import db
 
@@ -30,44 +32,6 @@ class User(db.Model, SerializerMixin):
 
 
 ### ------------------ BOARD (ONE) ------------------ ###
-
-
-class Board(db.Model, SerializerMixin):
-    __tablename__ = 'boards'
-
-    serializer_rule = ('-users.boards',)
-
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-
-
-    deck_id = db.Column(db.Integer, db.ForeignKey('decks.id'))
-    wheel_id = db.Column(db.Integer, db.ForeignKey('wheels.id'))
-    truck_id = db.Column(db.Integer, db.ForeignKey('trucks.id'))
-    motor_id = db.Column(db.Integer, db.ForeignKey('motors.id'))
-    battery_id = db.Column(db.Integer, db.ForeignKey('batteries.id'))
-    controller_id = db.Column(db.Integer, db.ForeignKey('controllers.id'))
-    remote_id = db.Column(db.Integer, db.ForeignKey('remotes.id'))
-    max_speed_id = db.Column(db.Integer, db.ForeignKey('max_speeds.id'))
-    range_id = db.Column(db.Integer, db.ForeignKey('ranges.id'))
-
-
-    deck = db.relationship('Deck', back_populates='boards')
-    wheel = db.relationship('Wheel', back_populates='boards')
-    truck = db.relationship('Truck', back_populates='boards')
-    motor = db.relationship('Motor', back_populates='boards')
-    battery = db.relationship('Battery', back_populates='boards')
-    controller = db.relationship('Controller', back_populates='boards')
-    remote = db.relationship('Remote', back_populates='boards')
-    max_speed = db.relationship('Max_speed', back_populates='boards')
-    range = db.relationship('Range', back_populates='boards')
-
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    users = db.relationship('User', back_populates='boards')
-
-
-
-
-
 class Board(db.Model, SerializerMixin):
     __tablename__ = 'boards'
 
@@ -94,130 +58,166 @@ class Board(db.Model, SerializerMixin):
     battery_configuration = db.Column(db.String, nullable=False)
     range_mileage = db.Column(db.String, nullable=False)
 
+    timestamp = db.Column(DateTime, default=datetime.utcnow, nullable=False)
+
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     users = db.relationship('User', back_populates='boards')
 
+    # db.create_all()
 
+
+
+# class Board(db.Model, SerializerMixin):
+#     __tablename__ = 'boards'
+
+#     serializer_rule = ('-users.boards',)
+
+#     id = db.Column(db.Integer, primary_key=True, unique=True)
+
+
+#     deck_id = db.Column(db.Integer, db.ForeignKey('decks.id'))
+#     wheel_id = db.Column(db.Integer, db.ForeignKey('wheels.id'))
+#     truck_id = db.Column(db.Integer, db.ForeignKey('trucks.id'))
+#     motor_id = db.Column(db.Integer, db.ForeignKey('motors.id'))
+#     battery_id = db.Column(db.Integer, db.ForeignKey('batteries.id'))
+#     controller_id = db.Column(db.Integer, db.ForeignKey('controllers.id'))
+#     remote_id = db.Column(db.Integer, db.ForeignKey('remotes.id'))
+#     max_speed_id = db.Column(db.Integer, db.ForeignKey('max_speeds.id'))
+#     range_id = db.Column(db.Integer, db.ForeignKey('ranges.id'))
+
+
+#     deck = db.relationship('Deck', back_populates='boards')
+#     wheel = db.relationship('Wheel', back_populates='boards')
+#     truck = db.relationship('Truck', back_populates='boards')
+#     motor = db.relationship('Motor', back_populates='boards')
+#     battery = db.relationship('Battery', back_populates='boards')
+#     controller = db.relationship('Controller', back_populates='boards')
+#     remote = db.relationship('Remote', back_populates='boards')
+#     max_speed = db.relationship('Max_speed', back_populates='boards')
+#     range = db.relationship('Range', back_populates='boards')
+
+#     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+#     users = db.relationship('User', back_populates='boards')
 
 
 
 
 ### ------------------ DECK (MANY) ------------------ ###
-class Deck(db.Model, SerializerMixin):
-    __tablename__ = 'decks'
+# class Deck(db.Model, SerializerMixin):
+#     __tablename__ = 'decks'
 
-    serializer_rule = ('-boards.deck',)
+#     serializer_rule = ('-boards.deck',)
 
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    type = db.Column(db.String, nullable=False)
-    length = db.Column(db.String, nullable=False)
-    material = db.Column(db.String, nullable=False)
+#     id = db.Column(db.Integer, primary_key=True, unique=True)
+#     type = db.Column(db.String, nullable=False)
+#     length = db.Column(db.String, nullable=False)
+#     material = db.Column(db.String, nullable=False)
 
-    boards = db.relationship('Board', back_populates='deck')
+#     boards = db.relationship('Board', back_populates='deck')
 
 
 ### ------------------ WHEEL (MANY) ------------------ ###
-class Wheel(db.Model, SerializerMixin):
-    __tablename__ = 'wheels'
+# class Wheel(db.Model, SerializerMixin):
+#     __tablename__ = 'wheels'
 
-    serializer_rule = ('-boards.wheel',)
+#     serializer_rule = ('-boards.wheel',)
 
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    size = db.Column(db.String, nullable=False)
-    type = db.Column(db.String, nullable=False)
+#     id = db.Column(db.Integer, primary_key=True, unique=True)
+#     size = db.Column(db.String, nullable=False)
+#     type = db.Column(db.String, nullable=False)
     
-    boards = db.relationship('Board', back_populates='wheel')
+#     boards = db.relationship('Board', back_populates='wheel')
 
 
 ### ------------------ TRUCK (MANY) ------------------ ###
-class Truck(db.Model, SerializerMixin):
-    __tablename__ = 'trucks'
+# class Truck(db.Model, SerializerMixin):
+#     __tablename__ = 'trucks'
 
-    serializer_rule = ('-boards.truck',)
+#     serializer_rule = ('-boards.truck',)
 
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    type = db.Column(db.String, nullable=False)
-    width = db.Column(db.String, nullable=False)
+#     id = db.Column(db.Integer, primary_key=True, unique=True)
+#     type = db.Column(db.String, nullable=False)
+#     width = db.Column(db.String, nullable=False)
 
-    boards = db.relationship('Board', back_populates='truck')
+#     boards = db.relationship('Board', back_populates='truck')
 
 
 ### ------------------ MOTOR (MANY) ------------------ ###
-class Motor(db.Model, SerializerMixin):
-    __tablename__ = 'motors'
+# class Motor(db.Model, SerializerMixin):
+#     __tablename__ = 'motors'
 
-    serializer_rule = ('-boards.motor',)
+#     serializer_rule = ('-boards.motor',)
 
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    size = db.Column(db.String, nullable=False)
-    kv = db.Column(db.String, nullable=False)
+#     id = db.Column(db.Integer, primary_key=True, unique=True)
+#     size = db.Column(db.String, nullable=False)
+#     kv = db.Column(db.String, nullable=False)
 
-    boards = db.relationship('Board', back_populates='motor')
+#     boards = db.relationship('Board', back_populates='motor')
 
 
 ### ------------------ BATTERY (MANY) ------------------ ###
-class Battery(db.Model, SerializerMixin):
-    __tablename__ = 'batteries'
+# class Battery(db.Model, SerializerMixin):
+#     __tablename__ = 'batteries'
 
-    serializer_rule = ('-boards.battery',)
+#     serializer_rule = ('-boards.battery',)
 
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    voltage = db.Column(db.String, nullable=False)
-    type = db.Column(db.String, nullable=False)
-    capacity = db.Column(db.String, nullable=False)
-    configuration = db.Column(db.String, nullable=False)
+#     id = db.Column(db.Integer, primary_key=True, unique=True)
+#     voltage = db.Column(db.String, nullable=False)
+#     type = db.Column(db.String, nullable=False)
+#     capacity = db.Column(db.String, nullable=False)
+#     configuration = db.Column(db.String, nullable=False)
 
-    boards = db.relationship('Board', back_populates='battery')
+#     boards = db.relationship('Board', back_populates='battery')
 
 
 ### ------------------ CONTROLLER (MANY) ------------------ ###
-class Controller(db.Model, SerializerMixin):
-    __tablename__ = 'controllers'
+# class Controller(db.Model, SerializerMixin):
+#     __tablename__ = 'controllers'
 
-    serializer_rule = ('-boards.controller',)
+#     serializer_rule = ('-boards.controller',)
 
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    features = db.Column(db.String, nullable=False)
-    type = db.Column(db.String, nullable=False)
+#     id = db.Column(db.Integer, primary_key=True, unique=True)
+#     features = db.Column(db.String, nullable=False)
+#     type = db.Column(db.String, nullable=False)
 
-    boards = db.relationship('Board', back_populates='controller')
+#     boards = db.relationship('Board', back_populates='controller')
 
 
 ### ------------------ REMOTE (MANY) ------------------ ###
-class Remote(db.Model, SerializerMixin):
-    __tablename__ = 'remotes'
+# class Remote(db.Model, SerializerMixin):
+#     __tablename__ = 'remotes'
 
-    serializer_rule = ('-boards.remote',)
+#     serializer_rule = ('-boards.remote',)
 
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    features = db.Column(db.String, nullable=False)
-    type = db.Column(db.String, nullable=False)
+#     id = db.Column(db.Integer, primary_key=True, unique=True)
+#     features = db.Column(db.String, nullable=False)
+#     type = db.Column(db.String, nullable=False)
 
-    boards = db.relationship('Board', back_populates='remote')
+#     boards = db.relationship('Board', back_populates='remote')
 
 
 ### ------------------ MAX_SPEED (MANY) ------------------ ###
-class Max_speed(db.Model, SerializerMixin):
-    __tablename__ = 'max_speeds'
+# class Max_speed(db.Model, SerializerMixin):
+#     __tablename__ = 'max_speeds'
 
-    serializer_rule = ('-boards.max_speed',)
+#     serializer_rule = ('-boards.max_speed',)
 
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    mph = db.Column(db.String, nullable=False)
+#     id = db.Column(db.Integer, primary_key=True, unique=True)
+#     mph = db.Column(db.String, nullable=False)
 
-    boards = db.relationship('Board', back_populates='max_speed')
+#     boards = db.relationship('Board', back_populates='max_speed')
 
 
 ### ------------------ RANGE (MANY) ------------------ ###
-class Range(db.Model, SerializerMixin):
-    __tablename__ = 'ranges'
+# class Range(db.Model, SerializerMixin):
+#     __tablename__ = 'ranges'
 
-    serializer_rule = ('-boards.range',)
+#     serializer_rule = ('-boards.range',)
 
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    mileage = db.Column(db.String, nullable=False)
+#     id = db.Column(db.Integer, primary_key=True, unique=True)
+#     mileage = db.Column(db.String, nullable=False)
 
-    boards = db.relationship('Board', back_populates='range')
+#     boards = db.relationship('Board', back_populates='range')
 
 
 
