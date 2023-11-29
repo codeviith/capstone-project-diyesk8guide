@@ -1,5 +1,14 @@
-
 import React, { useState, useEffect } from 'react';
+
+// Import images
+import st_img1 from './images/ID1.jpg';
+import st_img2 from './images/ID2.jpeg';
+import st_img3 from './images/ID5.jpeg';
+import st_img4 from './images/ID6.jpeg';
+import at_img1 from './images/ID7.jpg';
+import at_img2 from './images/ID4.jpeg';
+import at_img3 from './images/ID3.jpg';
+
 
 function Generate() {
   const [boardsData, setBoardsData] = useState([]);
@@ -94,26 +103,6 @@ function Generate() {
       setMileage('Approx. 35 miles per charge. Note that mileage will depend on a lot of factors such as: type of wheel, terrain conditions, motor configuration, etc.');
     }
 
-    console.log({
-      deckType,
-      deckLength,
-      deckMaterial,
-      truckType,
-      truckWidth,
-      controllerFeature,
-      controllerType,
-      remoteFeature,
-      remoteType,
-      motorSize,
-      motorKv,
-      wheelSize,
-      wheelType,
-      batteryVoltage,
-      batteryType,
-      batteryCapacity,
-      batteryConfiguration,
-      mileage,
-    })
 
     // Post user's input to the Flask backend
     await fetch('/update_board', {
@@ -155,6 +144,7 @@ function Generate() {
       console.error('Error fetching latest board');
     }
   };
+
 
 
   const renderImageContainer = () => (
@@ -310,3 +300,45 @@ export default Generate;
   // };
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /*
+
+  let street_images = [st_img1, st_img2, st_img3, st_img4]
+  let all_terrain_images = [at_img1, at_img2, at_img3]
+
+  let random_ST_index = Math.floor(Math.random() * street_images.length);
+  let random_ST_Image = street_images[random_ST_index];
+
+  let random_AT_index = Math.floor(Math.random() * all_terrain_images.length);
+  let random_AT_Image = all_terrain_images[random_AT_index];
+
+  const selectImage = (terrainType) => {
+    // Add logic to match board specs and return the appropriate image
+    if (terrainType === 'Street') {
+      return random_ST_Image;
+    } else if (terrainType === 'All Terrain') {
+      return random_AT_Image;
+    }
+    // Add more cases for other board specs
+  };
+  
+*/
