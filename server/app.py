@@ -50,7 +50,7 @@ client = OpenAI(api_key=openai_api_key)
 
 # Instantiate CORS
 CORS(app)
-# CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 
 # @app.route('/')
@@ -268,21 +268,14 @@ def guru_assistant():
 
 ### ------------------ BOARDS ------------------ ###
 
-# @app.route('/boards', methods=['GET'])
-# def get_boards():
-#     boards = Board.query.all()
-#     return make_response(jsonify([board.to_dict() for board in boards]), 200)
+@app.route('/boards', methods=['GET'])
+def get_boards():
+    boards = Board.query.all()
+    return make_response(jsonify([board.to_dict() for board in boards]), 200)
 
 
-# @app.route('/boards')
-# def get_boards():
-#     boards = Board.query.all()
-#     data = [board.to_dict() for board in boards]
-#     print('Backend Data:', data)
-#     return make_response(jsonify(data), 200)
 
-
-@app.route('/boards')
+@app.route('/latest_boards')
 def get_latest_board():
     # Query the boards, order by timestamp in descending order, and retrieve the first one
     latest_board = Board.query.order_by(desc(Board.timestamp)).first()
@@ -293,17 +286,25 @@ def get_latest_board():
         return make_response(jsonify({}), 404)
 
 
+# @app.route('/boards/<int:board_id>', methods=['DELETE'])
+# def delete_board(board_id):
+#     try:
+#         # Logic to delete the board with board_id
+#         return jsonify({'success': True, 'message': 'Board deleted successfully'})
+#     except Exception as e:
+#         return jsonify({'success': False, 'message': str(e)}), 500
 
-# app.delete('/boards/<int:board_id>')
-# def delete_board_by_id():
-#     board = Board.query.filter(Board.id == id).first()
 
-#     if board:
-#         db.session.delete(board)
-#         db.session.commit()
-#         return {"message": "Board deleted successfully."}, 200
-#     else:
-#         return {"error": "Board not found."}, 404
+@app.route('/boards/<int:board_id>', methods=['DELETE'])
+def delete_board_by_id(board_id):
+    board = Board.query.filter(Board.id == board_id).first()
+
+    if board:
+        db.session.delete(board)
+        db.session.commit()
+        return {"message": "Board deleted successfully."}, 200
+    else:
+        return {"error": "Board not found."}, 404
 
 ########
 
