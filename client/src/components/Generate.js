@@ -1,31 +1,161 @@
 
 import React, { useState, useEffect } from 'react';
 
-const Generate = () => {
+function Generate() {
   const [boardsData, setBoardsData] = useState([]);
-  const [riderStyle, setRiderStyle] = useState('');
+  const [riderLevel, setRiderLevel] = useState('');
+  const [motorPower, setMotorPower] = useState('');
   const [terrainType, setTerrainType] = useState('');
   const [rangeType, setRangeType] = useState('');
 
-  useEffect(() => {
-    // Fetch data for initial dropdown options or other data if needed
-    // ...
+  const [deckType, setDeckType] = useState('');
+  const [deckLength, setDeckLength] = useState('');
+  const [deckMaterial, setDeckMaterial] = useState('');
+  const [truckType, setTruckType] = useState('');
+  const [truckWidth, setTruckWidth] = useState('');
+  const [controllerFeature, setControllerFeature] = useState('');
+  const [controllerType, setControllerType] = useState('');
+  const [remoteFeature, setRemoteFeature] = useState('');
+  const [remoteType, setRemoteType] = useState('');
+  const [motorSize, setMotorSize] = useState('');
+  const [motorKv, setMotorKv] = useState('');
+  const [wheelSize, setWheelSize] = useState('');
+  const [wheelType, setWheelType] = useState('');
+  const [batteryVoltage, setBatteryVoltage] = useState('');
+  const [batteryType, setBatteryType] = useState('');
+  const [batteryCapacity, setBatteryCapacity] = useState('');
+  const [batteryConfiguration, setBatteryConfiguration] = useState('');
+  const [mileage, setMileage] = useState('');
 
-    // For demonstration purposes, using a placeholder array for board data
-    setBoardsData([
-      { id: 1, name: 'All Around Cruiser', specs: 'Specs for {boardsData.name}' }
-      // Add more board data as needed
-    ]);
-  }, []);
+  const handleGenerateBoard = async () => {
+    // Set values for board spec based on user's selection input
+    if (riderLevel === 'Beginner') {
+      setTruckType('Single Kingspin'); /////research on this name!!!
+      setTruckWidth('10in.');
+      setControllerFeature('test');  ///research what this feature is!!!
+      setControllerType('Meepo ESC');  ////research on available branded ESCs!!!
+      setRemoteFeature('Regen Braking, Reverse, LCD Display');
+      setRemoteType('Thumb-Style Throttle');
+      setDeckType('test');  ///look up a beginner board!!
+      setDeckLength('38in.');
+      setDeckMaterial('7-ply plywood');
+    } else if (riderLevel === 'Intermediate') {
+      setTruckType('Double Kingspin'); ////double check this!!!!
+      setTruckWidth('12in.');
+      setControllerFeature('test');  ///research what this feature is!!!
+      setControllerType('VESC 4.6');
+      setRemoteFeature('Regen Braking, Reverse, Cruise-Control, LCD Display, Macro Buttons');
+      setRemoteType('Trigger-Style Throttle');
+      setDeckType('Drop-Thru');
+      setDeckLength('42in.');
+      setDeckMaterial('Carbon Fiber');
+    } else if (riderLevel === 'Expert') {
+      setTruckType('MTB Spring Loaded');
+      setTruckWidth('16in.');
+      setControllerFeature('test');  ///research what this feature is!!!
+      setControllerType('VESC 6.1');
+      setRemoteFeature('Regen Braking, Reverse, Cruise Control, LCD Display, Macro Buttons, Ride Mode Toggle');
+      setRemoteType('Trigger-Style Throttle');
+      setDeckType('MTB Flex'); ///research on the type!!!
+      setDeckLength('42in.');
+      setDeckMaterial('test'); ////research on this!!!
+    }
 
-  const handleGenerateBoard = () => {
-    // Fetch data from 'Boards' model in Flask
-    fetch('/boards')
-      .then(response => response.json())
-      .then(data => setBoardsData(data))
-      .catch(error => console.error('Error fetching board data:', error));
+    if (motorPower === 'Drag Racing') {
+      setMotorSize('6374');
+      setMotorKv('235kv');
+    } else if (motorPower === 'Casual Cruising') {
+      setMotorSize('6356');
+      setMotorKv('190kv');
+    } else if (motorPower === 'Hill Climbing') {
+      setMotorSize('6384');
+      setMotorKv('170kv');
+    }
+
+    if (terrainType === 'Street') {
+      setWheelSize('90mm');
+      setWheelType('78A');
+    } else if (terrainType === 'All Terrain') {
+      setWheelSize('175mm');
+      setWheelType('Pneumatic');
+    }
+
+    if (rangeType === 'Normal') {
+      setBatteryVoltage('37v Nominal');
+      setBatteryType('18650 li-ion');
+      setBatteryCapacity('3500mah per cell');
+      setBatteryConfiguration('10s4p');
+      setMileage('Approx. 20 miles per charge. Note that mileage will depend on a lot of factors such as: type of wheel, terrain conditions, motor configuration, etc.');
+    } else if (rangeType === 'Extended') {
+      setBatteryVoltage('44.4v Nominal');
+      setBatteryType('2xxxxx li-ion');  ///Look up the actual value for 20000 series
+      setBatteryCapacity('4500mah per cell');
+      setBatteryConfiguration('12s6p');
+      setMileage('Approx. 35 miles per charge. Note that mileage will depend on a lot of factors such as: type of wheel, terrain conditions, motor configuration, etc.');
+    }
+
+    console.log({
+      deckType,
+      deckLength,
+      deckMaterial,
+      truckType,
+      truckWidth,
+      controllerFeature,
+      controllerType,
+      remoteFeature,
+      remoteType,
+      motorSize,
+      motorKv,
+      wheelSize,
+      wheelType,
+      batteryVoltage,
+      batteryType,
+      batteryCapacity,
+      batteryConfiguration,
+      mileage,
+    })
+
+    // Post user's input to the Flask backend
+    await fetch('/update_board', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        deckType,
+        deckLength,
+        deckMaterial,
+        truckType,
+        truckWidth,
+        controllerFeature,
+        controllerType,
+        remoteFeature,
+        remoteType,
+        motorSize,
+        motorKv,
+        wheelSize,
+        wheelType,
+        batteryVoltage,
+        batteryType,
+        batteryCapacity,
+        batteryConfiguration,
+        mileage,
+      }),
+    });
+
+    // Fetch the latest board
+    const response = await fetch('/boards');
+    if (response.ok) {
+      const latestBoard = await response.json();
+
+      // Set the latest board in the state
+      setBoardsData([latestBoard]);
+    } else {
+      // Handle the case where the latest board is not found
+      console.error('Error fetching latest board');
+    }
   };
-  
+
 
   const renderImageContainer = () => (
     <div>
@@ -40,11 +170,30 @@ const Generate = () => {
       <h2>Sample Board Specs</h2>
       {boardsData.length > 0 ? (
         <ul>
-          {boardsData.map(board => (
-            <li key={board.id}>
-              <strong>{board.name}</strong>
-              <ul>{board.specs} </ul> 
-            </li>
+          {boardsData.map((board, index) => (
+            <div key={index}>
+              <strong>Board {index + 1}</strong>
+              <ul>
+                <li>Deck Type: {board.deck_type}</li>
+                <li>Deck Length: {board.deck_length}</li>
+                <li>Deck Material: {board.deck_material}</li>
+                <li>Truck Type: {board.truck_type}</li>
+                <li>Truck Width: {board.truck_width}</li>
+                <li>Controller Feature: {board.controller_feature}</li>
+                <li>Controller Type: {board.controller_type}</li>
+                <li>Remote Feature: {board.remote_feature}</li>
+                <li>Remote Type: {board.remote_type}</li>
+                <li>Motor Size: {board.motor_size}</li>
+                <li>Motor Kv: {board.motor_kv}</li>
+                <li>Wheel Size: {board.wheel_size}</li>
+                <li>Wheel Type: {board.wheel_type}</li>
+                <li>Battery Voltage: {board.battery_voltage}</li>
+                <li>Battery Type: {board.battery_type}</li>
+                <li>Battery Capacity: {board.battery_capacity}</li>
+                <li>Battery Configuration: {board.battery_configuration}</li>
+                <li>Range: {board.range_mileage}</li>
+              </ul>
+            </div>
           ))}
         </ul>
       ) : (
@@ -53,20 +202,29 @@ const Generate = () => {
     </div>
   );
 
-
   return (
     <div>
       <h2>Sample Build Generator</h2>
 
       {/* Dropdowns */}
       <label>
+        Rider Level:
+        <select value={riderLevel} onChange={(e) => setRiderLevel(e.target.value)}>
+          <option value="">Select Rider Level</option>
+          <option value="Beginner">Beginner</option>
+          <option value="Intermediate">Intermediate</option>
+          <option value="Expert">Expert</option>
+        </select>
+      </label>
+      <br />
+
+      <label>
         Rider Style:
-        <select value={riderStyle} onChange={(e) => setRiderStyle(e.target.value)}>
+        <select value={motorPower} onChange={(e) => setMotorPower(e.target.value)}>
           <option value="">Select Rider Style</option>
           <option value="Drag Racing">Drag Racing</option>
-          <option value="Carving">Carving</option>
-          <option value="Casual Cruiser">Casual Cruiser</option>
-          <option value="Hill Climber">Hill Climber</option>
+          <option value="Casual Cruising">Casual Cruising</option>
+          <option value="Hill Climbing">Hill Climbing</option>
         </select>
       </label>
       <br />
@@ -85,7 +243,7 @@ const Generate = () => {
         Range Type:
         <select value={rangeType} onChange={(e) => setRangeType(e.target.value)}>
           <option value="">Select Range Type</option>
-          <option value="Casual">Casual</option>
+          <option value="Normal">Normal</option>
           <option value="Extended">Extended</option>
         </select>
       </label>
@@ -105,3 +263,50 @@ const Generate = () => {
 };
 
 export default Generate;
+
+
+
+
+
+
+
+
+
+/*
+  useEffect(() => {
+    // Fetch data for initial dropdown options or other data if needed
+    // ...
+
+    // For demonstration purposes, using a placeholder array for board data
+    setBoardsData([
+      { id: 1, name: 'All Around Cruiser', specs: 'Specs for {boardsData.name}' }
+      // Add more board data as needed
+    ]);
+  }, []);
+*/
+
+
+
+
+  // const handleGenerateBoard = () => {
+  //   // Fetch data from 'Boards' model in Flask
+  //   fetch('/boards')
+  //     .then(response => response.json())
+  //     .then(data => setBoardsData(data))
+  //     .catch(error => console.error('Error fetching board data:', error));
+  // };
+
+
+
+
+  // const handleGenerateBoard = () => {
+  //   // Fetch data from 'Boards' model in Flask based on selected options
+  //   const queryString = `?rider_level=${riderLevel}&terrain_type=${terrainType}&range_type=${rangeType}`;
+
+  //   fetch(`/boards${queryString}`)
+  //     .then(response => response.json())
+  //     .then(data => setBoardsData(data))
+  //     .catch(error => console.error('Error fetching board data:', error));
+  // };
+
+
