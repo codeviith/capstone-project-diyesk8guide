@@ -63,7 +63,6 @@ class Board(db.Model, SerializerMixin):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     users = db.relationship('User', back_populates='boards')
 
-    # db.create_all()
 
 
 

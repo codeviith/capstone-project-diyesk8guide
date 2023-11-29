@@ -274,12 +274,12 @@ def guru_assistant():
 #     return make_response(jsonify([board.to_dict() for board in boards]), 200)
 
 
-@app.route('/boards')
-def get_boards():
-    boards = Board.query.all()
-    data = [board.to_dict() for board in boards]
-    print('Backend Data:', data)
-    return make_response(jsonify(data), 200)
+# @app.route('/boards')
+# def get_boards():
+#     boards = Board.query.all()
+#     data = [board.to_dict() for board in boards]
+#     print('Backend Data:', data)
+#     return make_response(jsonify(data), 200)
 
 
 @app.route('/boards')
@@ -399,6 +399,9 @@ def get_latest_board():
 @app.post('/update_board')
 def update_board():
     data = request.json
+
+    print(data)
+
     deck_type = data.get('deckType', '')
     deck_length = data.get('deckLength', '')
     deck_material = data.get('deckMaterial', '')
