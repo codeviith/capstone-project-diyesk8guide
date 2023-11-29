@@ -50,9 +50,9 @@ function App() {
             <Route path="/login">
               <Login />
             </Route>
-            <Route path="/game">
+            {/* <Route path="/game"> */}
               {/* <Game /> */}
-            </Route>
+            {/* </Route> */}
             <Route path="/guru">
               <Guru />
             </Route>
