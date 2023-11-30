@@ -162,10 +162,6 @@ def guru_assistant():
 
 
 
-### ------------------ USERS ------------------ ###
-
-
-
 ### ------------------ BOARDS ------------------ ###
 
 @app.route('/boards', methods=['GET'])
@@ -204,8 +200,6 @@ def delete_board_by_id(board_id):
 @app.post('/update_board')
 def update_board():
     data = request.json
-
-    # print(data)
 
     deck_type = data.get('deckType', '')
     deck_length = data.get('deckLength', '')
@@ -368,146 +362,18 @@ def get_guru_data():
         return jsonify({'error': str(e)})
 
 
-# def get_all_guru_data():
-#     try:
-#         # Query the database to get all data from the Guru model
-#         all_guru_data = Guru.query.all()
+@app.route('/guru/<int:question_id>', methods=['DELETE'])
+def delete_guru_question(question_id):
+    try:
+        question = Guru.query.get(question_id)
+        if not question:
+            return jsonify({"error": "Question not found"}), 404
 
-#         # Serialize the data using Marshmallow
-#         guru_schema = GuruSchema(many=True)
-#         result = guru_schema.dump(all_guru_data)
-
-#         # Return the serialized data as JSON
-#         return jsonify(result)
-#     except Exception as e:
-#         return jsonify({'error': str(e)})
-
-
-
-
-
-
-
-
-
-
-
-
-
-#####working but only for post
-
-# @app.route('/qna', methods=['POST'])
-# def add_qna():
-#     try:
-#         # Get data from the request
-#         data = request.get_json()
-
-#         # Extract post and reply from the request data
-#         post = data.get('post', '')
-#         reply = data.get('reply', '')
-
-#         # Check if both post and reply are provided
-#         if not post:
-#             return jsonify({'error': 'Post cannot be empty.'}), 400
-        
-#         # if not reply:
-#         #     return jsonify({'error': 'Reply cannot be empty.'}), 400
-
-#         # Create a new Qna entry
-#         new_qna = Qna(post=post, reply=reply, timestamp=datetime.utcnow())
-
-#         # Add the new Qna entry to the database
-#         db.session.add(new_qna)
-#         db.session.commit()
-
-#         # Return the newly created Qna entry as JSON
-#         return jsonify({'id': new_qna.id, 'post': new_qna.post, 'reply': new_qna.reply, 'timestamp': new_qna.timestamp}), 201
-
-#     except Exception as e:
-#         # Handle exceptions and return a JSON response
-#         return jsonify({'error': str(e)}), 500
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#####simplified
-
-# @app.route('/qna', methods=['GET'])
-# def get_qna():
-#     # Fetch all Q&A posts from the database
-#     qna_posts = Qna.query.all()
-#     # Convert posts to a list of dictionaries
-#     qna_list = [{'id': post.id, 'post': post.post, 'reply': post.reply, 'timestamp': post.timestamp} for post in qna_posts]
-#     return jsonify(qna_list)
-
-# @app.route('/qna', methods=['POST'])
-# def add_qna():
-#     # Get post and reply from the request JSON
-#     post_content = request.json.get('post')
-#     reply_content = request.json.get('reply')
-
-#     # Create a new Qna instance
-#     new_qna = Qna(post=post_content, reply=reply_content)
-
-#     # Add and commit to the database
-#     db.session.add(new_qna)
-#     db.session.commit()
-
-#     # Return the new Q&A post as JSON
-#     return jsonify({'id': new_qna.id, 'post': new_qna.post, 'reply': new_qna.reply, 'timestamp': new_qna.timestamp})
-
-
-
-
-
-
-
-
-
-
-####old
-
-# app.get('/qna')
-# def get_posts():
-#     posts = Qna.query.all()
-#     return make_response(jsonify([post.to_dict() for post in posts]), 200)
-
-
-# app.patch('/qna/<int:id>')
-# def edit_post_by_id(id):
-#     data = request.json
-
-#     Qna.query.filter(Qna.id == id).update(data)
-#     db.session.commit()
-    
-#     post = Qna.query.filter(Qna.id == id).first()
-    
-#     return make_response(jsonify(post.to_dict()), 200)
-
-
-# app.delete('/qna/<int:id>')
-# def delete_post_by_id():
-#     post = Qna.query.filter(Qna.id == id).first()
-
-#     if post:
-#         db.session.delete(post)
-#         db.session.commit()
-#         return {"message": "Post deleted successfully."}, 200
-#     else:
-#         return {"error": "Post not found."}, 404
-
+        db.session.delete(question)
+        db.session.commit()
+        return jsonify({"message": "Question deleted successfully"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 

@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link, Switch, Route, BrowserRouter } from "react-router-dom";
 import Generate from './Generate';
-import Header from './Header';
 import NavBar from "./NavBar";
 import Login from "./Login";
 import Signup from "./Signup";
@@ -10,8 +9,6 @@ import Guru from './Guru';
 import Home from "./Home";
 import Qna from './Qna';
 
-
-//remember to set proxy for the backend server!!
 
 function App() {
   return (
