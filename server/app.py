@@ -7,12 +7,13 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 from dotenv import load_dotenv
 from sqlalchemy import desc
+from datetime import datetime
 
 # Local imports
 from config import app, db, api
-from models import db, Board, Guru, User 
+from models import db, Board, Guru, User, Qna 
 # Deck, Wheel, Truck, Motor, Battery, Controller, Remote, Max_speed, Range
-from guru_assistant import guru_assistant
+# from guru_assistant import guru_assistant
 import os
 
 # API imports
@@ -50,36 +51,7 @@ client = OpenAI(api_key=openai_api_key)
 
 # Instantiate CORS
 CORS(app)
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
-
-
-# @app.route('/')
-# def home():
-#     return '<h1>Server Home</h1>'
-
-# GPT_MODEL = "gpt-3.5-turbo-0613"
-
-# openai_URL = "https://api.openai.com/"
-
-
-#####  What is this?  ####
-# def openai_data_request(messages, tools=None, tool_choice=None, model=GPT_MODEL):
-#     headers: {
-#         "content-Type": "appliation/json",
-#         "Authorization": "Bearer" + openai_api_key
-#     }
-#     json_data = {"model": model, "messages": messages}
-#     try:
-#         response = request.post(
-#             openai_URL + "v1/chat/completions",
-#             headers=headers,
-#             json=json_data
-#         )
-#     except Exception as e:
-#         print("Unable to generate Response.")
-#         print(f'Exception: {e}')
-#         return e
-
+# CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 
 
@@ -125,78 +97,6 @@ def guru_assistant():
         return make_response(
             jsonify({"error": "Cannot formulate a response."}), 500
         )
-
-
-
-
-# @app.route('/guru_assistant', methods=['POST'])
-# def guru_assistant():
-#     data = request.get_json()
-#     user_input = data.get('user_input')
-
-#     if not user_input:
-#         return make_response(
-#             jsonify({"error": "User input cannot be empty."}), 400
-#         )
-    
-#     try:
-#         messages = [
-#             {"role": "system", "content": guru_instructions},
-#             {"role": "user", "content": f'I have a question about: {user_input}.'}
-#             ]
-#         completion = client.chat.completions.create(
-#             model="gpt-3.5-turbo",
-#             messages=messages,
-#             max_tokens=500
-#         )
-
-#         answer = completion.choices[0].message.content
-
-#         return make_response(
-#             jsonify({"content": answer}), 200
-#         )
-#     except Exception as e:
-#         print(e)
-        
-#         return make_response(
-#             jsonify({"error": "Cannot formulate a response."}), 500
-#         )
-
-
-
-
-
-
-
-
-# Using guru_assistant.py and calling on guru_assistant(user_input) function.
-# Is this how it should look like?
-
-# @app.post('/guru_assistant')
-# def guru_assistant():
-#     data = request.get_json()
-#     user_input = data.get('user_input')
-
-#     if not user_input:
-#         return make_response(
-#             jsonify({"error": "User input cannot be empty."}), 400
-#         )
-    
-#     try:
-#         answer = guru_assistant(user_input)
-
-#         return make_response(
-#             jsonify({"content": answer}), 200
-#         )
-    
-#     except Exception as e:
-#         print(e)
-        
-#         return make_response(
-#             jsonify({"error": "Cannot formulate a response."}), 500
-#         )
-
-
 
 
 
@@ -298,97 +198,9 @@ def delete_board_by_id(board_id):
     else:
         return {"error": "Board not found."}, 404
 
-########
-
-# def filter_boards(motor_power=None, rider_level=None, terrain_type=None, range_type=None):
-#     boards = Board.query
-
-#     # Filter based on motor power
-#     if motor_power:
-#         boards = boards.join(Motor).filter(Motor.type == motor_power)
-
-#     # Add similar logic for other filters (rider_level, terrain_type, range_type)
-
-#     boards = boards.all()
-#     return boards
 
 
-
-# @app.route('/boards', methods=['GET'])
-# def get_boards():
-#     # Retrieve query parameters from the request
-#     motor_power = request.args.get('motor_power')
-#     rider_level = request.args.get('rider_level')
-#     terrain_type = request.args.get('terrain_type')
-#     range_type = request.args.get('range_type')
-
-#     # Filter boards based on the selected options
-#     boards = filter_boards(motor_power=motor_power, rider_level=rider_level, terrain_type=terrain_type, range_type=range_type)
-
-#     # Serialize the boards and return as JSON
-#     serialized_boards = [board.to_dict() for board in boards]
-#     return jsonify(serialized_boards)
-
-
-
-# def filter_boards(rider_level=None, terrain_type=None, range_type=None):
-#     boards = Board.query
-
-#     # Add filters based on rider level, terrain type, and range type
-#     if rider_level:
-#         # Filter based on rider level
-#         boards = boards.join(User).filter(User.rider_stance == rider_level)
-
-#     if terrain_type:
-#         # Filter based on terrain type
-#         boards = boards.join(Wheel).filter(Wheel.type == terrain_type)
-
-#     if range_type:
-#         # Add similar logic for other filters (e.g., range type)
-#         boards = boards.join(Range).filter(Range.range == range_type)
-
-#     boards = boards.all()
-#     return boards
-
-
-# @app.route('/boards', methods=['GET'])
-# def get_boards():
-#     # Retrieve query parameters from the request
-#     rider_level = request.args.get('rider_level')
-#     terrain_type = request.args.get('terrain_type')
-#     range_type = request.args.get('range_type')
-
-#     # Filter boards based on the selected options
-#     boards = filter_boards(rider_level=rider_level, terrain_type=terrain_type, range_type=range_type)
-
-#     # Serialize the boards and return as JSON
-#     serialized_boards = [board.to_dict() for board in boards]
-#     return jsonify(serialized_boards)
-
-
-
-#######
-
-
-# @app.route('/update_wheel', methods=['PUT'])
-# def update_wheel():
-#     data = request.json
-#     wheel_size = data.get('wheelSize', '')
-#     wheel_type = data.get('wheelType', '')
-
-#     # Update the Wheel database with the new values
-#     wheel_entry = Wheel(size=wheel_size, type=wheel_type)
-#     Wheel.query.delete()
-#     db.session.add(wheel_entry)
-#     db.session.commit()
-
-#     return {"message": "Wheel updated successfully."}, 200
-
-
-
-########
 # appending data directly onto Board:
-
 @app.post('/update_board')
 def update_board():
     data = request.json
@@ -424,41 +236,205 @@ def update_board():
     return {"message": "Wheel updated successfully."}, 200
 
 
+### ------------------ QNA ------------------ ###
+
+
+@app.route('/qna', methods=['GET'])
+def get_qna():
+    # Fetch all Qna entries from the database
+    qna_entries = Qna.query.all()
+
+    # Convert Qna entries to a list of dictionaries
+    qna_data = [{'id': entry.id, 'post': entry.post, 'reply': entry.reply, 'timestamp': entry.timestamp} for entry in qna_entries]
+
+    # Return the Qna data as JSON
+    return jsonify(qna_data)
+
+
+
+@app.route('/qna', methods=['POST'])
+def add_qna():
+    try:
+        # Get data from the request
+        data = request.get_json()
+
+        # Extract post and reply from the request data
+        post = data.get('post', '')
+        reply = data.get('reply', '')
+
+        # Check if both post and reply are provided
+        if not post and not reply:
+            return jsonify({'error': 'Both post and reply are required'}), 400
+
+        # Create a new Qna entry
+        new_qna = Qna(post=post, reply=reply, timestamp=datetime.utcnow())
+
+        # Add the new Qna entry to the database
+        db.session.add(new_qna)
+        db.session.commit()
+
+        # Return the newly created Qna entry as JSON
+        return jsonify({'id': new_qna.id, 'post': new_qna.post, 'reply': new_qna.reply, 'timestamp': new_qna.timestamp}), 201
+
+    except Exception as e:
+        # Handle exceptions and return a JSON response
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/qna/<int:post_id>/reply', methods=['POST'])
+def add_reply(post_id):
+    try:
+        # Get data from the request
+        data = request.get_json()
+
+        # Extract reply from the request data
+        reply = data.get('reply', '')
+
+        # Check if reply is provided
+        if not reply:
+            return jsonify({'error': 'Reply is required'}), 400
+
+        # Find the post in the database
+        post = Qna.query.get(post_id)
+
+        if not post:
+            return jsonify({'error': 'Post not found'}), 404
+
+        # Create a new Reply entry
+        new_reply = Reply(reply=reply, timestamp=datetime.utcnow(), post=post)
+
+        # Add the new Reply entry to the database
+        db.session.add(new_reply)
+        db.session.commit()
+
+        # Return the newly created Reply entry as JSON
+        return jsonify({'id': new_reply.id, 'reply': new_reply.reply, 'timestamp': new_reply.timestamp}), 201
+
+    except Exception as e:
+        # Handle exceptions and return a JSON response
+        return jsonify({'error': str(e)}), 500
 
 
 
 
-#########
-
-
-### ------------------ QUESTIONS ------------------ ###
 
 
 
-### ------------------ FORUMS ------------------ ###
 
 
-# app.get('/forums')
+
+
+
+
+
+
+
+
+#####working but only for post
+
+# @app.route('/qna', methods=['POST'])
+# def add_qna():
+#     try:
+#         # Get data from the request
+#         data = request.get_json()
+
+#         # Extract post and reply from the request data
+#         post = data.get('post', '')
+#         reply = data.get('reply', '')
+
+#         # Check if both post and reply are provided
+#         if not post:
+#             return jsonify({'error': 'Post cannot be empty.'}), 400
+        
+#         # if not reply:
+#         #     return jsonify({'error': 'Reply cannot be empty.'}), 400
+
+#         # Create a new Qna entry
+#         new_qna = Qna(post=post, reply=reply, timestamp=datetime.utcnow())
+
+#         # Add the new Qna entry to the database
+#         db.session.add(new_qna)
+#         db.session.commit()
+
+#         # Return the newly created Qna entry as JSON
+#         return jsonify({'id': new_qna.id, 'post': new_qna.post, 'reply': new_qna.reply, 'timestamp': new_qna.timestamp}), 201
+
+#     except Exception as e:
+#         # Handle exceptions and return a JSON response
+#         return jsonify({'error': str(e)}), 500
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#####simplified
+
+# @app.route('/qna', methods=['GET'])
+# def get_qna():
+#     # Fetch all Q&A posts from the database
+#     qna_posts = Qna.query.all()
+#     # Convert posts to a list of dictionaries
+#     qna_list = [{'id': post.id, 'post': post.post, 'reply': post.reply, 'timestamp': post.timestamp} for post in qna_posts]
+#     return jsonify(qna_list)
+
+# @app.route('/qna', methods=['POST'])
+# def add_qna():
+#     # Get post and reply from the request JSON
+#     post_content = request.json.get('post')
+#     reply_content = request.json.get('reply')
+
+#     # Create a new Qna instance
+#     new_qna = Qna(post=post_content, reply=reply_content)
+
+#     # Add and commit to the database
+#     db.session.add(new_qna)
+#     db.session.commit()
+
+#     # Return the new Q&A post as JSON
+#     return jsonify({'id': new_qna.id, 'post': new_qna.post, 'reply': new_qna.reply, 'timestamp': new_qna.timestamp})
+
+
+
+
+
+
+
+
+
+
+####old
+
+# app.get('/qna')
 # def get_posts():
-#     posts = Forum.query.all()
+#     posts = Qna.query.all()
 #     return make_response(jsonify([post.to_dict() for post in posts]), 200)
 
 
-# app.patch('/forum/<int:id>')
+# app.patch('/qna/<int:id>')
 # def edit_post_by_id(id):
 #     data = request.json
 
-#     Forum.query.filter(Forum.id == id).update(data)
+#     Qna.query.filter(Qna.id == id).update(data)
 #     db.session.commit()
     
-#     post = Forum.query.filter(Forum.id == id).first()
+#     post = Qna.query.filter(Qna.id == id).first()
     
 #     return make_response(jsonify(post.to_dict()), 200)
 
 
-# app.delete('/forum/<int:id>')
+# app.delete('/qna/<int:id>')
 # def delete_post_by_id():
-#     post = Forum.query.filter(Forum.id == id).first()
+#     post = Qna.query.filter(Qna.id == id).first()
 
 #     if post:
 #         db.session.delete(post)
