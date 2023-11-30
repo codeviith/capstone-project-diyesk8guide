@@ -8,7 +8,7 @@ import random
 # Local imports
 from app import app
 # from models import db, User, Question, Forum, Board, Deck, Wheel, Truck, Motor, Battery, Controller, Remote, Max_speed, Range
-from models import db, Board, Guru, Qna
+from models import db, Board, Guru, Qna, Reply
 # Deck, Wheel, Truck, Motor, Battery, Controller, Remote, Max_speed, Range
 
 if __name__ == '__main__':
@@ -22,6 +22,7 @@ if __name__ == '__main__':
         Board.query.delete()
         Guru.query.delete()
         Qna.query.delete()
+        Reply.query.delete()
         # Deck.query.delete()
         # Wheel.query.delete()
         # Truck.query.delete()

@@ -26,6 +26,7 @@ class User(db.Model, SerializerMixin):
     gurus = db.relationship('Guru', back_populates='users')
     qna = db.relationship('Qna', back_populates='users')
 
+
     def __repr__(self):
         return f''
 
@@ -100,6 +101,20 @@ class Qna(db.Model, SerializerMixin):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     users = db.relationship('User', back_populates='qna')
+    replies = db.relationship('Reply', back_populates='qna', cascade='all, delete-orphan')
+
+
+
+class Reply(db.Model):
+    __tablename__ = 'replies'
+
+    id = db.Column(db.Integer, primary_key=True, unique=True)
+    reply = db.Column(db.String, nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    
+    qna_id = db.Column(db.Integer, db.ForeignKey('qna.id'))
+    
+    qna = db.relationship('Qna', back_populates='replies')
 
 
 

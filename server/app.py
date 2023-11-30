@@ -11,7 +11,7 @@ from datetime import datetime
 
 # Local imports
 from config import app, db, api
-from models import db, Board, Guru, User, Qna 
+from models import db, Board, Guru, User, Qna, Reply
 # Deck, Wheel, Truck, Motor, Battery, Controller, Remote, Max_speed, Range
 # from guru_assistant import guru_assistant
 import os
@@ -252,6 +252,31 @@ def get_qna():
 
 
 
+
+@app.route('/qna/<int:post_id>/replies', methods=['GET'])
+def get_replies_for_post(post_id):
+    try:
+        # Find the post in the database
+        post = Qna.query.get(post_id)
+
+        if not post:
+            return jsonify({'error': 'Post not found'}), 404
+
+        # Get all replies for the post
+        replies = Reply.query.filter_by(qna_id=post_id).all()
+
+        # Convert replies to a list of dictionaries
+        replies_data = [{'id': reply.id, 'reply': reply.reply, 'timestamp': reply.timestamp} for reply in replies]
+
+        # Return the replies data as JSON
+        return jsonify(replies_data)
+
+    except Exception as e:
+        # Handle exceptions and return a JSON response
+        return jsonify({'error': str(e)}), 500
+
+
+
 @app.route('/qna', methods=['POST'])
 def add_qna():
     try:
@@ -280,6 +305,7 @@ def add_qna():
         # Handle exceptions and return a JSON response
         return jsonify({'error': str(e)}), 500
 
+
 @app.route('/qna/<int:post_id>/reply', methods=['POST'])
 def add_reply(post_id):
     try:
@@ -287,10 +313,10 @@ def add_reply(post_id):
         data = request.get_json()
 
         # Extract reply from the request data
-        reply = data.get('reply', '')
+        reply_text = data.get('reply', '')
 
         # Check if reply is provided
-        if not reply:
+        if not reply_text:
             return jsonify({'error': 'Reply is required'}), 400
 
         # Find the post in the database
@@ -300,7 +326,7 @@ def add_reply(post_id):
             return jsonify({'error': 'Post not found'}), 404
 
         # Create a new Reply entry
-        new_reply = Reply(reply=reply, timestamp=datetime.utcnow(), post=post)
+        new_reply = Reply(reply=reply_text, timestamp=datetime.utcnow(), qna=post)
 
         # Add the new Reply entry to the database
         db.session.add(new_reply)
@@ -314,8 +340,47 @@ def add_reply(post_id):
         return jsonify({'error': str(e)}), 500
 
 
+@app.route('/qna/<int:post_id>', methods=['DELETE'])
+def delete_post(post_id):
+    try:
+        post = Qna.query.get(post_id)
+        if not post:
+            return jsonify({'error': 'Post not found'}), 404
+
+        db.session.delete(post)
+        db.session.commit()
+
+        return jsonify({'message': 'Post deleted successfully'}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
+
+### ------------------ GURU ------------------ ###
+
+
+@app.route('/guru', methods=['GET'])
+def get_guru_data():
+    try:
+        guru_data = Guru.query.all()
+        return make_response(jsonify([guru_datum.to_dict() for guru_datum in guru_data]), 200)
+    except Exception as e:
+        return jsonify({'error': str(e)})
+
+
+# def get_all_guru_data():
+#     try:
+#         # Query the database to get all data from the Guru model
+#         all_guru_data = Guru.query.all()
+
+#         # Serialize the data using Marshmallow
+#         guru_schema = GuruSchema(many=True)
+#         result = guru_schema.dump(all_guru_data)
+
+#         # Return the serialized data as JSON
+#         return jsonify(result)
+#     except Exception as e:
+#         return jsonify({'error': str(e)})
 
 
 
