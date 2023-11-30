@@ -1,13 +1,14 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Header() {
   return (
     <header className='header'>
-        <h1>
-        DIYesk8Guide -Your One-Stop Site for DIY Builds    
-        </h1>
+      <h1>
+        <Link to="/home">DIYesk8Guide</Link>
+      </h1>
     </header>
-  )
+  );
 }
 
-export default Header
+export default Header;

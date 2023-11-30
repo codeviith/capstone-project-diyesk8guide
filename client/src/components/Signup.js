@@ -45,7 +45,7 @@ const Signup = () => {
   ];
 
   return (
-    <div>
+    <div className='signup'>
       <h2>Create an Account</h2>
 
       {/* Signup Form */}

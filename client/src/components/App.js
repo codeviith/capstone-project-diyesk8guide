@@ -13,28 +13,10 @@ import Qna from './Qna';
 
 //remember to set proxy for the backend server!!
 
-// backend_route = ""
-
 function App() {
-  // const [user, setUser] = useState  ({});
-  // const [currentUser, setCurrentUser] = useState({});
-
-/*
-
-  useEffect(() => {
-    fetch("/check_session")
-    .then((data) => {
-      if (data.ok) {
-        data.json().then((user) => setCurrentUser(user));
-      }
-    })
-  }, [])
-
-*/
-
   return (
     <div className="app">
-      <Header />
+      {/* <Header /> */}
       <main>
         <NavBar/>
         <Switch>

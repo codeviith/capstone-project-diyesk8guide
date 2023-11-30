@@ -42,7 +42,7 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className='login'>
       <h2>Sign in to continue</h2>
 
       {/* Login Form */}

@@ -10,6 +10,15 @@ import at_img2 from './images/ID4.jpeg';
 import at_img3 from './images/ID3.jpg';
 
 
+///////NEED TO ADD MORE IMAGES!!!!!!!
+///////NEED TO ADD MORE IMAGES!!!!!!!
+///////NEED TO ADD MORE IMAGES!!!!!!!
+///////NEED TO ADD MORE IMAGES!!!!!!!
+///////NEED TO ADD MORE IMAGES!!!!!!!
+
+
+
+
 /////Random and non-repeating image code:
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -233,7 +242,7 @@ function Generate() {
 
 
   const renderImageContainer = () => (
-    <div>
+    <div className='render_image_container'>
       <p></p>
       {boardsData.length > 0 ? (
         <>
@@ -254,7 +263,7 @@ function Generate() {
   );
 
   const renderBoardSpecs = () => (
-    <div>
+    <div className='render_board_specs'>
       <h2>Build Specs</h2>
       {boardsData.length > 0 ? (
         <ul>
@@ -298,7 +307,7 @@ function Generate() {
   );
 
   return (
-    <div>
+    <div className='generate'>
       <h2>Build Generator</h2>
 
       {/* Dropdowns */}

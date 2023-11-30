@@ -76,7 +76,7 @@ const Home = () => {
   };
 
   const renderContainer = (category, items) => (
-    <div>
+    <div className='render_container'>
       <h2>{category}</h2>
       {items.length > 0 ? (
         <ul>
@@ -154,7 +154,7 @@ const Home = () => {
   );
 
   return (
-    <div>
+    <div className='home'>
       {renderContainer('Boards', boards)}
       {renderContainer('Questions', guruData)}
       {renderContainer('Posts', posts)}

@@ -104,39 +104,39 @@ const Qna = () => {
 
 
   return (
-    <div>
+    <div className='qna'>
       <h2>Q&A Forum</h2>
 
       {/* Post Input */}
-      <div>
-        <label>
+      <div className='post_input'>
+        <label className='post_label'>
           Post:
-          <textarea
+          <textarea className='post_input_value'
             value={newPost}
             onChange={e => setNewPost(e.target.value)}
             placeholder="Ask a question..."
           />
         </label>
-        <button onClick={handlePost}>Post</button>
+        <button className='post_button' onClick={handlePost}>Post</button>
       </div>
 
       {/* Display Posts */}
-      <div>
+      <div className='display_posts'>
         {posts.map((post, index) => (
           <div key={post.id} style={{ border: '1px solid #ccc', padding: '10px', marginBottom: '10px' }}>
             <p><strong>Question:</strong> {post.post}</p>
             {/* Display Replies */}
-            <div>
+            <div className='display_replies'>
               {replies[post.id] &&
                 replies[post.id].map((reply, index) => (
                   <p key={index}><strong>Reply:</strong> {reply.reply}</p>
                 ))}
             </div>
             {/* Reply Input */}
-            <div>
-              <label>
+            <div className='reply_input'>
+              <label className='reply_label'>
                 Reply:
-                <textarea
+                <textarea className='reply_input_value'
                   value={replyInputs[index] || ''}
                   onChange={e => {
                     const updatedInputs = [...replyInputs];
@@ -146,7 +146,7 @@ const Qna = () => {
                   placeholder="Reply to the question..."
                 />
               </label>
-              <button onClick={() => handleReply(post.id)}>Reply</button>
+              <button className='reply_button' onClick={() => handleReply(post.id)}>Reply</button>
             </div>
           </div>
         ))}

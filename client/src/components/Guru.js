@@ -38,7 +38,7 @@ function Guru() {
     return (
         <div className="guru-container">
 
-        <strong> Hello, I am your Esk8 Guru. What question do you have for me? </strong>
+        <strong className='guru_prompt'> Hello, I am your Esk8 Guru. What question do you have for me? </strong>
 
         {/* Form for user input */}
         <form onSubmit={handleSubmit}>
@@ -48,7 +48,7 @@ function Guru() {
             onChange={(e) => setUserInput(e.target.value)}
             placeholder="Ask me anything..."
             />
-            <button type="submit">Ask</button>
+            <button type="guru_submit">Ask</button>
         </form>
 
         {/* Display loading or response */}
