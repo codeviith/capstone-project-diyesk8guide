@@ -179,13 +179,14 @@ body::before {
 }
 
 .guru-container button[type="guru_submit"]:hover {
-  background-color: #555; /* Change to a darker color on hover */
+  background-color: #727171; /* Change to a lighter color on hover */
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Add a subtle shadow on hover */
 }
 
 .guru-container .loading-container {
   font-size: 25px;
-  color: #333; /* Adjust the text color as needed */
+  font-family: cursive, sans-serif;
+  color: #9a0505; /* Adjust the text color as needed */
   background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
   padding: 15px;
   border-radius: 8px;
@@ -203,13 +204,19 @@ body::before {
   margin-top: 20px;
 }
 
+.guru-container .guru_answer {
+  font-size: 25px;
+  text-decoration: bold;
+  color: black;
+}
+
+
 
 /* navbar component */
 
-
 nav {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   background-color: gray;
   padding: 2px;
@@ -222,6 +229,7 @@ nav a {
   color: black;
   font-size: 20px;
   text-decoration: none;
+  /* margin-left: 20px; */
   font-family: cursive, sans-serif;
   font-weight: bold;
   transition: background-color 0.3s, color 0.3s; /* Apply transition to background-color and text color */
@@ -266,6 +274,8 @@ nav a[href="/login"]:hover {
 }
 
 
+
+
 /* qna component */
 
 .qna {
@@ -296,19 +306,25 @@ nav a[href="/login"]:hover {
 }
 
 .qna .post_input_value {
-  width: 100%;
-  padding: 10px;
+  width: 98%;
+  padding: 7px;
   border: 1px solid #ccc;
   border-radius: 8px;
+  font-size: 15px;
 }
 
 .qna .post_button {
-  background-color: black;
+  background-color: rgb(3, 3, 117);
   color: white;
   padding: 10px 20px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
+}
+
+.qna .post_button:hover {
+  background-color: rgb(4, 43, 185); /* Example: Dark background color on hover */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
 }
 
 .qna .display_posts {
@@ -343,25 +359,31 @@ nav a[href="/login"]:hover {
 }
 
 .qna .reply_label {
-  display: block;
+  display: flex;
   margin-bottom: 10px;
   font-size: 20px;
 }
 
 .qna .reply_input_value {
-  width: 100%;
-  padding: 10px;
+  width: 90%;
+  padding: 7px;
   border: 1px solid #ccc;
   border-radius: 8px;
+  font-size: 15px;
 }
 
 .qna .reply_button {
-  background-color: black;
+  background-color: rgb(3, 3, 117);
   color: white;
   padding: 10px 20px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
+}
+
+.qna .reply_button:hover {
+  background-color: rgb(4, 43, 185); /* Example: Dark background color on hover */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
 }
 
 
@@ -393,6 +415,12 @@ nav a[href="/login"]:hover {
   margin-bottom: 15px;
 }
 
+.login h4 {
+  color: black;
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
 .login label {
   display: block;
   margin-bottom: 10px;
@@ -401,25 +429,27 @@ nav a[href="/login"]:hover {
 }
 
 .login input {
-  width: 100%;
+  width: 50%;
   padding: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  font-size: 15px;
 }
 
 .login button {
-  background-color: darkred;
+  background-color: darkgreen;
   color: white;
   padding: 10px 20px;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   font-size: 18px;
   cursor: pointer;
 }
 
 .login button:hover {
-  background-color: black; /* Example: Dark background color on hover */
+  background-color: rgb(3, 132, 3); /* Example: Dark background color on hover */
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5)
 }
 
 
@@ -432,7 +462,7 @@ nav a[href="/login"]:hover {
   text-align: center;
   background-color: gray; /* Adjust background color */
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
 .signup h2 {
@@ -455,7 +485,7 @@ nav a[href="/login"]:hover {
 
 .signup input,
 .signup select {
-  width: 100%;
+  width: 50%;
   padding: 10px;
   margin-bottom: 15px;
   border: 1px solid #ccc;
@@ -463,18 +493,31 @@ nav a[href="/login"]:hover {
 }
 
 .signup button {
-  background-color: darkred;
+  background-color: darkgreen;
   color: white;
   padding: 10px 20px;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   font-size: 18px;
   cursor: pointer;
 }
 
 .signup button:hover {
-  background-color: black; /* Example: Dark background color on hover */
+  background-color: rgb(3, 132, 3); /* Example: Dark background color on hover */
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5)
 }
+
+.signup .checkbox-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 5px;
+  justify-content: center;
+}
+
+.signup .checkbox {
+  margin-right: 5px;
+}
+
 
 
 /* home component */
@@ -524,13 +567,14 @@ nav a[href="/login"]:hover {
   color: white;
   padding: 10px 20px;
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
   font-size: 18px;
   cursor: pointer;
 }
 
 .home button:hover {
-  background-color: black; /* Example: Dark background color on hover */
+  background-color: rgb(176, 6, 6); /* Example: Dark background color on hover */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
 }
 
 
@@ -550,30 +594,32 @@ nav a[href="/login"]:hover {
   color: black;
   font-size: 32px;
   margin-top: 2px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .generate label {
   display: block;
-  margin: 10px 0;
+  margin: 1px 1;
 }
 
-.generate select, .generate button {
-  padding: 10px;
-  font-size: 16px;
-  margin: 5px;
+.generate select {
+  padding: 5px;
+  font-size: 15px;
 }
 
 .generate button {
+  padding: 10px;
+  font-size: 20px;
   background-color: darkgreen;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
   cursor: pointer;
 }
 
 .generate button:hover {
   background-color: green; /* Example: Dark background color on hover */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
 }
 
 .generate .render_image_container, .generate .render_board_specs {
@@ -584,7 +630,7 @@ nav a[href="/login"]:hover {
   max-width: 100%;
   height: auto;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
 .generate ul {
@@ -595,6 +641,57 @@ nav a[href="/login"]:hover {
 .generate strong {
   font-weight: bold;
 }
+
+
+
+/* board specs list */
+
+.category-container {
+  margin-bottom: 50px; /* Add space between category containers */
+}
+
+.board_spec {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+}
+
+.board_spec strong {
+  display: block; /* Ensure each strong tag is on a new line */
+  margin-bottom: 7px; /* Add some space between the strong tag and the list items */
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.board_spec li {
+  margin-bottom: 7px; /* Add some space between list items */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

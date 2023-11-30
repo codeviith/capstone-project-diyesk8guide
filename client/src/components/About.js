@@ -1,6 +1,6 @@
 import React from "react";
 
-import DIY_collage from './images/100 percent.jpg';
+import DIY_collage from './images/p5 project collage.jpg';
 
 function About() {
     return (

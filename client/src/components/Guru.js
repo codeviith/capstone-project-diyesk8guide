@@ -53,11 +53,11 @@ function Guru() {
 
         {/* Display loading or response */}
         {loading ? (
-            <div className="loading-container">Loading...</div>
+            <div className="loading-container">Thinking... Please Wait</div>
         ) : (
             response && (
             <div className="response-container">
-                <p>Answer: {response}</p>
+                <p><strong className='guru_answer'> Answer: </strong> {response}</p>
             </div>
             )
         )}

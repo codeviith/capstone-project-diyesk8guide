@@ -39,7 +39,7 @@ const Signup = () => {
   };
 
   const boardsOptions = [
-    'Evolve', 'Lacroix', 'Kaly NYC', 'Metroboard',
+    'Evolve', 'Lacroix', 'KalyNYC', 'Metroboard',
     'Trampa', 'Mellow', 'Boosted', 'Exway',
     'Bajaboard', 'Hoyt St.', 'Acton', 'Backfire',
   ];
@@ -109,10 +109,10 @@ const Signup = () => {
         <br />
 
         <label>Boards Owned:
-          <div>
+          <div className="checkbox-container">
             {boardsOptions.map(board => (
               <label key={board}>
-                <input
+                <input className='checkbox'
                   type="checkbox"
                   name="boardsOwned"
                   value={board}

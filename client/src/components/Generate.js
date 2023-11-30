@@ -5,17 +5,24 @@ import st_img1 from './images/ID1.jpg';
 import st_img2 from './images/ID2.jpeg';
 import st_img3 from './images/ID5.jpeg';
 import st_img4 from './images/ID6.jpeg';
+import st_img5 from './images/ID8.jpeg';
+import st_img6 from './images/ID9.jpg';
+import st_img7 from './images/ID10.jpg';
+import st_img8 from './images/ID11.jpg';
+import st_img9 from './images/ID14.jpg';
+import st_img10 from './images/ID15.jpg';
+import st_img11 from './images/ID16.jpg';
+import st_img12 from './images/ID17.jpg';
+
 import at_img1 from './images/ID7.jpg';
 import at_img2 from './images/ID4.jpeg';
 import at_img3 from './images/ID3.jpg';
-
-
-///////NEED TO ADD MORE IMAGES!!!!!!!
-///////NEED TO ADD MORE IMAGES!!!!!!!
-///////NEED TO ADD MORE IMAGES!!!!!!!
-///////NEED TO ADD MORE IMAGES!!!!!!!
-///////NEED TO ADD MORE IMAGES!!!!!!!
-
+import at_img4 from './images/ID18.jpg';
+import at_img5 from './images/ID19.jpeg';
+import at_img6 from './images/ID20.jpeg';
+import at_img7 from './images/ID21.jpeg';
+import at_img8 from './images/ID22.jpeg';
+import at_img9 from './images/ID23.jpeg';
 
 
 
@@ -43,8 +50,8 @@ function getRandomImageGenerator(images) {
 }
 
 //Creating variable to be put into main code:
-const getNextRandomStreetImage = getRandomImageGenerator([st_img1, st_img2, st_img3, st_img4]);
-const getNextRandomAllTerrainImage = getRandomImageGenerator([at_img1, at_img2, at_img3]);
+const getNextRandomStreetImage = getRandomImageGenerator([st_img1, st_img2, st_img3, st_img4, st_img5, st_img6, st_img7, st_img8, st_img9, st_img10, st_img11, st_img12]);
+const getNextRandomAllTerrainImage = getRandomImageGenerator([at_img1, at_img2, at_img3, at_img4, at_img5, at_img6, at_img7, at_img8, at_img9]);
 
 
 
@@ -257,7 +264,7 @@ function Generate() {
           ))}
         </>
       ) : (
-        <p>No board data available. Click <strong>"Generate Board"</strong> to fetch data.</p>
+        <p>No image available. Click <strong>"Generate Board"</strong> to fetch data.</p>
       )}
     </div>
   );
@@ -269,39 +276,39 @@ function Generate() {
         <ul>
           {boardsData.map((board, index) => (
             <div key={index}>
-              <ul>
-              <strong> Deck </strong>
+              <ul className='board_spec'>
+              <strong className='deck'> Deck </strong>
                 <li>Deck Type: {board.deck_type}</li>
                 <li>Deck Length: {board.deck_length}</li>
                 <li>Deck Material: {board.deck_material}</li>
-              <strong> Truck </strong>
+              <strong className='truck'> Truck </strong>
                 <li>Truck Type: {board.truck_type}</li>
                 <li>Truck Width: {board.truck_width}</li>
-              <strong> Controller </strong>
+              <strong className='controller'> Controller </strong>
                 <li>Controller Feature: {board.controller_feature}</li>
                 <li>Controller Type: {board.controller_type}</li>
-              <strong> Remote </strong>
+              <strong className='remote'> Remote </strong>
                 <li>Remote Feature: {board.remote_feature}</li>
                 <li>Remote Type: {board.remote_type}</li>
-              <strong> Motor </strong>
+              <strong className='motor'> Motor </strong>
                 <li>Motor Size: {board.motor_size}</li>
                 <li>Motor Kv: {board.motor_kv}</li>
-              <strong> Wheel </strong>
+              <strong className='wheel'> Wheel </strong>
                 <li>Wheel Size: {board.wheel_size}</li>
                 <li>Wheel Type: {board.wheel_type}</li>
-              <strong> Battery </strong>
+              <strong className='battery'> Battery </strong>
                 <li>Battery Voltage: {board.battery_voltage}</li>
                 <li>Battery Type: {board.battery_type}</li>
                 <li>Battery Capacity: {board.battery_capacity}</li>
                 <li>Battery Configuration: {board.battery_configuration}</li>
-              <strong> Range </strong>
+              <strong className='range'> Range </strong>
                 <li>Range: {board.range_mileage}</li>
               </ul>
             </div>
           ))}
         </ul>
       ) : (
-        <p>No board data available. Click <strong>"Generate Board"</strong> to fetch data.</p>
+        <p>No build specs available. Click <strong>"Generate Board"</strong> to fetch data.</p>
       )}
     </div>
   );

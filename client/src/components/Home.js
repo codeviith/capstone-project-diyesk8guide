@@ -89,33 +89,33 @@ const Home = () => {
                   {/* Image */}
                   <img src={item.image_url} alt={`${item.name} Board`} style={{ maxWidth: '100%' }} />
                   {/* Specs */}
-                  <ul>
-                  <strong> Deck </strong>
-                    <li><strong>Deck Type: </strong>{item.deck_type}</li>
-                    <li><strong>Deck Length: </strong>{item.deck_length}</li>
-                    <li><strong>Deck Material: </strong>{item.deck_material}</li>
-                  <strong> Truck </strong>
-                    <li><strong>Truck Type: </strong>{item.truck_type}</li>
-                    <li><strong>Truck Width: </strong>{item.truck_width}</li>
-                  <strong> Controller </strong>
-                    <li><strong>Controller Feature: </strong>{item.controller_feature}</li>
-                    <li><strong>Controller Type: </strong>{item.controller_type}</li>
-                  <strong> Remote </strong>
-                    <li><strong>Remote Feature: </strong>{item.remote_feature}</li>
-                    <li><strong>Remote Type: </strong>{item.remote_type}</li>
-                  <strong> Motor </strong>
-                    <li><strong>Motor Size: </strong>{item.motor_size}</li>
-                    <li><strong>Motor Kv: </strong>{item.motor_kv}</li>
-                  <strong> Wheel </strong>
-                    <li><strong>Wheel Size: </strong>{item.wheel_size}</li>
-                    <li><strong>Wheel Type: </strong>{item.wheel_type}</li>
-                  <strong> Battery </strong>
-                    <li><strong>Battery Voltage: </strong>{item.battery_voltage}</li>
-                    <li><strong>Battery Type: </strong>{item.battery_type}</li>
-                    <li><strong>Battery Capacity: </strong>{item.battery_capacity}</li>
-                    <li><strong>Battery Configuration: </strong>{item.battery_configuration}</li>
-                  <strong> Range </strong>
-                    <li><strong>Range: </strong>{item.range_mileage}</li>
+                  <ul className='board_spec'>
+                      <strong className='deck'> Deck </strong>
+                    <li>Deck Type: {item.deck_type}</li>
+                    <li>Deck Length: {item.deck_length}</li>
+                    <li>Deck Material: {item.deck_material}</li>
+                  <strong className='truck'> Truck </strong>
+                    <li>Truck Type: {item.truck_type}</li>
+                    <li>Truck Width: {item.truck_width}</li>
+                  <strong className='controller'> Controller </strong>
+                    <li>Controller Feature: {item.controller_feature}</li>
+                    <li>Controller Type: {item.controller_type}</li>
+                  <strong className='remote'> Remote </strong>
+                    <li>Remote Feature: {item.remote_feature}</li>
+                    <li>Remote Type: {item.remote_type}</li>
+                  <strong className='motor'> Motor </strong>
+                    <li>Motor Size: {item.motor_size}</li>
+                    <li>Motor Kv: {item.motor_kv}</li>
+                  <strong className='wheel'> Wheel </strong>
+                    <li>Wheel Size: {item.wheel_size}</li>
+                    <li>Wheel Type: {item.wheel_type}</li>
+                  <strong className='battery'> Battery </strong>
+                    <li>Battery Voltage: {item.battery_voltage}</li>
+                    <li>Battery Type: {item.battery_type}</li>
+                    <li>Battery Capacity: {item.battery_capacity}</li>
+                    <li>Battery Configuration: {item.battery_configuration}</li>
+                  <strong className='range'> Range </strong>
+                    <li>Range: {item.range_mileage}</li>
                   </ul>
                 </>
               )}
