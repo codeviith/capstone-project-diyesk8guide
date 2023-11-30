@@ -37,7 +37,8 @@ function Guru() {
 
     return (
         <div className="guru-container">
-        <p>Hello, I am the one and only Esk8 Guru. What question do you have for me?</p>
+
+        <strong> Hello, I am your Esk8 Guru. What question do you have for me? </strong>
 
         {/* Form for user input */}
         <form onSubmit={handleSubmit}>

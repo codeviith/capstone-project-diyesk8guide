@@ -9,6 +9,37 @@ import at_img1 from './images/ID7.jpg';
 import at_img2 from './images/ID4.jpeg';
 import at_img3 from './images/ID3.jpg';
 
+
+/////Random and non-repeating image code:
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+function getRandomImageGenerator(images) {
+  let shuffledImages = shuffleArray([...images]);
+  let currentIndex = 0;
+
+  return function getNextRandomImage() {
+    if (currentIndex >= shuffledImages.length) {
+      // Reshuffle when all images have been used
+      shuffledImages = shuffleArray([...images]);
+      currentIndex = 0;
+    }
+    return shuffledImages[currentIndex++];
+  };
+}
+
+//Creating variable to be put into main code:
+const getNextRandomStreetImage = getRandomImageGenerator([st_img1, st_img2, st_img3, st_img4]);
+const getNextRandomAllTerrainImage = getRandomImageGenerator([at_img1, at_img2, at_img3]);
+
+
+
+/////Component code:
 function Generate() {
   const [boardsData, setBoardsData] = useState([]);
   const [riderLevel, setRiderLevel] = useState('');
@@ -35,9 +66,6 @@ function Generate() {
   const [batteryConfiguration, setBatteryConfiguration] = useState('');
   const [mileage, setMileage] = useState('');
   const [imageURL, setImageURL] = useState('')
-
-  let streetImages = [st_img1, st_img2, st_img3, st_img4];
-  let allTerrainImages = [at_img1, at_img2, at_img3];
 
 
   useEffect(() => {
@@ -132,38 +160,39 @@ function Generate() {
   ]);
 
 
+
   const handleGenerateBoard = async () => {
     // Set values for board spec based on user's selection input
     if (riderLevel === 'Beginner') {
       setTruckType('Single Kingspin'); 
       setTruckWidth('10in.');
-      setControllerFeature('test');  ///research what this feature is!!!
-      setControllerType('Meepo ESC');  ////research on available branded ESCs!!!
+      setControllerFeature('Low Voltage Cutoff, Overheat Protection, Battery Eliminator Circuit, ABS Braking');
+      setControllerType('Flipsky ESC');
       setRemoteFeature('Regen Braking, Reverse, LCD Display');
       setRemoteType('Thumb-Style Throttle');
-      setDeckType('test');  ///look up a beginner board!!
+      setDeckType('Kicktail Cruiser');
       setDeckLength('38in.');
       setDeckMaterial('7-ply plywood');
     } else if (riderLevel === 'Intermediate') {
       setTruckType('Double Kingspin');
       setTruckWidth('12in.');
-      setControllerFeature('test');  ///research what this feature is!!!
+      setControllerFeature('Over-Voltage Protection, 3-12S, BEC, Low-Current Shunt, BLDC Mode, 80A Peak Current');
       setControllerType('VESC 4.6');
       setRemoteFeature('Regen Braking, Reverse, Cruise-Control, LCD Display, Macro Buttons');
       setRemoteType('Trigger-Style Throttle');
-      setDeckType('Drop-Thru');
+      setDeckType('Drop-Through Carver');
       setDeckLength('42in.');
       setDeckMaterial('Carbon Fiber');
     } else if (riderLevel === 'Expert') {
       setTruckType('MTB Spring Loaded');
       setTruckWidth('16in.');
-      setControllerFeature('test');  ///research what this feature is!!!
+      setControllerFeature('Over-Voltage Protection, 3-12S, BEC, Low-Current Shunt, BLDC Mode, FOC Mode, 120A Peak Current, Sensorless Acceleration, Full Torque from 0RPM, Overheat Protection, Aluminum heatsink MOSFET');
       setControllerType('VESC 6.1');
       setRemoteFeature('Regen Braking, Reverse, Cruise Control, LCD Display, Macro Buttons, Ride Mode Toggle');
       setRemoteType('Trigger-Style Throttle');
-      setDeckType('MTB Flex Board'); ///research on the type!!!
+      setDeckType('35 Degrees MTB Flex');
       setDeckLength('42in.');
-      setDeckMaterial('test'); ////research on this!!!
+      setDeckMaterial('Carbon Fiber 16-Ply');
     }
 
     if (motorPower === 'Drag Racing') {
@@ -180,11 +209,11 @@ function Generate() {
     if (terrainType === 'Street') {
       setWheelSize('90mm');
       setWheelType('78A');
-      setImageURL(streetImages[Math.floor(Math.random() * streetImages.length)])
+      setImageURL(getNextRandomStreetImage())
     } else if (terrainType === 'All Terrain') {
       setWheelSize('175mm');
       setWheelType('Pneumatic');
-      setImageURL(allTerrainImages[Math.floor(Math.random() * allTerrainImages.length)])
+      setImageURL(getNextRandomAllTerrainImage())
     }
 
     if (rangeType === 'Normal') {
@@ -192,24 +221,20 @@ function Generate() {
       setBatteryType('18650 li-ion');
       setBatteryCapacity('3500mah per cell');
       setBatteryConfiguration('10s4p');
-      setMileage('Approx. 20 miles per charge. Note that mileage will depend on a lot of factors such as: type of wheel, terrain conditions, motor configuration, etc.');
+      setMileage('Approx. 22 miles per charge. Note that mileage will depend on a lot of factors such as: type of wheel, terrain conditions, motor configuration, etc.');
     } else if (rangeType === 'Extended') {
       setBatteryVoltage('44.4v Nominal');
       setBatteryType('21700 li-ion');
       setBatteryCapacity('4500mah per cell');
-      setBatteryConfiguration('12s6p');
-      setMileage('Approx. 35 miles per charge. Note that mileage will depend on a lot of factors such as: type of wheel, terrain conditions, motor configuration, etc.');
+      setBatteryConfiguration('12s8p');
+      setMileage('Approx. 45 miles per charge. Note that mileage will depend on a lot of factors such as: type of wheel, terrain conditions, motor configuration, etc.');
     }
-
-
-    console.log(imageURL)
   }
 
-  
 
   const renderImageContainer = () => (
     <div>
-      <h2>Image goes here</h2>
+      <p></p>
       {boardsData.length > 0 ? (
         <>
           {boardsData.map((board, index) => (
@@ -223,55 +248,62 @@ function Generate() {
           ))}
         </>
       ) : (
-        <p>No board data available. Click "Generate Board" to fetch data.</p>
+        <p>No board data available. Click <strong>"Generate Board"</strong> to fetch data.</p>
       )}
     </div>
   );
 
   const renderBoardSpecs = () => (
     <div>
-      <h2>Sample Board Build</h2>
+      <h2>Build Specs</h2>
       {boardsData.length > 0 ? (
         <ul>
           {boardsData.map((board, index) => (
             <div key={index}>
-              <strong>Sample Specs</strong>
               <ul>
+              <strong> Deck </strong>
                 <li>Deck Type: {board.deck_type}</li>
                 <li>Deck Length: {board.deck_length}</li>
                 <li>Deck Material: {board.deck_material}</li>
+              <strong> Truck </strong>
                 <li>Truck Type: {board.truck_type}</li>
                 <li>Truck Width: {board.truck_width}</li>
+              <strong> Controller </strong>
                 <li>Controller Feature: {board.controller_feature}</li>
                 <li>Controller Type: {board.controller_type}</li>
+              <strong> Remote </strong>
                 <li>Remote Feature: {board.remote_feature}</li>
                 <li>Remote Type: {board.remote_type}</li>
+              <strong> Motor </strong>
                 <li>Motor Size: {board.motor_size}</li>
                 <li>Motor Kv: {board.motor_kv}</li>
+              <strong> Wheel </strong>
                 <li>Wheel Size: {board.wheel_size}</li>
                 <li>Wheel Type: {board.wheel_type}</li>
+              <strong> Battery </strong>
                 <li>Battery Voltage: {board.battery_voltage}</li>
                 <li>Battery Type: {board.battery_type}</li>
                 <li>Battery Capacity: {board.battery_capacity}</li>
                 <li>Battery Configuration: {board.battery_configuration}</li>
+              <strong> Range </strong>
                 <li>Range: {board.range_mileage}</li>
               </ul>
             </div>
           ))}
         </ul>
       ) : (
-        <p>No board data available. Click "Generate Board" to fetch data.</p>
+        <p>No board data available. Click <strong>"Generate Board"</strong> to fetch data.</p>
       )}
     </div>
   );
 
   return (
     <div>
-      <h2>Sample Build Generator</h2>
+      <h2>Build Generator</h2>
 
       {/* Dropdowns */}
       <label>
-        Rider Level:
+        <strong>Rider Level: </strong>
         <select value={riderLevel} onChange={(e) => setRiderLevel(e.target.value)}>
           <option value="">Select Rider Level</option>
           <option value="Beginner">Beginner</option>
@@ -282,7 +314,7 @@ function Generate() {
       <br />
 
       <label>
-        Rider Style:
+        <strong>Rider Style: </strong>
         <select value={motorPower} onChange={(e) => setMotorPower(e.target.value)}>
           <option value="">Select Rider Style</option>
           <option value="Drag Racing">Drag Racing</option>
@@ -293,7 +325,7 @@ function Generate() {
       <br />
 
       <label>
-        Terrain Type:
+        <strong>Terrain Type: </strong>
         <select value={terrainType} onChange={(e) => setTerrainType(e.target.value)}>
           <option value="">Select Terrain Type</option>
           <option value="Street">Street</option>
@@ -303,7 +335,7 @@ function Generate() {
       <br />
 
       <label>
-        Range Type:
+        <strong>Range Type: </strong>
         <select value={rangeType} onChange={(e) => setRangeType(e.target.value)}>
           <option value="">Select Range Type</option>
           <option value="Normal">Normal</option>
