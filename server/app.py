@@ -76,7 +76,7 @@ def guru_assistant():
             {"role": "user", "content": f'I have a question about: {user_input}.'}
             ]
         completion = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4-1106-preview",
             messages=messages,
             max_tokens=500
         )
@@ -104,16 +104,16 @@ def guru_assistant():
 ### ------------------ USER SIGNUP ------------------ ###
 
 
-# @app.route('/signup', methods=['POST'])
-# def signup():
-#     data = request.get_json()
-#     new_user = User(email=data['email'])
-#     new_user.password_hash = data['password']
+@app.route('/signup', methods=['POST'])
+def signup():
+    data = request.get_json()
+    new_user = User(email=data['email'])
+    new_user.password_hash = data['password']
 
-#     db.session.add(new_user)
-#     db.session.commit()
+    db.session.add(new_user)
+    db.session.commit()
 
-#     return {'message': 'Registration Successful!'}, 201
+    return {'message': 'Registration Successful!'}, 201
 
 
 
@@ -121,44 +121,44 @@ def guru_assistant():
 
 
 
-# @app.route('/check_session')
-# def check_session():
-#     user_id = session.get('user_id')
-#     user = User.query.filter(User.id == user_id).first()
+@app.route('/check_session')
+def check_session():
+    user_id = session.get('user_id')
+    user = User.query.filter(User.id == user_id).first()
 
-#     if not user:
-#         return {'error': 'Invalid Session.'}, 401
+    if not user:
+        return {'error': 'Invalid Session.'}, 401
     
-#     return {'message': 'Session Valid, Access Granted'}, 200
+    return {'message': 'Session Valid, Access Granted'}, 200
 
 
-# @app.route('/login', methods=['POST'])
-# def login():
-#     data = request.get_json()
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
 
-#     # check if user exists
-#     user = User.query.filter(User.email == data['email']).first()
+    # check if user exists
+    user = User.query.filter(User.email == data['email']).first()
 
-#     if not user:
-#         return make_response(jsonify({'error': 'User not found.'}), 404)
+    if not user:
+        return make_response(jsonify({'error': 'User not found.'}), 404)
     
-#     if user.authenticate(data['password']):  # check if pwd match
-#         session['user_id'] = user.id
-#         user_data = {
-#             'id': user.id,
-#             'email': user.email
-#         }
-#         return make_response(jsonify({'message': 'Login successful!', 'user': user_data}), 200)
-#     else:
-#         # password did not match, send error resp
-#         return make_response(jsonify({'error': 'Invalid email or password.'}), 401)
+    if user.authenticate(data['password']):  # check if pwd match
+        session['user_id'] = user.id
+        user_data = {
+            'id': user.id,
+            'email': user.email
+        }
+        return make_response(jsonify({'message': 'Login successful!', 'user': user_data}), 200)
+    else:
+        # password did not match, send error resp
+        return make_response(jsonify({'error': 'Invalid email or password.'}), 401)
 
 
-# @app.delete('/logout')
-# def logout():
-#     session.pop('user_id')
+@app.delete('/logout')
+def logout():
+    session.pop('user_id')
 
-#     return {'message': 'Successfully logged out.'}, 200
+    return {'message': 'Successfully logged out.'}, 200
 
 
 
@@ -374,6 +374,90 @@ def delete_guru_question(question_id):
         return jsonify({"message": "Question deleted successfully"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
+
+
+
+
+
+
+
+
+
+@app.route('/login', methods=['POST'])
+def login():
+    if request.method == 'POST':
+        data = request.get_json()  # Get JSON data sent from the front-end
+        email = data.get('email')
+        password = data.get('password')
+
+        try:
+            # Query your database to check if the user exists and the password is correct
+            # Replace UserModel with the actual model you're using for users
+            user = UserModel.query.filter_by(email=email).one()
+            
+            # You should implement password verification logic here, e.g., using bcrypt
+            # Example: if bcrypt.check_password_hash(user.password_hash, password):
+
+            # Set the user in the session to indicate they are logged in
+            session['user_id'] = user.id
+            return jsonify({'message': 'Login successful'})
+        except NoResultFound:
+            return jsonify({'error': 'Invalid email or password'}, 401)
+
+
+
+
+
+@app.route('/check-session')
+def check_session():
+    if 'user_id' in session:
+        return jsonify({'authenticated': True})
+    return jsonify({'authenticated': False})
+
+
+
+
+@app.route('/logout')
+def logout():
+    if 'user_id' in session:
+        session.pop('user_id', None)
+    return redirect(url_for('login'))  # Redirect to the login page or another appropriate page
+
+
+
+
+
+@app.route('/signup', methods=['POST'])
+def signup():
+    if request.method == 'POST':
+        data = request.get_json()  # Get JSON data sent from the front-end
+        email = data.get('email')
+        password = data.get('password')
+        # Additional user registration logic here, e.g., creating a new user in the database
+        # Don't forget to hash the password before storing it
+
+        # Example:
+        # user = UserModel(email=email, password_hash=hashed_password, ...)
+        # db.session.add(user)
+        # db.session.commit()
+
+        return jsonify({'message': 'Signup successful'})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

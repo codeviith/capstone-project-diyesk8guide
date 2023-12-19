@@ -1,13 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import Header from "./Header";
 
-function Header() {
-    return (
-        <header className='header'>
-        <h1>DIYesk8Guide</h1>
-        </header>
-    );
-}
+// function Header() {
+//     return (
+//         <header className='header'>
+//         <h1>DIYesk8Guide</h1>
+//         </header>
+//     );
+// }
 
 function NavBar() {
     return (

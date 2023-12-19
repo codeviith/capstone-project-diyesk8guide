@@ -27,9 +27,6 @@ class User(db.Model, SerializerMixin):
     qna = db.relationship('Qna', back_populates='users')
 
 
-    def __repr__(self):
-        return f''
-
 
 ### ------------------ BOARD (ONE) ------------------ ###
 class Board(db.Model, SerializerMixin):
@@ -115,7 +112,4 @@ class Reply(db.Model):
     qna_id = db.Column(db.Integer, db.ForeignKey('qna.id'))
     
     qna = db.relationship('Qna', back_populates='replies')
-
-
-
 

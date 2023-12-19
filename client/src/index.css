@@ -227,51 +227,60 @@ nav {
 
 nav a {
   color: black;
-  font-size: 20px;
+  font-size: 18px;
   text-decoration: none;
   /* margin-left: 20px; */
   font-family: cursive, sans-serif;
-  font-weight: bold;
+  font-weight: normal;
   transition: background-color 0.3s, color 0.3s; /* Apply transition to background-color and text color */
-  border-radius: 20px; /* Add border-radius to create rounded corners */
+  border-radius: 10px; /* Add border-radius to create rounded corners */
 }
 
+
+
+
+
+/* Individual styles for each NavLink */
+nav a {
+  text-decoration: none;
+  color: #333; /* Add your preferred text color */
+  margin-left: auto; /* Move all navigation links to the right */
+}
+
+nav h1 {
+  margin: 25px;
+}
+
+/* Bold the text on hover without any other effects */
 nav a:hover {
-  background-color: white; /* Example: Yellow background color on hover */
-  color: white; /* Text color on hover */
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.7); /* Smaller and subtler glow effect on hover */
+  font-weight: bold;
+  background-color: initial; /* Reset background color */
+  color: initial; /* Reset text color */
+  box-shadow: none; /* Reset box shadow */
 }
 
 /* Individual background colors for each NavLink */
-nav a[href="/"]:hover {
-  background-color: black; /* Example: Red background color for the 'Login' route on hover */
-  padding: 10px; /* Increased padding for a larger hover box */
+nav a[href="/"]:hover,
+nav a[href="/home"]:hover,
+nav a[href="/generate"]:hover,
+nav a[href="/guru"]:hover,
+nav a[href="/qna"]:hover,
+nav a[href="/login"]:hover,
+
+
+nav a.home-link:hover {
+  background-color: transparent; /* No hover effect on the 'DIYesk8Guide' link */
+  color: black; /* Use the initial text color */
+  box-shadow: none; /* Remove any box shadow on hover */
 }
 
-nav a[href="/home"]:hover {
-  background-color: black; /* Example: Blue background color for the 'Home' route on hover */
-  padding: 10px; /* Increased padding for a larger hover box */
+nav a.home-link {
+  font-size: 32px; /* Adjust the font size as needed */
+  color: black;
+  font-weight: bold;
 }
 
-nav a[href="/generate"]:hover {
-  background-color: black; /* Example: Green background color for the 'Generate' route on hover */
-  padding: 10px; /* Increased padding for a larger hover box */
-}
 
-nav a[href="/guru"]:hover {
-  background-color: black; /* Example: Purple background color for the 'Guru' route on hover */
-  padding: 10px; /* Increased padding for a larger hover box */
-}
-
-nav a[href="/qna"]:hover {
-  background-color: black; /* Example: Orange background color for the 'Q&A' route on hover */
-  padding: 10px; /* Increased padding for a larger hover box */
-}
-
-nav a[href="/login"]:hover {
-  background-color: black; /* Example: Red background color for the 'Login' route on hover */
-  padding: 10px; /* Increased padding for a larger hover box */
-}
 
 
 

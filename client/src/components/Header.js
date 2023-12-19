@@ -5,7 +5,7 @@ function Header() {
   return (
     <header className='header'>
       <h1>
-        <Link to="/home">DIYesk8Guide</Link>
+        <Link to="/" className="home-link">DIYesk8Guide</Link>
       </h1>
     </header>
   );
