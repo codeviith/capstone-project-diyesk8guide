@@ -2,8 +2,16 @@ from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
 from datetime import datetime
 from sqlalchemy import DateTime, desc
+from sqlalchemy.orm import validates
+
+from flask_bcrypt import Bcrypt
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.ext.hybrid import hybrid_property
 
 from config import db
+
+bcrypt = Bcrypt()
+
 
 ### ------------------ USER (ONE) ------------------ ###
 
@@ -15,7 +23,7 @@ class User(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True, unique=True)
     email = db.Column(db.String, unique=True, nullable=False)
-    password_hash = db.Column(db.String, nullable=False)
+    _password_hash = db.Column(db.String, nullable=False)
     fname = db.Column(db.String, nullable=False)
     lname = db.Column(db.String, nullable=False)
     rider_stance = db.Column(db.String, nullable=False)
@@ -26,6 +34,39 @@ class User(db.Model, SerializerMixin):
     gurus = db.relationship('Guru', back_populates='users')
     qna = db.relationship('Qna', back_populates='users')
 
+
+    @hybrid_property
+    def password_hash(self):
+        return self._password_hash
+    
+    @password_hash.setter
+    def password_hash(self, new_pass):
+        self._password_hash = bcrypt.generate_password_hash(new_pass).decode('utf-8')
+
+    def authenticate(self, password):
+        return bcrypt.check_password_hash(
+            self._password_hash, 
+            password.encode('utf-8')
+        )
+
+
+    @validates('email')
+    def validate_email(self, key, email):
+        if len(email) == 0:
+            raise ValueError('Email must not be empty!')
+        
+        return email
+    
+    @validates('password')
+    def validate_password(self, key, password):
+        if len(password) == 0:
+            raise ValueError('Passowrd must not be empty!')
+        
+        return password
+
+
+    def __repr__(self):
+        return f'<User {self.id}>'
 
 
 ### ------------------ BOARD (ONE) ------------------ ###
@@ -63,6 +104,8 @@ class Board(db.Model, SerializerMixin):
     users = db.relationship('User', back_populates='boards')
 
 
+    def __repr__(self):
+        return f'<Board {self.id}>'
 
 ### ------------------ GURU (MANY) ------------------ ###
 
@@ -81,6 +124,8 @@ class Guru(db.Model, SerializerMixin):
     users = db.relationship('User', back_populates='gurus')
 
 
+    def __repr__(self):
+        return f'<Guru {self.id}>'
 
 ### ------------------ Qna (ONE) ------------------ ###
 
@@ -101,6 +146,9 @@ class Qna(db.Model, SerializerMixin):
     replies = db.relationship('Reply', back_populates='qna', cascade='all, delete-orphan')
 
 
+    def __repr__(self):
+        return f'<Qna {self.id}>'
+
 
 class Reply(db.Model):
     __tablename__ = 'replies'
@@ -112,4 +160,9 @@ class Reply(db.Model):
     qna_id = db.Column(db.Integer, db.ForeignKey('qna.id'))
     
     qna = db.relationship('Qna', back_populates='replies')
+
+
+    def __repr__(self):
+        return f'<Reply {self.id}>'
+
 

@@ -55,7 +55,7 @@ const getNextRandomAllTerrainImage = getRandomImageGenerator([at_img1, at_img2, 
 
 
 
-/////Component code:
+/////MAIN COMPONENT CODE:
 function Generate() {
   const [boardsData, setBoardsData] = useState([]);
   const [riderLevel, setRiderLevel] = useState('');
@@ -83,7 +83,23 @@ function Generate() {
   const [mileage, setMileage] = useState('');
   const [imageURL, setImageURL] = useState('')
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  useEffect(() => {
+    // Function to check if the user is logged in
+    const checkLoginStatus = async () => {
+      try {
+        const response = await fetch('/check_session');
+        const data = await response.json();
+        setIsLoggedIn(data.logged_in);
+      } catch (error) {
+        console.error('Error checking login status:', error);
+      }
+    };
+  
+    checkLoginStatus();
+  }, []);
+  
   useEffect(() => {
     const updateBoardData = async () => {
       // Post user's input to the Flask backend

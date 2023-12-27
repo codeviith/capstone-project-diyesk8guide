@@ -653,6 +653,7 @@ nav a.home-link {
 
 
 
+
 /* board specs list */
 
 .category-container {
@@ -676,6 +677,18 @@ nav a.home-link {
   margin-bottom: 7px; /* Add some space between list items */
 }
 
+
+
+
+/* success and error messages */
+
+.success-message {
+  color: rgb(0, 64, 0);
+}
+
+.error-message {
+  color: rgb(115, 1, 1);
+}
 
 
 

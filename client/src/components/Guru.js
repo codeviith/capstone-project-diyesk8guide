@@ -1,9 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function Guru() {
     const [userInput, setUserInput] = useState('');
     const [response, setResponse] = useState('');
     const [loading, setLoading] = useState(false);
+
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+    // Function to check if the user is logged in
+        const checkLoginStatus = async () => {
+            try {
+            const response = await fetch('/check_session');
+            const data = await response.json();
+            setIsLoggedIn(data.logged_in);
+            } catch (error) {
+            console.error('Error checking login status:', error);
+            }
+        };
+
+        checkLoginStatus();
+    }, []);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();

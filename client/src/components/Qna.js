@@ -1,10 +1,27 @@
 import React, { useState, useEffect } from 'react';
 
-const Qna = () => {
+function Qna() {
   const [posts, setPosts] = useState([]);
   const [newPost, setNewPost] = useState('');
   const [replyInputs, setReplyInputs] = useState([]); //State to track reply inputs for each post
   const [replies, setReplies] = useState({});
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Function to check if the user is logged in
+    const checkLoginStatus = async () => {
+      try {
+        const response = await fetch('/check_session');
+        const data = await response.json();
+        setIsLoggedIn(data.logged_in);
+      } catch (error) {
+        console.error('Error checking login status:', error);
+      }
+    };
+
+    checkLoginStatus();
+  }, []);
 
 
   useEffect(() => {

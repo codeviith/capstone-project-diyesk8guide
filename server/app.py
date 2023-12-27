@@ -8,6 +8,9 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 from sqlalchemy import desc
 from datetime import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_bcrypt import Bcrypt
+
 
 # Local imports
 from config import app, db, api
@@ -38,9 +41,12 @@ migrate = Migrate()
 migrate.init_app(app, db)
 
 
-# API Secret Key
+
+# API Secret Keys
 load_dotenv()
 openai_api_key = os.environ.get('OPENAI_API_KEY')
+app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY')
+# print("Flask Secret Key:", app.config['SECRET_KEY'])
 client = OpenAI(api_key=openai_api_key)
 # openai.api_key = openai_api_key
 
@@ -53,6 +59,15 @@ client = OpenAI(api_key=openai_api_key)
 CORS(app)
 # CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
+# Initialize Bcrypt
+bcrypt = Bcrypt(app)
+
+
+### ------------------ UNIVERSAL HEPER FUNCTIONS ------------------ ###
+
+
+def is_authenticated():
+    return 'user_id' in session
 
 
 ### ------------------ OPENAI API REQUESTS ------------------ ###
@@ -62,6 +77,9 @@ guru_instructions = "You are an expert in electric skateboards who will be answe
 
 @app.post('/guru_assistant')
 def guru_assistant():
+    if not is_authenticated():
+        return make_response(jsonify({"error": "Not authenticated."}), 401)
+
     data = request.get_json()
     user_input = data.get('user_input')
 
@@ -101,64 +119,64 @@ def guru_assistant():
 
 
 
-### ------------------ USER SIGNUP ------------------ ###
+
+### ------------------ authentication test ------------------ ###
+def is_logged_in():
+    return 'user_id' in session
 
 
 @app.route('/signup', methods=['POST'])
 def signup():
     data = request.get_json()
-    new_user = User(email=data['email'])
-    new_user.password_hash = data['password']
+    email = data['email']
+    password = data['password']
+    fname = data['firstName']
+    lname = data['lastName']
+    rider_stance = data['riderStance']
+    boards_owned = ','.join(data['boardsOwned'])  # Assuming boards_owned as a comma-separated string
+
+    # Check if user already exists
+    if User.query.filter_by(email=email).first():
+        return jsonify({'message': 'Email already in use'}), 409
+
+    # Create new user
+    new_user = User(email=email, fname=fname, lname=lname, rider_stance=rider_stance, boards_owned=boards_owned)
+    new_user.password_hash = password  # Set the password hash
 
     db.session.add(new_user)
     db.session.commit()
 
-    return {'message': 'Registration Successful!'}, 201
-
-
-
-### ------------------ CHECK SESSION, LOGIN-LOGOUT ------------------ ###
-
-
-
-@app.route('/check_session')
-def check_session():
-    user_id = session.get('user_id')
-    user = User.query.filter(User.id == user_id).first()
-
-    if not user:
-        return {'error': 'Invalid Session.'}, 401
-    
-    return {'message': 'Session Valid, Access Granted'}, 200
+    return jsonify({'message': 'Account created successfully'}), 201
 
 
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
+    user = User.query.filter_by(email=data['email']).first()
 
-    # check if user exists
-    user = User.query.filter(User.email == data['email']).first()
-
-    if not user:
-        return make_response(jsonify({'error': 'User not found.'}), 404)
-    
-    if user.authenticate(data['password']):  # check if pwd match
+    if user and bcrypt.check_password_hash(user.password_hash, data['password']):
         session['user_id'] = user.id
-        user_data = {
-            'id': user.id,
-            'email': user.email
-        }
-        return make_response(jsonify({'message': 'Login successful!', 'user': user_data}), 200)
+        return jsonify({'message': 'Logged in successfully'}), 200
     else:
-        # password did not match, send error resp
-        return make_response(jsonify({'error': 'Invalid email or password.'}), 401)
+        return jsonify({'message': 'Invalid email or password'}), 401
 
 
-@app.delete('/logout')
+@app.route('/logout', methods=['POST'])
 def logout():
-    session.pop('user_id')
+    session.pop('user_id', None)
+    return jsonify({'message': 'Logged out successfully'}), 200
 
-    return {'message': 'Successfully logged out.'}, 200
+
+@app.route('/check_session', methods=['GET'])
+def check_session():
+    if is_logged_in():
+        return jsonify({'logged_in': True}), 200
+    else:
+        return jsonify({'logged_in': False}), 200
+
+
+### ------------------ authentication test ------------------ ###
+
 
 
 
@@ -199,6 +217,9 @@ def delete_board_by_id(board_id):
 # appending data directly onto Board:
 @app.post('/update_board')
 def update_board():
+    if not is_authenticated():
+        return make_response(jsonify({"error": "Not authenticated."}), 401)
+
     data = request.json
 
     deck_type = data.get('deckType', '')
@@ -273,6 +294,9 @@ def get_replies_for_post(post_id):
 
 @app.route('/qna', methods=['POST'])
 def add_qna():
+    if not is_authenticated():
+        return jsonify({'error': 'Not authenticated'}), 401
+
     try:
         # Get data from the request
         data = request.get_json()
@@ -302,6 +326,9 @@ def add_qna():
 
 @app.route('/qna/<int:post_id>/reply', methods=['POST'])
 def add_reply(post_id):
+    if not is_authenticated():
+        return jsonify({'error': 'Not authenticated'}), 401
+
     try:
         # Get data from the request
         data = request.get_json()
@@ -378,89 +405,223 @@ def delete_guru_question(question_id):
 
 
 
-
-
-
-
-
-
-
-@app.route('/login', methods=['POST'])
-def login():
-    if request.method == 'POST':
-        data = request.get_json()  # Get JSON data sent from the front-end
-        email = data.get('email')
-        password = data.get('password')
-
-        try:
-            # Query your database to check if the user exists and the password is correct
-            # Replace UserModel with the actual model you're using for users
-            user = UserModel.query.filter_by(email=email).one()
-            
-            # You should implement password verification logic here, e.g., using bcrypt
-            # Example: if bcrypt.check_password_hash(user.password_hash, password):
-
-            # Set the user in the session to indicate they are logged in
-            session['user_id'] = user.id
-            return jsonify({'message': 'Login successful'})
-        except NoResultFound:
-            return jsonify({'error': 'Invalid email or password'}, 401)
-
-
-
-
-
-@app.route('/check-session')
-def check_session():
-    if 'user_id' in session:
-        return jsonify({'authenticated': True})
-    return jsonify({'authenticated': False})
-
-
-
-
-@app.route('/logout')
-def logout():
-    if 'user_id' in session:
-        session.pop('user_id', None)
-    return redirect(url_for('login'))  # Redirect to the login page or another appropriate page
-
-
-
-
-
-@app.route('/signup', methods=['POST'])
-def signup():
-    if request.method == 'POST':
-        data = request.get_json()  # Get JSON data sent from the front-end
-        email = data.get('email')
-        password = data.get('password')
-        # Additional user registration logic here, e.g., creating a new user in the database
-        # Don't forget to hash the password before storing it
-
-        # Example:
-        # user = UserModel(email=email, password_hash=hashed_password, ...)
-        # db.session.add(user)
-        # db.session.commit()
-
-        return jsonify({'message': 'Signup successful'})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### ------------------ USER SIGNUP ------------------ ###
+
+
+# @app.route('/signup', methods=['POST'])
+# def signup():
+#     data = request.get_json()
+#     new_user = User(email=data['email'])
+#     new_user.password_hash = data['password']
+
+#     db.session.add(new_user)
+#     db.session.commit()
+
+#     return {'message': 'Registration Successful!'}, 201
+
+
+
+### ------------------ CHECK SESSION, LOGIN-LOGOUT ------------------ ###
+
+
+
+# @app.route('/check_session')
+# def check_session():
+#     user_id = session.get('user_id')
+#     user = User.query.filter(User.id == user_id).first()
+
+#     if not user:
+#         return {'error': 'Invalid Session.'}, 401
+    
+#     return {'message': 'Session Valid, Access Granted'}, 200
+
+
+# @app.route('/login', methods=['POST'])
+# def login():
+#     data = request.get_json()
+
+#     # check if user exists
+#     user = User.query.filter(User.email == data['email']).first()
+
+#     if not user:
+#         return make_response(jsonify({'error': 'User not found.'}), 404)
+    
+#     if user.authenticate(data['password']):  # check if pwd match
+#         session['user_id'] = user.id
+#         user_data = {
+#             'id': user.id,
+#             'email': user.email
+#         }
+#         return make_response(jsonify({'message': 'Login successful!', 'user': user_data}), 200)
+#     else:
+#         # password did not match, send error resp
+#         return make_response(jsonify({'error': 'Invalid email or password.'}), 401)
+
+
+# @app.delete('/logout')
+# def logout():
+#     session.pop('user_id')
+
+#     return {'message': 'Successfully logged out.'}, 200
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# @app.route('/login', methods=['POST'])
+# def login():
+#     if request.method == 'POST':
+#         data = request.get_json()  # Get JSON data sent from the front-end
+#         email = data.get('email')
+#         password = data.get('password')
+
+#         try:
+#             # Query your database to check if the user exists and the password is correct
+#             # Replace UserModel with the actual model you're using for users
+#             user = UserModel.query.filter_by(email=email).one()
+            
+#             # You should implement password verification logic here, e.g., using bcrypt
+#             # Example: if bcrypt.check_password_hash(user.password_hash, password):
+
+#             # Set the user in the session to indicate they are logged in
+#             session['user_id'] = user.id
+#             return jsonify({'message': 'Login successful'})
+#         except NoResultFound:
+#             return jsonify({'error': 'Invalid email or password'}, 401)
+
+
+
+
+
+# @app.route('/check-session')
+# def check_session():
+#     if 'user_id' in session:
+#         return jsonify({'authenticated': True})
+#     return jsonify({'authenticated': False})
+
+
+
+
+# @app.route('/logout')
+# def logout():
+#     if 'user_id' in session:
+#         session.pop('user_id', None)
+#     return redirect(url_for('login'))  # Redirect to the login page or another appropriate page
+
+
+
+
+
+# @app.route('/signup', methods=['POST'])
+# def signup():
+#     if request.method == 'POST':
+#         data = request.get_json()  # Get JSON data sent from the front-end
+#         email = data.get('email')
+#         password = data.get('password')
+#         # Additional user registration logic here, e.g., creating a new user in the database
+#         # Don't forget to hash the password before storing it
+
+#         # Example:
+#         # user = UserModel(email=email, password_hash=hashed_password, ...)
+#         # db.session.add(user)
+#         # db.session.commit()
+
+#         return jsonify({'message': 'Signup successful'})

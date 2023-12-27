@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const Signup = () => {
+  const history = useHistory();
   const [signupData, setSignupData] = useState({
     email: '',
     password: '',
@@ -9,6 +11,8 @@ const Signup = () => {
     riderStance: '',
     boardsOwned: [],
   });
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -30,12 +34,27 @@ const Signup = () => {
       },
       body: JSON.stringify(signupData),
     })
-      .then(response => response.json())
-      .then(data => {
-        // Handle signup success or failure
-        console.log('Signup response:', data);
-      })
-      .catch(error => console.error('Error during signup:', error));
+    .then(response => response.json())
+    .then(data => {
+      if (data.message === 'Account created successfully') {
+        // Handle successful signup
+        setSuccessMessage('Account created successfully. Redirecting to login...');
+        setErrorMessage('');
+
+        // Set a timeout for 2 seconds before redirecting
+        setTimeout(() => {
+          history.push('/login'); // Replace '/login' with your login route
+        }, 2000);
+      } else if (data.message === 'Email already in use') {
+        // Handle the "email already in use" case
+        setErrorMessage('Email already in use. Please use a different email.');
+        setSuccessMessage('');
+      }
+    })
+    .catch(error => {
+      console.error('Error during signup:', error);
+      setErrorMessage('An error occurred during signup.');
+    });
   };
 
   const boardsOptions = [
@@ -47,6 +66,8 @@ const Signup = () => {
   return (
     <div className='signup'>
       <h2>Create an Account</h2>
+      {successMessage && <p className="success-message">{successMessage}</p>} {/* Display success message */}
+      {errorMessage && <p className="error-message">{errorMessage}</p>} {/* Display error message */}
 
       {/* Signup Form */}
       <form onSubmit={handleSubmit}>
