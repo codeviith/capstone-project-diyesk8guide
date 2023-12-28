@@ -5,7 +5,7 @@ import DIY_collage from './images/p5 project collage.jpg';
 function About() {
     return (
       <div className="about">
-        <h5>Welcome to the DIY Electric Skateboard Guide: Your One-Stop Site for DIY Builds!</h5>
+        <h5>Welcome to DIYesk8Guide: Your One-Stop Site for DIY Builds!</h5>
         <span style={{ whiteSpace: 'pre-wrap' }}>
           Are you ready to elevate your skateboarding experience to a whole new level?{'\n'}
         </span>

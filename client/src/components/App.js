@@ -1,8 +1,10 @@
 import React from 'react';
-import { Link, Switch, Route, BrowserRouter } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { AuthProvider } from './AuthContext';
 import Generate from './Generate';
 import NavBar from "./NavBar";
 import Login from "./Login";
+import Logout from './Logout';
 import Signup from "./Signup";
 import About from "./About";
 import Guru from './Guru';
@@ -13,36 +15,40 @@ import Qna from './Qna';
 function App() {
   return (
     <div className="app">
-      {/* <Header /> */}
-      <main>
-        <NavBar/>
-        <Switch>
-            <Route exact path="/">
-              <About />
-            </Route>
-            <Route path="/home">
-              <Home />
-            </Route>
-            <Route path="/generate">
-              <Generate />
-            </Route>
-            <Route path="/login">
-              <Login />
-            </Route>
-            {/* <Route path="/game"> */}
-              {/* <Game /> */}
-            {/* </Route> */}
-            <Route path="/guru">
-              <Guru />
-            </Route>
-            <Route path="/qna">
-              <Qna />
-            </Route>
-            <Route path="/signup">
-              <Signup />
-            </Route>
-        </Switch>
-      </main>
+      <AuthProvider>
+        <main>
+          <NavBar/>
+          <Switch>
+              <Route exact path="/">
+                <About />
+              </Route>
+              <Route path="/home">
+                <Home />
+              </Route>
+              <Route path="/generate">
+                <Generate />
+              </Route>
+              <Route path="/login">
+                <Login />
+              </Route>
+              {/* <Route path="/game"> */}
+                {/* <Game /> */}
+              {/* </Route> */}
+              <Route path="/guru">
+                <Guru />
+              </Route>
+              <Route path="/qna">
+                <Qna />
+              </Route>
+              <Route path="/signup">
+                <Signup />
+              </Route>
+              <Route path="/logout">
+                <Logout />
+              </Route>
+          </Switch>
+        </main>
+      </AuthProvider>
     </div>
   );
 }

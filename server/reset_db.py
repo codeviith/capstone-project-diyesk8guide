@@ -8,7 +8,7 @@ import random
 # Local imports
 from app import app
 # from models import db, User, Question, Forum, Board, Deck, Wheel, Truck, Motor, Battery, Controller, Remote, Max_speed, Range
-from models import db, Board, Guru, Qna, Reply
+from models import db, Board, Guru, Qna, Reply, User
 # Deck, Wheel, Truck, Motor, Battery, Controller, Remote, Max_speed, Range
 
 if __name__ == '__main__':
@@ -16,7 +16,7 @@ if __name__ == '__main__':
         print("Clearing db...")
         # faker = Faker()
 
-        # User.query.delete()
+        User.query.delete()
         # Question.query.delete()
         # Forum.query.delete()
         Board.query.delete()

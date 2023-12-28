@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { AuthContext } from './AuthContext';
 
 // Import images
 import st_img1 from './images/ID1.jpg';
@@ -26,7 +27,7 @@ import at_img9 from './images/ID23.jpeg';
 
 
 
-/////Random and non-repeating image code:
+/////Code to generate random and non-repeating images:
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -49,7 +50,7 @@ function getRandomImageGenerator(images) {
   };
 }
 
-//Creating variable to be put into main code:
+//Creating the variables to be put into main code:
 const getNextRandomStreetImage = getRandomImageGenerator([st_img1, st_img2, st_img3, st_img4, st_img5, st_img6, st_img7, st_img8, st_img9, st_img10, st_img11, st_img12]);
 const getNextRandomAllTerrainImage = getRandomImageGenerator([at_img1, at_img2, at_img3, at_img4, at_img5, at_img6, at_img7, at_img8, at_img9]);
 
@@ -83,22 +84,22 @@ function Generate() {
   const [mileage, setMileage] = useState('');
   const [imageURL, setImageURL] = useState('')
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLoggedIn } = useContext(AuthContext);
 
-  useEffect(() => {
-    // Function to check if the user is logged in
-    const checkLoginStatus = async () => {
-      try {
-        const response = await fetch('/check_session');
-        const data = await response.json();
-        setIsLoggedIn(data.logged_in);
-      } catch (error) {
-        console.error('Error checking login status:', error);
-      }
-    };
+  // useEffect(() => {
+  //   // Function to check if the user is logged in
+  //   const checkLoginStatus = async () => {
+  //     try {
+  //       const response = await fetch('/check_session');
+  //       const data = await response.json();
+  //       setIsLoggedIn(data.logged_in);
+  //     } catch (error) {
+  //       console.error('Error checking login status:', error);
+  //     }
+  //   };
   
-    checkLoginStatus();
-  }, []);
+  //   checkLoginStatus();
+  // }, []);
   
   useEffect(() => {
     const updateBoardData = async () => {
@@ -194,6 +195,11 @@ function Generate() {
 
 
   const handleGenerateBoard = async () => {
+    if (!isLoggedIn) {
+      alert('Please log in to use the Generate feature.');
+      return;
+    }
+
     // Set values for board spec based on user's selection input
     if (riderLevel === 'Beginner') {
       setTruckType('Single Kingspin'); 
@@ -331,60 +337,67 @@ function Generate() {
 
   return (
     <div className='generate'>
-      <h2>Build Generator</h2>
-
-      {/* Dropdowns */}
-      <label>
-        <strong>Rider Level: </strong>
-        <select value={riderLevel} onChange={(e) => setRiderLevel(e.target.value)}>
-          <option value="">Select Rider Level</option>
-          <option value="Beginner">Beginner</option>
-          <option value="Intermediate">Intermediate</option>
-          <option value="Expert">Expert</option>
-        </select>
-      </label>
-      <br />
-
-      <label>
-        <strong>Rider Style: </strong>
-        <select value={motorPower} onChange={(e) => setMotorPower(e.target.value)}>
-          <option value="">Select Rider Style</option>
-          <option value="Drag Racing">Drag Racing</option>
-          <option value="Casual Cruising">Casual Cruising</option>
-          <option value="Hill Climbing">Hill Climbing</option>
-        </select>
-      </label>
-      <br />
-
-      <label>
-        <strong>Terrain Type: </strong>
-        <select value={terrainType} onChange={(e) => setTerrainType(e.target.value)}>
-          <option value="">Select Terrain Type</option>
-          <option value="Street">Street</option>
-          <option value="All Terrain">All Terrain</option>
-        </select>
-      </label>
-      <br />
-
-      <label>
-        <strong>Range Type: </strong>
-        <select value={rangeType} onChange={(e) => setRangeType(e.target.value)}>
-          <option value="">Select Range Type</option>
-          <option value="Normal">Normal</option>
-          <option value="Extended">Extended</option>
-        </select>
-      </label>
-      <br />
-
-      {/* Generate Board Button */}
-      <button onClick={ handleGenerateBoard }>Generate Board</button>
-
-      {/* Display Images (To be added later) */}
-      { renderImageContainer() }
-
-      {/* Display Board Specs */}
-      { renderBoardSpecs() }
-
+      {isLoggedIn ? (
+        // Render the form and other content for logged-in users
+        <>
+          <h2>Build Generator</h2>
+    
+          {/* Dropdowns */}
+          <label>
+            <strong>Rider Level: </strong>
+            <select value={riderLevel} onChange={(e) => setRiderLevel(e.target.value)}>
+              <option value="">Select Rider Level</option>
+              <option value="Beginner">Beginner</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Expert">Expert</option>
+            </select>
+          </label>
+          <br />
+    
+          <label>
+            <strong>Rider Style: </strong>
+            <select value={motorPower} onChange={(e) => setMotorPower(e.target.value)}>
+              <option value="">Select Rider Style</option>
+              <option value="Drag Racing">Drag Racing</option>
+              <option value="Casual Cruising">Casual Cruising</option>
+              <option value="Hill Climbing">Hill Climbing</option>
+            </select>
+          </label>
+          <br />
+    
+          <label>
+            <strong>Terrain Type: </strong>
+            <select value={terrainType} onChange={(e) => setTerrainType(e.target.value)}>
+              <option value="">Select Terrain Type</option>
+              <option value="Street">Street</option>
+              <option value="All Terrain">All Terrain</option>
+            </select>
+          </label>
+          <br />
+    
+          <label>
+            <strong>Range Type: </strong>
+            <select value={rangeType} onChange={(e) => setRangeType(e.target.value)}>
+              <option value="">Select Range Type</option>
+              <option value="Normal">Normal</option>
+              <option value="Extended">Extended</option>
+            </select>
+          </label>
+          <br />
+    
+          {/* Generate Board Button */}
+          <button onClick={ handleGenerateBoard }>Generate Board</button>
+    
+          {/* Display Images (To be added later) */}
+          { renderImageContainer() }
+    
+          {/* Display Board Specs */}
+          { renderBoardSpecs() }
+        </>
+      ) : (
+        // Render a message or a login prompt for non-logged-in users
+        <p>Please log in to access the Generate feature.</p>
+      )}
     </div>
   );
 };

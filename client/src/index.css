@@ -28,36 +28,38 @@ body::before {
   width: 100%;
   height: 100%;
   z-index: -1; /* Place the pseudo-element behind the content */
-  background: url('/home/codeviith/Development/code/phase-5/capstone-project/diyesk8guide/client/src/components/images/main_background.jpg') center center fixed;
+  /* background: url('/home/codeviith/Development/code/phase-5/capstone-project/diyesk8guide/client/src/components/images/main_background.jpg') center center fixed; */
+  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.wallpapersden.com%2Fimage%2Fdownload%2Fblack-and-red-hexagon_a25qZmWUmZqaraWkpJRmbmdlrWZlbWU.jpg&f=1&nofb=1&ipt=633d7d1d7d3e651478cbdaf66914a349f667cdd3d8c9b0456e92be63257d95b1&ipo=images') center center fixed;
   background-size: cover;
-  opacity: 0.8; /* Adjust the opacity as needed */
+  opacity: 0.9; /* Adjust the opacity as needed */
 }
+
 
 
 /* header component */
 
 .header {
   text-align: center;
-  background-color: gray;
+  background-color: black;
   /* padding: 3px; */
   /* border-radius: 8px; */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .header h1 {
-  color: black;
+  color: white;
   font-size: 32px;
   font-family: cursive, sans-serif;
-  margin-top: 3px;
-  margin-bottom: 3px;
+  margin-top: 1px;
+  margin-bottom: 1px;
 }
 
 
 /*about component*/
 .about {
-  max-width: 800px;
+  max-width: 1300px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 10px;
   text-align: center;
   background-color: gray; /* Adjust background color for the about section */
   border-radius: 8px;
@@ -66,15 +68,15 @@ body::before {
 
 .about h5 {
   color: black;
-  font-size: 32px;
+  font-size: 25px;
   margin-top: 2px;
   margin-bottom: 20px;
 }
 
 .about span {
   display: block;
-  margin-bottom: 15px;
-  font-size: 20px;
+  margin-bottom: 1px;
+  font-size: 18px;
   line-height: 1.5;
   color: black;
 }
@@ -82,7 +84,7 @@ body::before {
 #special-font1,
 #special-font2 {
   font-family: cursive, sans-serif;
-  font-size:23px;
+  font-size:20px;
   font-weight: bold;
 }
 
@@ -100,7 +102,7 @@ body::before {
 }
 
 .about_collage img {
-  max-width: 100%;
+  max-width: 68%;
   height: auto;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -212,50 +214,58 @@ body::before {
 
 
 
+
+
+
+
+
 /* navbar component */
 
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: gray;
+  background-color: black;
   padding: 2px;
-  /* border-radius: 8px; */
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s;
 }
 
+.nav-links-left, .nav-links-right {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links-left {
+  justify-content: flex-start;
+}
+
+.nav-links-right {
+  justify-content: flex-end;
+}
+
 nav a {
-  color: black;
+  color: white;
   font-size: 18px;
   text-decoration: none;
-  /* margin-left: 20px; */
+  margin: 0 10px;
   font-family: cursive, sans-serif;
   font-weight: normal;
-  transition: background-color 0.3s, color 0.3s; /* Apply transition to background-color and text color */
-  border-radius: 10px; /* Add border-radius to create rounded corners */
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 10px;
 }
-
-
-
-
 
 /* Individual styles for each NavLink */
-nav a {
-  text-decoration: none;
-  color: #333; /* Add your preferred text color */
-  margin-left: auto; /* Move all navigation links to the right */
-}
 
 nav h1 {
-  margin: 25px;
+  margin: 1px;
 }
 
 /* Bold the text on hover without any other effects */
 nav a:hover {
   font-weight: bold;
-  background-color: initial; /* Reset background color */
-  color: initial; /* Reset text color */
+  background-color: gray; /* Reset background color */
+  color: white; /* Reset text color */
   box-shadow: none; /* Reset box shadow */
 }
 
@@ -267,18 +277,59 @@ nav a[href="/guru"]:hover,
 nav a[href="/qna"]:hover,
 nav a[href="/login"]:hover,
 
-
-nav a.home-link:hover {
-  background-color: transparent; /* No hover effect on the 'DIYesk8Guide' link */
-  color: black; /* Use the initial text color */
-  box-shadow: none; /* Remove any box shadow on hover */
-}
-
-nav a.home-link {
-  font-size: 32px; /* Adjust the font size as needed */
-  color: black;
+/* Apply the hover effect for all links except the "DIYesk8Guide" link */
+nav a:not(.home-link):hover {
   font-weight: bold;
+  background-color: initial; /* Reset background color */
+  color: gray; /* Reset text color */
+  box-shadow: none; /* Reset box shadow */
 }
+
+/* Style the "DIYesk8Guide" link with a black background and white text */
+nav a.home-link {
+  font-size: 32px;
+  color: white;
+  font-weight: bold;
+  background-color: black;
+}
+
+/* Remove hover effects for the "DIYesk8Guide" link */
+nav a.home-link:hover {
+  background-color: black;
+  color: white;
+  box-shadow: none;
+}
+
+.login-link {
+  color: white; /* White text */
+  background-color: black; /* Black background */
+  border: 0.5px solid white; /* White border */
+  padding: 5px 10px; /* Padding around text */
+  border-radius: 5px; /* Optional: rounded corners */
+  margin-left: 10px; /* Adjust as needed */
+}
+
+.signup-link {
+  color: white; /* White text */
+  background-color: black; /* Black background */
+  border: 3px solid lightgreen; /* light green border */
+  padding: 5px 10px; /* Padding around text */
+  border-radius: 5px; /* Optional: rounded corners */
+  margin-left: 10px; /* Adjust as needed */
+}
+
+.login-link:hover, .signup-link:hover {
+  /* Optional: hover effects */
+  background-color: #333; /* Darker background on hover */
+  color: white;
+  border-color: gray; /* Gray border on hover */
+}
+
+
+
+
+
+
 
 
 
@@ -288,7 +339,7 @@ nav a.home-link {
 /* qna component */
 
 .qna {
-  max-width: 800px;
+  max-width: 1300px;
   margin: 0 auto;
   padding: 20px;
   text-align: center;
@@ -398,7 +449,7 @@ nav a.home-link {
 
 /* login component */
 .login {
-  max-width: 800px;
+  max-width: 700px;
   margin: 0 auto;
   padding: 20px;
   text-align: center;
@@ -465,7 +516,7 @@ nav a.home-link {
 /* signup component */
 
 .signup {
-  max-width: 800px;
+  max-width: 700px;
   margin: 0 auto;
   padding: 20px;
   text-align: center;
@@ -533,7 +584,7 @@ nav a.home-link {
 
 
 .home {
-  max-width: 800px;
+  max-width: 1300px;
   margin: 0 auto;
   padding: 20px;
   text-align: center;
@@ -590,7 +641,7 @@ nav a.home-link {
 /* generate component */
 
 .generate {
-  max-width: 800px;
+  max-width: 1300px;
   margin: 0 auto;
   padding: 20px;
   text-align: center;

@@ -26,6 +26,11 @@ function Guru() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if (!isLoggedIn) {
+            alert('Please log in to ask a question.');
+            return;
+        }
+
         try {
         // Set loading state to true while waiting for the response
         setLoading(true);
@@ -55,7 +60,6 @@ function Guru() {
 
     return (
         <div className="guru-container">
-
         <strong className='guru_prompt'> Hello, I am your Esk8 Guru. What question do you have for me? </strong>
 
         {/* Form for user input */}
