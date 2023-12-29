@@ -1,7 +1,17 @@
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
+from datetime import datetime
+from sqlalchemy import DateTime, desc
+from sqlalchemy.orm import validates
+
+from flask_bcrypt import Bcrypt
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.ext.hybrid import hybrid_property
 
 from config import db
+
+bcrypt = Bcrypt()
+
 
 ### ------------------ USER (ONE) ------------------ ###
 
@@ -9,29 +19,57 @@ from config import db
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
-    serializer_rule = ('-boards.users', '-gurus.users',) ### '-forums.users'
+    serializer_rule = ('-boards.users', '-gurus.users', '-qna.users')
 
     id = db.Column(db.Integer, primary_key=True, unique=True)
     email = db.Column(db.String, unique=True, nullable=False)
-    password_hash = db.Column(db.String, nullable=False)
+    _password_hash = db.Column(db.String, nullable=False)
     fname = db.Column(db.String, nullable=False)
     lname = db.Column(db.String, nullable=False)
     rider_stance = db.Column(db.String, nullable=False)
     boards_owned = db.Column(db.String)
 
 
-
     boards = db.relationship('Board', back_populates='users')
     gurus = db.relationship('Guru', back_populates='users')
-    # forums = db.relationship('Forum', back_populates='users')
+    qna = db.relationship('Qna', back_populates='users')
+
+
+    @hybrid_property
+    def password_hash(self):
+        return self._password_hash
+    
+    @password_hash.setter
+    def password_hash(self, new_pass):
+        self._password_hash = bcrypt.generate_password_hash(new_pass).decode('utf-8')
+
+    def authenticate(self, password):
+        return bcrypt.check_password_hash(
+            self._password_hash, 
+            password.encode('utf-8')
+        )
+
+
+    @validates('email')
+    def validate_email(self, key, email):
+        if len(email) == 0:
+            raise ValueError('Email must not be empty!')
+        
+        return email
+    
+    @validates('password')
+    def validate_password(self, key, password):
+        if len(password) == 0:
+            raise ValueError('Passowrd must not be empty!')
+        
+        return password
+
 
     def __repr__(self):
-        return f''
+        return f'<User {self.id}>'
 
 
 ### ------------------ BOARD (ONE) ------------------ ###
-
-
 class Board(db.Model, SerializerMixin):
     __tablename__ = 'boards'
 
@@ -39,160 +77,35 @@ class Board(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True, unique=True)
 
-
-    deck_id = db.Column(db.Integer, db.ForeignKey('decks.id'))
-    wheel_id = db.Column(db.Integer, db.ForeignKey('wheels.id'))
-    truck_id = db.Column(db.Integer, db.ForeignKey('trucks.id'))
-    motor_id = db.Column(db.Integer, db.ForeignKey('motors.id'))
-    battery_id = db.Column(db.Integer, db.ForeignKey('batteries.id'))
-    controller_id = db.Column(db.Integer, db.ForeignKey('controllers.id'))
-    remote_id = db.Column(db.Integer, db.ForeignKey('remotes.id'))
-    max_speed_id = db.Column(db.Integer, db.ForeignKey('max_speeds.id'))
-    range_id = db.Column(db.Integer, db.ForeignKey('ranges.id'))
-
-
-    deck = db.relationship('Deck', back_populates='boards')
-    wheel = db.relationship('Wheel', back_populates='boards')
-    truck = db.relationship('Truck', back_populates='boards')
-    motor = db.relationship('Motor', back_populates='boards')
-    battery = db.relationship('Battery', back_populates='boards')
-    controller = db.relationship('Controller', back_populates='boards')
-    remote = db.relationship('Remote', back_populates='boards')
-    max_speed = db.relationship('Max_speed', back_populates='boards')
-    range = db.relationship('Range', back_populates='boards')
+    deck_type = db.Column(db.String, nullable=False)
+    deck_length = db.Column(db.String, nullable=False)
+    deck_material = db.Column(db.String, nullable=False)
+    truck_type = db.Column(db.String, nullable=False)
+    truck_width = db.Column(db.String, nullable=False)
+    controller_feature = db.Column(db.String, nullable=False)
+    controller_type = db.Column(db.String, nullable=False)
+    remote_feature = db.Column(db.String, nullable=False)
+    remote_type = db.Column(db.String, nullable=False)
+    motor_size = db.Column(db.String, nullable=False)
+    motor_kv = db.Column(db.String, nullable=False)
+    wheel_size = db.Column(db.String, nullable=False)
+    wheel_type = db.Column(db.String, nullable=False)
+    battery_voltage = db.Column(db.String, nullable=False)
+    battery_type = db.Column(db.String, nullable=False)
+    battery_capacity = db.Column(db.String, nullable=False)
+    battery_configuration = db.Column(db.String, nullable=False)
+    range_mileage = db.Column(db.String, nullable=False)
+    
+    image_url = db.Column(db.String, nullable=False)
+    timestamp = db.Column(DateTime, default=datetime.utcnow, nullable=False)
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
     users = db.relationship('User', back_populates='boards')
 
 
-
-### ------------------ DECK (MANY) ------------------ ###
-class Deck(db.Model, SerializerMixin):
-    __tablename__ = 'decks'
-
-    serializer_rule = ('-boards.deck',)
-
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    type = db.Column(db.String, nullable=False)
-    length = db.Column(db.String, nullable=False)
-    material = db.Column(db.String, nullable=False)
-
-    boards = db.relationship('Board', back_populates='deck')
-
-
-### ------------------ WHEEL (MANY) ------------------ ###
-class Wheel(db.Model, SerializerMixin):
-    __tablename__ = 'wheels'
-
-    serializer_rule = ('-boards.wheel',)
-
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    size = db.Column(db.String, nullable=False)
-    type = db.Column(db.String, nullable=False)
-    
-    boards = db.relationship('Board', back_populates='wheel')
-
-
-### ------------------ TRUCK (MANY) ------------------ ###
-class Truck(db.Model, SerializerMixin):
-    __tablename__ = 'trucks'
-
-    serializer_rule = ('-boards.truck',)
-
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    type = db.Column(db.String, nullable=False)
-    width = db.Column(db.String, nullable=False)
-
-    boards = db.relationship('Board', back_populates='truck')
-
-
-### ------------------ MOTOR (MANY) ------------------ ###
-class Motor(db.Model, SerializerMixin):
-    __tablename__ = 'motors'
-
-    serializer_rule = ('-boards.motor',)
-
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    size = db.Column(db.String, nullable=False)
-    type = db.Column(db.String, nullable=False)
-    kv = db.Column(db.String, nullable=False)
-
-    boards = db.relationship('Board', back_populates='motor')
-
-
-### ------------------ BATTERY (MANY) ------------------ ###
-class Battery(db.Model, SerializerMixin):
-    __tablename__ = 'batteries'
-
-    serializer_rule = ('-boards.battery',)
-
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    voltage = db.Column(db.String, nullable=False)
-    type = db.Column(db.String, nullable=False)
-    capacity = db.Column(db.String, nullable=False)
-    configuration = db.Column(db.String, nullable=False)
-
-    boards = db.relationship('Board', back_populates='battery')
-
-
-### ------------------ CONTROLLER (MANY) ------------------ ###
-class Controller(db.Model, SerializerMixin):
-    __tablename__ = 'controllers'
-
-    serializer_rule = ('-boards.controller',)
-
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    features = db.Column(db.String, nullable=False)
-    type = db.Column(db.String, nullable=False)
-
-    boards = db.relationship('Board', back_populates='controller')
-
-
-### ------------------ REMOTE (MANY) ------------------ ###
-class Remote(db.Model, SerializerMixin):
-    __tablename__ = 'remotes'
-
-    serializer_rule = ('-boards.remote',)
-
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    features = db.Column(db.String, nullable=False)
-    type = db.Column(db.String, nullable=False)
-
-    boards = db.relationship('Board', back_populates='remote')
-
-
-### ------------------ MAX_SPEED (MANY) ------------------ ###
-class Max_speed(db.Model, SerializerMixin):
-    __tablename__ = 'max_speeds'
-
-    serializer_rule = ('-boards.max_speed',)
-
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    speed = db.Column(db.String, nullable=False)
-
-    boards = db.relationship('Board', back_populates='max_speed')
-
-
-### ------------------ RANGE (MANY) ------------------ ###
-class Range(db.Model, SerializerMixin):
-    __tablename__ = 'ranges'
-
-    serializer_rule = ('-boards.range',)
-
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    range = db.Column(db.String, nullable=False)
-
-    boards = db.relationship('Board', back_populates='range')
-
-
-
-
-
-
-
-
-### unsure where these go ###
-
+    def __repr__(self):
+        return f'<Board {self.id}>'
 
 ### ------------------ GURU (MANY) ------------------ ###
 
@@ -203,32 +116,53 @@ class Guru(db.Model, SerializerMixin):
     serializer_rule = ('-users.gurus',)
 
     id = db.Column(db.Integer, primary_key=True, unique=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     user_input = db.Column(db.String, nullable=False)
     answer = db.Column(db.String, nullable=False)
 
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     users = db.relationship('User', back_populates='gurus')
 
 
+    def __repr__(self):
+        return f'<Guru {self.id}>'
+
+### ------------------ Qna (ONE) ------------------ ###
+
+class Qna(db.Model, SerializerMixin):
+    __tablename__ = 'qna'
 
 
+    serializer_rule = ('-users.qna',)
 
-### ------------------ FORUM (ONE) ------------------ ###
+    id = db.Column(db.Integer, primary_key=True, unique=True)
+    post = db.Column(db.String, nullable=False)
+    reply = db.Column(db.String, nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
 
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-# class Forum(db.Model, SerializerMixin):
-#     __tablename__ = 'forums'
-
-
-#     serializer_rule = ('-users.forums',)
-
-    # id = db.Column(db.Integer, primary_key=True, unique=True)
-    # post = db.Column(db.String, nullable=False)
-
-
-#     users = db.relationship('User', back_populates='forums')
+    users = db.relationship('User', back_populates='qna')
+    replies = db.relationship('Reply', back_populates='qna', cascade='all, delete-orphan')
 
 
+    def __repr__(self):
+        return f'<Qna {self.id}>'
+
+
+class Reply(db.Model):
+    __tablename__ = 'replies'
+
+    id = db.Column(db.Integer, primary_key=True, unique=True)
+    reply = db.Column(db.String, nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    
+    qna_id = db.Column(db.Integer, db.ForeignKey('qna.id'))
+    
+    qna = db.relationship('Qna', back_populates='replies')
+
+
+    def __repr__(self):
+        return f'<Reply {self.id}>'
 
 

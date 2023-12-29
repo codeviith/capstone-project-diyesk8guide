@@ -1,75 +1,53 @@
 
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
+import DIY_collage from './images/p5 project collage.jpg';
 
 const Home = () => {
-  const [boards, setBoards] = useState([]);
-  const [questions, setQuestions] = useState([]);
-  const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
-    // Fetch data for boards
-    fetch('/boards')
-      .then(response => response.json())
-      .then(data => setBoards(data));
-
-    // Fetch data for questions
-    fetch('/questions')
-      .then(response => response.json())
-      .then(data => setQuestions(data));
-
-    // Fetch data for posts
-    fetch('/posts')
-      .then(response => response.json())
-      .then(data => setPosts(data));
-  }, []); // Empty dependency array means this effect runs once after the initial render
-
-  const handleDelete = (category, id) => {
-    // fetch from flask models
-    fetch(`/${category}/${id}`, {
-      method: 'DELETE',
-    })
-      .then(response => response.json())
-      .then(data => {
-        // Handle success or show a message
-        console.log(`Deleted ${category} with ID ${id}`);
-        // Update the state to reflect the changes (e.g., remove the deleted item)
-        if (category === 'Boards') {
-          setBoards(prevBoards => prevBoards.filter(board => board.id !== id));
-        } else if (category === 'Questions') {
-          setQuestions(prevQuestions => prevQuestions.filter(question => question.id !== id));
-        } else if (category === 'Posts') {
-          setPosts(prevPosts => prevPosts.filter(post => post.id !== id));
-        }
-      })
-      .catch(error => console.error(`Error deleting ${category}:`, error));
-  };
-
-  const renderContainer = (category, items) => (
-    <div>
-      <h2>{`${category}`}</h2>
-      {items.length > 0 ? (
-        <ul>
-          {items.map(item => (
-            <li key={item.id}>
-              {item.name || item.title}
-              {/* Delete Button */}
-              <button onClick={() => handleDelete(category, item.id)}>Delete</button>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>{`No ${category.toLowerCase()} to show.`}</p>
-      )}
-    </div>
-  );
-
   return (
-    <div>
-      {renderContainer('Boards', boards)}
-      {renderContainer('Questions', questions)}
-      {renderContainer('Posts', posts)}
+  <div className='home'>
+    <div className="intro">
+        <h5>Welcome to DIYesk8Guide: Your One-Stop Site for DIY Builds!</h5>
+        <span style={{ whiteSpace: 'pre-wrap' }}>
+          Are you ready to elevate your skateboarding experience to a whole new level?{'\n'}
+        </span>
+        <span id="special-font1" style={{ whiteSpace: 'pre-wrap' }}>
+          Well, look no further!{'\n'}
+        </span>
+        <span style={{ whiteSpace: 'pre-wrap' }}>
+          Our DIY Electric Skateboard Guide is your gateway to the exciting world 
+          of crafting your own electric-powered ride. Whether you're a seasoned skateboarder seeking an 
+          electrifying upgrade or a DIY enthusiast eager to embark on a thrilling project, this is the place for you.{'\n'}
+        </span>
+        <span id="special-font2" style={{ whiteSpace: 'pre-wrap' }}>
+          So unleash your potential and build like a PRO!</span>
+          <div className="intro_collage">
+            <img src={DIY_collage} alt="DIY_collage" className="collage" />
+          </div>
     </div>
+
+    <div className="component-description">
+      <h2>Generate</h2>
+      <p>This feature allows users to create custom skateboard builds based on their preferences. Click below to start building your dream skateboard!</p>
+      <Link to="/generate">Go to Generate</Link>
+    </div>
+
+    <div className="component-description">
+      <h2>Guru</h2>
+      <p>Have questions about electric skateboards? Our Esk8 Guru is here to help. Ask any questions and get expert advice!</p>
+      <Link to="/guru">Go to Guru</Link>
+    </div>
+
+    <div className="component-description">
+      <h2>Q&A Forum</h2>
+      <p>Join our Q&A Forum to discuss and share insights with the skateboarding community. Dive into discussions now!</p>
+      <Link to="/qna">Go to Q&A Forum</Link>
+    </div>
+  </div>
   );
 };
 
 export default Home;
+
+

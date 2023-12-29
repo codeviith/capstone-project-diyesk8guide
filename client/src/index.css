@@ -11,3 +11,736 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+/* my code starts here: */
+
+body {
+  margin: 0; /* Remove default margin from the body */
+  color: #fff; /* Adjust text color for better visibility on dark background */
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Place the pseudo-element behind the content */
+  /* background: url('/home/codeviith/Development/code/phase-5/capstone-project/diyesk8guide/client/src/components/images/main_background.jpg') center center fixed; */
+  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.wallpapersden.com%2Fimage%2Fdownload%2Fblack-and-red-hexagon_a25qZmWUmZqaraWkpJRmbmdlrWZlbWU.jpg&f=1&nofb=1&ipt=633d7d1d7d3e651478cbdaf66914a349f667cdd3d8c9b0456e92be63257d95b1&ipo=images') center center fixed;
+  background-size: cover;
+  opacity: 0.9; /* Adjust the opacity as needed */
+}
+
+
+
+/* header component */
+
+.header {
+  text-align: center;
+  background-color: black;
+  /* padding: 3px; */
+  /* border-radius: 8px; */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+  color: white;
+  font-size: 32px;
+  font-family: cursive, sans-serif;
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+
+
+
+/*about component*/
+.home .intro {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 10px;
+  text-align: center;
+  background-color: gray; /* Adjust background color for the about section */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.home .intro h5 {
+  color: black;
+  font-size: 25px;
+  margin-top: 2px;
+  margin-bottom: 20px;
+}
+
+.home .intro span {
+  display: block;
+  margin-bottom: 1px;
+  font-size: 18px;
+  line-height: 1.5;
+  color: black;
+}
+
+.home #special-font1,
+.home #special-font2 {
+  font-family: cursive, sans-serif;
+  font-size:20px;
+  font-weight: bold;
+}
+
+.home #special-font1 {
+  color: black;
+}
+
+.home #special-font2 {
+  color: darkred;
+}
+
+.home .intro_collage {
+  margin-top: 20px;
+  position: relative;
+}
+
+.home .intro_collage img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+/* guru component */
+
+.guru-container {
+  position: relative;
+}
+
+.guru-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(23, 23, 23);
+  z-index: -1;
+  opacity: 0.8; /* Adjust the opacity as needed */
+}
+
+.guru_prompt {
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+}
+
+.guru-container strong {
+  font-size: 24px;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.guru-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.guru-container input {
+  width: 850px;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 18px; /* Adjust the font size as needed */
+}
+
+.guru-container button {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.loading-container {
+  font-size: 18px;
+  color: white;
+}
+
+.response-container {
+  font-size: 18px;
+  color: white;
+}
+
+.guru-container button[type="guru_submit"] {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 8px; /* Adjust the border-radius as needed */
+  font-size: 25px; /* Adjust the font size as needed */
+  font-weight: bold; /* Make the text bold */
+}
+
+.guru-container button[type="guru_submit"]:hover {
+  background-color: #727171; /* Change to a lighter color on hover */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Add a subtle shadow on hover */
+}
+
+.guru-container .loading-container {
+  font-size: 25px;
+  font-family: cursive, sans-serif;
+  color: #9a0505; /* Adjust the text color as needed */
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.guru-container .response-container {
+  font-size: 25px;
+  color: #333; /* Adjust the text color as needed */
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.guru-container .guru_answer {
+  font-size: 25px;
+  text-decoration: bold;
+  color: black;
+}
+
+
+
+
+
+
+
+
+/* navbar component */
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: black;
+  padding: 2px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s;
+}
+
+.nav-links-left, .nav-links-right {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links-left {
+  justify-content: flex-start;
+}
+
+.nav-links-right {
+  justify-content: flex-end;
+}
+
+nav a {
+  color: white;
+  font-size: 18px;
+  text-decoration: none;
+  margin: 0 10px;
+  font-family: cursive, sans-serif;
+  font-weight: normal;
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 10px;
+}
+
+/* Individual styles for each NavLink */
+
+nav h1 {
+  margin: 1px;
+}
+
+/* Bold the text on hover without any other effects */
+nav a:hover {
+  font-weight: bold;
+  background-color: gray; /* Reset background color */
+  color: white; /* Reset text color */
+  box-shadow: none; /* Reset box shadow */
+}
+
+/* Individual background colors for each NavLink */
+nav a[href="/"]:hover,
+nav a[href="/home"]:hover,
+nav a[href="/generate"]:hover,
+nav a[href="/guru"]:hover,
+nav a[href="/qna"]:hover,
+nav a[href="/login"]:hover,
+
+/* Apply the hover effect for all links except the "DIYesk8Guide" link */
+nav a:not(.home-link):hover {
+  font-weight: bold;
+  background-color: initial; /* Reset background color */
+  color: gray; /* Reset text color */
+  box-shadow: none; /* Reset box shadow */
+}
+
+/* Style the "DIYesk8Guide" link with a black background and white text */
+nav a.home-link {
+  font-size: 32px;
+  color: white;
+  font-weight: bold;
+  background-color: black;
+}
+
+/* Remove hover effects for the "DIYesk8Guide" link */
+nav a.home-link:hover {
+  background-color: black;
+  color: white;
+  box-shadow: none;
+}
+
+.login-link {
+  color: white; /* White text */
+  background-color: black; /* Black background */
+  border: 0.5px solid white; /* White border */
+  padding: 5px 10px; /* Padding around text */
+  border-radius: 5px; /* Optional: rounded corners */
+  margin-left: 10px; /* Adjust as needed */
+}
+
+.signup-link {
+  color: white; /* White text */
+  background-color: black; /* Black background */
+  border: 3px solid lightgreen; /* light green border */
+  padding: 5px 10px; /* Padding around text */
+  border-radius: 5px; /* Optional: rounded corners */
+  margin-left: 10px; /* Adjust as needed */
+}
+
+.login-link:hover, .signup-link:hover {
+  /* Optional: hover effects */
+  background-color: #333; /* Darker background on hover */
+  color: white;
+  border-color: gray; /* Gray border on hover */
+}
+
+
+
+
+
+
+
+
+
+
+/* qna component */
+
+.qna {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  background-color: gray;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.qna h2 {
+  color: black;
+  font-size: 32px;
+  margin-top: 2px;
+  margin-bottom: 20px;
+}
+
+.qna .post_input {
+  margin-bottom: 20px;
+}
+
+.qna .post_label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.qna .post_input_value {
+  width: 98%;
+  padding: 7px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.qna .post_button {
+  background-color: rgb(3, 3, 117);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.qna .post_button:hover {
+  background-color: rgb(4, 43, 185); /* Example: Dark background color on hover */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
+}
+
+.qna .display_posts {
+  display: grid;
+  gap: 20px;
+}
+
+.qna .display_posts div {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.qna .display_posts p {
+  margin: 0;
+}
+
+.qna .display_posts strong {
+  font-weight: bold;
+}
+
+.qna .display_replies {
+  margin-top: 10px;
+}
+
+.qna .display_replies p {
+  margin: 0;
+}
+
+.qna .reply_input {
+  margin-top: 20px;
+}
+
+.qna .reply_label {
+  display: flex;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.qna .reply_input_value {
+  width: 90%;
+  padding: 7px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.qna .reply_button {
+  background-color: rgb(3, 3, 117);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.qna .reply_button:hover {
+  background-color: rgb(4, 43, 185); /* Example: Dark background color on hover */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
+}
+
+
+/* login component */
+.login {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  background-color: gray; /* Adjust background color */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login h2 {
+  color: black;
+  font-size: 32px;
+  margin-top: 2px;
+  margin-bottom: 20px;
+}
+
+.login form {
+  margin-top: 20px;
+}
+
+.login form h3 {
+  color: black;
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.login h4 {
+  color: black;
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.login label {
+  display: block;
+  margin-bottom: 10px;
+  color: black;
+  font-size: 18px;
+}
+
+.login input {
+  width: 50%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 15px;
+}
+
+.login button {
+  background-color: darkgreen;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.login button:hover {
+  background-color: rgb(3, 132, 3); /* Example: Dark background color on hover */
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5)
+}
+
+
+/* signup component */
+
+.signup {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  background-color: gray; /* Adjust background color */
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.signup h2 {
+  color: black;
+  font-size: 32px;
+  margin-top: 2px;
+  margin-bottom: 20px;
+}
+
+.signup form {
+  margin-top: 20px;
+}
+
+.signup label {
+  display: block;
+  margin-bottom: 10px;
+  color: black;
+  font-size: 18px;
+}
+
+.signup input,
+.signup select {
+  width: 50%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.signup button {
+  background-color: darkgreen;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.signup button:hover {
+  background-color: rgb(3, 132, 3); /* Example: Dark background color on hover */
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5)
+}
+
+.signup .checkbox-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 5px;
+  justify-content: center;
+}
+
+.signup .checkbox {
+  margin-right: 5px;
+}
+
+
+
+/* home component */
+
+
+.home {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  background-color: gray; /* Adjust background color */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.home h2 {
+  color: black;
+  font-size: 32px;
+  margin-top: 2px;
+  margin-bottom: 20px;
+}
+
+.home ul {
+  list-style: none;
+  padding: 0;
+}
+
+.home strong {
+  font-weight: bold;
+}
+
+.home img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.home div {
+  /* border: 1px solid #ccc; */
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.home button {
+  background-color: darkred;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.home button:hover {
+  background-color: rgb(176, 6, 6); /* Example: Dark background color on hover */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
+}
+
+
+/* generate component */
+
+.generate {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  background-color: gray; /* Adjust background color */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.generate h2 {
+  color: black;
+  font-size: 32px;
+  margin-top: 2px;
+  margin-bottom: 15px;
+}
+
+.generate label {
+  display: block;
+  margin: 1px 1;
+}
+
+.generate select {
+  padding: 5px;
+  font-size: 15px;
+}
+
+.generate button {
+  padding: 10px;
+  font-size: 20px;
+  background-color: darkgreen;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.generate button:hover {
+  background-color: green; /* Example: Dark background color on hover */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
+}
+
+.generate .render_image_container, .generate .render_board_specs {
+  margin-top: 20px;
+}
+
+.generate img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.generate ul {
+  list-style: none;
+  padding: 0;
+}
+
+.generate strong {
+  font-weight: bold;
+}
+
+
+
+
+/* board specs list */
+
+.category-container {
+  margin-bottom: 50px; /* Add space between category containers */
+}
+
+.board_spec {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+}
+
+.board_spec strong {
+  display: block; /* Ensure each strong tag is on a new line */
+  margin-bottom: 7px; /* Add some space between the strong tag and the list items */
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.board_spec li {
+  margin-bottom: 7px; /* Add some space between list items */
+}
+
+
+
+
+/* success and error messages */
+
+.success-message {
+  color: rgb(0, 64, 0);
+}
+
+.error-message {
+  color: rgb(115, 1, 1);
+}
+
+
+

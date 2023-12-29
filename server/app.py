@@ -6,11 +6,17 @@ from flask_restful import Resource
 from flask_migrate import Migrate
 from flask_cors import CORS
 from dotenv import load_dotenv
+from sqlalchemy import desc
+from datetime import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_bcrypt import Bcrypt
+
 
 # Local imports
 from config import app, db, api
-from models import db, Board, Guru, User, Deck, Wheel, Truck, Motor, Battery, Controller, Remote, Max_speed, Range
-from guru_assistant import guru_assistant
+from models import db, Board, Guru, User, Qna, Reply
+# Deck, Wheel, Truck, Motor, Battery, Controller, Remote, Max_speed, Range
+# from guru_assistant import guru_assistant
 import os
 
 # API imports
@@ -35,9 +41,12 @@ migrate = Migrate()
 migrate.init_app(app, db)
 
 
-# API Secret Key
+
+# API Secret Keys
 load_dotenv()
 openai_api_key = os.environ.get('OPENAI_API_KEY')
+app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY')
+# print("Flask Secret Key:", app.config['SECRET_KEY'])
 client = OpenAI(api_key=openai_api_key)
 # openai.api_key = openai_api_key
 
@@ -47,38 +56,18 @@ client = OpenAI(api_key=openai_api_key)
 
 
 # Instantiate CORS
-CORS(app)
+CORS(app, supports_credentials=True)
 # CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
-
-# @app.route('/')
-# def home():
-#     return '<h1>Server Home</h1>'
-
-# GPT_MODEL = "gpt-3.5-turbo-0613"
-
-# openai_URL = "https://api.openai.com/"
+# Initialize Bcrypt
+bcrypt = Bcrypt(app)
 
 
-#####  What is this?  ####
-# def openai_data_request(messages, tools=None, tool_choice=None, model=GPT_MODEL):
-#     headers: {
-#         "content-Type": "appliation/json",
-#         "Authorization": "Bearer" + openai_api_key
-#     }
-#     json_data = {"model": model, "messages": messages}
-#     try:
-#         response = request.post(
-#             openai_URL + "v1/chat/completions",
-#             headers=headers,
-#             json=json_data
-#         )
-#     except Exception as e:
-#         print("Unable to generate Response.")
-#         print(f'Exception: {e}')
-#         return e
+### ------------------ UNIVERSAL HEPER FUNCTIONS ------------------ ###
 
 
+def is_authenticated():
+    return 'user_id' in session
 
 
 ### ------------------ OPENAI API REQUESTS ------------------ ###
@@ -88,6 +77,9 @@ guru_instructions = "You are an expert in electric skateboards who will be answe
 
 @app.post('/guru_assistant')
 def guru_assistant():
+    if not is_authenticated():
+        return make_response(jsonify({"error": "Not authenticated."}), 401)
+
     data = request.get_json()
     user_input = data.get('user_input')
 
@@ -102,7 +94,7 @@ def guru_assistant():
             {"role": "user", "content": f'I have a question about: {user_input}.'}
             ]
         completion = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4-1106-preview",
             messages=messages,
             max_tokens=500
         )
@@ -127,292 +119,288 @@ def guru_assistant():
 
 
 
-# @app.route('/guru_assistant', methods=['POST'])
-# def guru_assistant():
-#     data = request.get_json()
-#     user_input = data.get('user_input')
 
-#     if not user_input:
-#         return make_response(
-#             jsonify({"error": "User input cannot be empty."}), 400
-#         )
-    
-#     try:
-#         messages = [
-#             {"role": "system", "content": guru_instructions},
-#             {"role": "user", "content": f'I have a question about: {user_input}.'}
-#             ]
-#         completion = client.chat.completions.create(
-#             model="gpt-3.5-turbo",
-#             messages=messages,
-#             max_tokens=500
-#         )
-
-#         answer = completion.choices[0].message.content
-
-#         return make_response(
-#             jsonify({"content": answer}), 200
-#         )
-#     except Exception as e:
-#         print(e)
-        
-#         return make_response(
-#             jsonify({"error": "Cannot formulate a response."}), 500
-#         )
+### ------------------ authentication test ------------------ ###
+def is_logged_in():
+    return 'user_id' in session
 
 
+@app.route('/signup', methods=['POST'])
+def signup():
+    data = request.get_json()
+    email = data['email']
+    password = data['password']
+    fname = data['firstName']
+    lname = data['lastName']
+    rider_stance = data['riderStance']
+    boards_owned = ','.join(data['boardsOwned'])  # Assuming boards_owned as a comma-separated string
+
+    # Check if user already exists
+    if User.query.filter_by(email=email).first():
+        return jsonify({'message': 'Email already in use'}), 409
+
+    # Create new user
+    new_user = User(email=email, fname=fname, lname=lname, rider_stance=rider_stance, boards_owned=boards_owned)
+    new_user.password_hash = password  # Set the password hash
+
+    db.session.add(new_user)
+    db.session.commit()
+
+    return jsonify({'message': 'Account created successfully'}), 201
 
 
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    user = User.query.filter_by(email=data['email']).first()
+    if user and bcrypt.check_password_hash(user.password_hash, data['password']):
+        session['user_id'] = user.id
+        return jsonify({'success': True, 'message': 'Logged in successfully'}), 200
+    else:
+        return jsonify({'success': False, 'message': 'Invalid email or password'}), 401
 
 
+@app.route('/logout', methods=['POST'])
+def logout():
+    session.pop('user_id', None)
+    return jsonify({'message': 'Logged out successfully'}), 200
 
 
-# Using guru_assistant.py and calling on guru_assistant(user_input) function.
-# Is this how it should look like?
-
-# @app.post('/guru_assistant')
-# def guru_assistant():
-#     data = request.get_json()
-#     user_input = data.get('user_input')
-
-#     if not user_input:
-#         return make_response(
-#             jsonify({"error": "User input cannot be empty."}), 400
-#         )
-    
-#     try:
-#         answer = guru_assistant(user_input)
-
-#         return make_response(
-#             jsonify({"content": answer}), 200
-#         )
-    
-#     except Exception as e:
-#         print(e)
-        
-#         return make_response(
-#             jsonify({"error": "Cannot formulate a response."}), 500
-#         )
+@app.route('/check_session', methods=['GET'])
+def check_session():
+    if 'user_id' in session:
+        return jsonify({'logged_in': True}), 200
+    else:
+        return jsonify({'logged_in': False}), 200
 
 
+### ------------------ authentication test ------------------ ###
 
-
-
-
-### ------------------ USER SIGNUP ------------------ ###
-
-
-# @app.route('/signup', methods=['POST'])
-# def signup():
-#     data = request.get_json()
-#     new_user = User(email=data['email'])
-#     new_user.password_hash = data['password']
-
-#     db.session.add(new_user)
-#     db.session.commit()
-
-#     return {'message': 'Registration Successful!'}, 201
-
-
-
-### ------------------ CHECK SESSION, LOGIN-LOGOUT ------------------ ###
-
-
-
-# @app.route('/check_session')
-# def check_session():
-#     user_id = session.get('user_id')
-#     user = User.query.filter(User.id == user_id).first()
-
-#     if not user:
-#         return {'error': 'Invalid Session.'}, 401
-    
-#     return {'message': 'Session Valid, Access Granted'}, 200
-
-
-# @app.route('/login', methods=['POST'])
-# def login():
-#     data = request.get_json()
-
-#     # check if user exists
-#     user = User.query.filter(User.email == data['email']).first()
-
-#     if not user:
-#         return make_response(jsonify({'error': 'User not found.'}), 404)
-    
-#     if user.authenticate(data['password']):  # check if pwd match
-#         session['user_id'] = user.id
-#         user_data = {
-#             'id': user.id,
-#             'email': user.email
-#         }
-#         return make_response(jsonify({'message': 'Login successful!', 'user': user_data}), 200)
-#     else:
-#         # password did not match, send error resp
-#         return make_response(jsonify({'error': 'Invalid email or password.'}), 401)
-
-
-# @app.delete('/logout')
-# def logout():
-#     session.pop('user_id')
-
-#     return {'message': 'Successfully logged out.'}, 200
-
-
-
-### ------------------ USERS ------------------ ###
 
 
 
 ### ------------------ BOARDS ------------------ ###
 
-app.get('/boards')
+@app.route('/boards', methods=['GET'])
 def get_boards():
     boards = Board.query.all()
     return make_response(jsonify([board.to_dict() for board in boards]), 200)
 
 
-# app.delete('/boards/<int:board_id>')
-# def delete_board_by_id():
-#     board = Board.query.filter(Board.id == id).first()
 
-#     if board:
-#         db.session.delete(board)
-#         db.session.commit()
-#         return {"message": "Board deleted successfully."}, 200
-#     else:
-#         return {"error": "Board not found."}, 404
+@app.route('/latest_boards')
+def get_latest_board():
+    # Query the boards, order by timestamp in descending order, and retrieve the first one
+    latest_board = Board.query.order_by(desc(Board.timestamp)).first()
 
-########
-
-# def filter_boards(motor_power=None, rider_level=None, terrain_type=None, range_type=None):
-#     boards = Board.query
-
-#     # Filter based on motor power
-#     if motor_power:
-#         boards = boards.join(Motor).filter(Motor.type == motor_power)
-
-#     # Add similar logic for other filters (rider_level, terrain_type, range_type)
-
-#     boards = boards.all()
-#     return boards
+    if latest_board:
+        return make_response(jsonify(latest_board.to_dict()), 200)
+    else:
+        return make_response(jsonify({}), 404)
 
 
 
-# @app.route('/boards', methods=['GET'])
-# def get_boards():
-#     # Retrieve query parameters from the request
-#     motor_power = request.args.get('motor_power')
-#     rider_level = request.args.get('rider_level')
-#     terrain_type = request.args.get('terrain_type')
-#     range_type = request.args.get('range_type')
+@app.route('/boards/<int:board_id>', methods=['DELETE'])
+def delete_board_by_id(board_id):
+    board = Board.query.filter(Board.id == board_id).first()
 
-#     # Filter boards based on the selected options
-#     boards = filter_boards(motor_power=motor_power, rider_level=rider_level, terrain_type=terrain_type, range_type=range_type)
-
-#     # Serialize the boards and return as JSON
-#     serialized_boards = [board.to_dict() for board in boards]
-#     return jsonify(serialized_boards)
+    if board:
+        db.session.delete(board)
+        db.session.commit()
+        return {"message": "Board deleted successfully."}, 200
+    else:
+        return {"error": "Board not found."}, 404
 
 
 
-# def filter_boards(rider_level=None, terrain_type=None, range_type=None):
-#     boards = Board.query
+# appending data directly onto Board:
+@app.post('/update_board')
+def update_board():
+    if not is_authenticated():
+        return make_response(jsonify({"error": "Not authenticated."}), 401)
 
-#     # Add filters based on rider level, terrain type, and range type
-#     if rider_level:
-#         # Filter based on rider level
-#         boards = boards.join(User).filter(User.rider_stance == rider_level)
-
-#     if terrain_type:
-#         # Filter based on terrain type
-#         boards = boards.join(Wheel).filter(Wheel.type == terrain_type)
-
-#     if range_type:
-#         # Add similar logic for other filters (e.g., range type)
-#         boards = boards.join(Range).filter(Range.range == range_type)
-
-#     boards = boards.all()
-#     return boards
-
-
-# @app.route('/boards', methods=['GET'])
-# def get_boards():
-#     # Retrieve query parameters from the request
-#     rider_level = request.args.get('rider_level')
-#     terrain_type = request.args.get('terrain_type')
-#     range_type = request.args.get('range_type')
-
-#     # Filter boards based on the selected options
-#     boards = filter_boards(rider_level=rider_level, terrain_type=terrain_type, range_type=range_type)
-
-#     # Serialize the boards and return as JSON
-#     serialized_boards = [board.to_dict() for board in boards]
-#     return jsonify(serialized_boards)
-
-
-
-#######
-
-
-@app.route('/update_wheel', methods=['PUT'])
-def update_wheel():
     data = request.json
+
+    deck_type = data.get('deckType', '')
+    deck_length = data.get('deckLength', '')
+    deck_material = data.get('deckMaterial', '')
+    truck_type = data.get('truckType', '')
+    truck_width = data.get('truckWidth', '')
+    controller_feature = data.get('controllerFeature', '')
+    controller_type = data.get('controllerType', '')
+    remote_feature = data.get('remoteFeature', '')
+    remote_type = data.get('remoteType', '')
+    motor_size = data.get('motorSize', '')
+    motor_kv = data.get('motorKv', '')
     wheel_size = data.get('wheelSize', '')
     wheel_type = data.get('wheelType', '')
+    battery_voltage = data.get('batteryVoltage', '')
+    battery_type = data.get('batteryType', '')
+    battery_capacity = data.get('batteryCapacity', '')
+    battery_configuration = data.get('batteryConfiguration', '')
+    range_mileage = data.get('mileage', '')
+    image_url = data.get('imageURL', '')
 
     # Update the Wheel database with the new values
-    wheel_entry = Wheel(size=wheel_size, type=wheel_type)
-    Wheel.query.delete()
-    db.session.add(wheel_entry)
+    sample_board_entry = Board(deck_type=deck_type, deck_length=deck_length, deck_material=deck_material, truck_type=truck_type, truck_width=truck_width, controller_feature=controller_feature, controller_type=controller_type, remote_feature=remote_feature, remote_type=remote_type, motor_size=motor_size, motor_kv=motor_kv, wheel_size=wheel_size, wheel_type=wheel_type, battery_voltage=battery_voltage, battery_type=battery_type, battery_capacity=battery_capacity, battery_configuration=battery_configuration, range_mileage=range_mileage, image_url=image_url)
+    # Board.query.delete()
+    db.session.add(sample_board_entry)
     db.session.commit()
 
     return {"message": "Wheel updated successfully."}, 200
 
 
-
-#######
-
-
-### ------------------ QUESTIONS ------------------ ###
+### ------------------ QNA ------------------ ###
 
 
+@app.route('/qna', methods=['GET'])
+def get_qna():
+    # Fetch all Qna entries from the database
+    qna_entries = Qna.query.all()
 
-### ------------------ FORUMS ------------------ ###
+    # Convert Qna entries to a list of dictionaries
+    qna_data = [{'id': entry.id, 'post': entry.post, 'reply': entry.reply, 'timestamp': entry.timestamp} for entry in qna_entries]
 
-
-# app.get('/forums')
-# def get_posts():
-#     posts = Forum.query.all()
-#     return make_response(jsonify([post.to_dict() for post in posts]), 200)
-
-
-# app.patch('/forum/<int:id>')
-# def edit_post_by_id(id):
-#     data = request.json
-
-#     Forum.query.filter(Forum.id == id).update(data)
-#     db.session.commit()
-    
-#     post = Forum.query.filter(Forum.id == id).first()
-    
-#     return make_response(jsonify(post.to_dict()), 200)
-
-
-# app.delete('/forum/<int:id>')
-# def delete_post_by_id():
-#     post = Forum.query.filter(Forum.id == id).first()
-
-#     if post:
-#         db.session.delete(post)
-#         db.session.commit()
-#         return {"message": "Post deleted successfully."}, 200
-#     else:
-#         return {"error": "Post not found."}, 404
+    # Return the Qna data as JSON
+    return jsonify(qna_data)
 
 
 
+@app.route('/qna/<int:post_id>/replies', methods=['GET'])
+def get_replies_for_post(post_id):
+    try:
+        # Find the post in the database
+        post = Qna.query.get(post_id)
+
+        if not post:
+            return jsonify({'error': 'Post not found'}), 404
+
+        # Get all replies for the post
+        replies = Reply.query.filter_by(qna_id=post_id).all()
+
+        # Convert replies to a list of dictionaries
+        replies_data = [{'id': reply.id, 'reply': reply.reply, 'timestamp': reply.timestamp} for reply in replies]
+
+        # Return the replies data as JSON
+        return jsonify(replies_data)
+
+    except Exception as e:
+        # Handle exceptions and return a JSON response
+        return jsonify({'error': str(e)}), 500
+
+
+
+@app.route('/qna', methods=['POST'])
+def add_qna():
+    if not is_authenticated():
+        return jsonify({'error': 'Not authenticated'}), 401
+
+    try:
+        # Get data from the request
+        data = request.get_json()
+
+        # Extract post and reply from the request data
+        post = data.get('post', '')
+        reply = data.get('reply', '')
+
+        # Check if both post and reply are provided
+        if not post and not reply:
+            return jsonify({'error': 'Both post and reply are required'}), 400
+
+        # Create a new Qna entry
+        new_qna = Qna(post=post, reply=reply, timestamp=datetime.utcnow())
+
+        # Add the new Qna entry to the database
+        db.session.add(new_qna)
+        db.session.commit()
+
+        # Return the newly created Qna entry as JSON
+        return jsonify({'id': new_qna.id, 'post': new_qna.post, 'reply': new_qna.reply, 'timestamp': new_qna.timestamp}), 201
+
+    except Exception as e:
+        # Handle exceptions and return a JSON response
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/qna/<int:post_id>/reply', methods=['POST'])
+def add_reply(post_id):
+    if not is_authenticated():
+        return jsonify({'error': 'Not authenticated'}), 401
+
+    try:
+        # Get data from the request
+        data = request.get_json()
+
+        # Extract reply from the request data
+        reply_text = data.get('reply', '')
+
+        # Check if reply is provided
+        if not reply_text:
+            return jsonify({'error': 'Reply is required'}), 400
+
+        # Find the post in the database
+        post = Qna.query.get(post_id)
+
+        if not post:
+            return jsonify({'error': 'Post not found'}), 404
+
+        # Create a new Reply entry
+        new_reply = Reply(reply=reply_text, timestamp=datetime.utcnow(), qna=post)
+
+        # Add the new Reply entry to the database
+        db.session.add(new_reply)
+        db.session.commit()
+
+        # Return the newly created Reply entry as JSON
+        return jsonify({'id': new_reply.id, 'reply': new_reply.reply, 'timestamp': new_reply.timestamp}), 201
+
+    except Exception as e:
+        # Handle exceptions and return a JSON response
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/qna/<int:post_id>', methods=['DELETE'])
+def delete_post(post_id):
+    try:
+        post = Qna.query.get(post_id)
+        if not post:
+            return jsonify({'error': 'Post not found'}), 404
+
+        db.session.delete(post)
+        db.session.commit()
+
+        return jsonify({'message': 'Post deleted successfully'}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+### ------------------ GURU ------------------ ###
+
+
+@app.route('/guru', methods=['GET'])
+def get_guru_data():
+    try:
+        guru_data = Guru.query.all()
+        return make_response(jsonify([guru_datum.to_dict() for guru_datum in guru_data]), 200)
+    except Exception as e:
+        return jsonify({'error': str(e)})
+
+
+@app.route('/guru/<int:question_id>', methods=['DELETE'])
+def delete_guru_question(question_id):
+    try:
+        question = Guru.query.get(question_id)
+        if not question:
+            return jsonify({"error": "Question not found"}), 404
+
+        db.session.delete(question)
+        db.session.commit()
+        return jsonify({"message": "Question deleted successfully"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
+
+
