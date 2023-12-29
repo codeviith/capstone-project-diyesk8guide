@@ -3,21 +3,27 @@ import { AuthContext } from './AuthContext';
 
 
 const Account = () => {
-    const { user } = useContext(AuthContext);
     const [boards, setBoards] = useState([]);
     const [posts, setPosts] = useState([]);
     const [replies, setReplies] = useState([]);
     const [guruData, setGuruData] = useState([]);
 
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
     useEffect(() => {
-        if (user) {
-            // Replace '/boards' with an endpoint that fetches user-specific data
-            fetch(`/user_boards/${user.id}`)
-                .then(response => response.json())
-                .then(data => setBoards(data));
-            // Similar fetch calls for posts, replies, and guruData
-        }
-    }, [user]);
+        // Function to check if the user is logged in
+        const checkLoginStatus = async () => {
+            try {
+                const response = await fetch('/check_session');
+                const data = await response.json();
+                setIsLoggedIn(data.logged_in);
+            } catch (error) {
+                console.error('Error checking login status:', error);
+            }
+        };
+
+        checkLoginStatus();
+    }, []);
 
     useEffect(() => {
         // Fetch data for boards
@@ -105,7 +111,7 @@ const Account = () => {
                             {category === 'Boards' && (
                                 <>
                                     {/* Image */}
-                                    <img src={item.image_url} alt={`${item.name} Board`} style={{ maxWidth: '100%' }} />
+                                    <img src={item.image_url} alt={`${item.name} Board`} />
                                     {/* Specs */}
                                     <ul className='board_spec'>
                                         <strong className='deck'> Deck </strong>
@@ -173,17 +179,14 @@ const Account = () => {
 
     return (
         <div className='account'>
-            {user && (
-                <>
-                    {renderContainer('Boards', boards)}
-                    {renderContainer('Questions', guruData)}
-                    {renderContainer('Posts', posts)}
-                    {renderContainer('Replies', replies)}
-                </>
-            )}
+            {renderContainer('Boards', boards)}
+            {renderContainer('Questions', guruData)}
+            {renderContainer('Posts', posts)}
+            {renderContainer('Replies', replies)}
         </div>
     );
 };
+
 
 export default Account;
 

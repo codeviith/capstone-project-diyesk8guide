@@ -1,21 +1,22 @@
 import React from "react";
-
-import DIY_collage from './images/p5 project collage.jpg';
+import { NavLink } from 'react-router-dom';
 
 function About() {
-    return (
-      <div className="about">
-        <span style={{ whiteSpace: 'pre-wrap' }}>
-          Welcome to DIYesk8Guide, the hub for aspiring DIY electric skateboard builders. Created by skate enthusiasts for beginners, our aim is to equip you with essential knowledge and skills to build your electric skateboard from the ground up.{'\n'}
-        </span>
-        <span style={{ whiteSpace: 'pre-wrap' }}>
-          Our journey is rooted in a deep love for skateboarding and the desire to empower others to experience the thrill of crafting their own electric ride. Here at DIYesk8Guide, we offer detailed guides, step-by-step instructions, and a supportive community where passion and skate culture thrive.{'\n'}
-        </span>
-        <span style={{ whiteSpace: 'pre-wrap' }}>
-        Embark on your building adventure with us, and transform your skateboarding experience. DIYesk8Guide isn't just a guide; it's your gateway to a community united by the shared joy of DIY creation.{'\n'}
-        </span>
+  return (
+    <div className="about">
+      <span style={{ whiteSpace: 'pre-wrap' }}>
+        Crafted with passion by skateboarding enthusiasts, DIYesk8Guide is designed to provide beginners with the essential knowledge and skills needed to construct their own electric skateboard from the ground up. Our foundation is a deep-seated love for e-boarding, coupled with a strong desire to empower others to experience the thrill and satisfaction of crafting their own electric ride.{'\n'}{'\n'}
+      </span>
+      <span style={{ whiteSpace: 'pre-wrap' }}>
+        Here at DIYesk8Guide, you'll find carefully curated guides and practical build samples, all supported by an intuitive AI assistant. Our resources are strategically structured to establish a strong base, leading you step-by-step from initial basics to achieving your first accomplished build.{'\n'}{'\n'}
+      </span>
+      <div className="contact-us">
+        <h2>Need More Information?</h2>
+        <p>Don't hesitate to reach out to us with any queries or feedback.</p>
+        <NavLink to="/contactus">Contact Us</NavLink>
       </div>
-    );
+    </div>
+  );
 }
 
 export default About;

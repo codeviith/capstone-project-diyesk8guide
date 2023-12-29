@@ -11,8 +11,8 @@ const Signup = () => {
     riderStance: '',
     boardsOwned: [],
   });
-  const [successMessage, setSuccessMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [message, setMessage] = useState({ content: '', type: '' });
+
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -38,22 +38,19 @@ const Signup = () => {
     .then(data => {
       if (data.message === 'Account created successfully') {
         // Handle successful signup
-        setSuccessMessage('Account created successfully. Redirecting to login...');
-        setErrorMessage('');
+        setMessage({ content: 'Account created successfully. Redirecting to login...', type: 'success' });
 
-        // Set a timeout for 2 seconds before redirecting
         setTimeout(() => {
           history.push('/login'); // Replace '/login' with your login route
-        }, 2000);
+        }, 2000); // Set a timeout for 2 seconds before redirecting
       } else if (data.message === 'Email already in use') {
         // Handle the "email already in use" case
-        setErrorMessage('Email already in use. Please use a different email.');
-        setSuccessMessage('');
+        setMessage({ content: 'Email already in use. Please use a different email.', type: 'error' });
       }
     })
     .catch(error => {
       console.error('Error during signup:', error);
-      setErrorMessage('An error occurred during signup.');
+      setMessage({ content: 'An error occurred during signup.', type: 'error' });
     });
   };
 
@@ -66,12 +63,15 @@ const Signup = () => {
   return (
     <div className='signup'>
       <h2>Create an Account</h2>
-      {successMessage && <p className="success-message">{successMessage}</p>} {/* Display success message */}
-      {errorMessage && <p className="error-message">{errorMessage}</p>} {/* Display error message */}
+      {message.content && (
+        <p className={message.type === 'success' ? "success-message" : "error-message"}>
+          {message.content}
+        </p>
+      )}
 
       {/* Signup Form */}
       <form onSubmit={handleSubmit}>
-        <label>Email:
+        <label>Email (This is what you will use to log in):
           <input
             type="email"
             name="email"
@@ -154,4 +154,6 @@ const Signup = () => {
 };
 
 export default Signup;
+
+
 

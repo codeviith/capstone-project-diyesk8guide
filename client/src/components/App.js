@@ -6,10 +6,13 @@ import NavBar from "./NavBar";
 import Login from "./Login";
 import Logout from './Logout';
 import Signup from "./Signup";
-import About from "./About";
 import Guru from './Guru';
 import Home from "./Home";
 import Qna from './Qna';
+import Guide from './Guide';
+import Account from './Account';
+import About from "./About";
+import ContactUs from './ContactUs';
 
 
 function App() {
@@ -22,29 +25,35 @@ function App() {
               <Route exact path="/">
                 <Home />
               </Route>
-              <Route path="/home">
-                <Home />
+              <Route path="/guide">
+                <Guide />
               </Route>
               <Route path="/generate">
                 <Generate />
               </Route>
-              <Route path="/login">
-                <Login />
-              </Route>
-              {/* <Route path="/game"> */}
-                {/* <Game /> */}
-              {/* </Route> */}
               <Route path="/guru">
                 <Guru />
               </Route>
               <Route path="/qna">
                 <Qna />
               </Route>
-              <Route path="/signup">
-                <Signup />
+              <Route path="/login">
+                <Login />
               </Route>
               <Route path="/logout">
                 <Logout />
+              </Route>
+              <Route path="/signup">
+                <Signup />
+              </Route>
+              <Route path="/account">
+                <Account />
+              </Route>
+              <Route path="/about">
+                <About />
+              </Route>
+              <Route path="/contactus">
+                <ContactUs />
               </Route>
           </Switch>
         </main>
@@ -54,3 +63,4 @@ function App() {
 }
 
 export default App;
+

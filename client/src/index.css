@@ -13,8 +13,9 @@ code {
 }
 
 
-/* my code starts here: */
 
+
+/* my code starts here: */
 body {
   margin: 0; /* Remove default margin from the body */
   color: #fff; /* Adjust text color for better visibility on dark background */
@@ -37,7 +38,6 @@ body::before {
 
 
 /* header component */
-
 .header {
   text-align: center;
   background-color: black;
@@ -215,8 +215,18 @@ body::before {
   color: black;
 }
 
-
-
+.login_request {
+  position: relative;
+  text-align: center;
+  background-color: rgb(23, 23, 23); /* Background color */
+  padding: 30px;
+  margin-bottom: 20px;
+  border-radius: 8px; /* Border radius */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Box shadow */
+  color: white; /* Text color */
+  font-size: 18px;
+  margin-top: 12px;
+}
 
 
 
@@ -456,7 +466,7 @@ nav a.home-link:hover {
   text-align: center;
   background-color: gray; /* Adjust background color */
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
 .login h2 {
@@ -472,29 +482,30 @@ nav a.home-link:hover {
 
 .login form h3 {
   color: black;
-  font-size: 28px;
-  margin-bottom: 15px;
+  font-size: 25px;
+  margin-bottom: 10px;
 }
 
 .login h4 {
   color: black;
-  font-size: 28px;
-  margin-bottom: 15px;
+  font-size: 25px;
+  margin-bottom: 10px;
 }
 
 .login label {
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 2px;
   color: black;
   font-size: 18px;
+  text-align: left;
 }
 
 .login input {
-  width: 50%;
+  width: 97%;
   padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 2px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 5px;
   font-size: 15px;
 }
 
@@ -512,6 +523,8 @@ nav a.home-link:hover {
   background-color: rgb(3, 132, 3); /* Example: Dark background color on hover */
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.5)
 }
+
+
 
 
 /* signup component */
@@ -534,23 +547,32 @@ nav a.home-link:hover {
 }
 
 .signup form {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .signup label {
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 2px; /* Reduced margin for tighter alignment */
   color: black;
   font-size: 18px;
+  text-align: left; /* Align text to left */
 }
 
 .signup input,
 .signup select {
-  width: 50%;
+  width: 97%; /* Full width to align with the form's width */
   padding: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 2px; /* Adjusted margin for consistent spacing */
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 5px;
+}
+
+.signup select[name="riderStance"] {
+  width: 25%; /* Set the width of the rider stance select box */
+  padding: 10px;
+  margin-left: 15px; /* Adjusted margin for consistent spacing */
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .signup button {
@@ -571,20 +593,24 @@ nav a.home-link:hover {
 .signup .checkbox-container {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 5px;
-  justify-content: center;
+  margin-top: 10px;
+  margin-left: 10px;
+  align-items: flex-start; /* Align items to start for left alignment */
+  justify-content: left; /* Justify content to left */
 }
 
 .signup .checkbox {
-  margin-right: 5px;
+  margin-right: 10px;
+  margin-left: 1px;
 }
 
 
 
-/* home component */
 
 
-.home {
+
+/* account component */
+.account {
   max-width: 1300px;
   margin: 0 auto;
   padding: 20px;
@@ -594,36 +620,36 @@ nav a.home-link:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.home h2 {
+.account h2 {
   color: black;
   font-size: 32px;
   margin-top: 2px;
   margin-bottom: 20px;
 }
 
-.home ul {
+.account ul {
   list-style: none;
   padding: 0;
 }
 
-.home strong {
+.account strong {
   font-weight: bold;
 }
 
-.home img {
-  max-width: 100%;
-  height: auto;
+.account img {
+  max-width: 80%; /* Reduced from 100% to 50% */
+  height: auto; /* Maintains the aspect ratio of the image */
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.home div {
+.account div {
   /* border: 1px solid #ccc; */
   padding: 10px;
   margin-bottom: 10px;
 }
 
-.home button {
+.account button {
   background-color: darkred;
   color: white;
   padding: 10px 20px;
@@ -633,14 +659,20 @@ nav a.home-link:hover {
   cursor: pointer;
 }
 
-.home button:hover {
+.account button:hover {
   background-color: rgb(176, 6, 6); /* Example: Dark background color on hover */
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
 }
 
+@media screen and (max-width: 600px) {
+  .account img {
+    max-width: 80%;
+  }
+}
+
+
 
 /* generate component */
-
 .generate {
   max-width: 1300px;
   margin: 0 auto;
@@ -707,7 +739,6 @@ nav a.home-link:hover {
 
 
 /* board specs list */
-
 .category-container {
   margin-bottom: 50px; /* Add space between category containers */
 }
@@ -731,15 +762,130 @@ nav a.home-link:hover {
 
 
 
+/* guide component */
+.guide {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  background-color: gray; /* Same background color as other components */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.guide h2 {
+  color: black;
+  font-size: 32px;
+  margin-top: 2px;
+  margin-bottom: 20px;
+}
+
+.guide-step {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc; /* Adjusted for consistency */
+  border-radius: 8px; /* Matched with other components */
+}
+
+.guide-content {
+  margin-top: 10px;
+}
+
+.guide a {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.guide a:hover {
+  background-color: #0056b3;
+}
+
+
+
+
+
+/*about component*/
+.about {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 10px;
+  text-align: center;
+  background-color: gray; /* Adjust background color for the about section */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.about h5 {
+  color: black;
+  font-size: 25px;
+  margin-top: 2px;
+  margin-bottom: 20px;
+}
+
+.about span {
+  display: block;
+  margin-bottom: 1px;
+  font-size: 18px;
+  line-height: 1.5;
+  color: black;
+}
+
+#special-font1,
+#special-font2 {
+  font-family: cursive, sans-serif;
+  font-size:20px;
+  font-weight: bold;
+}
+
+#special-font1 {
+  color: black;
+}
+
+#special-font2 {
+  color: darkred;
+}
+
+.about_collage {
+  margin-top: 20px;
+  position: relative;
+}
+
+.about_collage img {
+  max-width: 68%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+
+
+
+
+
 
 /* success and error messages */
-
 .success-message {
   color: rgb(0, 64, 0);
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 25px;
+  margin-bottom: 15px;
 }
 
 .error-message {
   color: rgb(115, 1, 1);
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 25px;
+  margin-bottom: 15px;
 }
 
 

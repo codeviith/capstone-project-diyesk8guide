@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -8,7 +7,7 @@ const Home = () => {
   return (
   <div className='home'>
     <div className="intro">
-        <h5>Welcome to DIYesk8Guide: Your One-Stop Site for DIY Builds!</h5>
+        <h5>Welcome to DIYesk8Guide: Your Gateway to DIY Electric Skateboard Builds!</h5>
         <span style={{ whiteSpace: 'pre-wrap' }}>
           Are you ready to elevate your skateboarding experience to a whole new level?{'\n'}
         </span>
