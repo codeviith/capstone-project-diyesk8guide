@@ -266,7 +266,6 @@ def get_qna():
 
 
 
-
 @app.route('/qna/<int:post_id>/replies', methods=['GET'])
 def get_replies_for_post(post_id):
     try:
@@ -375,7 +374,6 @@ def delete_post(post_id):
         return jsonify({'error': str(e)}), 500
 
 
-
 ### ------------------ GURU ------------------ ###
 
 
@@ -404,4 +402,5 @@ def delete_guru_question(question_id):
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
+
 

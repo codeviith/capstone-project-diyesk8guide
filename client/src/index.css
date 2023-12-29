@@ -55,8 +55,9 @@ body::before {
 }
 
 
+
 /*about component*/
-.about {
+.home .intro {
   max-width: 1300px;
   margin: 0 auto;
   padding: 10px;
@@ -66,14 +67,14 @@ body::before {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.about h5 {
+.home .intro h5 {
   color: black;
   font-size: 25px;
   margin-top: 2px;
   margin-bottom: 20px;
 }
 
-.about span {
+.home .intro span {
   display: block;
   margin-bottom: 1px;
   font-size: 18px;
@@ -81,32 +82,34 @@ body::before {
   color: black;
 }
 
-#special-font1,
-#special-font2 {
+.home #special-font1,
+.home #special-font2 {
   font-family: cursive, sans-serif;
   font-size:20px;
   font-weight: bold;
 }
 
-#special-font1 {
+.home #special-font1 {
   color: black;
 }
 
-#special-font2 {
+.home #special-font2 {
   color: darkred;
 }
 
-.about_collage {
+.home .intro_collage {
   margin-top: 20px;
   position: relative;
 }
 
-.about_collage img {
-  max-width: 68%;
+.home .intro_collage img {
+  max-width: 100%;
   height: auto;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
+
 
 
 /* guru component */
@@ -324,8 +327,6 @@ nav a.home-link:hover {
   color: white;
   border-color: gray; /* Gray border on hover */
 }
-
-
 
 
 
@@ -617,7 +618,7 @@ nav a.home-link:hover {
 }
 
 .home div {
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   padding: 10px;
   margin-bottom: 10px;
 }
