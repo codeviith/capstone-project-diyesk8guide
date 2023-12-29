@@ -127,6 +127,28 @@ class Guru(db.Model, SerializerMixin):
     def __repr__(self):
         return f'<Guru {self.id}>'
 
+
+
+### ------------------ CONTACTUS ------------------ ###
+
+class ContactUs(db.Model, SerializerMixin):
+    __tablename__ = 'contacts'
+
+    # serializer_rule = ('-users.contacts',)
+
+    id = db.Column(db.Integer, primary_key=True, unique=True)
+    first_name = db.Column(db.String, nullable=False)
+    last_name = db.Column(db.String, nullable=False)
+    email = db.Column(db.String, nullable=False)
+    message = db.Column(db.Text, nullable=False)
+
+    # user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+    # users = db.relationship('User', back_populates='contacts')
+
+
+
+
 ### ------------------ Qna (ONE) ------------------ ###
 
 class Qna(db.Model, SerializerMixin):

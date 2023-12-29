@@ -14,7 +14,7 @@ from flask_bcrypt import Bcrypt
 
 # Local imports
 from config import app, db, api
-from models import db, Board, Guru, User, Qna, Reply
+from models import db, Board, Guru, User, ContactUs, Qna, Reply
 # Deck, Wheel, Truck, Motor, Battery, Controller, Remote, Max_speed, Range
 # from guru_assistant import guru_assistant
 import os
@@ -63,7 +63,7 @@ CORS(app, supports_credentials=True)
 bcrypt = Bcrypt(app)
 
 
-### ------------------ UNIVERSAL HEPER FUNCTIONS ------------------ ###
+### ------------------ UNIVERSAL HELPER FUNCTIONS ------------------ ###
 
 
 def is_authenticated():
@@ -118,12 +118,34 @@ def guru_assistant():
 
 
 
+### ------------------ AUTHENTICATION ------------------ ###
 
-
-### ------------------ authentication test ------------------ ###
 def is_logged_in():
     return 'user_id' in session
 
+
+### ------------------ LOG IN ------------------ ###
+
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    user = User.query.filter_by(email=data['email']).first()
+    if user and bcrypt.check_password_hash(user.password_hash, data['password']):
+        session['user_id'] = user.id
+        return jsonify({'success': True, 'message': 'Logged in successfully'}), 200
+    else:
+        return jsonify({'success': False, 'message': 'Invalid email or password'}), 401
+
+
+### ------------------ LOG OUT ------------------ ###
+
+@app.route('/logout', methods=['POST'])
+def logout():
+    session.pop('user_id', None)
+    return jsonify({'message': 'Logged out successfully'}), 200
+
+
+### ------------------ SIGN UP ------------------ ###
 
 @app.route('/signup', methods=['POST'])
 def signup():
@@ -149,22 +171,7 @@ def signup():
     return jsonify({'message': 'Account created successfully'}), 201
 
 
-@app.route('/login', methods=['POST'])
-def login():
-    data = request.get_json()
-    user = User.query.filter_by(email=data['email']).first()
-    if user and bcrypt.check_password_hash(user.password_hash, data['password']):
-        session['user_id'] = user.id
-        return jsonify({'success': True, 'message': 'Logged in successfully'}), 200
-    else:
-        return jsonify({'success': False, 'message': 'Invalid email or password'}), 401
-
-
-@app.route('/logout', methods=['POST'])
-def logout():
-    session.pop('user_id', None)
-    return jsonify({'message': 'Logged out successfully'}), 200
-
+### ------------------ COOKIE ------------------ ###
 
 @app.route('/check_session', methods=['GET'])
 def check_session():
@@ -172,9 +179,6 @@ def check_session():
         return jsonify({'logged_in': True}), 200
     else:
         return jsonify({'logged_in': False}), 200
-
-
-### ------------------ authentication test ------------------ ###
 
 
 
@@ -248,6 +252,61 @@ def update_board():
     db.session.commit()
 
     return {"message": "Wheel updated successfully."}, 200
+
+
+### ------------------ GURU ------------------ ###
+
+
+@app.route('/guru', methods=['GET'])
+def get_guru_data():
+    try:
+        guru_data = Guru.query.all()
+        return make_response(jsonify([guru_datum.to_dict() for guru_datum in guru_data]), 200)
+    except Exception as e:
+        return jsonify({'error': str(e)})
+
+
+@app.route('/guru/<int:question_id>', methods=['DELETE'])
+def delete_guru_question(question_id):
+    try:
+        question = Guru.query.get(question_id)
+        if not question:
+            return jsonify({"error": "Question not found"}), 404
+
+        db.session.delete(question)
+        db.session.commit()
+        return jsonify({"message": "Question deleted successfully"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+### ------------------ CONTACTUS ------------------ ###
+
+@app.route('/contact_us', methods=['POST'])
+def handle_contact_form():
+    try:
+        # Get data from the request's JSON body
+        data = request.json
+
+        # Create a new ContactUs instance
+        new_contact = ContactUs(
+            first_name=data['firstName'],
+            last_name=data['lastName'],
+            email=data['email'],
+            message=data['message']
+        )
+
+        # Add the new record to the database
+        db.session.add(new_contact)
+        db.session.commit()
+
+        # Return a success response
+        return jsonify({'message': 'Your message has been successfully submitted'}), 200
+
+    except Exception as e:
+        # Handle exceptions (e.g., missing data, database errors)
+        print(str(e))
+        return jsonify({'error': 'An error occurred while processing your request'}), 500
 
 
 ### ------------------ QNA ------------------ ###
@@ -374,30 +433,7 @@ def delete_post(post_id):
         return jsonify({'error': str(e)}), 500
 
 
-### ------------------ GURU ------------------ ###
 
-
-@app.route('/guru', methods=['GET'])
-def get_guru_data():
-    try:
-        guru_data = Guru.query.all()
-        return make_response(jsonify([guru_datum.to_dict() for guru_datum in guru_data]), 200)
-    except Exception as e:
-        return jsonify({'error': str(e)})
-
-
-@app.route('/guru/<int:question_id>', methods=['DELETE'])
-def delete_guru_question(question_id):
-    try:
-        question = Guru.query.get(question_id)
-        if not question:
-            return jsonify({"error": "Question not found"}), 404
-
-        db.session.delete(question)
-        db.session.commit()
-        return jsonify({"message": "Question deleted successfully"}), 200
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
 
 
 if __name__ == '__main__':
