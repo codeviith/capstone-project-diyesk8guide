@@ -30,7 +30,8 @@ body::before {
   height: 100%;
   z-index: -1; /* Place the pseudo-element behind the content */
   /* background: url('/home/codeviith/Development/code/phase-5/capstone-project/diyesk8guide/client/src/components/images/main_background.jpg') center center fixed; */
-  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.wallpapersden.com%2Fimage%2Fdownload%2Fblack-and-red-hexagon_a25qZmWUmZqaraWkpJRmbmdlrWZlbWU.jpg&f=1&nofb=1&ipt=633d7d1d7d3e651478cbdaf66914a349f667cdd3d8c9b0456e92be63257d95b1&ipo=images') center center fixed;
+  /* background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.wallpapersden.com%2Fimage%2Fdownload%2Fblack-and-red-hexagon_a25qZmWUmZqaraWkpJRmbmdlrWZlbWU.jpg&f=1&nofb=1&ipt=633d7d1d7d3e651478cbdaf66914a349f667cdd3d8c9b0456e92be63257d95b1&ipo=images') center center fixed; */
+  background: url('https://www.innerloc.com/wp-content/uploads/2017/03/bigstock-Black-Carbon-Fiber-Hexagon-Pat-176134867.jpg') center center fixed;
   background-size: cover;
   opacity: 0.9; /* Adjust the opacity as needed */
 }
@@ -57,10 +58,11 @@ body::before {
 
 
 /* Home component */
+
 .home {
   max-width: 1300px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 10px;
   text-align: center;
   background-color: gray; /* Same background color as generate and guide */
   border-radius: 8px;
@@ -68,32 +70,25 @@ body::before {
 }
 
 .home .intro, .home .component-description {
-  color: black;
-  font-size: 18px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   padding: 10px;
   border: 1px solid #ccc; /* Consistent with other components */
   border-radius: 8px; /* Matched with other components */
 }
 
-.home h2 {
+.home .intro h5 {
   color: black;
-  font-size: 32px;
+  font-size: 25px;
   margin-top: 2px;
   margin-bottom: 20px;
 }
 
-.home .intro h5 {
-  font-size: 25px; /* Consistent font size */
-}
-
 .home .intro span, .home .component-description p {
-  font-size: 18px; /* Consistent font size */
+  display: block;
+  margin-bottom: 1px;
+  font-size: 18px;
   line-height: 1.5;
-}
-
-.home .intro_collage img, .home .component-description a {
-  margin-top: 10px; /* Consistent margin */
+  color: black;
 }
 
 .home .component-description a {
@@ -108,7 +103,43 @@ body::before {
 
 .home .component-description a:hover {
   background-color: #0056b3;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
 }
+
+.home #special-font1,
+.home #special-font2 {
+  font-family: cursive, sans-serif;
+  font-size:20px;
+  font-weight: bold;
+}
+
+.home #special-font1 {
+  color: black;
+}
+
+.home #special-font2 {
+  color: darkred;
+}
+
+.home .intro_collage {
+  margin-top: 20px;
+  position: relative;
+}
+
+.home .intro_collage img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.home h2 {
+  color: black;
+  font-size: 32px;
+  margin-top: 2px;
+  margin-bottom: 20px;
+}
+
 
 
 
@@ -527,6 +558,25 @@ nav a.home-link:hover {
 
 
 
+/* logout button */
+.logout-link {
+  color: white; /* White text */
+  background-color: black; /* Black background */
+  border: 3px solid red; /* light green border */
+  padding: 5px 10px; /* Padding around text */
+  border-radius: 5px; /* Optional: rounded corners */
+  margin-left: 10px; /* Adjust as needed */
+}
+
+.logout-link:hover {
+  /* Optional: hover effects */
+  background-color: #333; /* Darker background on hover */
+  color: white;
+  border-color: gray; /* Gray border on hover */
+}
+
+
+
 
 /* signup component */
 
@@ -704,7 +754,7 @@ nav a.home-link:hover {
 .generate button {
   padding: 10px;
   font-size: 20px;
-  background-color: darkgreen;
+  background-color: #007bff;
   color: white;
   border: none;
   border-radius: 10px;
@@ -712,7 +762,7 @@ nav a.home-link:hover {
 }
 
 .generate button:hover {
-  background-color: green; /* Example: Dark background color on hover */
+  background-color: #0056b3; /* Example: Dark background color on hover */
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
 }
 
@@ -804,6 +854,7 @@ nav a.home-link:hover {
 
 .guide a:hover {
   background-color: #0056b3;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
 }
 
 

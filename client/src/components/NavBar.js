@@ -19,8 +19,8 @@ function NavBar() {
             <div className="nav-links-right"> {/* Container for right-hand side links */}
                 {isLoggedIn ? (
                     <>
-                        <NavLink to="/account">Account</NavLink>
-                        <NavLink to="/logout">Logout</NavLink>
+                        <NavLink to="/account" className="account-link">Account</NavLink>
+                        <NavLink to="/logout" className="logout-link">Logout</NavLink>
                     </>
                 ) : (
                     <>
