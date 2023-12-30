@@ -56,57 +56,58 @@ body::before {
 
 
 
-/*about component*/
-.home .intro {
+/* Home component */
+.home {
   max-width: 1300px;
   margin: 0 auto;
-  padding: 10px;
+  padding: 20px;
   text-align: center;
-  background-color: gray; /* Adjust background color for the about section */
+  background-color: gray; /* Same background color as generate and guide */
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.home .intro h5 {
+.home .intro, .home .component-description {
   color: black;
-  font-size: 25px;
+  font-size: 18px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc; /* Consistent with other components */
+  border-radius: 8px; /* Matched with other components */
+}
+
+.home h2 {
+  color: black;
+  font-size: 32px;
   margin-top: 2px;
   margin-bottom: 20px;
 }
 
-.home .intro span {
-  display: block;
-  margin-bottom: 1px;
-  font-size: 18px;
+.home .intro h5 {
+  font-size: 25px; /* Consistent font size */
+}
+
+.home .intro span, .home .component-description p {
+  font-size: 18px; /* Consistent font size */
   line-height: 1.5;
-  color: black;
 }
 
-.home #special-font1,
-.home #special-font2 {
-  font-family: cursive, sans-serif;
-  font-size:20px;
-  font-weight: bold;
+.home .intro_collage img, .home .component-description a {
+  margin-top: 10px; /* Consistent margin */
 }
 
-.home #special-font1 {
-  color: black;
+.home .component-description a {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-bottom: 10px; /* Added margin-bottom */
 }
 
-.home #special-font2 {
-  color: darkred;
-}
-
-.home .intro_collage {
-  margin-top: 20px;
-  position: relative;
-}
-
-.home .intro_collage img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.home .component-description a:hover {
+  background-color: #0056b3;
 }
 
 
