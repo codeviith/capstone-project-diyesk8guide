@@ -13,7 +13,7 @@ from config import db
 bcrypt = Bcrypt()
 
 
-### ------------------ USER (ONE) ------------------ ###
+### ------------------ USER ------------------ ###
 
 
 class User(db.Model, SerializerMixin):
@@ -69,7 +69,7 @@ class User(db.Model, SerializerMixin):
         return f'<User {self.id}>'
 
 
-### ------------------ BOARD (ONE) ------------------ ###
+### ------------------ BOARD ------------------ ###
 class Board(db.Model, SerializerMixin):
     __tablename__ = 'boards'
 
@@ -107,7 +107,7 @@ class Board(db.Model, SerializerMixin):
     def __repr__(self):
         return f'<Board {self.id}>'
 
-### ------------------ GURU (MANY) ------------------ ###
+### ------------------ GURU ------------------ ###
 
 
 class Guru(db.Model, SerializerMixin):
@@ -149,7 +149,7 @@ class ContactUs(db.Model, SerializerMixin):
 
 
 
-### ------------------ Qna (ONE) ------------------ ###
+### ------------------ QNA ------------------ ###
 
 class Qna(db.Model, SerializerMixin):
     __tablename__ = 'qna'
@@ -182,6 +182,41 @@ class Reply(db.Model):
     qna_id = db.Column(db.Integer, db.ForeignKey('qna.id'))
     
     qna = db.relationship('Qna', back_populates='replies')
+
+
+
+### ------------------ GALLERY ------------------ ###
+
+class Gallery(db.Model, SerializerMixin):
+    __tablename__ = 'gallery'
+
+    id = db.Column(db.Integer, primary_key=True, unique=True)
+    image_filename = db.Column(db.String, nullable=False)
+    menu1 = db.Column(db.String, nullable=False)
+    menu2 = db.Column(db.String, nullable=False)
+    menu3 = db.Column(db.String, nullable=False)
+    menu4 = db.Column(db.String, nullable=False)
+    menu5 = db.Column(db.String, nullable=False)
+
+    def __init__(self, image_filename, menu1, menu2, menu3, menu4, menu5):
+        self.image_filename = image_filename
+        self.menu1 = menu1
+        self.menu2 = menu2
+        self.menu3 = menu3
+        self.menu4 = menu4
+        self.menu5 = menu5
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'image_filename': self.image_filename,
+            'menu1': self.menu1,
+            'menu2': self.menu2,
+            'menu3': self.menu3,
+            'menu4': self.menu4,
+            'menu5': self.menu5
+        }
+
 
 
     def __repr__(self):

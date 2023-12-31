@@ -14,6 +14,15 @@ code {
 
 
 
+/* makes title bar look like floating*/
+main {
+  flex: 1;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+
+
 
 /* my code starts here: */
 body {
@@ -813,6 +822,7 @@ nav a.home-link:hover {
 
 
 
+
 /* guide component */
 .guide {
   max-width: 1300px;
@@ -872,7 +882,7 @@ nav a.home-link:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.about h5 {
+.about h2 {
   color: black;
   font-size: 25px;
   margin-top: 2px;
@@ -887,40 +897,80 @@ nav a.home-link:hover {
   color: black;
 }
 
-#special-font1,
-#special-font2 {
-  font-family: cursive, sans-serif;
-  font-size:20px;
-  font-weight: bold;
+.about .contact-us {
+  background-color: black; /* Slightly different background for contrast */
+  padding: 15px;
+  border-radius: 6px; /* Rounded corners for the contact section */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for the contact section */
+  margin-top: 30px; /* Space above the contact section */
 }
 
-#special-font1 {
-  color: black;
+.about .contact-us h2 {
+  color: #007bff; /* A pop of color for the contact section heading */
+  margin-bottom: 15px;
 }
 
-#special-font2 {
-  color: darkred;
+.about .contact-us p {
+  font-size: 17px; /* Slightly larger font for the contact message */
+  margin-bottom: 15px; /* Spacing before the link */
 }
 
-.about_collage {
-  margin-top: 20px;
-  position: relative;
+.about .contact-us a {
+  display: inline-block;
+  padding: 8px 12px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px; /* Rounded corners for the link */
+  text-decoration: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Small shadow for depth */
 }
 
-.about_collage img {
-  max-width: 68%;
-  height: auto;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.about .contact-us a:hover {
+  background-color: #0056b3;
+  box-shadow: 0 0 10px white
+}
+
+
+
+/* gallery component */
+
+.gallery {
+  text-align: center;
+  padding: 20px;
+}
+
+.gallery select {
+  margin: 10px;
 }
 
 
 
 
 
+/* footer */
 
+.footer {
+  background-color: black; /* Footer background color */
+  color: white; /* Footer text color */
+  text-align: center; /* Align text to the center */
+  padding: 10px 0; /* Padding for top and bottom */
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%; /* Full width */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Shadow for a lifted effect */
+}
 
+.footer a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
 
+.footer a:hover {
+  color: #007bff; /* Color change on hover */
+}
 
 
 /* success and error messages */

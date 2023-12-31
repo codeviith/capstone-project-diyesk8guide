@@ -10,12 +10,12 @@ from sqlalchemy import desc
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_bcrypt import Bcrypt
+from werkzeug.utils import secure_filename
 
 
 # Local imports
 from config import app, db, api
-from models import db, Board, Guru, User, ContactUs, Qna, Reply
-# Deck, Wheel, Truck, Motor, Battery, Controller, Remote, Max_speed, Range
+from models import db, Board, Guru, User, ContactUs, Qna, Reply, Gallery
 # from guru_assistant import guru_assistant
 import os
 
@@ -433,7 +433,31 @@ def delete_post(post_id):
         return jsonify({'error': str(e)}), 500
 
 
+### ------------------ GALLERY ------------------ ###
 
+@app.route('/gallery', methods=['POST'])
+def upload_gallery():
+    image = request.files.get('image')
+    dropdown_data = {key: request.form.get(key) for key in ['menu1', 'menu2', 'menu3', 'menu4', 'menu5']}
+
+    if image:
+        filename = secure_filename(image.filename)
+        image_path = os.path.join('path/to/save/images', filename)
+        image.save(image_path)
+
+        # Create and save the gallery entry
+        new_gallery_entry = Gallery(
+            image_filename=filename,
+            menu1=dropdown_data['menu1'],
+            menu2=dropdown_data['menu2'],
+            menu3=dropdown_data['menu3'],
+            menu4=dropdown_data['menu4'],
+            menu5=dropdown_data['menu5']
+        )
+        db.session.add(new_gallery_entry)
+        db.session.commit()
+
+    return {'message': 'Image and data received successfully'}
 
 
 if __name__ == '__main__':
