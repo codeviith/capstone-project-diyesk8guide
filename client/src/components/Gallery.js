@@ -69,8 +69,8 @@ function Gallery() {
                 ))}
             </div>
 
-            {/* Static form section */}
-            <div className="static-form">
+            {/* Floating form section */}
+            <div className="floating-form">
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
                     <input type="file" accept="image/*" onChange={handleImageChange} />
                     <br />
