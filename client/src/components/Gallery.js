@@ -49,8 +49,21 @@ function Gallery() {
             body: formData,
         });
         const responseData = await response.json();
-        // Refresh gallery items after submission
-        setGalleryItems([...galleryItems, responseData]);
+
+        if (responseData.message === 'Image and data received successfully') {
+            // Construct a new gallery item
+            const newGalleryItem = {
+                image_filename: fileName, // Use the file name for the image
+                battery_type: dropdowns.batteryType,
+                motor_type: dropdowns.motorType,
+                wheel_type: dropdowns.wheelType,
+                truck_type: dropdowns.truckType,
+                max_speed: dropdowns.maxSpeed
+            };
+    
+            // Refresh gallery items after submission
+            setGalleryItems([...galleryItems, newGalleryItem]);
+        }
     };
 
     return (
