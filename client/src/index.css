@@ -939,7 +939,7 @@ nav a.home-link:hover {
   text-align: center;
   flex-wrap: nowrap; /* Prevents flex items from wrapping */
   margin-right: 400px; /* Right margin to prevent overlap with the floating form */
-  margin-left: 100px;
+  margin-left: 30px;
 }
 
 .gallery-items {

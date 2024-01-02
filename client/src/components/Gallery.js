@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 function Gallery() {
     const [image, setImage] = useState(null);
-    const [dropdowns, setDropdowns] = useState({ menu1: '', menu2: '', menu3: '', menu4: '', menu5: '' });
+    const [dropdowns, setDropdowns] = useState({ battery_type: '', motor_type: '', wheel_type: '', truck_type: '', max_speed: '' });
     const [galleryItems, setGalleryItems] = useState([]);
     const [fileName, setFileName] = useState('');
 
@@ -25,11 +25,9 @@ function Gallery() {
         const file = e.target.files[0];
         if (file && file.type.startsWith('image/')) {
             setImage(file);
-            // setPreview(URL.createObjectURL(file));
             setFileName(file.name); // Set the file name
         } else {
             setImage(null);
-            // setPreview('');
             setFileName(''); // Clear the file name
         }
     };
@@ -63,11 +61,11 @@ function Gallery() {
                     <div key={index} className="gallery-item">
                         <img src={`images/${item.image_filename}`} alt={item.image_filename} />
                         <div className="item-details">
-                            <p>Menu 1: {item.menu1}</p>
-                            <p>Menu 2: {item.menu2}</p>
-                            <p>Menu 3: {item.menu3}</p>
-                            <p>Menu 4: {item.menu4}</p>
-                            <p>Menu 5: {item.menu5}</p>
+                            <p>Battery Type: {item.battery_type}</p>
+                            <p>Motor Type: {item.motor_type}</p>
+                            <p>Wheel Type: {item.wheel_type}</p>
+                            <p>Truck Type: {item.truck_type}</p>
+                            <p>Max Speed: {item.max_speed}</p>
                         </div>
                     </div>
                 ))}
@@ -82,16 +80,47 @@ function Gallery() {
                         <label htmlFor="file-input" className="file-input-button">Select Image</label>
                     </div>
                     <br />
-                    {[1, 2, 3, 4, 5].map(num => (
-                        <select key={num} name={`menu${num}`} value={dropdowns[`menu${num}`]} onChange={handleDropdownChange}>
-                            <option value="">Select Option</option>
-                            <option value="Option1">Option 1</option>
-                            <option value="Option2">Option 2</option>
-                            <option value="Option3">Option 3</option>
-                            <option value="Option4">Option 4</option>
-                        </select>
-                    ))}
-                    <br />
+
+                    <select name="batteryType" value={dropdowns.batteryType} onChange={handleDropdownChange}>
+                        <option value="">Battery Type</option>
+                        <option value="10s6p">10s6p</option>
+                        <option value="12s4p">12s4p</option>
+                        <option value="12s6p">12s6p</option>
+                        <option value="14s4p">14s4p</option>
+                    </select>
+
+                    <select name="motorType" value={dropdowns.motorType} onChange={handleDropdownChange}>
+                        <option value="">Motor Type</option>
+                        <option value="5364 170kv">5364 170kv</option>
+                        <option value="6364 190kv">6364 190kv</option>
+                        <option value="6384 170kv">6384 170kv</option>
+                        <option value="63100 150kv">63100 150kv</option>
+                    </select>
+
+                    <select name="wheelType" value={dropdowns.wheelType} onChange={handleDropdownChange}>
+                        <option value="">Wheel Type</option>
+                        <option value="Street">Street</option>
+                        <option value="Rubber">Rubber</option>
+                        <option value="Airless Pneumatics">Airless Pneumatics</option>
+                        <option value="Pneumatics">Pneumatics</option>
+                    </select>
+
+                    <select name="truckType" value={dropdowns.truckType} onChange={handleDropdownChange}>
+                        <option value="">Truck Type</option>
+                        <option value="Top Mount">Top Mount</option>
+                        <option value="Drop Mount">Drop Mount</option>
+                        <option value="Flush Mount">Flush Mount</option>
+                        <option value="Drop-Thru">Drop-Thru</option>
+                    </select>
+
+                    <select name="maxSpeed" value={dropdowns.maxSpeed} onChange={handleDropdownChange}>
+                        <option value="">Max Speed</option>
+                        <option value="25 MPH">25 MPH</option>
+                        <option value="28 MPH">28 MPH</option>
+                        <option value="30 MPH">30 MPH</option>
+                        <option value="35 MPH">35 MPH</option>
+                    </select>
+
                     <button type="submit">Submit</button>
                 </form>
             </div>

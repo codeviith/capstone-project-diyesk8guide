@@ -192,29 +192,29 @@ class Gallery(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True, unique=True)
     image_filename = db.Column(db.String, nullable=False)
-    menu1 = db.Column(db.String, nullable=False)
-    menu2 = db.Column(db.String, nullable=False)
-    menu3 = db.Column(db.String, nullable=False)
-    menu4 = db.Column(db.String, nullable=False)
-    menu5 = db.Column(db.String, nullable=False)
+    battery_type = db.Column(db.String, nullable=False)
+    motor_type = db.Column(db.String, nullable=False)
+    wheel_type = db.Column(db.String, nullable=False)
+    truck_type = db.Column(db.String, nullable=False)
+    max_speed = db.Column(db.String, nullable=False)
 
-    def __init__(self, image_filename, menu1, menu2, menu3, menu4, menu5):
+    def __init__(self, image_filename, battery_type, motor_type, wheel_type, truck_type, max_speed):
         self.image_filename = image_filename
-        self.menu1 = menu1
-        self.menu2 = menu2
-        self.menu3 = menu3
-        self.menu4 = menu4
-        self.menu5 = menu5
+        self.battery_type = battery_type
+        self.motor_type = motor_type
+        self.wheel_type = wheel_type
+        self.truck_type = truck_type
+        self.max_speed = max_speed
 
     def to_dict(self):
         return {
             'id': self.id,
             'image_filename': self.image_filename,
-            'menu1': self.menu1,
-            'menu2': self.menu2,
-            'menu3': self.menu3,
-            'menu4': self.menu4,
-            'menu5': self.menu5
+            'battery_type': self.battery_type,
+            'motor_type': self.motor_type,
+            'wheel_type': self.wheel_type,
+            'truck_type': self.truck_type,
+            'max_speed': self.max_speed
         }
 
 

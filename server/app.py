@@ -448,10 +448,16 @@ def serve_image(filename):
 
 
 @app.route('/gallery', methods=['GET', 'POST'])
-def gallery():
+def upload_gallery():
     if request.method == 'POST':
         image = request.files.get('image')
-        dropdown_data = {key: request.form.get(key) for key in ['menu1', 'menu2', 'menu3', 'menu4', 'menu5']}
+        dropdown_data = {
+            'battery_type': request.form.get('batteryType'),
+            'motor_type': request.form.get('motorType'),
+            'wheel_type': request.form.get('wheelType'),
+            'truck_type': request.form.get('truckType'),
+            'max_speed': request.form.get('maxSpeed')
+        }
 
         if image:
             filename = secure_filename(image.filename)
@@ -463,11 +469,11 @@ def gallery():
                 # Create and save the gallery entry
                 new_gallery_entry = Gallery(
                     image_filename=filename,
-                    menu1=dropdown_data['menu1'],
-                    menu2=dropdown_data['menu2'],
-                    menu3=dropdown_data['menu3'],
-                    menu4=dropdown_data['menu4'],
-                    menu5=dropdown_data['menu5']
+                    battery_type=dropdown_data['battery_type'],
+                    motor_type=dropdown_data['motor_type'],
+                    wheel_type=dropdown_data['wheel_type'],
+                    truck_type=dropdown_data['truck_type'],
+                    max_speed=dropdown_data['max_speed']
                 )
                 db.session.add(new_gallery_entry)
                 db.session.commit()
