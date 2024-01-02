@@ -957,12 +957,45 @@ nav a.home-link:hover {
 }
 
 
+
+.file-input-wrapper {
+  display: flex;
+  justify-content: center; /* Center the file input */
+}
+
+.file-name-display {
+  text-align: center; /* Center the file name text */
+  margin-bottom: 10px; /* Space between file name and file input */
+  color: black;
+  font-size: 0.9em;
+  word-wrap: break-word; /* Ensure long filenames wrap */
+  max-width: 90%; /* Set maximum width for filename display */
+  margin-left: auto; /* Center the filename text block */
+  margin-right: auto;
+}
+
+.file-input-button {
+  background-color: #31b335; /* New button background color */
+  color: white; /* Text color */
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.file-input-button:hover {
+  background-color: #096d0e; /* Darker shade for hover effect */
+  box-shadow: 0 0 5px white;
+}
+
+
+
 .floating-form {
   position: fixed; /* Makes the form float */
   top: 80px; /* Distance from top of the page */
   right: 20px; /* Distance from right of the page */
   width: 300px; /* Width of the form */
-  background-color: white; /* Background color of the form */
+  background-color: gray; /* Background color of the form */
   padding: 20px; /* Padding around the form */
   border-radius: 8px; /* Rounded corners */
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Shadow for the form */
@@ -974,8 +1007,22 @@ nav a.home-link:hover {
 .floating-form input,
 .floating-form select,
 .floating-form button {
-  width: 100%; /* Full width inside the form */
+  width: 90%; /* Full width inside the form */
   margin-bottom: 10px; /* Spacing between elements */
+}
+
+.floating-form select {
+  width: 100%; /* Adjust width as needed */
+  padding: 3px 0px; /* Adjust padding for better text visibility and size */
+  font-size: 14px; /* Adjust font size */
+  border-radius: 4px; /* Rounded corners */
+  border: 2px solid gray; /* Border color */
+  margin-bottom: 8px; /* Spacing between select elements */
+}
+
+.floating-form select:focus {
+  outline: none; /* Remove default focus outline */
+  border-color: #a90404; /* Change border color on focus */
 }
 
 /* Style adjustments for the button */
@@ -984,13 +1031,14 @@ nav a.home-link:hover {
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   padding: 10px 0;
 }
 
 /* Hover effect for the button */
 .floating-form button:hover {
   background-color: #0056b3;
+  box-shadow: 0 0 5px white;
 }
 
 
