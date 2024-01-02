@@ -435,6 +435,13 @@ def delete_post(post_id):
 
 ### ------------------ GALLERY ------------------ ###
 
+# Directory for incoming uploads
+IMAGE_UPLOAD_FOLDER = 'server/gallery'
+
+# Making sure directory exists
+os.makedirs(IMAGE_UPLOAD_FOLDER, exist_ok=True)
+
+
 @app.route('/gallery', methods=['POST'])
 def upload_gallery():
     image = request.files.get('image')
@@ -442,7 +449,7 @@ def upload_gallery():
 
     if image:
         filename = secure_filename(image.filename)
-        image_path = os.path.join('path/to/save/images', filename)
+        image_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
         image.save(image_path)
 
         # Create and save the gallery entry
@@ -457,7 +464,9 @@ def upload_gallery():
         db.session.add(new_gallery_entry)
         db.session.commit()
 
-    return {'message': 'Image and data received successfully'}
+        return {'message': 'Image and data received successfully'}
+    else:
+        return {'error': 'No image provided'}
 
 
 if __name__ == '__main__':
