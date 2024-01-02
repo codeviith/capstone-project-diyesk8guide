@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # Remote library imports
-from flask import Flask, jsonify, make_response, request, session, json
+from flask import Flask, jsonify, make_response, request, session, json, send_from_directory
 from flask_restful import Resource
 from flask_migrate import Migrate
 from flask_cors import CORS
@@ -436,37 +436,53 @@ def delete_post(post_id):
 ### ------------------ GALLERY ------------------ ###
 
 # Directory for incoming uploads
-IMAGE_UPLOAD_FOLDER = 'server/gallery'
+IMAGE_UPLOAD_FOLDER = '/home/codeviith/Development/code/phase-5/capstone-project/diyesk8guide/server/gallery'
 
 # Making sure directory exists
 os.makedirs(IMAGE_UPLOAD_FOLDER, exist_ok=True)
 
 
-@app.route('/gallery', methods=['POST'])
-def upload_gallery():
-    image = request.files.get('image')
-    dropdown_data = {key: request.form.get(key) for key in ['menu1', 'menu2', 'menu3', 'menu4', 'menu5']}
+@app.route('/images/<filename>')
+def serve_image(filename):
+    return send_from_directory(IMAGE_UPLOAD_FOLDER, filename)
 
-    if image:
-        filename = secure_filename(image.filename)
-        image_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
-        image.save(image_path)
 
-        # Create and save the gallery entry
-        new_gallery_entry = Gallery(
-            image_filename=filename,
-            menu1=dropdown_data['menu1'],
-            menu2=dropdown_data['menu2'],
-            menu3=dropdown_data['menu3'],
-            menu4=dropdown_data['menu4'],
-            menu5=dropdown_data['menu5']
-        )
-        db.session.add(new_gallery_entry)
-        db.session.commit()
+@app.route('/gallery', methods=['GET', 'POST'])
+def gallery():
+    if request.method == 'POST':
+        image = request.files.get('image')
+        dropdown_data = {key: request.form.get(key) for key in ['menu1', 'menu2', 'menu3', 'menu4', 'menu5']}
 
-        return {'message': 'Image and data received successfully'}
-    else:
-        return {'error': 'No image provided'}
+        if image:
+            filename = secure_filename(image.filename)
+            image_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
+            try:
+                image.save(image_path)
+                print(f"Image saved at {image_path}")
+
+                # Create and save the gallery entry
+                new_gallery_entry = Gallery(
+                    image_filename=filename,
+                    menu1=dropdown_data['menu1'],
+                    menu2=dropdown_data['menu2'],
+                    menu3=dropdown_data['menu3'],
+                    menu4=dropdown_data['menu4'],
+                    menu5=dropdown_data['menu5']
+                )
+                db.session.add(new_gallery_entry)
+                db.session.commit()
+
+                return jsonify({'message': 'Image and data received successfully', 'filePath': image_path})
+            except Exception as e:
+                print(f"Error saving image: {e}")
+                return jsonify({'error': str(e)}), 500
+        else:
+            return {'error': 'No image provided'}
+
+    elif request.method == 'GET':
+        # Fetch all gallery items
+        gallery_items = Gallery.query.all()
+        return jsonify([item.to_dict() for item in gallery_items])
 
 
 if __name__ == '__main__':
