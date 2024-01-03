@@ -33,6 +33,8 @@ class User(db.Model, SerializerMixin):
     boards = db.relationship('Board', back_populates='users')
     gurus = db.relationship('Guru', back_populates='users')
     qna = db.relationship('Qna', back_populates='users')
+    hearted_gallery_items = db.relationship('Gallery', secondary='hearts', back_populates='hearted_by_users')
+
 
 
     @hybrid_property
@@ -187,6 +189,12 @@ class Reply(db.Model):
 
 ### ------------------ GALLERY ------------------ ###
 
+
+hearts = db.Table('hearts',
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
+    db.Column('gallery_id', db.Integer, db.ForeignKey('gallery.id'), primary_key=True)
+)
+
 class Gallery(db.Model, SerializerMixin):
     __tablename__ = 'gallery'
 
@@ -197,6 +205,8 @@ class Gallery(db.Model, SerializerMixin):
     wheel_type = db.Column(db.String, nullable=False)
     truck_type = db.Column(db.String, nullable=False)
     max_speed = db.Column(db.String, nullable=False)
+
+    hearts = db.Column(db.Integer, default=0)
 
     def __init__(self, image_filename, battery_type, motor_type, wheel_type, truck_type, max_speed):
         self.image_filename = image_filename
@@ -216,7 +226,8 @@ class Gallery(db.Model, SerializerMixin):
             'truck_type': self.truck_type,
             'max_speed': self.max_speed
         }
-
+    
+    hearted_by_users = db.relationship('User', secondary='hearts', back_populates='hearted_gallery_items')
 
 
     def __repr__(self):

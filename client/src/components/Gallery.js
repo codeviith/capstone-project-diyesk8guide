@@ -1,15 +1,32 @@
 import React, { useState, useEffect } from 'react';
+import HeartButton from './HeartButton';
+// import { AuthContext } from './AuthProvider';
+
 
 function Gallery() {
     const [image, setImage] = useState(null);
     const [dropdowns, setDropdowns] = useState({ battery_type: '', motor_type: '', wheel_type: '', truck_type: '', max_speed: '' });
     const [galleryItems, setGalleryItems] = useState([]);
+    const [topHeartedImages, setTopHeartedImages] = useState([]); // State to store top hearted images
     const [fileName, setFileName] = useState('');
     const [uploadError, setUploadError] = useState('');
 
     useEffect(() => {
         fetchGalleryItems();
     }, []);
+
+    useEffect(() => {
+        fetchTopHeartedImages();
+        fetchGalleryItems();
+    }, []);
+
+    const fetchTopHeartedImages = async () => {
+        const response = await fetch('/gallery/top');
+        if (response.ok) {
+            const topImages = await response.json();
+            setTopHeartedImages(topImages); // Update state with top hearted images
+        }
+    };
 
     const fetchGalleryItems = async () => {
         try {
@@ -20,6 +37,7 @@ function Gallery() {
             console.error('Error fetching gallery items:', error);
         }
     };
+
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -67,6 +85,14 @@ function Gallery() {
         }
     };
 
+    const updateHeartCount = (index, hearts) => { // Function to update heart count in state
+        const newGalleryItems = [...galleryItems];
+        newGalleryItems[index].hearts = hearts; // Update the heart count for the specific image
+
+        setGalleryItems(newGalleryItems); // Update the state to reflect the new heart counts
+    };
+
+
     return (
         <div className="gallery-container">
             {/* Gallery items */}
@@ -80,6 +106,7 @@ function Gallery() {
                             <p>Wheel Type: {item.wheel_type}</p>
                             <p>Truck Type: {item.truck_type}</p>
                             <p>Max Speed: {item.max_speed}</p>
+                            <HeartButton imageId={item.id} onHearted={(hearts) => updateHeartCount(index, hearts)} />
                         </div>
                     </div>
                 ))}

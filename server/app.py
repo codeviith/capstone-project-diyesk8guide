@@ -6,7 +6,7 @@ from flask_restful import Resource
 from flask_migrate import Migrate
 from flask_cors import CORS
 from dotenv import load_dotenv
-from sqlalchemy import desc
+from sqlalchemy import desc, func
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_bcrypt import Bcrypt
@@ -15,7 +15,7 @@ from werkzeug.utils import secure_filename
 
 # Local imports
 from config import app, db, api
-from models import db, Board, Guru, User, ContactUs, Qna, Reply, Gallery
+from models import db, Board, Guru, User, ContactUs, Qna, Reply, Gallery, hearts
 # from guru_assistant import guru_assistant
 import os
 
@@ -489,6 +489,42 @@ def upload_gallery():
         # Fetch all gallery items
         gallery_items = Gallery.query.all()
         return jsonify([item.to_dict() for item in gallery_items])
+
+
+@app.route('/gallery/heart', methods=['POST'])
+def heart_image():
+    if 'user_id' not in session:
+        return jsonify({'error': 'Authentication required'}), 401
+
+    user_id = session['user_id']
+    image_id = request.json.get('image_id')
+
+    # Verify that the image exists
+    image = Gallery.query.get(image_id)
+    if not image:
+        return jsonify({'error': 'Image not found'}), 404
+
+    # Check if the user has already hearted the image
+    already_hearted = db.session.query(hearts).filter_by(user_id=user_id, gallery_id=image_id).first()
+    if already_hearted:
+        return jsonify({'message': 'Already hearted'}), 409
+
+    # Increment heart count and add a heart record
+    image.hearts += 1
+    new_heart = hearts.insert().values(user_id=user_id, gallery_id=image_id)
+    db.session.execute(new_heart)
+    db.session.commit()
+
+    return jsonify({'message': 'Hearted successfully', 'hearts': image.hearts})
+
+
+@app.route('/gallery/top')
+def get_top_images():
+    top_images = Gallery.query.order_by(desc(Gallery.hearts)).limit(3).all()
+    return jsonify([image.to_dict() for image in top_images])
+
+
+
 
 
 if __name__ == '__main__':

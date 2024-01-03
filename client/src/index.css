@@ -936,26 +936,47 @@ nav a.home-link:hover {
 
 .gallery-container {
   display: flex;
-  text-align: center;
+  text-align: left;
   flex-wrap: nowrap; /* Prevents flex items from wrapping */
-  margin-right: 400px; /* Right margin to prevent overlap with the floating form */
-  margin-left: 30px;
+  margin-right: 210px; /* Right margin to prevent overlap with the floating form */
+  margin-left: 2px;
 }
 
 .gallery-items {
+  display: flex; /* Changed to flex display */
+  flex-wrap: wrap; /* Allows items to wrap to the next line */
+  gap: 10px; /* Space between items */
   flex: 1; /* Takes up remaining space */
   overflow-y: auto; /* Makes this section scrollable */
-  padding: 20px;
+  padding: 8px;
 }
 
-.gallery-container img {
-  max-width: 100%; /* Maximum width relative to the container */
-  max-height: 600px; /* Maximum height */
-  object-fit: cover; /* This ensures the image covers the area, might clip if aspect ratio is different */
-  margin-bottom: 10px; /* Space below each image */
-  border-radius: 8px; /* Optional: For rounded corners */
+.gallery-item {
+  flex-basis: calc((100% / 3) - 20px - 20px); /* Each item takes up one-third of the row width minus gap */
+ /* Max-width ensures items do not exceed their allocated space */
+  display: flex; /* Using flex to better control inner elements */
+  flex-direction: column; /* Aligns elements in a column */
+  align-items: center; /* Center-aligns items */
+  background-color: darkgray; /* Set background color for the entire item */
+  border-radius: 8px; /* Rounded corners for the whole item */
+  overflow: hidden; /* Ensures child elements like images do not overflow the container's rounded corners */
+  margin-bottom: 10px; /* Spacing below each item */
+  padding: 10px; /* Padding around the image within the item */
 }
 
+.gallery-item img {
+  width: calc(100% - 20px); /* Adjusts image width to fit container with padding */
+  height: 320px; /* Adjusted height considering padding */
+  object-fit: contain; /* Ensures the entire image fits within the container without being cropped */
+  background-color: transparent; /* Background color for the area around the image if it doesn't cover the whole container */
+}
+
+.item-details {
+  padding: 10px; /* Padding inside the item details section */
+  background-color: darkgray; /* Dark gray background for the details section */
+  color: white; /* Lighter text color for contrast */
+  text-align: center; /* Center the text */
+}
 
 
 .file-input-wrapper {
@@ -989,12 +1010,11 @@ nav a.home-link:hover {
 }
 
 
-
 .floating-form {
   position: fixed; /* Makes the form float */
   top: 80px; /* Distance from top of the page */
-  right: 20px; /* Distance from right of the page */
-  width: 300px; /* Width of the form */
+  right: 15px; /* Distance from right of the page */
+  width: 200px; /* Width of the form */
   background-color: gray; /* Background color of the form */
   padding: 20px; /* Padding around the form */
   border-radius: 8px; /* Rounded corners */
@@ -1031,6 +1051,7 @@ nav a.home-link:hover {
   background-color: #007bff;
   color: white;
   border: none;
+  text-align: center;
   border-radius: 6px;
   padding: 10px 0;
 }
