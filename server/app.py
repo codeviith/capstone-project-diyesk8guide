@@ -504,6 +504,11 @@ def heart_image():
     if not image:
         return jsonify({'error': 'Image not found'}), 404
 
+    if image.hearts is None:
+        image.hearts = 0
+
+    image.hearts += 1
+    
     # Check if the user has already hearted the image
     already_hearted = db.session.query(hearts).filter_by(user_id=user_id, gallery_id=image_id).first()
     if already_hearted:

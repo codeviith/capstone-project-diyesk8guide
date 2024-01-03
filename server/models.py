@@ -215,6 +215,7 @@ class Gallery(db.Model, SerializerMixin):
         self.wheel_type = wheel_type
         self.truck_type = truck_type
         self.max_speed = max_speed
+        self.hearts = 0
 
     def to_dict(self):
         return {
@@ -232,5 +233,6 @@ class Gallery(db.Model, SerializerMixin):
 
     def __repr__(self):
         return f'<Reply {self.id}>'
+
 
 

@@ -1065,6 +1065,32 @@ nav a.home-link:hover {
 
 
 
+.heart-icon {
+  color: red; /* Red color for the hearted state */
+  width: 35px;  /* Adjust the size as needed */
+  height: 35px; /* Adjust the size as needed */
+}
+
+.broken-heart-icon {
+  color: red;
+  width: 35px;  /* Adjust the size as needed */
+  height: 35px; /* Adjust the size as needed */
+}
+
+
+#heart-button {
+  border: none; /* Removes border */
+  background: transparent; /* Makes background transparent */
+  padding: 0; /* Removes padding */
+  outline: none; /* Removes the outline on focus */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+
+
+
+
 
 /* footer */
 
