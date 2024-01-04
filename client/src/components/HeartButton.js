@@ -3,7 +3,7 @@ import { AuthContext } from './AuthContext';
 import HeartIcon from './HeartIcon';
 import BrokenHeartIcon from './BrokenHeartIcon';
 
-const HeartButton = ({ imageId, onHearted, initiallyHearted }) => {
+function HeartButton({ imageId, onHearted, initiallyHearted }) {
     const { isLoggedIn } = useContext(AuthContext);
     const [isHearted, setIsHearted] = useState(initiallyHearted);
 

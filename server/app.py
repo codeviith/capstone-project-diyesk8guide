@@ -411,7 +411,7 @@ def heart_image():
         image.hearts += 1
 
     db.session.commit()
-    
+
     return jsonify({'newHeartState': heart_record is None, 'hearts': image.hearts})
 
 
@@ -425,7 +425,6 @@ def get_top_images():
         .all()
     
     return jsonify([image.to_dict() for image in top_images])
-
 
 
 
