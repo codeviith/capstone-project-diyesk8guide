@@ -95,11 +95,12 @@ function Gallery() {
         }
     };
 
-    const updateHeartCount = (index, hearts) => { // Function to update heart count in state
+    const updateHeartCount = (index, change) => {
+        console.log(`Updating heart count for index ${index} with change ${change}`);
         const newGalleryItems = [...galleryItems];
-        newGalleryItems[index].hearts = hearts; // Update the heart count for the specific image
+        newGalleryItems[index].hearts += change; // Adjust the heart count by the change amount
 
-        setGalleryItems(newGalleryItems); // Update the state to reflect the new heart counts
+        setGalleryItems(newGalleryItems);
     };
 
 
@@ -107,8 +108,8 @@ function Gallery() {
         <div className="gallery-container">
             {/* Hall of Fame */}
             <div className="hall-of-fame">
-                <h2>Hall of Fame</h2>
-                <div className="top-heart-images">
+                <h1>Hall of Fame</h1>
+                <div className="top-gallery-items">
                     {topHeartedImages.map((item, index) => (
                         <div key={index} className="top-gallery-item">
                             <img src={`images/${item.image_filename}`} alt={item.image_filename} />
@@ -132,6 +133,7 @@ function Gallery() {
 
             {/* Gallery items */}
             <div className="gallery-items">
+                <h2>Featured Builds</h2>
                 {galleryItems.map((item, index) => (
                     <div key={index} className="gallery-item">
                         <img src={`images/${item.image_filename}`} alt={item.image_filename} />

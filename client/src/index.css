@@ -41,10 +41,15 @@ body::before {
   /* background: url('/home/codeviith/Development/code/phase-5/capstone-project/diyesk8guide/client/src/components/images/main_background.jpg') center center fixed; */
   /* background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.wallpapersden.com%2Fimage%2Fdownload%2Fblack-and-red-hexagon_a25qZmWUmZqaraWkpJRmbmdlrWZlbWU.jpg&f=1&nofb=1&ipt=633d7d1d7d3e651478cbdaf66914a349f667cdd3d8c9b0456e92be63257d95b1&ipo=images') center center fixed; */
   background: url('https://www.innerloc.com/wp-content/uploads/2017/03/bigstock-Black-Carbon-Fiber-Hexagon-Pat-176134867.jpg') center center fixed;
+  background: url('https://wallpaperaccess.com/full/2024271.jpg') center center fixed;
+  /* background: url('jpg') center center fixed; */
+  /* background: url('jpg') center center fixed; */
+  /* background: url('jpg') center center fixed; */
+  /* background: url('jpg') center center fixed; */
+  /* background: url('jpg') center center fixed; */
   background-size: cover;
   opacity: 0.9; /* Adjust the opacity as needed */
 }
-
 
 
 /* header component */
@@ -935,20 +940,28 @@ nav a.home-link:hover {
 /* gallery component */
 
 .gallery-container {
-  display: flex;
+  flex-direction: column; /* Stack the sections vertically */
+  align-items: center; /* Center align the child elements */
   text-align: left;
-  flex-wrap: nowrap; /* Prevents flex items from wrapping */
-  margin-right: 210px; /* Right margin to prevent overlap with the floating form */
+  margin-right: 210px;
   margin-left: 2px;
 }
 
 .gallery-items {
   display: flex; /* Changed to flex display */
   flex-wrap: wrap; /* Allows items to wrap to the next line */
-  gap: 10px; /* Space between items */
+  gap: 15px; /* Space between items */
   flex: 1; /* Takes up remaining space */
   overflow-y: auto; /* Makes this section scrollable */
   padding: 8px;
+}
+
+.gallery-items h2 {
+  width: 100%; /* Make the title span the full width */
+  color: white;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 .gallery-item {
@@ -958,17 +971,18 @@ nav a.home-link:hover {
   flex-direction: column; /* Aligns elements in a column */
   align-items: center; /* Center-aligns items */
   background-color: darkgray; /* Set background color for the entire item */
-  border-radius: 8px; /* Rounded corners for the whole item */
+  border-radius: 75px; /* Rounded corners for the whole item */
   overflow: hidden; /* Ensures child elements like images do not overflow the container's rounded corners */
   margin-bottom: 10px; /* Spacing below each item */
   padding: 10px; /* Padding around the image within the item */
 }
 
 .gallery-item img {
-  width: calc(100% - 20px); /* Adjusts image width to fit container with padding */
+  width: calc(100% - 5px); /* Adjusts image width to fit container with padding */
   height: 320px; /* Adjusted height considering padding */
   object-fit: contain; /* Ensures the entire image fits within the container without being cropped */
   background-color: transparent; /* Background color for the area around the image if it doesn't cover the whole container */
+  border-radius: 50000px;
 }
 
 .item-details {
@@ -1027,7 +1041,7 @@ nav a.home-link:hover {
 .floating-form input,
 .floating-form select,
 .floating-form button {
-  width: 90%; /* Full width inside the form */
+  width: 90%; /* Width inside the form */
   margin-bottom: 10px; /* Spacing between elements */
 }
 
@@ -1063,8 +1077,6 @@ nav a.home-link:hover {
 }
 
 
-
-
 .heart-icon {
   width: 35px; 
   height: 35px;
@@ -1086,6 +1098,87 @@ nav a.home-link:hover {
 }
 
 
+/* Hall of Fame Section */
+
+.hall-of-fame {
+  width: 95%; /* Width of the container */
+  margin-top: 25px;
+  margin-bottom: 20px; /* Space between hall-of-fame and gallery-items sections */
+  padding: 10px; /* Padding around the hall-of-fame section */
+  /* background-image: url("https://wallpapercave.com/wp/wp4581227.jpg"); */
+  background-image: url("https://wallpaperaccess.com/full/2024271.jpg");
+  /* background-image: url("https://wallpapers.com/images/hd/electric-background-aukjsvm4da5furms.jpg"); */
+  /* background-image: url("https://i2.wp.com/files.123freevectors.com/wp-content/original/123992-shiny-bright-orange-metallic-texture.jpg"); */
+  /* background-image: url("https://static.vecteezy.com/system/resources/previews/001/987/938/original/abstract-orange-light-metallic-hexagon-mesh-pattern-on-black-design-modern-futuristic-background-illustration-vector.jpg"); */
+  /* background-image: url("https://images.squarespace-cdn.com/content/v1/5c12a0719772aeb07a5efb9f/1550537105754-RGRVH2SR5S28RZJCVJ3V/metal-texture-orange--trimmed.jpg"); */
+  /* background-image: url("https://png.pngtree.com/thumb_back/fh260/background/20231227/pngtree-vibrant-orange-and-red-gradient-a-captivating-blend-with-a-silky-image_13896377.png"); */
+  /* background-image: url("https://i.pinimg.com/originals/cc/75/e6/cc75e692e1956f12b98f25ae0dddfae5.jpg"); */
+  /* background-image: url("https://wallpapercave.com/wp/o29TDj4.jpg"); */
+  background-image: url("https://i.pinimg.com/736x/b4/b4/bd/b4b4bd9ab34d6d6f7057eba106e2bb22--texture.jpg");
+  background-image: url("https://wallpapercave.com/wp/wp7316402.jpg");
+  /* background-image: url("https://w0.peakpx.com/wallpaper/949/433/HD-wallpaper-gold-metal-plate-golden-metal-plate-texture.jpg"); */
+  /* background-image: url("https://wallpapercave.com/wp/wp2446110.jpg"); */
+  /* background-image: url("jpg"); */
+  /* background-image: url("jpg"); */
+  /* background-image: url("jpg"); */
+  /* background-image: url("jpg"); */
+  /* background-image: url("jpg"); */
+  /* background-image: url("jpg"); */
+  /* background-image: url("jpg"); */
+  /* background-size: contain; */
+  background-size: cover; 
+  /* background-size: fill;  */
+  background-position: center; /* Center the image in the container */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  border: 2px solid white; /* Add white border outline */
+  border-radius: 75px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Optional: Add a subtle shadow for depth */
+}
+
+.hall-of-fame h1 {
+  width: 100%; /* Make the title span the full width */
+  color: black;
+  font-size: 30px;
+  font-weight: bolder;
+  text-align: center;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.top-gallery-items {
+  display: flex; /* Similar display as gallery-items */
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+  gap: 10px; /* Space between items */
+  padding: 8px; /* Padding around the items */
+  justify-content: center;
+}
+
+.top-gallery-item {
+  flex-basis: calc((100% / 3) - 20px - 20px); /* Each item takes up one-third of the row width minus gap */
+  display: flex; /* Using flex for inner elements */
+  flex-direction: column; /* Align elements in a column */
+  align-items: center; /* Center-align items */
+  background-color: darkgray; /* Background color */
+  border-radius: 75px; /* Rounded corners */
+  overflow: hidden; /* Prevents overflow outside of border-radius */
+  margin-bottom: 10px; /* Spacing below each item */
+  padding: 0px; /* Padding inside each item */
+}
+
+.top-gallery-item img {
+  width: calc(100% - 20px); /* Image width to fit container with padding */
+  height: 320px; /* Adjusted height for consistency */
+  object-fit: contain; /* Ensures the entire image fits within the container */
+  background-color: transparent; /* Background color around the image */
+  border-radius: 500000px;
+}
+
+.item-details {
+  padding: 10px; /* Padding inside the item details section */
+  background-color: darkgray; /* Background color for the details section */
+  color: white; /* Text color */
+  text-align: center; /* Center the text */
+}
 
 
 

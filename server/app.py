@@ -399,12 +399,16 @@ def heart_image():
     if not image:
         return jsonify({'error': 'Image not found'}), 404
 
+    print(f"Heart request received for image_id: {image_id}, user_id: {user_id}")
+
     heart_record = Heart.query.filter_by(user_id=user_id, gallery_id=image_id).first()
     if heart_record:
+        print("Heart exists, removing it")
         # Heart exists, so remove it (unheart)
         db.session.delete(heart_record)
         image.hearts -= 1
     else:
+        print("Heart does not exist, adding it")
         # Heart does not exist, so add it
         new_heart = Heart(user_id=user_id, gallery_id=image_id)
         db.session.add(new_heart)

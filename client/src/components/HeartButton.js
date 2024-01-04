@@ -8,10 +8,10 @@ function HeartButton({ imageId, onHearted, initiallyHearted }) {
     const [isHearted, setIsHearted] = useState(initiallyHearted);
 
     const handleHeartClick = async () => {
-        if (!isLoggedIn) {
-            alert('You must be logged in to heart images.');
-            return;
-        }
+        // "Optimistically" update the heart count, aka. update the count ahead of the backend operation
+        const newHeartState = !isHearted;
+        setIsHearted(newHeartState);
+        onHearted(newHeartState ? 1 : -1); // Increment or decrement heart count
 
         try {
             const response = await fetch('/gallery/heart', {
@@ -21,21 +21,23 @@ function HeartButton({ imageId, onHearted, initiallyHearted }) {
                 credentials: 'include',
             });
 
-            if (response.ok) {
-                const data = await response.json();
-                setIsHearted(data.newHeartState); // Update based on the new state from the server
-                onHearted(data.hearts); // Update the heart count in the parent component
-            } else {
+            if (!response.ok) {
+                // If backend operation fails, revert the heart count and state
+                setIsHearted(!newHeartState);
+                onHearted(newHeartState ? -1 : 1);
                 alert('Error toggling heart status.');
             }
         } catch (error) {
             console.error('Error during heart request:', error);
+            // Revert heart count and state on error
+            setIsHearted(!newHeartState);
+            onHearted(newHeartState ? -1 : 1);
         }
     };
 
-    // Conditional rendering based on login status
+    // Conditional display depending on login status
     if (!isLoggedIn) {
-        return null; // Do not render anything if the user is not logged in
+        return null; // Return nothing if the user not logged in
     }
 
     return (
