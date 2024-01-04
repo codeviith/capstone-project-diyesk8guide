@@ -286,6 +286,7 @@ nav {
   align-items: center;
   background-color: black;
   padding: 2px;
+  border-radius: 11px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s;
 }
@@ -1028,7 +1029,7 @@ nav a.home-link:hover {
   position: fixed; /* Makes the form float */
   top: 80px; /* Distance from top of the page */
   right: 15px; /* Distance from right of the page */
-  width: 200px; /* Width of the form */
+  width: 180px; /* Width of the form */
   background-color: gray; /* Background color of the form */
   padding: 20px; /* Padding around the form */
   border-radius: 8px; /* Rounded corners */
@@ -1102,6 +1103,7 @@ nav a.home-link:hover {
 
 .hall-of-fame {
   width: 95%; /* Width of the container */
+  height: 720px;
   margin-top: 25px;
   margin-bottom: 20px; /* Space between hall-of-fame and gallery-items sections */
   padding: 10px; /* Padding around the hall-of-fame section */
@@ -1118,10 +1120,6 @@ nav a.home-link:hover {
   background-image: url("https://wallpapercave.com/wp/wp7316402.jpg");
   /* background-image: url("https://w0.peakpx.com/wallpaper/949/433/HD-wallpaper-gold-metal-plate-golden-metal-plate-texture.jpg"); */
   /* background-image: url("https://wallpapercave.com/wp/wp2446110.jpg"); */
-  /* background-image: url("jpg"); */
-  /* background-image: url("jpg"); */
-  /* background-image: url("jpg"); */
-  /* background-image: url("jpg"); */
   /* background-image: url("jpg"); */
   /* background-image: url("jpg"); */
   /* background-image: url("jpg"); */
