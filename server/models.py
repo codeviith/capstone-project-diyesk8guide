@@ -32,8 +32,9 @@ class User(db.Model, SerializerMixin):
 
     boards = db.relationship('Board', back_populates='users')
     gurus = db.relationship('Guru', back_populates='users')
-    qna = db.relationship('Qna', back_populates='users')
-    hearted_gallery_items = db.relationship('Gallery', secondary='hearts', back_populates='hearted_by_users')
+    # qna = db.relationship('Qna', back_populates='users')
+    hearts = db.relationship('Heart', backref='user')
+
 
 
 
@@ -149,51 +150,8 @@ class ContactUs(db.Model, SerializerMixin):
     # users = db.relationship('User', back_populates='contacts')
 
 
-
-
-### ------------------ QNA ------------------ ###
-
-class Qna(db.Model, SerializerMixin):
-    __tablename__ = 'qna'
-
-
-    serializer_rule = ('-users.qna',)
-
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    post = db.Column(db.String, nullable=False)
-    reply = db.Column(db.String, nullable=False)
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
-
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-
-    users = db.relationship('User', back_populates='qna')
-    replies = db.relationship('Reply', back_populates='qna', cascade='all, delete-orphan')
-
-
-    def __repr__(self):
-        return f'<Qna {self.id}>'
-
-
-class Reply(db.Model):
-    __tablename__ = 'replies'
-
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    reply = db.Column(db.String, nullable=False)
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
-    
-    qna_id = db.Column(db.Integer, db.ForeignKey('qna.id'))
-    
-    qna = db.relationship('Qna', back_populates='replies')
-
-
-
 ### ------------------ GALLERY ------------------ ###
 
-
-hearts = db.Table('hearts',
-    db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
-    db.Column('gallery_id', db.Integer, db.ForeignKey('gallery.id'), primary_key=True)
-)
 
 class Gallery(db.Model, SerializerMixin):
     __tablename__ = 'gallery'
@@ -228,11 +186,23 @@ class Gallery(db.Model, SerializerMixin):
             'max_speed': self.max_speed
         }
     
-    hearted_by_users = db.relationship('User', secondary='hearts', back_populates='hearted_gallery_items')
+    hearts = db.relationship('Heart', backref='gallery')
 
+
+
+### ------------------ HEART ------------------ ###
+
+class Heart(db.Model):
+    __tablename__ = 'hearts'
+
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    gallery_id = db.Column(db.Integer, db.ForeignKey('gallery.id'), primary_key=True)
+    
+    user = db.relationship('User', backref=db.backref('hearted_gallery_items', cascade='all, delete-orphan'))
+    gallery = db.relationship('Gallery', backref=db.backref('hearted_by_users', cascade='all, delete-orphan'))
 
     def __repr__(self):
-        return f'<Reply {self.id}>'
+        return f'<Heart user_id={self.user_id} gallery_id={self.gallery_id}>'
 
 
 

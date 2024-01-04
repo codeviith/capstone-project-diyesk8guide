@@ -41,7 +41,7 @@ const Home = () => {
     <div className="component-description">
       <h2>Q&A Forum</h2>
       <p>Join our Q&A Forum to discuss and share insights with the skateboarding community. Dive into discussions now!</p>
-      <Link to="/qna">Go to Q&A Forum</Link>
+      <Link to="/gallery">Go to Gallery</Link>
     </div>
   </div>
   );

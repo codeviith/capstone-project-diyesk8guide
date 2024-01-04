@@ -8,7 +8,7 @@ import Logout from './Logout';
 import Signup from "./Signup";
 import Guru from './Guru';
 import Home from "./Home";
-import Qna from './Qna';
+// import Qna from './Qna';
 import Gallery from './Gallery';
 import Guide from './Guide';
 import Account from './Account';
@@ -46,9 +46,9 @@ function App() {
             <Route path="/guru">
               <Guru />
             </Route>
-            <Route path="/qna">
+            {/* <Route path="/qna">
               <Qna />
-            </Route>
+            </Route> */}
             <Route path="/gallery">
               <Gallery />
             </Route>

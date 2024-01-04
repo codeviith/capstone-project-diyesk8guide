@@ -36,25 +36,6 @@ const Account = () => {
             .then(response => response.json())
             .then(data => setGuruData(data));
 
-        // Fetch data for posts
-        fetch('/qna')
-            .then(response => response.json())
-            .then(data => setPosts(data));
-
-        // Fetch data for replies (for each post individually)
-        fetch('/qna')
-            .then(response => response.json())
-            .then(data => {
-                // Assuming each post has an 'id' property
-                const postIds = data.map(post => post.id);
-                // Fetch replies for each post
-                postIds.forEach(postId => {
-                    fetch(`/qna/${postId}/replies`)
-                        .then(response => response.json())
-                        .then(replies => setReplies(prevReplies => [...prevReplies, ...replies]))
-                        .catch(error => console.error(`Error fetching replies for post ${postId}:`, error));
-                });
-            });
     }, []);
 
 
@@ -65,8 +46,6 @@ const Account = () => {
         // Define the endpoint based on the category
         if (category === 'Boards') {
             endpoint = `/boards/${id}`;
-        } else if (category === 'Posts' || category === 'Replies') {
-            endpoint = `/qna/${id}`;
         } else if (category === 'Questions') {
             endpoint = `/guru/${id}`;
         }
@@ -86,13 +65,7 @@ const Account = () => {
                 // Update the state to reflect the changes (remove the deleted item)
                 if (category === 'Boards') {
                     setBoards(prevBoards => prevBoards.filter(board => board.id !== id));
-                } else if (category === 'Posts') {
-                    setPosts(prevPosts => prevPosts.filter(post => post.id !== id));
-                } else if (category === 'Replies') {
-                    setReplies(prevReplies => prevReplies.filter(reply => reply.id !== id));
-                }
-
-                if (category === 'Questions') {
+                } else if (category === 'Questions') {
                     setGuruData(prevGuruData => prevGuruData.filter(question => question.id !== id));
                 }
             })

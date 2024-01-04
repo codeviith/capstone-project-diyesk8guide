@@ -1045,7 +1045,7 @@ nav a.home-link:hover {
   border-color: #a90404; /* Change border color on focus */
 }
 
-/* Style adjustments for the button */
+/* Style adjustments for submit button */
 .floating-form button {
   cursor: pointer;
   background-color: #007bff;
@@ -1056,7 +1056,7 @@ nav a.home-link:hover {
   padding: 10px 0;
 }
 
-/* Hover effect for the button */
+/* Hover effect for submit button */
 .floating-form button:hover {
   background-color: #0056b3;
   box-shadow: 0 0 5px white;
@@ -1066,25 +1066,23 @@ nav a.home-link:hover {
 
 
 .heart-icon {
-  color: red; /* Red color for the hearted state */
-  width: 35px;  /* Adjust the size as needed */
-  height: 35px; /* Adjust the size as needed */
+  width: 35px; 
+  height: 35px;
 }
 
 .broken-heart-icon {
-  color: red;
-  width: 35px;  /* Adjust the size as needed */
-  height: 35px; /* Adjust the size as needed */
+  width: 35px; 
+  height: 35px;
 }
 
 
 #heart-button {
-  border: none; /* Removes border */
-  background: transparent; /* Makes background transparent */
-  padding: 0; /* Removes padding */
-  outline: none; /* Removes the outline on focus */
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
+  border: none; 
+  background: transparent;
+  padding: 0; 
+  outline: none; 
+  justify-content: center; 
+  align-items: center; 
 }
 
 
