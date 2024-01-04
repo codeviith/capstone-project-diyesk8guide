@@ -324,49 +324,69 @@ def serve_image(filename):
     return send_from_directory(IMAGE_UPLOAD_FOLDER, filename)
 
 
+@app.route('/gallery/upload', methods=['POST'])
+def upload_image():
+    image = request.files.get('image')
+
+    if not image:
+        return jsonify({'error': 'No image provided'}), 400
+
+    filename = secure_filename(image.filename)
+    image_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
+
+    try:
+        image.save(image_path)
+        print(f"Image saved at {image_path}")
+
+        # Create and save the gallery entry with default values for dropdown data
+        new_gallery_entry = Gallery(
+            image_filename=filename,
+            battery_type='',  # Default value
+            motor_type='',    # Default value
+            wheel_type='',    # Default value
+            truck_type='',    # Default value
+            max_speed=''      # Default value
+        )
+        db.session.add(new_gallery_entry)
+        db.session.commit()
+
+        return jsonify({
+            'message': 'Image uploaded successfully',
+            'filePath': image_path,
+            'id': new_gallery_entry.id  # Send the id of the newly created entry
+        }), 200
+    except Exception as e:
+        print(f"Error saving image: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
 @app.route('/gallery', methods=['GET', 'POST'])
-def upload_gallery():
+def gallery():
     if request.method == 'POST':
-        image = request.files.get('image')
-        dropdown_data = {
-            'battery_type': request.form.get('batteryType'),
-            'motor_type': request.form.get('motorType'),
-            'wheel_type': request.form.get('wheelType'),
-            'truck_type': request.form.get('truckType'),
-            'max_speed': request.form.get('maxSpeed')
-        }
+        # This part will handle the dropdown data submission for a gallery item
+        data = request.json
+        gallery_id = data.get('id')
 
-        if image:
-            filename = secure_filename(image.filename)
-            image_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
-            try:
-                image.save(image_path)
-                print(f"Image saved at {image_path}")
+        # Fetch the gallery item by ID
+        gallery_item = Gallery.query.get(gallery_id)
 
-                # Create and save the gallery entry
-                new_gallery_entry = Gallery(
-                    image_filename=filename,
-                    battery_type=dropdown_data['battery_type'],
-                    motor_type=dropdown_data['motor_type'],
-                    wheel_type=dropdown_data['wheel_type'],
-                    truck_type=dropdown_data['truck_type'],
-                    max_speed=dropdown_data['max_speed']
-                )
-                db.session.add(new_gallery_entry)
-                db.session.commit()
+        if gallery_item:
+            # Update the gallery item with the dropdown data
+            gallery_item.battery_type = data.get('batteryType', gallery_item.battery_type)
+            gallery_item.motor_type = data.get('motorType', gallery_item.motor_type)
+            gallery_item.wheel_type = data.get('wheelType', gallery_item.wheel_type)
+            gallery_item.truck_type = data.get('truckType', gallery_item.truck_type)
+            gallery_item.max_speed = data.get('maxSpeed', gallery_item.max_speed)
 
-                return jsonify({'message': 'Image and data received successfully', 'filePath': image_path})
-            except Exception as e:
-                print(f"Error saving image: {e}")
-                return jsonify({'error': str(e)}), 500
+            db.session.commit()
+            return jsonify({'message': 'Gallery item updated successfully'}), 200
         else:
-            return {'error': 'No image provided'}
+            return jsonify({'error': 'Gallery item not found'}), 404
 
     elif request.method == 'GET':
-        # Fetch all gallery items
+        user_id = session.get('user_id')  # Get the logged-in user's ID, if available
         gallery_items = Gallery.query.all()
-        return jsonify([item.to_dict() for item in gallery_items])
-
+        return jsonify([item.to_dict(user_id=user_id) for item in gallery_items])
 
 @app.route('/gallery/heart', methods=['POST'])
 def heart_image():
@@ -375,35 +395,38 @@ def heart_image():
 
     user_id = session['user_id']
     image_id = request.json.get('image_id')
-
-    # Verify that the image exists
     image = Gallery.query.get(image_id)
     if not image:
         return jsonify({'error': 'Image not found'}), 404
 
-    if image.Heart is None:
-        image.Heart = 0
+    heart_record = Heart.query.filter_by(user_id=user_id, gallery_id=image_id).first()
+    if heart_record:
+        # Heart exists, so remove it (unheart)
+        db.session.delete(heart_record)
+        image.hearts -= 1
+    else:
+        # Heart does not exist, so add it
+        new_heart = Heart(user_id=user_id, gallery_id=image_id)
+        db.session.add(new_heart)
+        image.hearts += 1
 
-    image.Heart += 1
-
-    # Check if the user has already hearted the image
-    already_hearted = db.session.query(Heart).filter_by(user_id=user_id, gallery_id=image_id).first()
-    if already_hearted:
-        return jsonify({'message': 'Already hearted'}), 409
-
-    # Increment heart count and add a heart record
-    image.Heart += 1
-    new_heart = Heart.insert().values(user_id=user_id, gallery_id=image_id)
-    db.session.execute(new_heart)
     db.session.commit()
-
-    return jsonify({'message': 'Hearted successfully', 'Heart': image.Heart})
+    
+    return jsonify({'newHeartState': heart_record is None, 'hearts': image.hearts})
 
 
 @app.route('/gallery/top')
 def get_top_images():
-    top_images = Gallery.query.order_by(desc(Gallery.Heart)).limit(3).all()
+    top_images = Gallery.query \
+        .outerjoin(Heart, Gallery.id == Heart.gallery_id) \
+        .group_by(Gallery.id) \
+        .order_by(desc(func.count(Heart.gallery_id))) \
+        .limit(3) \
+        .all()
+    
     return jsonify([image.to_dict() for image in top_images])
+
+
 
 
 if __name__ == '__main__':
@@ -411,3 +434,18 @@ if __name__ == '__main__':
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+# @app.route('/gallery/top')
+# def get_top_images():
+#     top_images = Gallery.query.order_by(desc(Gallery.Heart)).limit(3).all()
+#     return jsonify([image.to_dict() for image in top_images])

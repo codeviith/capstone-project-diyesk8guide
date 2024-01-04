@@ -19,7 +19,7 @@ bcrypt = Bcrypt()
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
-    serializer_rule = ('-boards.users', '-gurus.users', '-qna.users')
+    serializer_rule = ('-boards.users', '-gurus.users', '-heart_count.users')
 
     id = db.Column(db.Integer, primary_key=True, unique=True)
     email = db.Column(db.String, unique=True, nullable=False)
@@ -33,9 +33,7 @@ class User(db.Model, SerializerMixin):
     boards = db.relationship('Board', back_populates='users')
     gurus = db.relationship('Guru', back_populates='users')
     # qna = db.relationship('Qna', back_populates='users')
-    hearts = db.relationship('Heart', backref='user')
-
-
+    heart_count = db.relationship('Heart', back_populates='users')
 
 
     @hybrid_property
@@ -156,6 +154,8 @@ class ContactUs(db.Model, SerializerMixin):
 class Gallery(db.Model, SerializerMixin):
     __tablename__ = 'gallery'
 
+    serializer_rule = ('-heart_count.gallery',)
+
     id = db.Column(db.Integer, primary_key=True, unique=True)
     image_filename = db.Column(db.String, nullable=False)
     battery_type = db.Column(db.String, nullable=False)
@@ -163,7 +163,6 @@ class Gallery(db.Model, SerializerMixin):
     wheel_type = db.Column(db.String, nullable=False)
     truck_type = db.Column(db.String, nullable=False)
     max_speed = db.Column(db.String, nullable=False)
-
     hearts = db.Column(db.Integer, default=0)
 
     def __init__(self, image_filename, battery_type, motor_type, wheel_type, truck_type, max_speed):
@@ -175,18 +174,26 @@ class Gallery(db.Model, SerializerMixin):
         self.max_speed = max_speed
         self.hearts = 0
 
-    def to_dict(self):
-        return {
+    def is_hearted_by_user(self, user_id):
+        heart = Heart.query.filter_by(user_id=user_id, gallery_id=self.id).first()
+        return heart is not None
+
+    def to_dict(self, user_id=None):
+        data = {
             'id': self.id,
             'image_filename': self.image_filename,
             'battery_type': self.battery_type,
             'motor_type': self.motor_type,
             'wheel_type': self.wheel_type,
             'truck_type': self.truck_type,
-            'max_speed': self.max_speed
+            'max_speed': self.max_speed,
+            'hearts': self.hearts
         }
+        if user_id is not None:
+            data['isHearted'] = self.is_hearted_by_user(user_id)
+        return data
     
-    hearts = db.relationship('Heart', backref='gallery')
+    heart_count = db.relationship('Heart', back_populates='gallery')
 
 
 
@@ -195,14 +202,15 @@ class Gallery(db.Model, SerializerMixin):
 class Heart(db.Model):
     __tablename__ = 'hearts'
 
+    serializer_rule = ('-users.heart_count','-gallery.heart_count')
+
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
     gallery_id = db.Column(db.Integer, db.ForeignKey('gallery.id'), primary_key=True)
-    
-    user = db.relationship('User', backref=db.backref('hearted_gallery_items', cascade='all, delete-orphan'))
-    gallery = db.relationship('Gallery', backref=db.backref('hearted_by_users', cascade='all, delete-orphan'))
+
+    users = db.relationship('User', back_populates='heart_count')
+    gallery = db.relationship('Gallery', back_populates='heart_count')
 
     def __repr__(self):
         return f'<Heart user_id={self.user_id} gallery_id={self.gallery_id}>'
-
 
 

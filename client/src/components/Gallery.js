@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import HeartButton from './HeartButton';
-// import { AuthContext } from './AuthProvider';
+import { AuthContext } from './AuthContext';
 
 
 function Gallery() {
@@ -10,11 +10,9 @@ function Gallery() {
     const [topHeartedImages, setTopHeartedImages] = useState([]); // State to store top hearted images
     const [fileName, setFileName] = useState('');
     const [uploadError, setUploadError] = useState('');
+    const { isLoggedIn } = useContext(AuthContext);
 
-    useEffect(() => {
-        fetchGalleryItems();
-    }, []);
-
+    
     useEffect(() => {
         fetchTopHeartedImages();
         fetchGalleryItems();
@@ -56,32 +54,41 @@ function Gallery() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!isLoggedIn) {
+            alert('You must be logged in to post.');
+            return;
+        }
+
         const formData = new FormData();
         formData.append('image', image);
-        Object.keys(dropdowns).forEach(key => formData.append(key, dropdowns[key]));
 
         try {
-            const response = await fetch('/gallery', {
-                method: 'POST',
-                body: formData,
-            });
-
+            // First, upload the image
+            let response = await fetch('/gallery/upload', { method: 'POST', body: formData });
             if (response.ok) {
                 const responseData = await response.json();
-                if (responseData.message === 'Image and data received successfully') {
-                    // Update state immediately with new image data
-                    const newImageData = {
-                        image_filename: responseData.filePath.split('/').pop(),
-                        ...dropdowns
-                    };
-                    setGalleryItems([...galleryItems, newImageData]);
+                const imageId = responseData.id; // Get the id of the uploaded image
+
+                // Then, submit the additional data
+                response = await fetch('/gallery', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: imageId, ...dropdowns }),
+                });
+
+                if (response.ok) {
+                    // Refetch gallery items to update the state
+                    fetchGalleryItems();
+                } else {
+                    throw new Error('Failed to submit gallery item data');
                 }
             } else {
                 throw new Error('Failed to upload image');
             }
         } catch (error) {
-            console.error('Error during image upload:', error);
-            setUploadError('Error uploading image. Please try again.');
+            console.error('Error during form submission:', error);
+            setUploadError('Error submitting form. Please try again.');
         }
     };
 
@@ -106,7 +113,11 @@ function Gallery() {
                             <p>Wheel Type: {item.wheel_type}</p>
                             <p>Truck Type: {item.truck_type}</p>
                             <p>Max Speed: {item.max_speed}</p>
-                            <HeartButton imageId={item.id} onHearted={(hearts) => updateHeartCount(index, hearts)} />
+                            <HeartButton
+                                imageId={item.id}
+                                onHearted={(hearts) => updateHeartCount(index, hearts)}
+                                initiallyHearted={item.isHearted}
+                            />
                         </div>
                     </div>
                 ))}

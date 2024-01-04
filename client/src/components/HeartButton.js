@@ -3,13 +3,13 @@ import { AuthContext } from './AuthContext';
 import HeartIcon from './HeartIcon';
 import BrokenHeartIcon from './BrokenHeartIcon';
 
-const HeartButton = ({ imageId, onHearted }) => {
+const HeartButton = ({ imageId, onHearted, initiallyHearted }) => {
     const { isLoggedIn } = useContext(AuthContext);
-    const [isHearted, setIsHearted] = useState(false);
+    const [isHearted, setIsHearted] = useState(initiallyHearted);
 
     const handleHeartClick = async () => {
         if (!isLoggedIn) {
-            alert("Please log in to heart images.");
+            alert('You must be logged in to heart images.');
             return;
         }
 
@@ -23,20 +23,20 @@ const HeartButton = ({ imageId, onHearted }) => {
 
             if (response.ok) {
                 const data = await response.json();
-                setIsHearted(!isHearted); // Toggle the heart state
-                console.log("Hearted State:", !isHearted);
+                setIsHearted(data.newHeartState); // Update based on the new state from the server
                 onHearted(data.hearts); // Update the heart count in the parent component
             } else {
-                alert("Could not heart the image.");
+                alert('Error toggling heart status.');
             }
         } catch (error) {
             console.error('Error during heart request:', error);
-            if (error.response) {
-                console.log('Server responded with:', await error.response.text());
-            }
         }
     };
 
+    // Conditional rendering based on login status
+    if (!isLoggedIn) {
+        return null; // Do not render anything if the user is not logged in
+    }
 
     return (
         <button id='heart-button' onClick={handleHeartClick}>
@@ -46,5 +46,6 @@ const HeartButton = ({ imageId, onHearted }) => {
 };
 
 export default HeartButton;
+
 
 
