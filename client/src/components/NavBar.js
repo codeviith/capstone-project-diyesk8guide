@@ -10,7 +10,6 @@ function NavBar() {
         <nav>
             <div className="nav-links-left"> {/* Container for left-hand side links */}
                 <Header />
-                <NavLink to="/about">About</NavLink>
                 <NavLink to="/guide">Guide</NavLink>
                 <NavLink to="/generate">Generate</NavLink>
                 <NavLink to="/guru">Guru</NavLink>
