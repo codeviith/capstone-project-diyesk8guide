@@ -23,7 +23,7 @@ function Gallery() {
             const response = await fetch('/gallery/top');
             if (response.ok) {
                 const topImages = await response.json();
-                setTopHeartedImages(topImages);
+                setTopHeartedImages(topImages); // Update state to get new top hearted images
             }
         } catch (error) {
             console.error('Error fetching top hearted images:', error);
@@ -119,12 +119,7 @@ function Gallery() {
                                 <p>Wheel Type: {item.wheel_type}</p>
                                 <p>Truck Type: {item.truck_type}</p>
                                 <p>Max Speed: {item.max_speed}</p>
-                                <p>Hearts: {item.hearts}</p>
-                                <HeartButton
-                                    imageId={item.id}
-                                    onHearted={(hearts) => updateHeartCount(index, hearts)}
-                                    initiallyHearted={item.isHearted}
-                                />
+                                <p>Rating: {item.hearts}</p>
                             </div>
                         </div>
                     ))}
@@ -147,6 +142,7 @@ function Gallery() {
                                 imageId={item.id}
                                 onHearted={(hearts) => updateHeartCount(index, hearts)}
                                 initiallyHearted={item.isHearted}
+                                refreshTopImages={fetchTopHeartedImages}
                             />
                         </div>
                     </div>

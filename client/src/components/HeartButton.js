@@ -3,7 +3,7 @@ import { AuthContext } from './AuthContext';
 import HeartIcon from './HeartIcon';
 import BrokenHeartIcon from './BrokenHeartIcon';
 
-function HeartButton({ imageId, onHearted, initiallyHearted }) {
+function HeartButton({ imageId, onHearted, initiallyHearted, refreshTopImages }) {
     const { isLoggedIn } = useContext(AuthContext);
     const [isHearted, setIsHearted] = useState(initiallyHearted);
 
@@ -12,7 +12,7 @@ function HeartButton({ imageId, onHearted, initiallyHearted }) {
         const newHeartState = !isHearted;
         setIsHearted(newHeartState);
         onHearted(newHeartState ? 1 : -1); // Increment or decrement heart count
-
+    
         try {
             const response = await fetch('/gallery/heart', {
                 method: 'POST',
@@ -20,12 +20,14 @@ function HeartButton({ imageId, onHearted, initiallyHearted }) {
                 body: JSON.stringify({ image_id: imageId }),
                 credentials: 'include',
             });
-
+    
             if (!response.ok) {
                 // If backend operation fails, revert the heart count and state
                 setIsHearted(!newHeartState);
                 onHearted(newHeartState ? -1 : 1);
                 alert('Error toggling heart status.');
+            } else {
+                refreshTopImages();
             }
         } catch (error) {
             console.error('Error during heart request:', error);
@@ -34,6 +36,7 @@ function HeartButton({ imageId, onHearted, initiallyHearted }) {
             onHearted(newHeartState ? -1 : 1);
         }
     };
+    
 
     // Conditional display depending on login status
     if (!isLoggedIn) {
@@ -48,6 +51,5 @@ function HeartButton({ imageId, onHearted, initiallyHearted }) {
 };
 
 export default HeartButton;
-
 
 

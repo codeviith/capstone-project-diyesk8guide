@@ -404,12 +404,12 @@ def heart_image():
     heart_record = Heart.query.filter_by(user_id=user_id, gallery_id=image_id).first()
     if heart_record:
         print("Heart exists, removing it")
-        # Heart exists, so remove it (unheart)
+        # Existing heart is removed
         db.session.delete(heart_record)
         image.hearts -= 1
     else:
         print("Heart does not exist, adding it")
-        # Heart does not exist, so add it
+        # New heart is added
         new_heart = Heart(user_id=user_id, gallery_id=image_id)
         db.session.add(new_heart)
         image.hearts += 1
@@ -429,7 +429,6 @@ def get_top_images():
         .all()
     
     return jsonify([image.to_dict() for image in top_images])
-
 
 
 if __name__ == '__main__':
