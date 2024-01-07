@@ -39,8 +39,8 @@ const Home = () => {
     </div>
 
     <div className="component-description">
-      <h2>Q&A Forum</h2>
-      <p>Join our Q&A Forum to discuss and share insights with the skateboarding community. Dive into discussions now!</p>
+      <h2>Gallery</h2>
+      <p>Got a board to share? Feel free to post it in the Gallery and inspire other new builders in the community! Top 3 voted builds will be displayed in the Hall of Fame!</p>
       <Link to="/gallery">Go to Gallery</Link>
     </div>
   </div>

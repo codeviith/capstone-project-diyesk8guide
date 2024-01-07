@@ -3,8 +3,8 @@ import React from 'react';
 const Guide = () => {
     // Step headers
     const stepHeaders = [
-        "Step 1: Design and Make a Blueprint",
-        "Step 2: ",
+        "Step 1: Make a Blueprint",
+        "Step 2: Research for Parts",
         "Step 3: ",
         "Step 4: ",
         "Step 5: ",
