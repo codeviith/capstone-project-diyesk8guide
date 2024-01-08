@@ -18,15 +18,13 @@ import Footer from './Footer';
 
 
 function App() {
-  const location = useLocation();
+  // const location = useLocation();
 
   // Function to determine if the footer should be displayed
-  const shouldDisplayFooter = () => {
-    const path = location.pathname;
-    return path !== '/login' && path !== '/signup';
-  };
-
-  
+  // const shouldDisplayFooter = () => {
+  //   const path = location.pathname;
+  //   return path !== '/login' && path !== '/signup';
+  // };
 
   return (
     <div id="root">
@@ -64,14 +62,14 @@ function App() {
             <Route path="/account">
               <Account />
             </Route>
-            <Route path="/about">
+            {/* <Route path="/about">
               <About />
             </Route>
             <Route path="/contactus">
               <ContactUs />
-            </Route>
+            </Route> */}
           </Switch>
-          {shouldDisplayFooter() && <Footer />}
+          {/* {shouldDisplayFooter() && <Footer />} */}
         </main>
       </AuthProvider>
     </div>
