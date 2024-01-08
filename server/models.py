@@ -162,7 +162,7 @@ class Gallery(db.Model, SerializerMixin):
 
     serializer_rule = ('-heart_count.gallery',)
 
-    id = db.Column(db.Integer, primary_key=True, unique=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     image_filename = db.Column(db.String, nullable=False)
     battery_type = db.Column(db.String, nullable=False)
     motor_type = db.Column(db.String, nullable=False)
@@ -171,7 +171,7 @@ class Gallery(db.Model, SerializerMixin):
     max_speed = db.Column(db.String, nullable=False)
     hearts = db.Column(db.Integer, default=0)
 
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     def __init__(self, image_filename, user_id, battery_type, motor_type, wheel_type, truck_type, max_speed):
         self.image_filename = image_filename
