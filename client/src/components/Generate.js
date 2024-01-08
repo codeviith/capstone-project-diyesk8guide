@@ -86,21 +86,6 @@ function Generate() {
 
   const { isLoggedIn } = useContext(AuthContext);
 
-  // useEffect(() => {
-  //   // Function to check if the user is logged in
-  //   const checkLoginStatus = async () => {
-  //     try {
-  //       const response = await fetch('/check_session');
-  //       const data = await response.json();
-  //       setIsLoggedIn(data.logged_in);
-  //     } catch (error) {
-  //       console.error('Error checking login status:', error);
-  //     }
-  //   };
-  
-  //   checkLoginStatus();
-  // }, []);
-  
   useEffect(() => {
     const updateBoardData = async () => {
       // Post user's input to the Flask backend

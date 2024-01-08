@@ -71,15 +71,16 @@ def is_authenticated():
 
 
 ### ------------------ OPENAI API REQUESTS ------------------ ###
-guru_instructions = "You are an expert in electric skateboards who will be answering questions from prospective builders, aka users. Please follow the instructions below: 1. You will come up with the most appropriate response that suits best for the builder's question. If you are unable to provide an appropriate response to the builder, then please refer them to the following websites: https://electric-skateboard.builders/ , https://forum.esk8.news/ 2. Please refrain from engaing in any other conversation that isn't related to the field of electric skateboards, and in the case that the builder asks a question that is unrelated to and/or outside the scope of electric skateboards, please respond with: 'I apologize but I can only answer questions that are related to electric skateboards.' and end with an appropriate response."
+guru_instructions = "You are an expert in electric skateboards who will be answering questions from prospective builders, aka users.Please follow the instructions below: 1. You will come up with the most appropriate response that suits best for the builder's question. If you are unable to provide an appropriate response to the builder, then please refer them to the following websites: https://electric-skateboard.builders/ , https://forum.esk8.news/ 2. Please refrain from engaing in any other conversation that isn't related to the field of electric skateboards, and in the case that the builder asks a question that is unrelated to and/or outside the scope of electric skateboards, please respond with: 'I apologize but I can only answer questions that are related to electric skateboards.' and end with an appropriate response."
 
 ### Not using guru_assistant.py
 
 @app.post('/guru_assistant')
 def guru_assistant():
-    if not is_authenticated():
-        return make_response(jsonify({"error": "Not authenticated."}), 401)
+    if 'user_id' not in session:
+        return jsonify({'error': 'Authentication required'}), 401
 
+    user_id = session['user_id']
     data = request.get_json()
     user_input = data.get('user_input')
 
@@ -101,8 +102,8 @@ def guru_assistant():
 
         answer = completion.choices[0].message.content
 
-        #Save user input and the generated response into the database
-        guru_entry = Guru(user_input=user_input, answer=answer)
+        #Save generated response into the database for that specific user
+        guru_entry = Guru(user_input=user_input, answer=answer, user_id=user_id)
         db.session.add(guru_entry)
         db.session.commit()
 
@@ -182,26 +183,31 @@ def check_session():
 
 
 
-
 ### ------------------ BOARDS ------------------ ###
 
 @app.route('/boards', methods=['GET'])
 def get_boards():
-    boards = Board.query.all()
+    if 'user_id' not in session:
+        return jsonify({'error': 'Authentication required.'}), 401
+    
+    user_id = session['user_id']
+    boards = Board.query.filter_by(user_id=user_id).all()
     return make_response(jsonify([board.to_dict() for board in boards]), 200)
-
 
 
 @app.route('/latest_boards')
 def get_latest_board():
-    # Query the boards, order by timestamp in descending order, and retrieve the first one
-    latest_board = Board.query.order_by(desc(Board.timestamp)).first()
+    if 'user_id' not in session:
+        return jsonify({'error': 'Authentication required.'}), 401
+    
+    user_id = session['user_id']
+    # Query boards, order in descending order, then retrieve first one
+    latest_board = Board.query.filter_by(user_id=user_id).order_by(desc(Board.timestamp)).first()
 
     if latest_board:
-        return make_response(jsonify(latest_board.to_dict()), 200)
+        return jsonify(latest_board.to_dict()), 200
     else:
-        return make_response(jsonify({}), 404)
-
+        return jsonify({'error': 'No board data available.'}), 404
 
 
 @app.route('/boards/<int:board_id>', methods=['DELETE'])
@@ -216,13 +222,13 @@ def delete_board_by_id(board_id):
         return {"error": "Board not found."}, 404
 
 
-
-# appending data directly onto Board:
+# append data directly to Board:
 @app.post('/update_board')
 def update_board():
-    if not is_authenticated():
-        return make_response(jsonify({"error": "Not authenticated."}), 401)
-
+    if 'user_id' not in session:
+        return jsonify({'error': 'Authentication required'}), 401
+    
+    user_id = session['user_id']
     data = request.json
 
     deck_type = data.get('deckType', '')
@@ -245,13 +251,11 @@ def update_board():
     range_mileage = data.get('mileage', '')
     image_url = data.get('imageURL', '')
 
-    # Update the Wheel database with the new values
-    sample_board_entry = Board(deck_type=deck_type, deck_length=deck_length, deck_material=deck_material, truck_type=truck_type, truck_width=truck_width, controller_feature=controller_feature, controller_type=controller_type, remote_feature=remote_feature, remote_type=remote_type, motor_size=motor_size, motor_kv=motor_kv, wheel_size=wheel_size, wheel_type=wheel_type, battery_voltage=battery_voltage, battery_type=battery_type, battery_capacity=battery_capacity, battery_configuration=battery_configuration, range_mileage=range_mileage, image_url=image_url)
-    # Board.query.delete()
-    db.session.add(sample_board_entry)
+    board_entry = Board(user_id=user_id, deck_type=deck_type, deck_length=deck_length, deck_material=deck_material, truck_type=truck_type, truck_width=truck_width, controller_feature=controller_feature, controller_type=controller_type, remote_feature=remote_feature, remote_type=remote_type, motor_size=motor_size, motor_kv=motor_kv, wheel_size=wheel_size, wheel_type=wheel_type, battery_voltage=battery_voltage, battery_type=battery_type, battery_capacity=battery_capacity, battery_configuration=battery_configuration, range_mileage=range_mileage, image_url=image_url)
+    db.session.add(board_entry)
     db.session.commit()
 
-    return {"message": "Wheel updated successfully."}, 200
+    return {"message": "Board data saved successfully."}, 200
 
 
 ### ------------------ GURU ------------------ ###
@@ -260,7 +264,12 @@ def update_board():
 @app.route('/guru', methods=['GET'])
 def get_guru_data():
     try:
-        guru_data = Guru.query.all()
+        if 'user_id' not in session:
+            return jsonify({'error': 'Authentication required.'}), 401
+        
+        user_id = session['user_id']
+        guru_data = Guru.query.filter_by(user_id=user_id).all()
+        
         return make_response(jsonify([guru_datum.to_dict() for guru_datum in guru_data]), 200)
     except Exception as e:
         return jsonify({'error': str(e)})
@@ -326,6 +335,10 @@ def serve_image(filename):
 
 @app.route('/gallery/upload', methods=['POST'])
 def upload_image():
+    if 'user_id' not in session:
+        return jsonify({'error': 'Authentication required.'}), 401
+    
+    user_id = session['user_id']
     image = request.files.get('image')
 
     if not image:
@@ -338,14 +351,15 @@ def upload_image():
         image.save(image_path)
         print(f"Image saved at {image_path}")
 
-        # Create and save the gallery entry with default values for dropdown data
+        # Create and save the gallery entry with dropdown data
         new_gallery_entry = Gallery(
             image_filename=filename,
-            battery_type='',  # Default value
-            motor_type='',    # Default value
-            wheel_type='',    # Default value
-            truck_type='',    # Default value
-            max_speed=''      # Default value
+            user_id=user_id,
+            battery_type='',
+            motor_type='',
+            wheel_type='',
+            truck_type='',
+            max_speed=''
         )
         db.session.add(new_gallery_entry)
         db.session.commit()
@@ -353,11 +367,21 @@ def upload_image():
         return jsonify({
             'message': 'Image uploaded successfully',
             'filePath': image_path,
-            'id': new_gallery_entry.id  # Send the id of the newly created entry
+            'id': new_gallery_entry.id
         }), 200
     except Exception as e:
         print(f"Error saving image: {e}")
         return jsonify({'error': str(e)}), 500
+
+
+# @app.route('/user_gallery', methods=['GET'])
+# def gallery():
+#     if 'user_id' not in session:
+#         return jsonify({'error': 'Authentication required'}), 401
+
+#     user_id = session['user_id']
+#     gallery_items = Gallery.query.filter_by(user_id=user_id).all()
+#     return jsonify([item.to_dict(user_id=user_id) for item in gallery_items])
 
 
 @app.route('/gallery', methods=['GET', 'POST'])

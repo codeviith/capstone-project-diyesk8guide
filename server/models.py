@@ -32,7 +32,6 @@ class User(db.Model, SerializerMixin):
 
     boards = db.relationship('Board', back_populates='users')
     gurus = db.relationship('Guru', back_populates='users')
-    # qna = db.relationship('Qna', back_populates='users')
     heart_count = db.relationship('Heart', back_populates='users')
 
 
@@ -100,9 +99,35 @@ class Board(db.Model, SerializerMixin):
     image_url = db.Column(db.String, nullable=False)
     timestamp = db.Column(DateTime, default=datetime.utcnow, nullable=False)
 
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
 
     users = db.relationship('User', back_populates='boards')
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'deck_type': self.deck_type,
+            'deck_length': self.deck_length,
+            'deck_material': self.deck_material,
+            'truck_type': self.truck_type,
+            'truck_width': self.truck_width,
+            'controller_feature': self.controller_feature,
+            'controller_type': self.controller_type,
+            'remote_feature': self.remote_feature,
+            'remote_type': self.remote_type,
+            'motor_size': self.motor_size,
+            'motor_kv': self.motor_kv,
+            'wheel_size': self.wheel_size,
+            'wheel_type': self.wheel_type,
+            'battery_voltage': self.battery_voltage,
+            'battery_type': self.battery_type,
+            'battery_capacity': self.battery_capacity,
+            'battery_configuration': self.battery_configuration,
+            'range_mileage': self.range_mileage,
+            'image_url': self.image_url,
+            'timestamp': self.timestamp.isoformat(),  # Formatting the datetime object
+            'user_id': self.user_id
+        }
 
 
     def __repr__(self):
@@ -129,25 +154,6 @@ class Guru(db.Model, SerializerMixin):
         return f'<Guru {self.id}>'
 
 
-
-### ------------------ CONTACTUS ------------------ ###
-
-class ContactUs(db.Model, SerializerMixin):
-    __tablename__ = 'contacts'
-
-    # serializer_rule = ('-users.contacts',)
-
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    first_name = db.Column(db.String, nullable=False)
-    last_name = db.Column(db.String, nullable=False)
-    email = db.Column(db.String, nullable=False)
-    message = db.Column(db.Text, nullable=False)
-
-    # user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-
-    # users = db.relationship('User', back_populates='contacts')
-
-
 ### ------------------ GALLERY ------------------ ###
 
 
@@ -165,8 +171,11 @@ class Gallery(db.Model, SerializerMixin):
     max_speed = db.Column(db.String, nullable=False)
     hearts = db.Column(db.Integer, default=0)
 
-    def __init__(self, image_filename, battery_type, motor_type, wheel_type, truck_type, max_speed):
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+
+    def __init__(self, image_filename, user_id, battery_type, motor_type, wheel_type, truck_type, max_speed):
         self.image_filename = image_filename
+        self.user_id = user_id
         self.battery_type = battery_type
         self.motor_type = motor_type
         self.wheel_type = wheel_type
@@ -195,14 +204,17 @@ class Gallery(db.Model, SerializerMixin):
     
     heart_count = db.relationship('Heart', back_populates='gallery')
 
+    def __repr__(self):
+        return f'<Gallery {self.id}>'
+
 
 
 ### ------------------ HEART ------------------ ###
 
-class Heart(db.Model):
+class Heart(db.Model, SerializerMixin):
     __tablename__ = 'hearts'
 
-    serializer_rule = ('-users.heart_count','-gallery.heart_count')
+    serializer_rule = ('-users.heart_count', '-gallery.heart_count')
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
     gallery_id = db.Column(db.Integer, db.ForeignKey('gallery.id'), primary_key=True)
@@ -214,3 +226,20 @@ class Heart(db.Model):
         return f'<Heart user_id={self.user_id} gallery_id={self.gallery_id}>'
 
 
+
+### ------------------ CONTACTUS ------------------ ###
+
+class ContactUs(db.Model, SerializerMixin):
+    __tablename__ = 'contacts'
+
+    # serializer_rule = ('-users.contacts',)
+
+    id = db.Column(db.Integer, primary_key=True, unique=True)
+    first_name = db.Column(db.String, nullable=False)
+    last_name = db.Column(db.String, nullable=False)
+    email = db.Column(db.String, nullable=False)
+    message = db.Column(db.Text, nullable=False)
+
+    # user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+    # users = db.relationship('User', back_populates='contacts')
