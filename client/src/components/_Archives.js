@@ -213,3 +213,117 @@
                 // } else if (category === 'Replies') {
                 //     setReplies(prevReplies => prevReplies.filter(reply => reply.id !== id));
                 // }
+
+
+
+
+
+/* qna component */
+
+// .qna {
+//         max-width: 1300px;
+//         margin: 0 auto;
+//         padding: 20px;
+//         text-align: center;
+//         background-color: gray;
+//         border-radius: 8px;
+//         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+//       }
+      
+//       .qna h2 {
+//         color: black;
+//         font-size: 32px;
+//         margin-top: 2px;
+//         margin-bottom: 20px;
+//       }
+      
+//       .qna .post_input {
+//         margin-bottom: 20px;
+//       }
+      
+//       .qna .post_label {
+//         display: block;
+//         margin-bottom: 10px;
+//         font-size: 20px;
+//       }
+      
+//       .qna .post_input_value {
+//         width: 98%;
+//         padding: 7px;
+//         border: 1px solid #ccc;
+//         border-radius: 8px;
+//         font-size: 15px;
+//       }
+      
+//       .qna .post_button {
+//         background-color: rgb(3, 3, 117);
+//         color: white;
+//         padding: 10px 20px;
+//         border: none;
+//         border-radius: 8px;
+//         cursor: pointer;
+//       }
+      
+//       .qna .post_button:hover {
+//         background-color: rgb(4, 43, 185); /* Example: Dark background color on hover */
+//         box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
+//       }
+      
+//       .qna .display_posts {
+//         display: grid;
+//         gap: 20px;
+//       }
+      
+//       .qna .display_posts div {
+//         border: 1px solid #ccc;
+//         padding: 10px;
+//         margin-bottom: 10px;
+//       }
+      
+//       .qna .display_posts p {
+//         margin: 0;
+//       }
+      
+//       .qna .display_posts strong {
+//         font-weight: bold;
+//       }
+      
+//       .qna .display_replies {
+//         margin-top: 10px;
+//       }
+      
+//       .qna .display_replies p {
+//         margin: 0;
+//       }
+      
+//       .qna .reply_input {
+//         margin-top: 20px;
+//       }
+      
+//       .qna .reply_label {
+//         display: flex;
+//         margin-bottom: 10px;
+//         font-size: 20px;
+//       }
+      
+//       .qna .reply_input_value {
+//         width: 90%;
+//         padding: 7px;
+//         border: 1px solid #ccc;
+//         border-radius: 8px;
+//         font-size: 15px;
+//       }
+      
+//       .qna .reply_button {
+//         background-color: rgb(3, 3, 117);
+//         color: white;
+//         padding: 10px 20px;
+//         border: none;
+//         border-radius: 8px;
+//         cursor: pointer;
+//       }
+      
+//       .qna .reply_button:hover {
+//         background-color: rgb(4, 43, 185); /* Example: Dark background color on hover */
+//         box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
+//       }

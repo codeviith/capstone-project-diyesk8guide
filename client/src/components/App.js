@@ -62,12 +62,12 @@ function App() {
             <Route path="/account">
               <Account />
             </Route>
-            {/* <Route path="/about">
+            <Route path="/about">
               <About />
             </Route>
             <Route path="/contactus">
               <ContactUs />
-            </Route> */}
+            </Route>
           </Switch>
           {/* {shouldDisplayFooter() && <Footer />} */}
         </main>

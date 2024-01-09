@@ -385,124 +385,42 @@ nav a.home-link:hover {
   border-color: gray; /* Gray border on hover */
 }
 
+/* NavBar Menu Icon */
 
-
-
-
-
-
-
-
-
-/* qna component */
-
-.qna {
-  max-width: 1300px;
-  margin: 0 auto;
-  padding: 20px;
-  text-align: center;
-  background-color: gray;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.menu-item {
+  position: relative;
+  cursor: pointer;
+  margin-right: 20px;
+  padding: 5px;
 }
 
-.qna h2 {
-  color: black;
-  font-size: 32px;
-  margin-top: 2px;
-  margin-bottom: 20px;
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%; /* Position below the menu item */
+  right: 0;  /* Align to the right edge of the menu item */
+  background-color: black; /* Dark gray background */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  z-index: 1000;
 }
 
-.qna .post_input {
-  margin-bottom: 20px;
-}
-
-.qna .post_label {
+.show-dropdown {
   display: block;
-  margin-bottom: 10px;
-  font-size: 20px;
 }
 
-.qna .post_input_value {
-  width: 98%;
-  padding: 7px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 15px;
+.dropdown-menu a {
+  display: block; /* This makes each link take a full row, aligning them vertically */
+  padding: 8px 12px;
+  width: 125px;
+  text-decoration: none;
+  color: white; /* Change text color as needed */
 }
 
-.qna .post_button {
-  background-color: rgb(3, 3, 117);
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
+.dropdown-menu a:hover {
+  background-color: #ddd; /* Change hover color as needed */
 }
 
-.qna .post_button:hover {
-  background-color: rgb(4, 43, 185); /* Example: Dark background color on hover */
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
-}
-
-.qna .display_posts {
-  display: grid;
-  gap: 20px;
-}
-
-.qna .display_posts div {
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
-.qna .display_posts p {
-  margin: 0;
-}
-
-.qna .display_posts strong {
-  font-weight: bold;
-}
-
-.qna .display_replies {
-  margin-top: 10px;
-}
-
-.qna .display_replies p {
-  margin: 0;
-}
-
-.qna .reply_input {
-  margin-top: 20px;
-}
-
-.qna .reply_label {
-  display: flex;
-  margin-bottom: 10px;
-  font-size: 20px;
-}
-
-.qna .reply_input_value {
-  width: 90%;
-  padding: 7px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 15px;
-}
-
-.qna .reply_button {
-  background-color: rgb(3, 3, 117);
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.qna .reply_button:hover {
-  background-color: rgb(4, 43, 185); /* Example: Dark background color on hover */
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
-}
 
 
 /* login component */
@@ -1034,7 +952,7 @@ nav a.home-link:hover {
   padding: 20px; /* Padding around the form */
   border-radius: 8px; /* Rounded corners */
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Shadow for the form */
-  z-index: 1000; /* Ensures form stays on top */
+  z-index: 900; /* Ensures form stays on top */
   overflow-y: auto; /* Allows scrolling inside the form if content overflows */
 }
 
@@ -1179,32 +1097,8 @@ nav a.home-link:hover {
 }
 
 
-
-
 /* footer */
 
-.footer {
-  background-color: black; /* Footer background color */
-  color: white; /* Footer text color */
-  text-align: center; /* Align text to the center */
-  padding: 10px 0; /* Padding for top and bottom */
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%; /* Full width */
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Shadow for a lifted effect */
-}
-
-.footer a {
-  color: white;
-  text-decoration: none;
-  font-size: 18px;
-  transition: color 0.3s ease;
-}
-
-.footer a:hover {
-  color: #007bff; /* Color change on hover */
-}
 
 
 /* success and error messages */
