@@ -294,15 +294,18 @@ def delete_guru_question(question_id):
 @app.route('/contact_us', methods=['POST'])
 def handle_contact_form():
     try:
-        # Get data from the request's JSON body
+        if 'user_id' not in session:
+            return jsonify({'error': 'Authentication required.'}), 401
+    
+        user_id = session['user_id']
         data = request.json
 
-        # Create a new ContactUs instance
         new_contact = ContactUs(
             first_name=data['firstName'],
             last_name=data['lastName'],
             email=data['email'],
-            message=data['message']
+            message=data['message'],
+            user_id=user_id
         )
 
         # Add the new record to the database

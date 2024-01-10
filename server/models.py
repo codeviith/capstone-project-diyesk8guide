@@ -239,7 +239,6 @@ class ContactUs(db.Model, SerializerMixin):
     last_name = db.Column(db.String, nullable=False)
     email = db.Column(db.String, nullable=False)
     message = db.Column(db.Text, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-    # user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-
-    # users = db.relationship('User', back_populates='contacts')
+    user = db.relationship('User')
