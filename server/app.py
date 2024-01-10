@@ -182,6 +182,19 @@ def check_session():
         return jsonify({'logged_in': False}), 200
 
 
+### ------------------ USER ------------------ ###
+
+@app.route('/user_data', methods=['GET'])
+def get_user_data():
+    if 'user_id' not in session:
+        return jsonify({'error': 'Authentication required.'}), 401
+
+    user = User.query.get(session['user_id'])
+    if user:
+        return jsonify(user.to_dict()), 200
+    else:
+        return jsonify({'error': 'User not found.'}), 404
+
 
 ### ------------------ BOARDS ------------------ ###
 
@@ -377,28 +390,36 @@ def upload_image():
         return jsonify({'error': str(e)}), 500
 
 
-# @app.route('/user_gallery', methods=['GET'])
-# def gallery():
-#     if 'user_id' not in session:
-#         return jsonify({'error': 'Authentication required'}), 401
+@app.route('/gallery/uploaded', methods=['GET'])
+def get_uploaded_images():
+    if 'user_id' not in session:
+        return jsonify({'error': 'Authentication required.'}), 401
 
-#     user_id = session['user_id']
-#     gallery_items = Gallery.query.filter_by(user_id=user_id).all()
-#     return jsonify([item.to_dict(user_id=user_id) for item in gallery_items])
+    user_id = session['user_id']
+    uploaded_images = Gallery.query.filter_by(user_id=user_id).all()
+    # print(uploaded_images)
+    return jsonify([image.to_dict() for image in uploaded_images])
+
+
+@app.route('/gallery/liked', methods=['GET'])
+def get_liked_images():
+    if 'user_id' not in session:
+        return jsonify({'error': 'Authentication required.'}), 401
+
+    user_id = session['user_id']
+    liked_images = db.session.query(Gallery).join(Heart, Gallery.id == Heart.gallery_id).filter(Heart.user_id == user_id).all() # Query all items that the user has liked
+    # print(liked_images)
+    return jsonify([image.to_dict() for image in liked_images])
 
 
 @app.route('/gallery', methods=['GET', 'POST'])
 def gallery():
     if request.method == 'POST':
-        # This part will handle the dropdown data submission for a gallery item
         data = request.json
         gallery_id = data.get('id')
-
-        # Fetch the gallery item by ID
         gallery_item = Gallery.query.get(gallery_id)
 
         if gallery_item:
-            # Update the gallery item with the dropdown data
             gallery_item.battery_type = data.get('batteryType', gallery_item.battery_type)
             gallery_item.motor_type = data.get('motorType', gallery_item.motor_type)
             gallery_item.wheel_type = data.get('wheelType', gallery_item.wheel_type)
@@ -414,6 +435,7 @@ def gallery():
         user_id = session.get('user_id')  # Get the logged-in user's ID, if available
         gallery_items = Gallery.query.all()
         return jsonify([item.to_dict(user_id=user_id) for item in gallery_items])
+
 
 @app.route('/gallery/heart', methods=['POST'])
 def heart_image():
@@ -457,24 +479,6 @@ def get_top_images():
     
     return jsonify([image.to_dict() for image in top_images])
 
-
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-# @app.route('/gallery/top')
-# def get_top_images():
-#     top_images = Gallery.query.order_by(desc(Gallery.Heart)).limit(3).all()
-#     return jsonify([image.to_dict() for image in top_images])

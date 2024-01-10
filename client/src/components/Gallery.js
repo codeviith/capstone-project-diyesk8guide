@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Link, NavLink } from "react-router-dom";
 import HeartButton from './HeartButton';
 import { AuthContext } from './AuthContext';
 
@@ -12,7 +11,6 @@ function Gallery() {
     const [fileName, setFileName] = useState('');
     const [uploadError, setUploadError] = useState('');
     const { isLoggedIn } = useContext(AuthContext);
-
 
     useEffect(() => {
         fetchTopHeartedImages();
@@ -210,5 +208,4 @@ function Gallery() {
 }
 
 export default Gallery;
-
 

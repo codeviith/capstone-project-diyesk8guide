@@ -48,7 +48,7 @@ function NavBar() {
                     {/* Dropdown Menu */}
                     {showMenu && (
                         <div className={`dropdown-menu ${showMenu ? 'show-dropdown' : ''}`}>
-                            {isLoggedIn && <NavLink to="/account">Account</NavLink>}
+                            {isLoggedIn && <NavLink to="/profile">Profile</NavLink>}
                             <NavLink to="/">Home</NavLink>
                             <NavLink to="/about">About</NavLink>
                             <NavLink to="/contactus">Contact Us</NavLink>

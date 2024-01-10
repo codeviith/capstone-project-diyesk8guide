@@ -327,3 +327,119 @@
 //         background-color: rgb(4, 43, 185); /* Example: Dark background color on hover */
 //         box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
 //       }
+
+
+
+/* generate component */
+// Import images
+// import st_img1 from "./images/ID1.jpg";
+// import st_img2 from "./images/ID2.jpeg";
+// import st_img3 from "./images/ID5.jpeg";
+// import st_img4 from "./images/ID6.jpeg";
+// import st_img5 from "./images/ID8.jpeg";
+// import st_img6 from "./images/ID9.jpg";
+// import st_img7 from "./images/ID10.jpg";
+// import st_img8 from "./images/ID11.jpg";
+// import st_img9 from "./images/ID14.jpg";
+// import st_img10 from "./images/ID15.jpg";
+// import st_img11 from "./images/ID16.jpg";
+// import st_img12 from "./images/ID17.jpg";
+
+// import at_img1 from "./images/ID7.jpg";
+// import at_img2 from "./images/ID4.jpeg";
+// import at_img3 from "./images/ID3.jpg";
+// import at_img4 from "./images/ID18.jpg";
+// import at_img5 from "./images/ID19.jpeg";
+// import at_img6 from "./images/ID20.jpeg";
+// import at_img7 from "./images/ID21.jpeg";
+// import at_img8 from "./images/ID22.jpeg";
+// import at_img9 from "./images/ID23.jpeg";
+
+/////Code to generate random and non-repeating images:
+// function shuffleArray(array) {
+//   for (let i = array.length - 1; i > 0; i--) {
+//     const j = Math.floor(Math.random() * (i + 1));
+//     [array[i], array[j]] = [array[j], array[i]];
+//   }
+//   return array;
+// }
+
+// function getRandomImageGenerator(images) {
+//   let shuffledImages = shuffleArray([...images]);
+//   let currentIndex = 0;
+
+//   return function getNextRandomImage() {
+//     if (currentIndex >= shuffledImages.length) {
+//       // Reshuffle when all images have been used
+//       shuffledImages = shuffleArray([...images]);
+//       currentIndex = 0;
+//     }
+//     return shuffledImages[currentIndex++];
+//   };
+// }
+
+//Creating the variables to be put into main code:
+// const getNextRandomStreetImage = getRandomImageGenerator([
+//   st_img1,
+//   st_img2,
+//   st_img3,
+//   st_img4,
+//   st_img5,
+//   st_img6,
+//   st_img7,
+//   st_img8,
+//   st_img9,
+//   st_img10,
+//   st_img11,
+//   st_img12,
+// ]);
+// const getNextRandomAllTerrainImage = getRandomImageGenerator([
+//   at_img1,
+//   at_img2,
+//   at_img3,
+//   at_img4,
+//   at_img5,
+//   at_img6,
+//   at_img7,
+//   at_img8,
+//   at_img9,
+// ]);
+
+
+  // const renderImageContainer = () => (
+  //   <div className="render_image_container">
+  //     <p></p>
+  //     {boardsData.length > 0 ? (
+  //       <>
+  //         {boardsData.map((board, index) => (
+  //           <div key={index}>
+  //             {board.wheel_type.toLowerCase().includes("pneumatic") ? (
+  //               <img
+  //                 src={imageURL}
+  //                 alt="All Terrain Board"
+  //                 style={{ maxWidth: "100%" }}
+  //               />
+  //             ) : (
+  //               <img
+  //                 src={imageURL}
+  //                 alt="Street Board"
+  //                 style={{ maxWidth: "100%" }}
+  //               />
+  //             )}
+  //           </div>
+  //         ))}
+  //       </>
+  //     ) : (
+  //       <p>
+  //         No image available. Click <strong>"Generate Board"</strong> to fetch
+  //         data.
+  //       </p>
+  //     )}
+  //   </div>
+  // );
+
+        // setImageURL(getNextRandomStreetImage());
+        // setImageURL(getNextRandomAllTerrainImage());
+
+            {/* Display Images */}
+          {/* {renderImageContainer()} */}

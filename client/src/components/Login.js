@@ -31,7 +31,7 @@ const Login = () => {
           setIsLoggedIn(true); // Set the logged-in state
           setMessage({ content: 'Login Successful. Redirecting...', type: 'success' });
           setTimeout(() => {
-            history.push('/account'); // Redirect to the home page or another page
+            history.push('/profile'); // Redirect to the home page or another page
           }, 2000); // Delay for 2 seconds before redirecting
         } else { // Handle login failure (e.g., show an error message)
           console.error('Login failed:', data.message); // Assuming your API returns a 'message' field

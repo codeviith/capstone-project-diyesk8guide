@@ -11,10 +11,10 @@ import Home from "./Home";
 // import Qna from './Qna';
 import Gallery from './Gallery';
 import Guide from './Guide';
-import Account from './Account';
+import Profile from './Profile';
 import About from "./About";
 import ContactUs from './ContactUs';
-import Footer from './Footer';
+// import Footer from './Footer';
 
 
 function App() {
@@ -59,8 +59,8 @@ function App() {
             <Route path="/signup">
               <Signup />
             </Route>
-            <Route path="/account">
-              <Account />
+            <Route path="/profile">
+              <Profile />
             </Route>
             <Route path="/about">
               <About />

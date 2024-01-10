@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from './AuthContext';
 
 function Guru() {
@@ -18,10 +17,8 @@ function Guru() {
         }
 
         try {
-            // Set loading state to true while waiting for the response
             setLoading(true);
 
-            // Send user input to Flask backend
             const response = await fetch('/guru_assistant', {
                 method: 'POST',
                 headers: {
@@ -30,15 +27,12 @@ function Guru() {
                 body: JSON.stringify({ user_input: userInput }),
             });
 
-            // Parse the response from the backend
             const data = await response.json();
 
-            // Update the state with the response
             setResponse(data.content);
         } catch (error) {
             console.error('Error fetching data from server:', error);
         } finally {
-            // Set loading state to false when the response is received
             setLoading(false);
         }
     };
@@ -47,7 +41,6 @@ function Guru() {
     return (
         <div className="guru-container">
             {isLoggedIn ? (
-                // Render the form and other content for logged-in users
                 <>
                     <strong className='guru_prompt'> Hello, I am your Esk8 Guru. What question do you have for me? </strong>
 
@@ -74,7 +67,6 @@ function Guru() {
                     )}
                 </>
             ) : (
-                // Render a message or a login prompt for non-logged-in users
                 <p className='login_request'>Please log in to ask a question.</p>
             )}
         </div>
