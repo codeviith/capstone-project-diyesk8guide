@@ -1,112 +1,316 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { AuthContext } from "./AuthContext";
-
+import { AuthContext } from './AuthContext'; // Import AuthContext
 
 const Profile = () => {
+    const { isLoggedIn } = useContext(AuthContext); // Use AuthContext
     const [userData, setUserData] = useState(null);
-    const [boardsGenerated, setBoardsGenerated] = useState([]);
-    const [questionsAsked, setQuestionsAsked] = useState([]);
+    const [boards, setBoards] = useState([]);
+    const [questions, setQuestions] = useState([]);
     const [uploadedImages, setUploadedImages] = useState([]);
     const [likedImages, setLikedImages] = useState([]);
-    const { isLoggedIn } = useContext(AuthContext);
 
     useEffect(() => {
         if (isLoggedIn) {
-            // Fetch user data
-            fetch('/user_data') 
-                .then(response => response.json())
-                .then(data => setUserData(data))
-                .catch(error => console.error('Error fetching user data:', error));
-    
-            // Fetch boards generated
-            fetch('/boards')
-                .then(response => response.json())
-                .then(data => setBoardsGenerated(data))
-                .catch(error => console.error('Error fetching boards:', error));
-    
-            // Fetch questions asked
-            fetch('/guru')
-                .then(response => response.json())
-                .then(data => setQuestionsAsked(data))
-                .catch(error => console.error('Error fetching questions:', error));
-    
-            // Fetch images uploaded
-            fetch('/gallery/uploaded')
-                .then(response => response.json())
-                .then(data => setUploadedImages(data))
-                .catch(error => console.error('Error fetching uploaded images:', error));
-    
-            // Fetch images liked
-            fetch('/gallery/liked')
-                .then(response => response.json())
-                .then(data => setLikedImages(data))
-                .catch(error => console.error('Error fetching liked images:', error));
+            fetchUserData();
+            fetchBoards();
+            fetchQuestions();
+            fetchUploadedImages();
+            fetchLikedImages();
         }
     }, [isLoggedIn]);
-    
 
-    const renderUserData = () => {
-        return userData && (
-            <div>
-                <h2>User Details</h2>
-                <p>First Name: {userData.firstName}</p>
-                <p>Last Name: {userData.lastName}</p>
-                <p>Email: {userData.email}</p>
-                {/* Add more user details here */}
-            </div>
-        );
-    };
-
-    const renderBoardsGenerated = () => {
-        return (
-            <div>
-                <h2>Boards Generated</h2>
-                {boardsGenerated.map(board => <div key={board.id}>{board.name} {/* other board details */}</div>)}
-            </div>
-        );
-    };
-
-    const renderQuestionsAsked = () => {
-        if (Array.isArray(questionsAsked)) {
-            return (
-                <div>
-                    <h2>Questions Asked</h2>
-                    {questionsAsked.map(question => (
-                        <div key={question.id}>
-                            {/* Render question details */}
-                        </div>
-                    ))}
-                </div>
-            );
-        } else {
-            return <div>Error loading questions.</div>;
+    const fetchUserData = async () => {
+        try {
+            const response = await fetch('/user_data', { credentials: 'include' });
+            const data = await response.json();
+            setUserData(data);
+        } catch (error) {
+            console.error('Error fetching user data:', error);
         }
     };
 
-    const renderGalleryImages = () => {
-        return (
-            <div>
-                <h2>Uploaded Images</h2>
-                {uploadedImages.map(image => <img key={image.id} src={image.image_filename} alt={image.title} />)}
-    
-                <h2>Liked Images</h2>
-                {likedImages.map(image => <img key={image.id} src={image.image_filename} alt={image.title} />)}
-            </div>
-        );
+    const fetchBoards = async () => {
+        try {
+            const response = await fetch('/boards', { credentials: 'include' });
+            const data = await response.json();
+            setBoards(data);
+        } catch (error) {
+            console.error('Error fetching boards data:', error);
+        }
     };
 
+    const fetchQuestions = async () => {
+        try {
+            const response = await fetch('/guru', { credentials: 'include' });
+            const data = await response.json();
+            setQuestions(data);
+        } catch (error) {
+            console.error('Error fetching guru data:', error);
+        }
+    };
+
+    const fetchUploadedImages = async () => {
+        try {
+            const response = await fetch('/gallery/uploaded', { credentials: 'include' });
+            const data = await response.json();
+            setUploadedImages(data);
+        } catch (error) {
+            console.error('Error fetching uploaded images', error);
+        }
+    };
+
+    const fetchLikedImages = async () => {
+        try {
+            const response = await fetch('/gallery/liked', { credentials: 'include' });
+            const data = await response.json();
+            setLikedImages(data);
+        } catch (error) {
+            console.error('Error fetching liked images', error);
+        }
+    };
 
     return (
-        <div className='profile'>
-            {renderUserData()}
-            {renderBoardsGenerated()}
-            {renderQuestionsAsked()}
-            {renderGalleryImages()}
+        <div>
+            {isLoggedIn ? (
+                <div>
+                    <h2>Profile</h2>
+                    <section>
+                        <h3>Account</h3>
+                        {userData && (
+                            <div>
+                                <p>First Name: {userData.fname}</p>
+                                <p>Last Name: {userData.lname}</p>
+                                <p>Email: {userData.email}</p>
+                                <p>Rider Stance: {userData.rider_stance}</p>
+                                <p>Boards Owned: {userData.boards_owned}</p>
+                            </div>
+                        )}
+                    </section>
+    
+                    <section>
+                        <h3>Boards Generated</h3>
+                        <div>
+                            {boards.length > 0 ? (
+                                boards.map((board, index) => (
+                                    <div key={index}>
+                                        {/* Render each board's details */}
+                                        <p>Deck Type: {board.deck_type}</p>
+                                        {/* Include other board details similarly */}
+                                    </div>
+                                ))
+                            ) : (
+                                <p>No boards generated.</p>
+                            )}
+                        </div>
+                    </section>
+    
+                    <section>
+                        <h3>Questions Asked</h3>
+                        <div>
+                            {questions.length > 0 ? (
+                                questions.map((question, index) => (
+                                    <div key={index}>
+                                        <p>Question: {question.user_input}</p>
+                                        <p>Answer: {question.answer}</p>
+                                    </div>
+                                ))
+                            ) : (
+                                <p>No questions asked.</p>
+                            )}
+                        </div>
+                    </section>
+    
+                    <section>
+                        <h3>Uploaded Images</h3>
+                        <div>
+                            {uploadedImages.length > 0 ? (
+                                uploadedImages.map((image, index) => (
+                                    <div key={index}>
+                                        {/* Render each uploaded image */}
+                                        <img src={image.image_filename} alt="Uploaded" />
+                                    </div>
+                                ))
+                            ) : (
+                                <p>No images uploaded.</p>
+                            )}
+                        </div>
+                    </section>
+    
+                    <section>
+                        <h3>Liked Images</h3>
+                        <div>
+                            {likedImages.length > 0 ? (
+                                likedImages.map((image, index) => (
+                                    <div key={index}>
+                                        {/* Render each liked image */}
+                                        <img src={image.image_filename} alt="Liked" />
+                                    </div>
+                                ))
+                            ) : (
+                                <p>No images liked.</p>
+                            )}
+                        </div>
+                    </section>
+                </div>
+            ) : (
+                <p>Please log in to view your profile.</p>
+            )}
         </div>
-    );
+    );    
 };
 
 export default Profile;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React, { useState, useEffect, useContext } from 'react';
+// import { AuthContext } from "./AuthContext";
+
+
+// const Profile = () => {
+//     const [userData, setUserData] = useState(null);
+//     const [boardsGenerated, setBoardsGenerated] = useState([]);
+//     const [questionsAsked, setQuestionsAsked] = useState([]);
+//     const [uploadedImages, setUploadedImages] = useState([]);
+//     const [likedImages, setLikedImages] = useState([]);
+//     const { isLoggedIn } = useContext(AuthContext);
+
+//     useEffect(() => {
+//         if (isLoggedIn) {
+//             // Fetch user data
+//             fetch('/user_data') 
+//                 .then(response => response.json())
+//                 .then(data => setUserData(data))
+//                 .catch(error => console.error('Error fetching user data:', error));
+    
+//             // Fetch boards generated
+//             fetch('/boards')
+//                 .then(response => response.json())
+//                 .then(data => setBoardsGenerated(data))
+//                 .catch(error => console.error('Error fetching boards:', error));
+    
+//             // Fetch questions asked
+//             fetch('/guru')
+//                 .then(response => response.json())
+//                 .then(data => setQuestionsAsked(data))
+//                 .catch(error => console.error('Error fetching questions:', error));
+    
+//             // Fetch images uploaded
+//             fetch('/gallery/uploaded')
+//                 .then(response => response.json())
+//                 .then(data => setUploadedImages(data))
+//                 .catch(error => console.error('Error fetching uploaded images:', error));
+    
+//             // Fetch images liked
+//             fetch('/gallery/liked')
+//                 .then(response => response.json())
+//                 .then(data => setLikedImages(data))
+//                 .catch(error => console.error('Error fetching liked images:', error));
+//         }
+//     }, [isLoggedIn]);
+    
+
+//     const renderUserData = () => {
+//         return userData && (
+//             <div>
+//                 <h2>User Details</h2>
+//                 <p>First Name: {userData.firstName}</p>
+//                 <p>Last Name: {userData.lastName}</p>
+//                 <p>Email: {userData.email}</p>
+//                 {/* Add more user details here */}
+//             </div>
+//         );
+//     };
+
+//     const renderBoardsGenerated = () => {
+//         return (
+//             <div>
+//                 <h2>Boards Generated</h2>
+//                 {boardsGenerated.map(board => <div key={board.id}>{board.name} {/* other board details */}</div>)}
+//             </div>
+//         );
+//     };
+
+//     const renderQuestionsAsked = () => {
+//         if (Array.isArray(questionsAsked)) {
+//             return (
+//                 <div>
+//                     <h2>Questions Asked</h2>
+//                     {questionsAsked.map(question => (
+//                         <div key={question.id}>
+//                             {/* Render question details */}
+//                         </div>
+//                     ))}
+//                 </div>
+//             );
+//         } else {
+//             return <div>Error loading questions.</div>;
+//         }
+//     };
+
+//     const renderGalleryImages = () => {
+//         return (
+//             <div>
+//                 <h2>Uploaded Images</h2>
+//                 {uploadedImages.map(image => <img key={image.id} src={image.image_filename} alt={image.title} />)}
+    
+//                 <h2>Liked Images</h2>
+//                 {likedImages.map(image => <img key={image.id} src={image.image_filename} alt={image.title} />)}
+//             </div>
+//         );
+//     };
+
+
+//     return (
+//         <div className='profile'>
+//             {renderUserData()}
+//             {renderBoardsGenerated()}
+//             {renderQuestionsAsked()}
+//             {renderGalleryImages()}
+//         </div>
+//     );
+// };
+
+// export default Profile;
 
 
 
