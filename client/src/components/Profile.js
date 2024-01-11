@@ -70,85 +70,93 @@ const Profile = () => {
     };
 
     return (
-        <div>
+        <div className="profile"> {/* Apply 'profile' class name */}
             {isLoggedIn ? (
                 <div>
-                    <h2>Profile</h2>
+                    {/* <h1>Profile</h1> */}
                     <section>
-                        <h3>Account</h3>
+                        <h2>Account</h2>
                         {userData && (
                             <div>
-                                <p>First Name: {userData.fname}</p>
-                                <p>Last Name: {userData.lname}</p>
-                                <p>Email: {userData.email}</p>
-                                <p>Rider Stance: {userData.rider_stance}</p>
-                                <p>Boards Owned: {userData.boards_owned}</p>
+                                <p><strong>First Name:</strong> {userData.fname}</p>
+                                <p><strong>Last Name:</strong> {userData.lname}</p>
+                                <p><strong>Email:</strong> {userData.email}</p>
+                                <p><strong>Rider Stance:</strong> {userData.rider_stance}</p>
+                                <p><strong>Boards Owned:</strong> {userData.boards_owned}</p>
                             </div>
                         )}
                     </section>
     
                     <section>
-                        <h3>Boards Generated</h3>
+                        <h2>Boards Generated</h2>
                         <div>
-                            {boards.length > 0 ? (
-                                boards.map((board, index) => (
-                                    <div key={index}>
-                                        {/* Render each board's details */}
-                                        <p>Deck Type: {board.deck_type}</p>
-                                        {/* Include other board details similarly */}
-                                    </div>
-                                ))
-                            ) : (
-                                <p>No boards generated.</p>
-                            )}
+                            {boards.length > 0 ? boards.map((board, index) => (
+                                <div key={index}>
+                                    <ul className='board_spec'>
+                                        <strong className='board_number'> Board {index + 1}</strong>
+                                        <strong className='deck'> Deck </strong>
+                                        <li>Deck Type: {board.deck_type}</li>
+                                        <li>Deck Length: {board.deck_length}</li>
+                                        <li>Deck Material: {board.deck_material}</li>
+                                    <strong className='truck'> Truck </strong>
+                                        <li>Truck Type: {board.truck_type}</li>
+                                        <li>Truck Width: {board.truck_width}</li>
+                                    <strong className='controller'> Controller </strong>
+                                        <li>Controller Feature: {board.controller_feature}</li>
+                                        <li>Controller Type: {board.controller_type}</li>
+                                    <strong className='remote'> Remote </strong>
+                                        <li>Remote Feature: {board.remote_feature}</li>
+                                        <li>Remote Type: {board.remote_type}</li>
+                                    <strong className='motor'> Motor </strong>
+                                        <li>Motor Size: {board.motor_size}</li>
+                                        <li>Motor Kv: {board.motor_kv}</li>
+                                    <strong className='wheel'> Wheel </strong>
+                                        <li>Wheel Size: {board.wheel_size}</li>
+                                        <li>Wheel Type: {board.wheel_type}</li>
+                                    <strong className='battery'> Battery </strong>
+                                        <li>Battery Voltage: {board.battery_voltage}</li>
+                                        <li>Battery Type: {board.battery_type}</li>
+                                        <li>Battery Capacity: {board.battery_capacity}</li>
+                                        <li>Battery Configuration: {board.battery_configuration}</li>
+                                    <strong className='range'> Range </strong>
+                                        <li>Range: {board.range_mileage}</li>
+                                    </ul>
+                                </div>
+                            )) : <p>No boards generated.</p>}
                         </div>
                     </section>
     
                     <section>
-                        <h3>Questions Asked</h3>
+                        <h2>Questions Asked</h2>
                         <div>
-                            {questions.length > 0 ? (
-                                questions.map((question, index) => (
-                                    <div key={index}>
-                                        <p>Question: {question.user_input}</p>
-                                        <p>Answer: {question.answer}</p>
-                                    </div>
-                                ))
-                            ) : (
-                                <p>No questions asked.</p>
-                            )}
+                            {questions.length > 0 ? questions.map((question, index) => (
+                                <div key={index}>
+                                    <p><strong>Question:</strong> {question.user_input}</p>
+                                    <p><strong>Answer:</strong> {question.answer}</p>
+                                </div>
+                            )) : <p>No questions asked.</p>}
                         </div>
                     </section>
     
                     <section>
-                        <h3>Uploaded Images</h3>
+                        <h2>Uploaded Images</h2>
                         <div>
-                            {uploadedImages.length > 0 ? (
-                                uploadedImages.map((image, index) => (
-                                    <div key={index}>
-                                        {/* Render each uploaded image */}
-                                        <img src={image.image_filename} alt="Uploaded" />
-                                    </div>
-                                ))
-                            ) : (
-                                <p>No images uploaded.</p>
-                            )}
+                            {uploadedImages.length > 0 ? uploadedImages.map((image, index) => (
+                                <div key={index}>
+                                    <img src={image.image_filename} alt="Uploaded" />
+                                </div>
+                            )) : <p>No images uploaded.</p>}
                         </div>
                     </section>
     
                     <section>
-                        <h3>Liked Images</h3>
+                        <h2>Liked Images</h2>
                         <div>
-                            {likedImages.length > 0 ? (
-                                likedImages.map((image, index) => (
-                                    <div key={index}>
-                                        {/* Render each liked image */}
-                                        <img src={image.image_filename} alt="Liked" />
-                                    </div>
-                                ))
-                            ) : (
-                                <p>No images liked.</p>
-                            )}
+                            {likedImages.length > 0 ? likedImages.map((image, index) => (
+                                <div key={index}>
+                                    <img src={image.image_filename} alt="Liked" />
+                                </div>
+                            )) : <p>No images liked.</p>}
                         </div>
                     </section>
                 </div>
@@ -156,7 +164,7 @@ const Profile = () => {
                 <p>Please log in to view your profile.</p>
             )}
         </div>
-    );    
+    );
 };
 
 export default Profile;
