@@ -8,10 +8,9 @@ from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.hybrid import hybrid_property
 
-from config import db
+from config import db, app
 
 bcrypt = Bcrypt()
-
 
 ### ------------------ USER ------------------ ###
 
@@ -33,6 +32,16 @@ class User(db.Model, SerializerMixin):
     boards = db.relationship('Board', back_populates='users')
     gurus = db.relationship('Guru', back_populates='users')
     heart_count = db.relationship('Heart', back_populates='users')
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'email': self.email,
+            'fname': self.fname,
+            'lname': self.lname,
+            'rider_stance': self.rider_stance,
+            'boards_owned': self.boards_owned
+        }
 
 
     @hybrid_property
@@ -149,6 +158,14 @@ class Guru(db.Model, SerializerMixin):
 
     users = db.relationship('User', back_populates='gurus')
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'user_input': self.user_input,
+            'answer': self.answer,
+            'user_id': self.user_id
+        }
+
 
     def __repr__(self):
         return f'<Guru {self.id}>'
@@ -188,9 +205,11 @@ class Gallery(db.Model, SerializerMixin):
         return heart is not None
 
     def to_dict(self, user_id=None):
+        base_url = app.config['BASE_URL']
         data = {
             'id': self.id,
             'image_filename': self.image_filename,
+            'image_url': f'{base_url}/images/{self.image_filename}',
             'battery_type': self.battery_type,
             'motor_type': self.motor_type,
             'wheel_type': self.wheel_type,

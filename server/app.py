@@ -32,7 +32,9 @@ from openai import OpenAI
 # Instantiate app, set attributes
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['IMAGE_URL'] = '/home/codeviith/Development/code/phase-5/capstone-project/diyesk8guide/server/gallery'
+
 app.json.compact = False
 
 # Instantiate db
@@ -338,7 +340,7 @@ def handle_contact_form():
 ### ------------------ GALLERY ------------------ ###
 
 # Directory for incoming uploads
-IMAGE_UPLOAD_FOLDER = '/home/codeviith/Development/code/phase-5/capstone-project/diyesk8guide/server/gallery'
+IMAGE_UPLOAD_FOLDER = app.config['IMAGE_URL']
 
 # Making sure directory exists
 os.makedirs(IMAGE_UPLOAD_FOLDER, exist_ok=True)

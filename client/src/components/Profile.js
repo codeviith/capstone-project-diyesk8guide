@@ -19,6 +19,10 @@ const Profile = () => {
         }
     }, [isLoggedIn]);
 
+    useEffect(() => {
+        console.log("Questions State Updated:", questions);
+    }, [questions]);
+
     const fetchUserData = async () => {
         try {
             const response = await fetch('/user_data', { credentials: 'include' });
@@ -43,6 +47,7 @@ const Profile = () => {
         try {
             const response = await fetch('/guru', { credentials: 'include' });
             const data = await response.json();
+            console.log('Questions:', data);
             setQuestions(data);
         } catch (error) {
             console.error('Error fetching guru data:', error);
@@ -143,7 +148,14 @@ const Profile = () => {
                         <div>
                             {uploadedImages.length > 0 ? uploadedImages.map((image, index) => (
                                 <div key={index}>
-                                    <img src={image.image_filename} alt="Uploaded" />
+                                    <img src={image.image_url} alt="Uploaded" />
+                                    <div className='image-details'>
+                                        <p><strong>Battery Type:</strong> {image.battery_type}</p>
+                                        <p><strong>Motor Type:</strong> {image.motor_type}</p>
+                                        <p><strong>Wheel Type:</strong> {image.wheel_type}</p>
+                                        <p><strong>Truck Type:</strong> {image.truck_type}</p>
+                                        <p><strong>Max Speed:</strong> {image.max_speed}</p>
+                                    </div>
                                 </div>
                             )) : <p>No images uploaded.</p>}
                         </div>
@@ -154,7 +166,14 @@ const Profile = () => {
                         <div>
                             {likedImages.length > 0 ? likedImages.map((image, index) => (
                                 <div key={index}>
-                                    <img src={image.image_filename} alt="Liked" />
+                                    <img src={image.image_url} alt="Liked" />
+                                    <div className='image-details'>
+                                        <p><strong>Battery Type:</strong> {image.battery_type}</p>
+                                        <p><strong>Motor Type:</strong> {image.motor_type}</p>
+                                        <p><strong>Wheel Type:</strong> {image.wheel_type}</p>
+                                        <p><strong>Truck Type:</strong> {image.truck_type}</p>
+                                        <p><strong>Max Speed:</strong> {image.max_speed}</p>
+                                    </div>
                                 </div>
                             )) : <p>No images liked.</p>}
                         </div>
