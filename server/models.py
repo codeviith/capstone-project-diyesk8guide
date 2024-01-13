@@ -84,7 +84,7 @@ class Board(db.Model, SerializerMixin):
 
     serializer_rule = ('-users.boards',)
 
-    id = db.Column(db.Integer, primary_key=True, unique=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
     deck_type = db.Column(db.String, nullable=False)
     deck_length = db.Column(db.String, nullable=False)
@@ -108,7 +108,7 @@ class Board(db.Model, SerializerMixin):
     image_url = db.Column(db.String, nullable=False)
     timestamp = db.Column(DateTime, default=datetime.utcnow, nullable=False)
 
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     users = db.relationship('User', back_populates='boards')
 
@@ -185,7 +185,7 @@ class Gallery(db.Model, SerializerMixin):
     motor_type = db.Column(db.String, nullable=False)
     wheel_type = db.Column(db.String, nullable=False)
     truck_type = db.Column(db.String, nullable=False)
-    max_speed = db.Column(db.String, nullable=False)
+    max_speed = db.Column(db.Integer, nullable=False)
     hearts = db.Column(db.Integer, default=0)
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
@@ -220,7 +220,7 @@ class Gallery(db.Model, SerializerMixin):
         if user_id is not None:
             data['isHearted'] = self.is_hearted_by_user(user_id)
         return data
-    
+
     heart_count = db.relationship('Heart', back_populates='gallery')
 
     def __repr__(self):

@@ -73,7 +73,7 @@ def is_authenticated():
 
 
 ### ------------------ OPENAI API REQUESTS ------------------ ###
-guru_instructions = "You are an expert in electric skateboards who will be answering questions from prospective builders, aka users.Please follow the instructions below: 1. You will come up with the most appropriate response that suits best for the builder's question. If you are unable to provide an appropriate response to the builder, then please refer them to the following websites: https://electric-skateboard.builders/ , https://forum.esk8.news/ 2. Please refrain from engaing in any other conversation that isn't related to the field of electric skateboards, and in the case that the builder asks a question that is unrelated to and/or outside the scope of electric skateboards, please respond with: 'I apologize but I can only answer questions that are related to electric skateboards.' and end with an appropriate response."
+guru_instructions = "You are an expert in electric skateboards who will be answering questions from prospective builders. Please follow the instructions: 1. You will come up with the most appropriate response that suits best for the builder's question. If you are unable to provide an appropriate response to the builder, then please provide an appropriate reason. 2.Please refrain from engaing in any other conversation that isn't related to the field of electric skateboards, and in the case that the builder asks a question that is unrelated to and/or outside the scope of electric skateboards, please respond with: 'I apologize but I can only answer questions that are related to electric skateboards.' and end with an appropriate response."
 
 ### Not using guru_assistant.py
 
@@ -99,7 +99,7 @@ def guru_assistant():
         completion = client.chat.completions.create(
             model="gpt-4-1106-preview",
             messages=messages,
-            max_tokens=500
+            max_tokens=1000
         )
 
         answer = completion.choices[0].message.content

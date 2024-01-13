@@ -5,7 +5,7 @@ import { AuthContext } from './AuthContext';
 
 function Gallery() {
     const [image, setImage] = useState(null);
-    const [dropdowns, setDropdowns] = useState({ battery_type: '', motor_type: '', wheel_type: '', truck_type: '', max_speed: '' });
+    const [formFields, setFormFields] = useState({ battery_type: '', motor_type: '', wheel_type: '', truck_type: '', max_speed: '' });
     const [galleryItems, setGalleryItems] = useState([]);
     const [topHeartedImages, setTopHeartedImages] = useState([]); // State to store top hearted images
     const [fileName, setFileName] = useState('');
@@ -50,8 +50,8 @@ function Gallery() {
         }
     };
 
-    const handleDropdownChange = (e) => {
-        setDropdowns({ ...dropdowns, [e.target.name]: e.target.value });
+    const handleFormFieldChange = (e) => {
+        setFormFields({ ...formFields, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async (e) => {
@@ -76,7 +76,7 @@ function Gallery() {
                 response = await fetch('/gallery', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ id: imageId, ...dropdowns }),
+                    body: JSON.stringify({ id: imageId, ...formFields }),
                 });
 
                 if (response.ok) {
@@ -159,47 +159,38 @@ function Gallery() {
                     </div>
 
                     <br />
+                    <div>
+                        <label>Battery Type:</label>
+                        <input type="text" name="batteryType" placeholder="E.g. 12s4p" value={formFields.batteryType} onChange={handleFormFieldChange} />
+                    </div>
 
-                    <select name="batteryType" value={dropdowns.batteryType} onChange={handleDropdownChange}>
-                        <option value="">Battery Type</option>
-                        <option value="10s6p">10s6p</option>
-                        <option value="12s4p">12s4p</option>
-                        <option value="12s6p">12s6p</option>
-                        <option value="14s4p">14s4p</option>
-                    </select>
+                    <div>
+                        <label>Motor Type:</label>
+                        <input type="text" name="motorType" placeholder="E.g. 6364 170kv" value={formFields.motorType} onChange={handleFormFieldChange} />
+                    </div>
 
-                    <select name="motorType" value={dropdowns.motorType} onChange={handleDropdownChange}>
-                        <option value="">Motor Type</option>
-                        <option value="5364 170kv">5364 170kv</option>
-                        <option value="6364 190kv">6364 190kv</option>
-                        <option value="6384 170kv">6384 170kv</option>
-                        <option value="63100 150kv">63100 150kv</option>
-                    </select>
-
-                    <select name="wheelType" value={dropdowns.wheelType} onChange={handleDropdownChange}>
-                        <option value="">Wheel Type</option>
+                    <label>Wheel Type:</label>
+                    <select name="wheelType" value={formFields.wheelType} onChange={handleFormFieldChange}>
+                        <option value="">Select Wheel Type</option>
                         <option value="Street">Street</option>
                         <option value="Rubber">Rubber</option>
                         <option value="Airless Pneumatics">Airless Pneumatics</option>
                         <option value="Pneumatics">Pneumatics</option>
                     </select>
 
-                    <select name="truckType" value={dropdowns.truckType} onChange={handleDropdownChange}>
-                        <option value="">Truck Type</option>
+                    <label>Truck Type:</label>
+                    <select name="truckType" value={formFields.truckType} onChange={handleFormFieldChange}>
+                        <option value="">Select Truck Type</option>
                         <option value="Top Mount">Top Mount</option>
                         <option value="Drop Mount">Drop Mount</option>
                         <option value="Flush Mount">Flush Mount</option>
                         <option value="Drop-Thru">Drop-Thru</option>
                     </select>
 
-                    <select name="maxSpeed" value={dropdowns.maxSpeed} onChange={handleDropdownChange}>
-                        <option value="">Max Speed</option>
-                        <option value="25 MPH">25 MPH</option>
-                        <option value="28 MPH">28 MPH</option>
-                        <option value="30 MPH">30 MPH</option>
-                        <option value="35 MPH">35 MPH</option>
-                    </select>
-
+                    <div>
+                        <label>Max Speed (MPH):</label>
+                        <input type="text" name="maxSpeed" placeholder="E.g. 32" value={formFields.maxSpeed} onChange={handleFormFieldChange} />
+                    </div>
                     <button type="submit">Submit</button>
                 </form>
             </div>
