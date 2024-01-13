@@ -189,7 +189,7 @@ function Gallery() {
 
                     <div>
                         <label>Max Speed (MPH):</label>
-                        <input type="text" name="maxSpeed" placeholder="E.g. 32" value={formFields.maxSpeed} onChange={handleFormFieldChange} />
+                        <input type="number" name="maxSpeed" placeholder="E.g. 32" value={formFields.maxSpeed} onChange={handleFormFieldChange} />
                     </div>
                     <button type="submit">Submit</button>
                 </form>
