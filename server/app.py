@@ -373,7 +373,8 @@ def upload_image():
         new_gallery_entry = Gallery(
             image_filename=filename,
             user_id=user_id,
-            battery_type='',
+            battery_series='',
+            battery_parallel='',
             motor_type='',
             wheel_type='',
             truck_type='',
@@ -422,7 +423,8 @@ def gallery():
         gallery_item = Gallery.query.get(gallery_id)
 
         if gallery_item:
-            gallery_item.battery_type = data.get('batteryType', gallery_item.battery_type)
+            gallery_item.battery_series = data.get('batterySeries', gallery_item.battery_series)
+            gallery_item.battery_parallel = data.get('batteryParallel', gallery_item.battery_parallel)
             gallery_item.motor_type = data.get('motorType', gallery_item.motor_type)
             gallery_item.wheel_type = data.get('wheelType', gallery_item.wheel_type)
             gallery_item.truck_type = data.get('truckType', gallery_item.truck_type)

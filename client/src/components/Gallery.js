@@ -5,7 +5,7 @@ import { AuthContext } from './AuthContext';
 
 function Gallery() {
     const [image, setImage] = useState(null);
-    const [formFields, setFormFields] = useState({ battery_type: '', motor_type: '', wheel_type: '', truck_type: '', max_speed: '' });
+    const [formFields, setFormFields] = useState({ battery_series: '', battery_parallel: '', motor_type: '', wheel_type: '', truck_type: '', max_speed: '' });
     const [galleryItems, setGalleryItems] = useState([]);
     const [topHeartedImages, setTopHeartedImages] = useState([]); // State to store top hearted images
     const [fileName, setFileName] = useState('');
@@ -113,7 +113,7 @@ function Gallery() {
                         <div key={index} className="top-gallery-item">
                             <img src={`images/${item.image_filename}`} alt={item.image_filename} />
                             <div className="item-details">
-                                <p>Battery Type: {item.battery_type}</p>
+                                <p>Battery Type: {item.battery_series}s {item.battery_parallel}p</p>
                                 <p>Motor Type: {item.motor_type}</p>
                                 <p>Wheel Type: {item.wheel_type}</p>
                                 <p>Truck Type: {item.truck_type}</p>
@@ -132,7 +132,7 @@ function Gallery() {
                     <div key={index} className="gallery-item">
                         <img src={`images/${item.image_filename}`} alt={item.image_filename} />
                         <div className="item-details">
-                            <p>Battery Type: {item.battery_type}</p>
+                            <p>Battery Type: {item.battery_series}s {item.battery_parallel}p</p>
                             <p>Motor Type: {item.motor_type}</p>
                             <p>Wheel Type: {item.wheel_type}</p>
                             <p>Truck Type: {item.truck_type}</p>
@@ -161,7 +161,8 @@ function Gallery() {
                     <br />
                     <div>
                         <label>Battery Type:</label>
-                        <input type="text" name="batteryType" placeholder="E.g. 12s4p" value={formFields.batteryType} onChange={handleFormFieldChange} />
+                        <input type="number" name="batterySeries" placeholder="Enter series here, e.g. 12" value={formFields.batterySeries} onChange={handleFormFieldChange} />
+                        <input type="number" name="batteryParallel" placeholder="Enter parallel here, e.g. 4" value={formFields.batteryParallel} onChange={handleFormFieldChange} />
                     </div>
 
                     <div>
