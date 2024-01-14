@@ -1009,7 +1009,7 @@ nav a.home-link:hover {
 
 .floating-form {
   position: fixed; /* Makes the form float */
-  top: 80px; /* Distance from top of the page */
+  top: 70px; /* Distance from top of the page */
   right: 15px; /* Distance from right of the page */
   width: 180px; /* Width of the form */
   background-color: gray; /* Background color of the form */
@@ -1024,12 +1024,16 @@ nav a.home-link:hover {
 .floating-form select,
 .floating-form button {
   width: 90%; /* Width inside the form */
-  margin-bottom: 10px; /* Spacing between elements */
+  margin-bottom: 5px; /* Spacing between elements */
+}
+
+.floating-form button {
+  margin-top: 10px;
 }
 
 .floating-form input {
   width: 93%; /* Width inside the form */
-  margin-bottom: 5px; /* Spacing between elements */
+  margin-bottom: 1px; /* Spacing between elements */
   padding: 5px;
 }
 
@@ -1039,7 +1043,7 @@ nav a.home-link:hover {
   font-size: 14px; /* Adjust font size */
   border-radius: 4px; /* Rounded corners */
   border: 2px solid gray; /* Border color */
-  margin-bottom: 8px; /* Spacing between select elements */
+  margin-bottom: 5px; /* Spacing between select elements */
 }
 
 .floating-form select:focus {
@@ -1066,14 +1070,21 @@ nav a.home-link:hover {
 
 .batt-series, .batt-parallel, .motor-size, .motor-kv, .motor-power, .max-speed {
   display: block; /* Each label will take the full width of its container */
-  margin-top: 2px; /* Optional: Add some space above the label */
-  font-size: 15px;
+  margin-top: 1px; /* Optional: Add some space above the label */
+  font-size: 13px;
   color: rgb(255, 255, 255);
 }
 
 .form-label {
   color: rgb(7, 7, 77);
 }
+
+.upload-error {
+  color: rgb(147, 3, 3);
+  font-size: 15px;
+  font-weight: bold;
+}
+
 
 
 

@@ -151,7 +151,6 @@ function Gallery() {
             {/* Floating form */}
             <div className="floating-form">
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
-                    {uploadError && <div className="upload-error">{uploadError}</div>}
                     {fileName && <div className="file-name-display">{fileName}</div>}
                     <div className="file-input-wrapper">
                         <input type="file" accept="image/*" onChange={handleImageChange} id="file-input" style={{ display: 'none' }} />
@@ -162,23 +161,23 @@ function Gallery() {
                     <div>
                         <strong className='form-label'>Battery Type:</strong>
                         <label className='batt-series'>Series
-                            <input type="number" name="batterySeries" placeholder="Enter series here, e.g. 12" value={formFields.batterySeries} onChange={handleFormFieldChange} />
+                            <input type="number" name="batterySeries" placeholder="E.g. 12" value={formFields.batterySeries} onChange={handleFormFieldChange} />
                         </label>
                         <label className='batt-parallel'>Parallel
-                            <input type="number" name="batteryParallel" placeholder="Enter parallel here, e.g. 4" value={formFields.batteryParallel} onChange={handleFormFieldChange} />
+                            <input type="number" name="batteryParallel" placeholder="E.g. 4" value={formFields.batteryParallel} onChange={handleFormFieldChange} />
                         </label>
                     </div>
 
                     <div>
                         <strong className='form-label'>Motor Type:</strong>
                         <label className='motor-size'>Size
-                            <input type="number" name="motorSize" placeholder="Enter motor size here, e.g. 5065, 6364, etc." value={formFields.motorSize} onChange={handleFormFieldChange} />
+                            <input type="number" name="motorSize" placeholder="E.g. 5065, 6364, etc." value={formFields.motorSize} onChange={handleFormFieldChange} />
                         </label>
                         <label className='motor-kv'>Kv
-                            <input type="number" name="motorKv" placeholder="Enter motor kv here, e.g. 130kv, 170kv, 190kv, etc." value={formFields.motorKv} onChange={handleFormFieldChange} />
+                            <input type="number" name="motorKv" placeholder="E.g. 170kv, 190kv, etc." value={formFields.motorKv} onChange={handleFormFieldChange} />
                         </label>
                         <label className='motor-power'>Watts
-                            <input type="number" name="motorPower" placeholder="Enter motor watts here, e.g. 1200, 2700, 4000, etc." value={formFields.motorPower} onChange={handleFormFieldChange} />
+                            <input type="number" name="motorPower" placeholder="E.g. 1500, 4000, etc." value={formFields.motorPower} onChange={handleFormFieldChange} />
                         </label>
                     </div>
 
@@ -207,6 +206,7 @@ function Gallery() {
                         </label>
                     </div>
                     <button type="submit">Submit</button>
+                    {uploadError && <div className="upload-error">{uploadError}</div>}
                 </form>
             </div>
         </div>
