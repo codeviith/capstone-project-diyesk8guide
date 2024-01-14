@@ -1064,6 +1064,17 @@ nav a.home-link:hover {
   box-shadow: 0 0 5px white;
 }
 
+.batt-series, .batt-parallel, .motor-size, .motor-kv, .motor-power, .max-speed {
+  display: block; /* Each label will take the full width of its container */
+  margin-top: 2px; /* Optional: Add some space above the label */
+  font-size: 15px;
+  color: rgb(255, 255, 255);
+}
+
+.form-label {
+  color: rgb(7, 7, 77);
+}
+
 
 .heart-icon {
   width: 35px; 

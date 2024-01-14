@@ -5,7 +5,7 @@ import { AuthContext } from './AuthContext';
 
 function Gallery() {
     const [image, setImage] = useState(null);
-    const [formFields, setFormFields] = useState({ battery_series: '', battery_parallel: '', motor_type: '', wheel_type: '', truck_type: '', max_speed: '' });
+    const [formFields, setFormFields] = useState({ battery_series: '', battery_parallel: '', motor_size: '', motor_kv: '', motor_power: '', wheel_type: '', truck_type: '', max_speed: '' });
     const [galleryItems, setGalleryItems] = useState([]);
     const [topHeartedImages, setTopHeartedImages] = useState([]); // State to store top hearted images
     const [fileName, setFileName] = useState('');
@@ -113,11 +113,11 @@ function Gallery() {
                         <div key={index} className="top-gallery-item">
                             <img src={`images/${item.image_filename}`} alt={item.image_filename} />
                             <div className="item-details">
-                                <p>Battery Type: {item.battery_series}s {item.battery_parallel}p</p>
-                                <p>Motor Type: {item.motor_type}</p>
+                                <p>Battery Type: {item.battery_series}S {item.battery_parallel}P</p>
+                                <p>Motor Type: {item.motor_size} {item.motor_kv}Kv {item.motor_power}Watts</p>
                                 <p>Wheel Type: {item.wheel_type}</p>
                                 <p>Truck Type: {item.truck_type}</p>
-                                <p>Max Speed: {item.max_speed}</p>
+                                <p>Max Speed: {item.max_speed}MPH</p>
                                 <p>Rating: {item.hearts}</p>
                             </div>
                         </div>
@@ -132,11 +132,11 @@ function Gallery() {
                     <div key={index} className="gallery-item">
                         <img src={`images/${item.image_filename}`} alt={item.image_filename} />
                         <div className="item-details">
-                            <p>Battery Type: {item.battery_series}s {item.battery_parallel}p</p>
-                            <p>Motor Type: {item.motor_type}</p>
+                            <p>Battery Type: {item.battery_series}S {item.battery_parallel}P</p>
+                            <p>Motor Type: {item.motor_size} {item.motor_kv}Kv {item.motor_power}Watts</p>
                             <p>Wheel Type: {item.wheel_type}</p>
                             <p>Truck Type: {item.truck_type}</p>
-                            <p>Max Speed: {item.max_speed}</p>
+                            <p>Max Speed: {item.max_speed}MPH</p>
                             <HeartButton
                                 imageId={item.id}
                                 onHearted={(hearts) => updateHeartCount(index, hearts)}
@@ -160,17 +160,29 @@ function Gallery() {
 
                     <br />
                     <div>
-                        <label>Battery Type:</label>
-                        <input type="number" name="batterySeries" placeholder="Enter series here, e.g. 12" value={formFields.batterySeries} onChange={handleFormFieldChange} />
-                        <input type="number" name="batteryParallel" placeholder="Enter parallel here, e.g. 4" value={formFields.batteryParallel} onChange={handleFormFieldChange} />
+                        <strong className='form-label'>Battery Type:</strong>
+                        <label className='batt-series'>Series
+                            <input type="number" name="batterySeries" placeholder="Enter series here, e.g. 12" value={formFields.batterySeries} onChange={handleFormFieldChange} />
+                        </label>
+                        <label className='batt-parallel'>Parallel
+                            <input type="number" name="batteryParallel" placeholder="Enter parallel here, e.g. 4" value={formFields.batteryParallel} onChange={handleFormFieldChange} />
+                        </label>
                     </div>
 
                     <div>
-                        <label>Motor Type:</label>
-                        <input type="text" name="motorType" placeholder="E.g. 6364 170kv" value={formFields.motorType} onChange={handleFormFieldChange} />
+                        <strong className='form-label'>Motor Type:</strong>
+                        <label className='motor-size'>Size
+                            <input type="number" name="motorSize" placeholder="Enter motor size here, e.g. 5065, 6364, etc." value={formFields.motorSize} onChange={handleFormFieldChange} />
+                        </label>
+                        <label className='motor-kv'>Kv
+                            <input type="number" name="motorKv" placeholder="Enter motor kv here, e.g. 130kv, 170kv, 190kv, etc." value={formFields.motorKv} onChange={handleFormFieldChange} />
+                        </label>
+                        <label className='motor-power'>Watts
+                            <input type="number" name="motorPower" placeholder="Enter motor watts here, e.g. 1200, 2700, 4000, etc." value={formFields.motorPower} onChange={handleFormFieldChange} />
+                        </label>
                     </div>
 
-                    <label>Wheel Type:</label>
+                    <strong className='form-label'>Wheel Type:</strong>
                     <select name="wheelType" value={formFields.wheelType} onChange={handleFormFieldChange}>
                         <option value="">Select Wheel Type</option>
                         <option value="Street">Street</option>
@@ -179,7 +191,7 @@ function Gallery() {
                         <option value="Pneumatics">Pneumatics</option>
                     </select>
 
-                    <label>Truck Type:</label>
+                    <strong className='form-label'>Truck Type:</strong>
                     <select name="truckType" value={formFields.truckType} onChange={handleFormFieldChange}>
                         <option value="">Select Truck Type</option>
                         <option value="Top Mount">Top Mount</option>
@@ -189,8 +201,10 @@ function Gallery() {
                     </select>
 
                     <div>
-                        <label>Max Speed (MPH):</label>
-                        <input type="number" name="maxSpeed" placeholder="E.g. 32" value={formFields.maxSpeed} onChange={handleFormFieldChange} />
+                        <strong className='form-label'>Max Speed:</strong>
+                        <label className='max-speed'>MPH
+                            <input type="number" name="maxSpeed" placeholder="E.g. 32" value={formFields.maxSpeed} onChange={handleFormFieldChange} />
+                        </label>
                     </div>
                     <button type="submit">Submit</button>
                 </form>

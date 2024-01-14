@@ -183,7 +183,9 @@ class Gallery(db.Model, SerializerMixin):
     image_filename = db.Column(db.String, nullable=False)
     battery_series = db.Column(db.Integer, nullable=False)
     battery_parallel = db.Column(db.Integer, nullable=False)
-    motor_type = db.Column(db.String, nullable=False)
+    motor_size = db.Column(db.Integer, nullable=False)
+    motor_kv = db.Column(db.Integer, nullable=False)
+    motor_power = db.Column(db.Integer, nullable=False)
     wheel_type = db.Column(db.String, nullable=False)
     truck_type = db.Column(db.String, nullable=False)
     max_speed = db.Column(db.Integer, nullable=False)
@@ -191,12 +193,14 @@ class Gallery(db.Model, SerializerMixin):
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-    def __init__(self, image_filename, user_id, battery_series, battery_parallel, motor_type, wheel_type, truck_type, max_speed):
+    def __init__(self, image_filename, user_id, battery_series, battery_parallel, motor_size, motor_kv, motor_power, wheel_type, truck_type, max_speed):
         self.image_filename = image_filename
         self.user_id = user_id
         self.battery_series = battery_series
         self.battery_parallel = battery_parallel
-        self.motor_type = motor_type
+        self.motor_size = motor_size
+        self.motor_kv = motor_kv
+        self.motor_power = motor_power
         self.wheel_type = wheel_type
         self.truck_type = truck_type
         self.max_speed = max_speed
@@ -214,7 +218,9 @@ class Gallery(db.Model, SerializerMixin):
             'image_url': f'{base_url}/images/{self.image_filename}',
             'battery_series': self.battery_series,
             'battery_parallel': self.battery_parallel,
-            'motor_type': self.motor_type,
+            'motor_size': self.motor_size,
+            'motor_kv': self.motor_kv,
+            'motor_power': self.motor_power,
             'wheel_type': self.wheel_type,
             'truck_type': self.truck_type,
             'max_speed': self.max_speed,
