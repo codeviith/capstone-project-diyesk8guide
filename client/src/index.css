@@ -1076,6 +1076,9 @@ nav a.home-link:hover {
 }
 
 
+
+/* Heart Icon  */
+
 .heart-icon {
   width: 35px; 
   height: 35px;
@@ -1095,6 +1098,7 @@ nav a.home-link:hover {
   justify-content: center; 
   align-items: center; 
 }
+
 
 
 /* Hall of Fame Section */
