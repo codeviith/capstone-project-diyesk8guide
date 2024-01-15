@@ -5,15 +5,14 @@ import { AuthContext } from './AuthContext';
 
 function Gallery() {
     const [image, setImage] = useState(null);
-    // const [formFields, setFormFields] = useState({ battery_series: '', battery_parallel: '', motor_size: '', motor_kv: '', motor_power: '', wheel_type: '', truck_type: '', max_speed: '' });
     const [formFields, setFormFields] = useState({
-        battery_series: '', 
-        battery_parallel: '', 
-        motor_size: '', 
-        motor_kv: '', 
-        motor_power: '', 
-        wheel_type: '', 
-        truck_type: '', 
+        battery_series: '',
+        battery_parallel: '',
+        motor_size: '',
+        motor_kv: '',
+        motor_power: '',
+        wheel_type: '',
+        truck_type: '',
         max_speed: ''
     });
     const [galleryItems, setGalleryItems] = useState([]);
@@ -65,7 +64,7 @@ function Gallery() {
     };
 
     const isFormValid = () => {
-        const allTextFieldsFilled  = Object.values(formFields).every(field => field.trim() !== '');
+        const allTextFieldsFilled = Object.values(formFields).every(field => field.trim() !== '');
         const isWheelTypeValid = formFields.wheel_type && formFields.wheel_type !== "";
         const isTruckTypeValid = formFields.truck_type && formFields.truck_type !== "";
 
@@ -94,7 +93,11 @@ function Gallery() {
         formData.append('image', image);
 
         try {
-            let response = await fetch('/gallery/upload', { method: 'POST', body: formData });  //code to upload image
+            let response = await fetch('/gallery/upload', {  //code to upload image
+                method: 'POST',
+                body: formData
+            });
+            
             if (response.ok) {
                 const responseData = await response.json();
                 const imageId = responseData.id; // Get the id of the uploaded image
@@ -107,6 +110,7 @@ function Gallery() {
 
                 if (response.ok) {
                     fetchGalleryItems();  //code to refetch gallery so to update state
+                    resetForm();
                 } else {
                     throw new Error('Failed to submit gallery item data');
                 }
@@ -125,6 +129,22 @@ function Gallery() {
         newGalleryItems[index].hearts += change; //code to adjust heart count by change amount
 
         setGalleryItems(newGalleryItems);
+    };
+
+    const resetForm = () => {
+        setFormFields({
+            battery_series: '', 
+            battery_parallel: '', 
+            motor_size: '', 
+            motor_kv: '', 
+            motor_power: '', 
+            wheel_type: '', 
+            truck_type: '', 
+            max_speed: ''
+        });
+        setImage(null);
+        setFileName('');
+        setUploadError('');
     };
 
 
