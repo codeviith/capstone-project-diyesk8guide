@@ -5,7 +5,17 @@ import { AuthContext } from './AuthContext';
 
 function Gallery() {
     const [image, setImage] = useState(null);
-    const [formFields, setFormFields] = useState({ battery_series: '', battery_parallel: '', motor_size: '', motor_kv: '', motor_power: '', wheel_type: '', truck_type: '', max_speed: '' });
+    // const [formFields, setFormFields] = useState({ battery_series: '', battery_parallel: '', motor_size: '', motor_kv: '', motor_power: '', wheel_type: '', truck_type: '', max_speed: '' });
+    const [formFields, setFormFields] = useState({
+        battery_series: '', 
+        battery_parallel: '', 
+        motor_size: '', 
+        motor_kv: '', 
+        motor_power: '', 
+        wheel_type: '', 
+        truck_type: '', 
+        max_speed: ''
+    });
     const [galleryItems, setGalleryItems] = useState([]);
     const [topHeartedImages, setTopHeartedImages] = useState([]); // State to store top hearted images
     const [fileName, setFileName] = useState('');
@@ -54,6 +64,18 @@ function Gallery() {
         setFormFields({ ...formFields, [e.target.name]: e.target.value });
     };
 
+    const isFormValid = () => {
+        const allTextFieldsFilled  = Object.values(formFields).every(field => field.trim() !== '');
+        const isWheelTypeValid = formFields.wheel_type && formFields.wheel_type !== "";
+        const isTruckTypeValid = formFields.truck_type && formFields.truck_type !== "";
+
+        if (!allTextFieldsFilled || !isWheelTypeValid || !isTruckTypeValid) {
+            setUploadError('Please complete all fields for submission');
+            return false;
+        }
+        return true;
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -62,26 +84,29 @@ function Gallery() {
             return;
         }
 
+        if (!isFormValid()) {
+            return;  //empty return if validation fails, so nothing gets submitted
+        }
+
+        setUploadError(''); //code to reset the error message
+
         const formData = new FormData();
         formData.append('image', image);
 
         try {
-            // First, upload the image
-            let response = await fetch('/gallery/upload', { method: 'POST', body: formData });
+            let response = await fetch('/gallery/upload', { method: 'POST', body: formData });  //code to upload image
             if (response.ok) {
                 const responseData = await response.json();
                 const imageId = responseData.id; // Get the id of the uploaded image
 
-                // Then, submit the additional data
-                response = await fetch('/gallery', {
+                response = await fetch('/gallery', {  //code to add additional data
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ id: imageId, ...formFields }),
                 });
 
                 if (response.ok) {
-                    // Refetch gallery items to update the state
-                    fetchGalleryItems();
+                    fetchGalleryItems();  //code to refetch gallery so to update state
                 } else {
                     throw new Error('Failed to submit gallery item data');
                 }
@@ -97,7 +122,7 @@ function Gallery() {
     const updateHeartCount = (index, change) => {
         console.log(`Updating heart count for index ${index} with change ${change}`);
         const newGalleryItems = [...galleryItems];
-        newGalleryItems[index].hearts += change; // Adjust the heart count by the change amount
+        newGalleryItems[index].hearts += change; //code to adjust heart count by change amount
 
         setGalleryItems(newGalleryItems);
     };
@@ -161,28 +186,28 @@ function Gallery() {
                     <div>
                         <strong className='form-label'>Battery Type:</strong>
                         <label className='batt-series'>Series
-                            <input type="number" name="batterySeries" placeholder="E.g. 12" value={formFields.batterySeries} onChange={handleFormFieldChange} />
+                            <input type="number" name="battery_series" placeholder="E.g. 12" value={formFields.battery_series} onChange={handleFormFieldChange} />
                         </label>
                         <label className='batt-parallel'>Parallel
-                            <input type="number" name="batteryParallel" placeholder="E.g. 4" value={formFields.batteryParallel} onChange={handleFormFieldChange} />
+                            <input type="number" name="battery_parallel" placeholder="E.g. 4" value={formFields.battery_parallel} onChange={handleFormFieldChange} />
                         </label>
                     </div>
 
                     <div>
                         <strong className='form-label'>Motor Type:</strong>
                         <label className='motor-size'>Size
-                            <input type="number" name="motorSize" placeholder="E.g. 5065, 6364, etc." value={formFields.motorSize} onChange={handleFormFieldChange} />
+                            <input type="number" name="motor_size" placeholder="E.g. 5065, 6364, etc." value={formFields.motor_size} onChange={handleFormFieldChange} />
                         </label>
                         <label className='motor-kv'>Kv
-                            <input type="number" name="motorKv" placeholder="E.g. 170kv, 190kv, etc." value={formFields.motorKv} onChange={handleFormFieldChange} />
+                            <input type="number" name="motor_kv" placeholder="E.g. 170kv, 190kv, etc." value={formFields.motor_kv} onChange={handleFormFieldChange} />
                         </label>
                         <label className='motor-power'>Watts
-                            <input type="number" name="motorPower" placeholder="E.g. 1500, 4000, etc." value={formFields.motorPower} onChange={handleFormFieldChange} />
+                            <input type="number" name="motor_power" placeholder="E.g. 1500, 4000, etc." value={formFields.motor_power} onChange={handleFormFieldChange} />
                         </label>
                     </div>
 
                     <strong className='form-label'>Wheel Type:</strong>
-                    <select name="wheelType" value={formFields.wheelType} onChange={handleFormFieldChange}>
+                    <select name="wheel_type" value={formFields.wheel_type} onChange={handleFormFieldChange}>
                         <option value="">Select Wheel Type</option>
                         <option value="Street">Street</option>
                         <option value="Rubber">Rubber</option>
@@ -191,7 +216,7 @@ function Gallery() {
                     </select>
 
                     <strong className='form-label'>Truck Type:</strong>
-                    <select name="truckType" value={formFields.truckType} onChange={handleFormFieldChange}>
+                    <select name="truck_type" value={formFields.truck_type} onChange={handleFormFieldChange}>
                         <option value="">Select Truck Type</option>
                         <option value="Top Mount">Top Mount</option>
                         <option value="Drop Mount">Drop Mount</option>
@@ -202,7 +227,7 @@ function Gallery() {
                     <div>
                         <strong className='form-label'>Max Speed:</strong>
                         <label className='max-speed'>MPH
-                            <input type="number" name="maxSpeed" placeholder="E.g. 32" value={formFields.maxSpeed} onChange={handleFormFieldChange} />
+                            <input type="number" name="max_speed" placeholder="E.g. 32" value={formFields.max_speed} onChange={handleFormFieldChange} />
                         </label>
                     </div>
                     <button type="submit">Submit</button>

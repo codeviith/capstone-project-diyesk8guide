@@ -425,14 +425,14 @@ def gallery():
         gallery_item = Gallery.query.get(gallery_id)
 
         if gallery_item:
-            gallery_item.battery_series = data.get('batterySeries', gallery_item.battery_series)
-            gallery_item.battery_parallel = data.get('batteryParallel', gallery_item.battery_parallel)
-            gallery_item.motor_size = data.get('motorSize', gallery_item.motor_size)
-            gallery_item.motor_kv = data.get('motorKv', gallery_item.motor_kv)
-            gallery_item.motor_power = data.get('motorPower', gallery_item.motor_power)
-            gallery_item.wheel_type = data.get('wheelType', gallery_item.wheel_type)
-            gallery_item.truck_type = data.get('truckType', gallery_item.truck_type)
-            gallery_item.max_speed = data.get('maxSpeed', gallery_item.max_speed)
+            gallery_item.battery_series = data.get('battery_series', gallery_item.battery_series)
+            gallery_item.battery_parallel = data.get('battery_parallel', gallery_item.battery_parallel)
+            gallery_item.motor_size = data.get('motor_size', gallery_item.motor_size)
+            gallery_item.motor_kv = data.get('motor_kv', gallery_item.motor_kv)
+            gallery_item.motor_power = data.get('motor_power', gallery_item.motor_power)
+            gallery_item.wheel_type = data.get('wheel_type', gallery_item.wheel_type)
+            gallery_item.truck_type = data.get('truck_type', gallery_item.truck_type)
+            gallery_item.max_speed = data.get('max_speed', gallery_item.max_speed)
 
             db.session.commit()
             return jsonify({'message': 'Gallery item updated successfully'}), 200
