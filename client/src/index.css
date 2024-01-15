@@ -984,8 +984,9 @@ nav a.home-link:hover {
 .file-name-display {
   text-align: center; /* Center the file name text */
   margin-bottom: 10px; /* Space between file name and file input */
-  color: black;
+  color: rgb(15, 2, 189);
   font-size: 0.9em;
+  font-weight: bold;
   word-wrap: break-word; /* Ensure long filenames wrap */
   max-width: 90%; /* Set maximum width for filename display */
   margin-left: auto; /* Center the filename text block */
@@ -999,6 +1000,7 @@ nav a.home-link:hover {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 
 .file-input-button:hover {
@@ -1006,10 +1008,9 @@ nav a.home-link:hover {
   box-shadow: 0 0 5px white;
 }
 
-
 .floating-form {
   position: fixed; /* Makes the form float */
-  top: 70px; /* Distance from top of the page */
+  top: 75px; /* Distance from top of the page */
   right: 15px; /* Distance from right of the page */
   width: 180px; /* Width of the form */
   background-color: gray; /* Background color of the form */
@@ -1068,7 +1069,7 @@ nav a.home-link:hover {
   box-shadow: 0 0 5px white;
 }
 
-.batt-series, .batt-parallel, .motor-size, .motor-kv, .motor-power, .max-speed {
+.batt-series, .batt-parallel, .motor-size, .motor-kv, .motor-power, .max-speed, .max-range {
   display: block; /* Each label will take the full width of its container */
   margin-top: 1px; /* Optional: Add some space above the label */
   font-size: 13px;
@@ -1076,15 +1077,17 @@ nav a.home-link:hover {
 }
 
 .form-label {
-  color: rgb(7, 7, 77);
+  color: rgb(0, 0, 0);
+  /* text-decoration: underline; */
+  font-weight: bolder;
+  font-size: 16px;
 }
 
 .upload-error {
   color: rgb(147, 3, 3);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: bold;
 }
-
 
 
 

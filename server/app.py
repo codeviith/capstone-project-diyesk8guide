@@ -373,6 +373,8 @@ def upload_image():
         new_gallery_entry = Gallery(
             image_filename=filename,
             user_id=user_id,
+            deck_brand='',
+            deck_size='',
             battery_series='',
             battery_parallel='',
             motor_size='',
@@ -380,7 +382,8 @@ def upload_image():
             motor_power='',
             wheel_type='',
             truck_type='',
-            max_speed=''
+            max_speed='',
+            max_range=''
         )
         db.session.add(new_gallery_entry)
         db.session.commit()
@@ -425,6 +428,8 @@ def gallery():
         gallery_item = Gallery.query.get(gallery_id)
 
         if gallery_item:
+            gallery_item.deck_brand = data.get('deck_brand', gallery_item.deck_brand)
+            gallery_item.deck_size = data.get('deck_size', gallery_item.deck_size)
             gallery_item.battery_series = data.get('battery_series', gallery_item.battery_series)
             gallery_item.battery_parallel = data.get('battery_parallel', gallery_item.battery_parallel)
             gallery_item.motor_size = data.get('motor_size', gallery_item.motor_size)
@@ -433,6 +438,7 @@ def gallery():
             gallery_item.wheel_type = data.get('wheel_type', gallery_item.wheel_type)
             gallery_item.truck_type = data.get('truck_type', gallery_item.truck_type)
             gallery_item.max_speed = data.get('max_speed', gallery_item.max_speed)
+            gallery_item.max_range = data.get('max_range', gallery_item.max_range)
 
             db.session.commit()
             return jsonify({'message': 'Gallery item updated successfully'}), 200
