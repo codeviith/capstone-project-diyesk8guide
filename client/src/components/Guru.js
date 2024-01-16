@@ -1,23 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { responseStyle } from './CommonStyles'
+import { formatResponse } from './CommonFunctions'
 import { AuthContext } from './AuthContext';
 
 function Guru() {
     const [userInput, setUserInput] = useState('');
     const [response, setResponse] = useState('');
     const [loading, setLoading] = useState(false);
-
     const { isLoggedIn } = useContext(AuthContext); // Using useContext to access isLoggedIn
 
-    const formatResponse = (response) => {
-        const lines = response.split('\n');
-
-        return lines.map((line, index) => (
-            <React.Fragment key={index}>
-                {line}
-                <br />
-            </React.Fragment>
-        ));
-    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -48,10 +39,6 @@ function Guru() {
         }
     };
 
-    const responseStyle = {
-        textAlign: 'justify',
-        textJustify: 'inter-word'
-    };
 
     return (
         <div>

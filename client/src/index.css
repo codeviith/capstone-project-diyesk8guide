@@ -620,7 +620,15 @@ nav a.home-link:hover {
   margin-bottom: 10px;
 }
 
-.profile button {
+.delete-question-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.delete-button {
   background-color: darkred;
   color: white;
   padding: 10px 20px;
@@ -630,7 +638,7 @@ nav a.home-link:hover {
   cursor: pointer;
 }
 
-.profile button:hover {
+.delete-button:hover {
   background-color: rgb(176, 6, 6); /* Example: Dark background color on hover */
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
 }
