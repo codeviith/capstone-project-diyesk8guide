@@ -375,8 +375,8 @@ function Gallery() {
                     </select>
 
                     <div>
-                        <strong className='form-label'>Wheel Size (mm or in.)</strong>
-                        <input type="text" name="wheel_size" placeholder="E.g. 90mm, 7in. , etc." value={formFields.wheel_size} onChange={handleFormFieldChange} />
+                        <strong className='form-label'>Wheel Size(mm, in.)</strong>
+                        <input type="text" name="wheel_size" placeholder="E.g. 90mm, 7in., etc." value={formFields.wheel_size} onChange={handleFormFieldChange} />
                     </div>
 
                     <div>

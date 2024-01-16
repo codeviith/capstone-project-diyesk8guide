@@ -89,7 +89,7 @@ class Board(db.Model, SerializerMixin):
     deck_type = db.Column(db.String, nullable=False)
     deck_length = db.Column(db.String, nullable=False)
     deck_material = db.Column(db.String, nullable=False)
-    wheel_size = db.Column(db.String, nullable=False)
+    truck_type = db.Column(db.String, nullable=False)
     truck_width = db.Column(db.String, nullable=False)
     controller_feature = db.Column(db.String, nullable=False)
     controller_type = db.Column(db.String, nullable=False)
@@ -118,7 +118,7 @@ class Board(db.Model, SerializerMixin):
             'deck_type': self.deck_type,
             'deck_length': self.deck_length,
             'deck_material': self.deck_material,
-            'wheel_size': self.wheel_size,
+            'truck_type': self.truck_type,
             'truck_width': self.truck_width,
             'controller_feature': self.controller_feature,
             'controller_type': self.controller_type,
