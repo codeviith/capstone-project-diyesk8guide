@@ -157,11 +157,11 @@ body::before {
 
 /* guru component */
 
-.guru-container {
+.guru-form {
   position: relative;
 }
 
-.guru-container::before {
+.guru-form::before {
   content: "";
   position: absolute;
   top: 0;
@@ -169,104 +169,93 @@ body::before {
   width: 100%;
   height: 100%;
   background-color: rgb(23, 23, 23);
+  border-radius: 25px;
   z-index: -1;
-  opacity: 0.8; /* Adjust the opacity as needed */
+  opacity: 0.8;
 }
 
-.guru_prompt {
+.guru-prompt {
   flex-direction: column;
   align-items: center;
   display: flex;
 }
 
-.guru-container strong {
-  font-size: 24px;
+.guru-form strong {
+  font-size: 23px;
   color: white;
   margin-bottom: 20px;
 }
 
-.guru-container form {
+.guru-form {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 20px;
 }
 
-.guru-container input {
+.guru-form input {
   width: 850px;
   padding: 10px;
   margin-bottom: 10px;
-  font-size: 18px; /* Adjust the font size as needed */
+  font-size: 18px;
+  /* font-family:Verdana, Geneva, Tahoma, sans-serif; */
 }
 
-.guru-container button {
+.guru-button {
   background-color: #333;
   color: white;
   padding: 10px;
   cursor: pointer;
+  border-radius: 8px;
+  font-size: 25px;
+  font-weight: bold; 
+}
+
+.guru-button:hover {
+  background-color: #727171; 
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
 .loading-container {
-  font-size: 18px;
-  color: white;
+  font-size: 25px;
+  font-family: cursive, sans-serif;
+  color: rgb(173, 10, 10);
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  margin-top: 20px;
 }
 
 .response-container {
-  font-size: 18px;
-  color: white;
-}
-
-.guru-container button[type="guru_submit"] {
-  background-color: #333;
-  color: white;
-  padding: 10px;
-  cursor: pointer;
-  border-radius: 8px; /* Adjust the border-radius as needed */
-  font-size: 25px; /* Adjust the font size as needed */
-  font-weight: bold; /* Make the text bold */
-}
-
-.guru-container button[type="guru_submit"]:hover {
-  background-color: #727171; /* Change to a lighter color on hover */
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Add a subtle shadow on hover */
-}
-
-.guru-container .loading-container {
-  font-size: 25px;
-  font-family: cursive, sans-serif;
-  color: #9a0505; /* Adjust the text color as needed */
-  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+  font-size: 22px;
+  color: #333;
+  background-color: rgba(255, 255, 255, 0.85); 
   padding: 15px;
   border-radius: 8px;
   text-align: center;
-  margin-top: 20px;
+  /* margin-top: 10px; */
+  width: 92%;
+  /* max-width: 500px; */
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.guru-container .response-container {
-  font-size: 25px;
-  color: #333; /* Adjust the text color as needed */
-  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
-  padding: 15px;
-  border-radius: 8px;
-  text-align: center;
-  margin-top: 20px;
-}
-
-.guru-container .guru_answer {
+.guru-answer {
   font-size: 25px;
   text-decoration: bold;
   color: black;
 }
 
-.login_request {
+.login-request {
   position: relative;
   text-align: center;
-  background-color: rgb(23, 23, 23); /* Background color */
+  background-color: rgb(23, 23, 23);
   padding: 30px;
   margin-bottom: 20px;
-  border-radius: 8px; /* Border radius */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Box shadow */
-  color: white; /* Text color */
+  border-radius: 8px; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+  color: white;
   font-size: 18px;
   margin-top: 12px;
 }

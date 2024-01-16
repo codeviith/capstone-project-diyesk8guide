@@ -8,6 +8,17 @@ function Guru() {
 
     const { isLoggedIn } = useContext(AuthContext); // Using useContext to access isLoggedIn
 
+    const formatResponse = (response) => {
+        const lines = response.split('\n');
+
+        return lines.map((line, index) => (
+            <React.Fragment key={index}>
+                {line}
+                <br />
+            </React.Fragment>
+        ));
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -37,22 +48,25 @@ function Guru() {
         }
     };
 
+    const responseStyle = {
+        textAlign: 'justify',
+        textJustify: 'inter-word'
+    };
 
     return (
-        <div className="guru-container">
+        <div>
             {isLoggedIn ? (
                 <>
-                    <strong className='guru_prompt'> Hello, I am your Esk8 Guru. What question do you have for me? </strong>
-
                     {/* Form for user input */}
-                    <form onSubmit={handleSubmit}>
+                    <form className="guru-form" onSubmit={handleSubmit}>
+                        <strong className='guru-prompt'> Hello, I am your Esk8 Guru. What question do you have for me? </strong>
                         <input
                             type="text"
                             value={userInput}
                             onChange={(e) => setUserInput(e.target.value)}
                             placeholder="Ask me anything about electric skateboards..."
                         />
-                        <button type="guru_submit">Ask</button>
+                        <button className='guru-button' type="guru-submit">Ask</button>
                     </form>
 
                     {/* Display loading or response */}
@@ -60,19 +74,19 @@ function Guru() {
                         <div className="loading-container">Thinking... Please Wait</div>
                     ) : (
                         response && (
-                            <div className="response-container">
-                                <p><strong className='guru_answer'> Answer: </strong> {response}</p>
+                            <div className="response-container" style={responseStyle}>
+                                <p><strong className='guru-answer'> Answer: </strong></p>
+                                {formatResponse(response)}
                             </div>
                         )
                     )}
                 </>
             ) : (
-                <p className='login_request'>Please log in to ask a question.</p>
+                <p className='login-request'>Please log in to ask a question.</p>
             )}
         </div>
     );
 };
 
 export default Guru;
-
 
