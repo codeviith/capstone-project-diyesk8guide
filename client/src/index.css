@@ -954,7 +954,7 @@ nav a.home-link:hover {
   flex-direction: column; /* Aligns elements in a column */
   align-items: center; /* Center-aligns items */
   background-color: darkgray; /* Set background color for the entire item */
-  border-radius: 75px; /* Rounded corners for the whole item */
+  border-radius: 55px; /* Rounded corners for the whole item */
   overflow: hidden; /* Ensures child elements like images do not overflow the container's rounded corners */
   margin-bottom: 10px; /* Spacing below each item */
   padding: 10px; /* Padding around the image within the item */
@@ -971,10 +971,18 @@ nav a.home-link:hover {
 .item-details {
   padding: 10px; /* Padding inside the item details section */
   background-color: darkgray; /* Dark gray background for the details section */
-  color: white; /* Lighter text color for contrast */
-  text-align: center; /* Center the text */
+  color: navy; /* Lighter text color for contrast */
+  text-align: left; /* Center the text */
 }
 
+.item-details-strong {
+  font-weight: bold;
+  color: black
+}
+
+.rating {
+  text-align: center;
+}
 
 .file-input-wrapper {
   display: flex;
@@ -1010,7 +1018,7 @@ nav a.home-link:hover {
 
 .floating-form {
   position: fixed; /* Makes the form float */
-  top: 75px; /* Distance from top of the page */
+  top: 85px; /* Distance from top of the page */
   right: 15px; /* Distance from right of the page */
   width: 180px; /* Width of the form */
   background-color: gray; /* Background color of the form */
@@ -1019,13 +1027,13 @@ nav a.home-link:hover {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Shadow for the form */
   z-index: 900; /* Ensures form stays on top */
   overflow-y: auto; /* Allows scrolling inside the form if content overflows */
+  max-height: 80vh; /* Maximum height of the form */
 }
 
 /* Adjustments for inner elements like inputs, selects, buttons for better alignment and spacing */
 .floating-form select,
 .floating-form button {
   width: 90%; /* Width inside the form */
-  margin-bottom: 5px; /* Spacing between elements */
 }
 
 .floating-form button {
@@ -1035,21 +1043,27 @@ nav a.home-link:hover {
 .floating-form input {
   width: 93%; /* Width inside the form */
   margin-bottom: 1px; /* Spacing between elements */
-  padding: 5px;
+  padding: 3px;
 }
 
 .floating-form select {
   width: 100%; /* Adjust width as needed */
-  padding: 3px 0px; /* Adjust padding for better text visibility and size */
+  padding: 2px 0px; /* Adjust padding for better text visibility and size */
   font-size: 14px; /* Adjust font size */
   border-radius: 4px; /* Rounded corners */
   border: 2px solid gray; /* Border color */
-  margin-bottom: 5px; /* Spacing between select elements */
+  margin-bottom: 1px; /* Spacing between select elements */
 }
 
 .floating-form select:focus {
   outline: none; /* Remove default focus outline */
   border-color: #a90404; /* Change border color on focus */
+}
+
+@media (max-height: 600px) {
+  .floating-form {
+    max-height: 70vh; /* Smaller max-height for smaller screens */
+  }
 }
 
 /* Style adjustments for submit button */
@@ -1063,13 +1077,12 @@ nav a.home-link:hover {
   padding: 10px 0;
 }
 
-/* Hover effect for submit button */
 .floating-form button:hover {
   background-color: #0056b3;
   box-shadow: 0 0 5px white;
 }
 
-.batt-series, .batt-parallel, .motor-size, .motor-kv, .motor-power, .max-speed, .max-range {
+.motor-size, .motor-kv, .motor-power {
   display: block; /* Each label will take the full width of its container */
   margin-top: 1px; /* Optional: Add some space above the label */
   font-size: 13px;
@@ -1119,12 +1132,12 @@ nav a.home-link:hover {
 
 .hall-of-fame {
   width: 95%; /* Width of the container */
-  height: 700px;
+  /* height: 735px; */
   margin-top: 25px;
   margin-bottom: 20px; /* Space between hall-of-fame and gallery-items sections */
   padding: 10px; /* Padding around the hall-of-fame section */
-  background-image: url("https://wallpapercave.com/wp/wp4581227.jpg");
-  /* background-image: url("https://wallpaperaccess.com/full/2024271.jpg"); */
+  /* background-image: url("https://wallpapercave.com/wp/wp4581227.jpg"); */
+  background-image: url("https://wallpaperaccess.com/full/2024271.jpg");
   /* background-image: url("https://wallpapers.com/images/hd/electric-background-aukjsvm4da5furms.jpg"); */
   /* background-image: url("https://i2.wp.com/files.123freevectors.com/wp-content/original/123992-shiny-bright-orange-metallic-texture.jpg"); */
   /* background-image: url("https://static.vecteezy.com/system/resources/previews/001/987/938/original/abstract-orange-light-metallic-hexagon-mesh-pattern-on-black-design-modern-futuristic-background-illustration-vector.jpg"); */
@@ -1145,7 +1158,7 @@ nav a.home-link:hover {
   background-position: center; /* Center the image in the container */
   background-repeat: no-repeat; /* Prevent the image from repeating */
   border: 2px solid white; /* Add white border outline */
-  border-radius: 75px;
+  border-radius: 45px;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Optional: Add a subtle shadow for depth */
 }
 
@@ -1165,6 +1178,7 @@ nav a.home-link:hover {
   gap: 10px; /* Space between items */
   padding: 8px; /* Padding around the items */
   justify-content: center;
+  margin-bottom: 37px;
 }
 
 .top-gallery-item {
@@ -1173,7 +1187,7 @@ nav a.home-link:hover {
   flex-direction: column; /* Align elements in a column */
   align-items: center; /* Center-align items */
   background-color: darkgray; /* Background color */
-  border-radius: 75px; /* Rounded corners */
+  border-radius: 55px; /* Rounded corners */
   overflow: hidden; /* Prevents overflow outside of border-radius */
   margin-bottom: 10px; /* Spacing below each item */
   padding: 0px; /* Padding inside each item */
@@ -1187,12 +1201,8 @@ nav a.home-link:hover {
   border-radius: 500000px;
 }
 
-.item-details {
-  padding: 10px; /* Padding inside the item details section */
-  background-color: darkgray; /* Background color for the details section */
-  color: white; /* Text color */
-  text-align: center; /* Center the text */
-}
+
+
 
 
 /* footer */

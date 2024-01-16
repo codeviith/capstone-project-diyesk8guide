@@ -6,15 +6,18 @@ import { AuthContext } from './AuthContext';
 function Gallery() {
     const [image, setImage] = useState(null);
     const [formFields, setFormFields] = useState({
+        deck_brand: '',
+        deck_size: '',
         battery_series: '',
         battery_parallel: '',
         motor_size: '',
         motor_kv: '',
         motor_power: '',
         wheel_type: '',
-        truck_type: '',
+        wheel_size: '',
         max_speed: '',
-        max_range: ''
+        max_range: '',
+        other_features: ''
     });
     const [galleryItems, setGalleryItems] = useState([]);
     const [topHeartedImages, setTopHeartedImages] = useState([]); // State to store top hearted images
@@ -78,13 +81,15 @@ function Gallery() {
             return false;
         };
 
-        if (isFieldEmpty(formFields.battery_series, 'Battery Series') ||
+        if (isFieldEmpty(formFields.deck_brand, 'Deck Brand') ||
+            isFieldEmpty(formFields.deck_size, 'Deck Size') ||
+            isFieldEmpty(formFields.battery_series, 'Battery Series') ||
             isFieldEmpty(formFields.battery_parallel, 'Battery Parallel') ||
             isFieldEmpty(formFields.motor_size, 'Motor Size') ||
             isFieldEmpty(formFields.motor_kv, 'Motor Kv') ||
             isFieldEmpty(formFields.motor_power, 'Motor Power') ||
             isFieldEmpty(formFields.wheel_type, 'Wheel Type') ||
-            isFieldEmpty(formFields.truck_type, 'Truck Type') ||
+            isFieldEmpty(formFields.wheel_size, 'Wheel Size') ||
             isFieldEmpty(formFields.max_speed, 'Max Speed') ||
             isFieldEmpty(formFields.max_range, 'Max Range')) {
             return false;  //returns false if any field is empty
@@ -98,9 +103,7 @@ function Gallery() {
             return true;
         };
 
-        if (!isPositive(formFields.battery_series, 'Battery Series') ||
-            !isPositive(formFields.battery_parallel, 'Battery Parallel') ||
-            !isPositive(formFields.motor_size, 'Motor Size') ||
+        if (!isPositive(formFields.motor_size, 'Motor Size') ||
             !isPositive(formFields.motor_kv, 'Motor Kv') ||
             !isPositive(formFields.motor_power, 'Motor Power') ||
             !isPositive(formFields.max_speed, 'Max Speed') ||
@@ -116,9 +119,7 @@ function Gallery() {
             return false;
         };
 
-        if (isTooLarge(formFields.battery_series, 'Battery Series', 100) ||
-            isTooLarge(formFields.battery_parallel, 'Battery Parallel', 100) ||
-            isTooLarge(formFields.motor_size, 'Motor Size', 17000) ||
+        if (isTooLarge(formFields.motor_size, 'Motor Size', 17000) ||
             isTooLarge(formFields.motor_kv, 'Motor Kv', 500) ||
             isTooLarge(formFields.motor_power, 'Motor Power', 10000) ||
             isTooLarge(formFields.max_speed, 'Max Speed', 70) ||
@@ -132,6 +133,12 @@ function Gallery() {
 
 
     const handleSubmit = async (e) => {
+        const submissionFields = {  //code to ad 'n/a' to other_features if input is blank
+            ...formFields,
+            other_features: formFields.other_features.trim() === '' ? 'n/a' : formFields.other_features
+        };
+        const formData = new FormData();
+
         e.preventDefault();
 
         if (!isLoggedIn) {
@@ -144,8 +151,6 @@ function Gallery() {
         }
 
         setUploadError(''); //code to reset the error message
-
-        const formData = new FormData();
         formData.append('image', image);
 
         try {
@@ -161,7 +166,7 @@ function Gallery() {
                 response = await fetch('/gallery', {  //code to add additional data
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ id: imageId, ...formFields }),
+                    body: JSON.stringify({ id: imageId, ...submissionFields }),
                 });
 
                 if (response.ok) {
@@ -189,15 +194,18 @@ function Gallery() {
 
     const resetForm = () => {
         setFormFields({
+            deck_brand: '',
+            deck_size: '',
             battery_series: '',
             battery_parallel: '',
             motor_size: '',
             motor_kv: '',
             motor_power: '',
             wheel_type: '',
-            truck_type: '',
+            wheel_size: '',
             max_speed: '',
-            max_range: ''
+            max_range: '',
+            other_features: ''
         });
         setImage(null);
         setFileName('');
@@ -215,13 +223,13 @@ function Gallery() {
                         <div key={index} className="top-gallery-item">
                             <img src={`images/${item.image_filename}`} alt={item.image_filename} />
                             <div className="item-details">
-                                <p>Battery Type: {item.battery_series}S {item.battery_parallel}P</p>
+                                <p>Deck Type: {item.deck_brand} {item.deck_size} in.</p>
+                                <p>Battery Type: {item.battery_series}s {item.battery_parallel}p</p>
                                 <p>Motor Type: {item.motor_size} {item.motor_kv}Kv {item.motor_power}Watts</p>
-                                <p>Wheel Type: {item.wheel_type}</p>
-                                <p>Truck Type: {item.truck_type}</p>
-                                <p>Max Speed: {item.max_speed} MPH</p>
-                                <p>Max Speed: {item.max_range} Miles</p>
-                                <p>Rating: {item.hearts}</p>
+                                <p>Wheel Type: {item.wheel_size} {item.wheel_type}</p>
+                                <p>Max Speed & Range: {item.max_speed} MPH, {item.max_range} Miles</p>
+                                <p>Other Features: {item.other_features}</p>
+                                <p className='rating'>Rating: {item.hearts}</p>
                             </div>
                         </div>
                     ))}
@@ -235,12 +243,12 @@ function Gallery() {
                     <div key={index} className="gallery-item">
                         <img src={`images/${item.image_filename}`} alt={item.image_filename} />
                         <div className="item-details">
-                            <p>Battery Type: {item.battery_series}S {item.battery_parallel}P</p>
-                            <p>Motor Type: {item.motor_size} {item.motor_kv}Kv {item.motor_power}Watts</p>
-                            <p>Wheel Type: {item.wheel_type}</p>
-                            <p>Truck Type: {item.truck_type}</p>
-                            <p>Max Speed: {item.max_speed} MPH</p>
-                            <p>Max Speed: {item.max_range} Miles</p>
+                            <p><strong className='item-details-strong'>Deck Type:</strong> {item.deck_brand} {item.deck_size} in.</p>
+                            <p><strong className='item-details-strong'>Battery Type:</strong> {item.battery_series}s {item.battery_parallel}p</p>
+                            <p><strong className='item-details-strong'>Motor Type:</strong> {item.motor_size} {item.motor_kv}Kv {item.motor_power}Watts</p>
+                            <p><strong className='item-details-strong'>Wheel Type:</strong> {item.wheel_size} {item.wheel_type}</p>
+                            <p><strong className='item-details-strong'>Max Speed & Range:</strong> {item.max_speed} MPH, {item.max_range} Miles</p>
+                            <p><strong className='item-details-strong'>Other Features:</strong> {item.other_features}</p>
                             <HeartButton
                                 imageId={item.id}
                                 onHearted={(hearts) => updateHeartCount(index, hearts)}
@@ -263,14 +271,86 @@ function Gallery() {
                     {fileName && <div className="file-name-display">{fileName}</div>}
 
                     <div>
-                        <strong className='form-label'>Battery Type</strong>
-                        <label className='batt-series'>Series:
-                            <input type="number" name="battery_series" placeholder="E.g. 12" value={formFields.battery_series} onChange={handleFormFieldChange} />
-                        </label>
-                        <label className='batt-parallel'>Parallel:
-                            <input type="number" name="battery_parallel" placeholder="E.g. 4" value={formFields.battery_parallel} onChange={handleFormFieldChange} />
+                        <strong className='form-label'>Deck Brand</strong>
+                        <label className='deck-brand'>
+                            <input type="text" name="deck_brand" placeholder="E.g. Sector9, Omni CF, etc." value={formFields.deck_brand} onChange={handleFormFieldChange} />
                         </label>
                     </div>
+
+                    <strong className='form-label'>Deck Size</strong>
+                    <select name="deck_size" value={formFields.deck_size} onChange={handleFormFieldChange}>
+                        <option value="">Select Deck Size</option>
+                        <option value="25">25 inches</option>
+                        <option value="26">26 inches</option>
+                        <option value="27">27 inches</option>
+                        <option value="28">28 inches</option>
+                        <option value="29">29 inches</option>
+                        <option value="30">30 inches</option>
+                        <option value="31">31 inches</option>
+                        <option value="32">32 inches</option>
+                        <option value="33">33 inches</option>
+                        <option value="34">34 inches</option>
+                        <option value="35">35 inches</option>
+                        <option value="36">36 inches</option>
+                        <option value="37">37 inches</option>
+                        <option value="38">38 inches</option>
+                        <option value="39">39 inches</option>
+                        <option value="40">40 inches</option>
+                        <option value="41">41 inches</option>
+                        <option value="42">42 inches</option>
+                        <option value="43">43 inches</option>
+                        <option value="44">44 inches</option>
+                        <option value="45">45 inches</option>
+                        <option value="46">46 inches</option>
+                        <option value="47">47 inches</option>
+                        <option value="48">48 inches</option>
+                    </select>
+
+
+
+
+                    <strong className='form-label'>Battery Series</strong>
+                    <select name="battery_series" value={formFields.battery_series} onChange={handleFormFieldChange}>
+                        <option value="">Select Battery Series</option>
+                        <option value="8">8s</option>
+                        <option value="10">10s</option>
+                        <option value="12">12s</option>
+                        <option value="13">13s</option>
+                        <option value="14">14s</option>
+                        <option value="15">15s</option>
+                        <option value="16">16s</option>
+                        <option value="17">17s</option>
+                        <option value="18">18s</option>
+                        <option value="19">19s</option>
+                        <option value="20">20s</option>
+                        <option value="21">21s</option>
+                        <option value="22">22s</option>
+                        <option value="23">23s</option>
+                    </select>
+
+
+                    <strong className='form-label'>Battery Parallel</strong>
+                    <select name="battery_parallel" value={formFields.battery_parallel} onChange={handleFormFieldChange}>
+                        <option value="">Select Battery Parallel</option>
+                        <option value="1">1p</option>
+                        <option value="2">2p</option>
+                        <option value="3">3p</option>
+                        <option value="4">4p</option>
+                        <option value="5">5p</option>
+                        <option value="6">6p</option>
+                        <option value="7">7p</option>
+                        <option value="8">8p</option>
+                        <option value="9">9p</option>
+                        <option value="10">10p</option>
+                        <option value="11">11p</option>
+                        <option value="12">12p</option>
+                        <option value="13">13p</option>
+                        <option value="14">14p</option>
+                        <option value="15">15p</option>
+                        <option value="16">16p</option>
+                        <option value="17">17p</option>
+                        <option value="18">18p</option>
+                    </select>
 
                     <div>
                         <strong className='form-label'>Motor Type</strong>
@@ -288,34 +368,32 @@ function Gallery() {
                     <strong className='form-label'>Wheel Type</strong>
                     <select name="wheel_type" value={formFields.wheel_type} onChange={handleFormFieldChange}>
                         <option value="">Select Wheel Type</option>
-                        <option value="Street">Street</option>
+                        <option value="Street">Street (Urathane)</option>
                         <option value="Rubber">Rubber</option>
                         <option value="Airless Pneumatics">Airless Pneumatics</option>
                         <option value="Pneumatics">Pneumatics</option>
                     </select>
 
-                    <strong className='form-label'>Truck Type</strong>
-                    <select name="truck_type" value={formFields.truck_type} onChange={handleFormFieldChange}>
-                        <option value="">Select Truck Type</option>
-                        <option value="Top Mount">Top Mount</option>
-                        <option value="Drop Mount">Drop Mount</option>
-                        <option value="Flush Mount">Flush Mount</option>
-                        <option value="Drop-Thru">Drop-Thru</option>
-                    </select>
-
                     <div>
-                        <strong className='form-label'>Max Speed</strong>
-                        <label className='max-speed'>MPH:
-                            <input type="number" name="max_speed" placeholder="E.g. 32" value={formFields.max_speed} onChange={handleFormFieldChange} />
-                        </label>
+                        <strong className='form-label'>Wheel Size (mm or in.)</strong>
+                        <input type="text" name="wheel_size" placeholder="E.g. 90mm, 7in. , etc." value={formFields.wheel_size} onChange={handleFormFieldChange} />
                     </div>
 
                     <div>
-                        <strong className='form-label'>Max Range</strong>
-                        <label className='max-range'>Miles:
-                            <input type="number" name="max_range" placeholder="E.g. 25" value={formFields.max_range} onChange={handleFormFieldChange} />
-                        </label>
+                        <strong className='form-label'>Max Speed (mph)</strong>
+                        <input type="number" name="max_speed" placeholder="E.g. 32" value={formFields.max_speed} onChange={handleFormFieldChange} />
                     </div>
+
+                    <div>
+                        <strong className='form-label'>Max Range (miles)</strong>
+                        <input type="number" name="max_range" placeholder="E.g. 25" value={formFields.max_range} onChange={handleFormFieldChange} />
+                    </div>
+
+                    <div>
+                        <strong className='form-label'>Other Features</strong>
+                        <input type="text" name="other_features" placeholder="E.g. Custom mudguards, etc." value={formFields.other_features} onChange={handleFormFieldChange} />
+                    </div>
+
                     <button type="submit">Submit</button>
                     {uploadError && <div className="upload-error">{uploadError}</div>}
                 </form>

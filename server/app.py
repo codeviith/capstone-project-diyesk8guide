@@ -381,9 +381,10 @@ def upload_image():
             motor_kv='',
             motor_power='',
             wheel_type='',
-            truck_type='',
+            wheel_size='',
             max_speed='',
-            max_range=''
+            max_range='',
+            other_features=''
         )
         db.session.add(new_gallery_entry)
         db.session.commit()
@@ -436,9 +437,10 @@ def gallery():
             gallery_item.motor_kv = data.get('motor_kv', gallery_item.motor_kv)
             gallery_item.motor_power = data.get('motor_power', gallery_item.motor_power)
             gallery_item.wheel_type = data.get('wheel_type', gallery_item.wheel_type)
-            gallery_item.truck_type = data.get('truck_type', gallery_item.truck_type)
+            gallery_item.wheel_size = data.get('wheel_size', gallery_item.wheel_size)
             gallery_item.max_speed = data.get('max_speed', gallery_item.max_speed)
             gallery_item.max_range = data.get('max_range', gallery_item.max_range)
+            gallery_item.other_features = data.get('other_features', gallery_item.other_features)
 
             db.session.commit()
             return jsonify({'message': 'Gallery item updated successfully'}), 200

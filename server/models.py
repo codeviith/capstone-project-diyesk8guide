@@ -89,7 +89,7 @@ class Board(db.Model, SerializerMixin):
     deck_type = db.Column(db.String, nullable=False)
     deck_length = db.Column(db.String, nullable=False)
     deck_material = db.Column(db.String, nullable=False)
-    truck_type = db.Column(db.String, nullable=False)
+    wheel_size = db.Column(db.String, nullable=False)
     truck_width = db.Column(db.String, nullable=False)
     controller_feature = db.Column(db.String, nullable=False)
     controller_type = db.Column(db.String, nullable=False)
@@ -118,7 +118,7 @@ class Board(db.Model, SerializerMixin):
             'deck_type': self.deck_type,
             'deck_length': self.deck_length,
             'deck_material': self.deck_material,
-            'truck_type': self.truck_type,
+            'wheel_size': self.wheel_size,
             'truck_width': self.truck_width,
             'controller_feature': self.controller_feature,
             'controller_type': self.controller_type,
@@ -189,14 +189,15 @@ class Gallery(db.Model, SerializerMixin):
     motor_kv = db.Column(db.Integer, nullable=False)
     motor_power = db.Column(db.Integer, nullable=False)
     wheel_type = db.Column(db.String, nullable=False)
-    truck_type = db.Column(db.String, nullable=False)
+    wheel_size = db.Column(db.String, nullable=False)
     max_speed = db.Column(db.Integer, nullable=False)
     max_range = db.Column(db.Integer, nullable=False)
+    other_features = db.Column(db.Integer)
     hearts = db.Column(db.Integer, default=0)
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-    def __init__(self, image_filename, user_id, deck_brand, deck_size, battery_series, battery_parallel, motor_size, motor_kv, motor_power, wheel_type, truck_type, max_speed, max_range):
+    def __init__(self, image_filename, user_id, deck_brand, deck_size, battery_series, battery_parallel, motor_size, motor_kv, motor_power, wheel_type, wheel_size, max_speed, max_range, other_features):
         self.image_filename = image_filename
         self.user_id = user_id
         self.deck_brand = deck_brand
@@ -207,9 +208,10 @@ class Gallery(db.Model, SerializerMixin):
         self.motor_kv = motor_kv
         self.motor_power = motor_power
         self.wheel_type = wheel_type
-        self.truck_type = truck_type
+        self.wheel_size = wheel_size
         self.max_speed = max_speed
         self.max_range = max_range
+        self.other_features = other_features
         self.hearts = 0
 
     def is_hearted_by_user(self, user_id):
@@ -230,9 +232,10 @@ class Gallery(db.Model, SerializerMixin):
             'motor_kv': self.motor_kv,
             'motor_power': self.motor_power,
             'wheel_type': self.wheel_type,
-            'truck_type': self.truck_type,
+            'wheel_size': self.wheel_size,
             'max_speed': self.max_speed,
             'max_range': self.max_range,
+            'other_features': self.other_features,
             'hearts': self.hearts
         }
         if user_id is not None:
