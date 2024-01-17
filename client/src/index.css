@@ -597,7 +597,7 @@ nav a.home-link:hover {
 }
 
 .profile h2 {
-  color: black;
+  color: white;
   font-size: 32px;
   margin-top: 25px;
   margin-bottom: 25px;
@@ -613,11 +613,13 @@ nav a.home-link:hover {
 .user-data-field {
   display: block;
   width: 100%;
+  color: black;
   /* margin-bottom: 15px; */
 }
 
 .user-data-label {
   font-weight: bold;
+  color: black;
   /* margin-right: 10px; */
 }
 
@@ -625,6 +627,7 @@ nav a.home-link:hover {
   flex-grow: 1;
   /* margin-left: 10px; */
   /* margin-right: 10px; */
+  background-color: rgb(179, 179, 179);
   padding: 3px;
   border: 2px solid #ccc;
   border-radius: 6px;
@@ -635,10 +638,15 @@ nav a.home-link:hover {
   /* margin-left: 10px; */
   /* margin-right: 10px; */
   font-size: 15px;
-  background-color: rgb(198, 234, 248, 0.7);
+  background-color: rgba(255, 255, 255, 0.9);
   padding: 6px;
   border: 2px solid #ccc;
   border-radius: 6px;
+}
+
+.user-data-input:focus {
+  outline: none; 
+  border-color: #a90404;
 }
 
 .user-data-select {
@@ -646,32 +654,37 @@ nav a.home-link:hover {
   margin-left: 50px;
   /* margin-right: 10px; */
   font-size: 15px;
-  background-color: rgb(198, 234, 248, 0.7);
+  background-color: rgba(255, 255, 255, 0.9);
   padding: 6px;
   border: 2px solid #ccc;
   border-radius: 6px;
 }
 
+.user-data-select:focus {
+  outline: none; 
+  border-color: #a90404;
+}
+
 .checkbox-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 7px;
-  padding: 7px;
+  grid-gap: 8px;
+  padding: 5px;
   font-size: 13px;;
   color:black;
-  background-color: rgb(198, 234, 248, 0.7);
+  background-color: rgba(255, 255, 255, 0.9);
   border: 2px solid #ccc;
   border-radius: 6px;
   margin-left: 50px;
 }
 
 .user-data-checkbox {
-  margin: 8px;
+  margin: 12px;
 }
 
 .user-data-checkbox[type="checkbox"] {
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   cursor:pointer;
 }
 
@@ -719,9 +732,11 @@ nav a.home-link:hover {
   justify-content: space-between;
   align-items: center;
   position: relative;
+  background-color: rgb(156, 156, 156);
   max-width: 47.5%;
+  /* margin:3px; */
   padding: 10px;
-  border: 2px solid #ccc;
+  border: 2px solid black;
   border-radius: 12px;
 }
 
@@ -730,6 +745,7 @@ nav a.home-link:hover {
   font-size: 25px;
   margin-top: 15px;
   margin-bottom: -10px;
+  color: black;
   font-weight: bolder;
   text-align: center;
   /* text-decoration:underline; */
@@ -749,6 +765,7 @@ nav a.home-link:hover {
   text-justify: inter-word;
   margin-left: 55px;
   padding: 10px;
+  color: black;
 }
 
 .delete-board-button {
@@ -780,18 +797,22 @@ nav a.home-link:hover {
 }
 
 .question-container {
-  border: 2px solid rgb(242, 255, 0);
+  background-color: rgb(156, 156, 156);
+  border: 2px solid black;
   border-radius: 12px;
   padding: 5px;
+  margin: 15px;
 }
 
 .question-div {
   padding: 10px;
+  color: black;
 }
 
 .answer-div {
   padding: 10px;
   margin: 0 20px;
+  color: black;
 }
 
 .question-strong, .answer-strong {
@@ -831,25 +852,26 @@ nav a.home-link:hover {
 }
 
 /* uploaded images */
-
 .uploaded-image-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  width: 60%;
-  margin: auto;
-  gap: 15px;
-  padding: 10px;
+  display: block;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  /* justify-content: space-around; */
+  gap: 5px;
 }
 
 .uploaded-images {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  background-color: transparent;
-  border-radius: 55px;
-  overflow: hidden;
+  /* position: relative; */
+  max-width: 65%;
+  margin: 15px auto;
   padding: 10px;
-  border: 2px solid #ccc;
+  border: 2px solid navy;
+  border-radius: 12px;
+  background-color: transparent;
 }
 
 .uploaded-images img {
@@ -857,7 +879,7 @@ nav a.home-link:hover {
   height: 70%;
   object-fit: contain;
   background-color: transparent;
-  border-radius: 100px;  
+  border-radius: 70px;  
 }
 
 /* shared */
@@ -869,7 +891,6 @@ nav a.home-link:hover {
   color: navy;
   text-align: left;
   border-radius: 20px;
-
 }
 
 /* liked images */
@@ -889,9 +910,8 @@ nav a.home-link:hover {
   position: relative;
   max-width: 47.5%;
   padding: 10px;
-  border: 2px solid #ccc;
+  border: 2px solid navy;
   border-radius: 12px;
-
 }
 
 .liked-images img {
@@ -1305,6 +1325,11 @@ nav a.home-link:hover {
   padding: 3px;
 }
 
+.floating-form input:focus {
+  outline: none; 
+  border-color: #a90404;
+}
+
 .floating-form select {
   width: 100%; 
   padding: 2px 0px; 
@@ -1386,7 +1411,8 @@ nav a.home-link:hover {
   padding: 0; 
   outline: none; 
   justify-content: center; 
-  align-items: center; 
+  align-items: center;
+  cursor: pointer;
 }
 
 
