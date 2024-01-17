@@ -197,6 +197,32 @@ def get_user_data():
     else:
         return jsonify({'error': 'User not found.'}), 404
 
+@app.route('/user_data/<int:user_id>', methods=['PATCH'])
+def update_user_data(user_id):
+    if 'user_id' not in session or session['user_id'] != user_id:
+        return jsonify({'error': 'Authentication required or invalid user.'}), 401
+
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'error': 'User not found.'}), 404
+
+    data = request.get_json()
+
+    if 'fname' in data:
+        user.fname = data['fname']
+    if 'lname' in data:
+        user.lname = data['lname']
+    if 'email' in data:
+        user.email = data['email']
+    if 'rider_stance' in data:
+        user.rider_stance = data['rider_stance']
+    if 'boards_owned' in data:
+        user.boards_owned = data['boards_owned']
+
+    db.session.commit()
+
+    return jsonify({'message': 'User data updated successfully'}), 200
+
 
 ### ------------------ BOARDS ------------------ ###
 

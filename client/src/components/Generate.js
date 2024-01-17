@@ -216,32 +216,32 @@ function Generate() {
         <ul>
           {boardsData.map((board, index) => (
             <div key={index}>
-              <ul className="board_spec">
-                <strong className="deck"> Deck </strong>
+              <ul className="generate-board-spec">
+                <strong className="board-strong"> Deck </strong>
                 <li>Deck Type: {board.deck_type}</li>
                 <li>Deck Length: {board.deck_length}</li>
                 <li>Deck Material: {board.deck_material}</li>
-                <strong className="truck"> Truck </strong>
+                <strong className="board-strong"> Truck </strong>
                 <li>Truck Type: {board.truck_type}</li>
                 <li>Truck Width: {board.truck_width}</li>
-                <strong className="controller"> Controller </strong>
+                <strong className="board-strong"> Controller </strong>
                 <li>Controller Feature: {board.controller_feature}</li>
                 <li>Controller Type: {board.controller_type}</li>
-                <strong className="remote"> Remote </strong>
+                <strong className="board-strong"> Remote </strong>
                 <li>Remote Feature: {board.remote_feature}</li>
                 <li>Remote Type: {board.remote_type}</li>
-                <strong className="motor"> Motor </strong>
+                <strong className="board-strong"> Motor </strong>
                 <li>Motor Size: {board.motor_size}</li>
                 <li>Motor Kv: {board.motor_kv}</li>
-                <strong className="wheel"> Wheel </strong>
+                <strong className="board-strong"> Wheel </strong>
                 <li>Wheel Size: {board.wheel_size}</li>
                 <li>Wheel Type: {board.wheel_type}</li>
-                <strong className="battery"> Battery </strong>
+                <strong className="board-strong"> Battery </strong>
                 <li>Battery Voltage: {board.battery_voltage}</li>
                 <li>Battery Type: {board.battery_type}</li>
                 <li>Battery Capacity: {board.battery_capacity}</li>
                 <li>Battery Configuration: {board.battery_configuration}</li>
-                <strong className="range"> Range </strong>
+                <strong className="board-strong"> Range </strong>
                 <li>Range: {board.range_mileage}</li>
               </ul>
             </div>

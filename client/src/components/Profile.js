@@ -3,13 +3,27 @@ import { responseStyle } from './CommonStyles'
 import { formatResponse } from './CommonFunctions'
 import { AuthContext } from './AuthContext'; // Import AuthContext
 
-const Profile = () => {
+function Profile() {
     const { isLoggedIn } = useContext(AuthContext); // Use AuthContext
     const [userData, setUserData] = useState(null);
     const [boards, setBoards] = useState([]);
     const [questions, setQuestions] = useState([]);
     const [uploadedImages, setUploadedImages] = useState([]);
     const [likedImages, setLikedImages] = useState([]);
+    const [editMode, setEditMode] = useState({
+        fname: false,
+        lname: false,
+        email: false,
+        rider_stance: false,
+        boards_owned: false
+    });
+    const [editValues, setEditValues] = useState({
+        fname: userData?.fname || '',
+        lname: userData?.lname || '',
+        email: userData?.email || '',
+        rider_stance: userData?.rider_stance || '',
+        boards_owned: userData?.boards_owned || ''
+    });
 
     useEffect(() => {
         if (isLoggedIn) {
@@ -20,6 +34,16 @@ const Profile = () => {
             fetchLikedImages();
         }
     }, [isLoggedIn]);
+
+    useEffect(() => {
+        setEditValues({
+            fname: userData?.fname || '',
+            lname: userData?.lname || '',
+            email: userData?.email || '',
+            rider_stance: userData?.rider_stance || '',
+            boards_owned: userData?.boards_owned || ''
+        });
+    }, [userData]); // This useEffect runs whenever userData changes
 
     useEffect(() => {
         console.log("Questions State Updated:", questions);
@@ -97,7 +121,43 @@ const Profile = () => {
         }
     };
 
+    const saveData = async (field) => {
+        try {
+            const response = await fetch(`/user_data/${userData.id}`, {
+                method: 'PATCH',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ [field]: editValues[field] })
+            });
+            const data = await response.json();
+            if (response.ok) {
+                setUserData({ ...userData, [field]: editValues[field] });
+                setEditMode({ ...editMode, [field]: false });
+            } else {
+                console.error('Error updating user data:', data.error);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
 
+    const deleteBoard = async (boardId) => {
+        try {
+            const response = await fetch(`/boards/${boardId}`, {
+                method: 'DELETE',
+                credentials: 'include'
+            });
+            if (response.ok) {
+                setBoards(boards.filter(board => board.id !== boardId));
+            } else {
+                console.error('Error deleting board');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
 
 
     return (
@@ -108,50 +168,144 @@ const Profile = () => {
                     <section>
                         <h2>Account</h2>
                         {userData && (
-                            <div>
-                                <p><strong>First Name:</strong> {userData.fname}</p>
-                                <p><strong>Last Name:</strong> {userData.lname}</p>
-                                <p><strong>Email:</strong> {userData.email}</p>
-                                <p><strong>Rider Stance:</strong> {userData.rider_stance}</p>
-                                <p><strong>Boards Owned:</strong> {userData.boards_owned}</p>
+                            <div className='user-data-container'>
+                                <div className="user-data-field">
+                                    <strong className="user-data-label">First Name:</strong>
+                                    <div className="input-and-buttons">
+                                        {editMode.fname ? (
+                                            <input className="user-data-input"
+                                                value={editValues.fname}
+                                                onChange={(e) => setEditValues({ ...editValues, fname: e.target.value })}
+                                            />
+                                        ) : (
+                                            <span className="user-data-value">{userData.fname}</span>
+                                        )}
+                                        {/* Edit Button */}
+                                        {editMode.fname && <button className="save-button" onClick={() => saveData('fname')}>Save</button>}
+                                        <button className="edit-button" onClick={() => setEditMode({ ...editMode, fname: !editMode.fname })}>
+                                            {editMode.fname ? 'Cancel' : 'Edit'}
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div className="user-data-field">
+                                    <strong className="user-data-label">Last Name:</strong>
+                                    <div className="input-and-buttons">
+                                        {editMode.lname ? (
+                                            <input className="user-data-input"
+                                                value={editValues.lname}
+                                                onChange={(e) => setEditValues({ ...editValues, lname: e.target.value })}
+                                            />
+                                        ) : (
+                                            <span className="user-data-value">{userData.lname}</span>
+                                        )}
+                                        {/* Edit Button */}
+                                        {editMode.lname && <button className="save-button" onClick={() => saveData('lname')}>Save</button>}
+                                        <button className="edit-button" onClick={() => setEditMode({ ...editMode, lname: !editMode.lname })}>
+                                            {editMode.lname ? 'Cancel' : 'Edit'}
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div className="user-data-field">
+                                    <strong className="user-data-label">Email:</strong>
+                                    <div className="input-and-buttons">
+                                        {editMode.email ? (
+                                            <input className="user-data-input"
+                                                value={editValues.email}
+                                                onChange={(e) => setEditValues({ ...editValues, email: e.target.value })}
+                                            />
+                                        ) : (
+                                            <span className="user-data-value">{userData.email}</span>
+                                        )}
+                                        {/* Edit Button */}
+                                        {editMode.email && <button className="save-button" onClick={() => saveData('email')}>Save</button>}
+                                        <button className="edit-button" onClick={() => setEditMode({ ...editMode, email: !editMode.email })}>
+                                            {editMode.email ? 'Cancel' : 'Edit'}
+                                        </button>
+                                    </div>
+                                </div>
+
+
+                                <div className="user-data-field">
+                                    <strong className="user-data-label">Rider Stance:</strong>
+                                    <div className="input-and-buttons">
+                                        {editMode.rider_stance ? (
+                                            <input className="user-data-input"
+                                                value={editValues.rider_stance}
+                                                onChange={(e) => setEditValues({ ...editValues, rider_stance: e.target.value })}
+                                            />
+                                        ) : (
+                                            <span className="user-data-value">{userData.rider_stance}</span>
+                                        )}
+                                        {/* Edit Button */}
+                                        {editMode.rider_stance && <button className="save-button" onClick={() => saveData('rider_stance')}>Save</button>}
+                                        <button className="edit-button" onClick={() => setEditMode({ ...editMode, rider_stance: !editMode.rider_stance })}>
+                                            {editMode.rider_stance ? 'Cancel' : 'Edit'}
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div className="user-data-field">
+                                    <strong className="user-data-label">Boards Owned:</strong>
+                                    <div className="input-and-buttons">
+                                        {editMode.boards_owned ? (
+                                            <input className="user-data-input"
+                                                value={editValues.boards_owned}
+                                                onChange={(e) => setEditValues({ ...editValues, boards_owned: e.target.value })}
+                                            />
+                                        ) : (
+                                            <span className="user-data-value">{userData.boards_owned}</span>
+                                        )}
+                                        {/* Edit Button */}
+                                        {editMode.boards_owned && <button className="save-button" onClick={() => saveData('boards_owned')}>Save</button>}
+                                        <button className="edit-button" onClick={() => setEditMode({ ...editMode, boards_owned: !editMode.boards_owned })}>
+                                            {editMode.boards_owned ? 'Cancel' : 'Edit'}
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         )}
                     </section>
 
                     <section>
                         <h2>Boards Generated</h2>
-                        <div>
+                        <div className="boards-container">
                             {boards.length > 0 ? boards.map((board, index) => (
-                                <div key={index}>
-                                    <ul className='board_spec'>
-                                        <strong className='board_number'> Board {index + 1}</strong>
-                                        <strong className='deck'> Deck </strong>
+                                <div className='board-div' key={index} style={responseStyle}>
+                                    <strong className='board-number'> Board {index + 1}</strong>
+                                    <ul className='profile-board-spec'>
+                                        <strong className='board-strong'> Deck </strong>
                                         <li>Deck Type: {board.deck_type}</li>
                                         <li>Deck Length: {board.deck_length}</li>
                                         <li>Deck Material: {board.deck_material}</li>
-                                        <strong className='truck'> Truck </strong>
+                                        <strong className='board-strong'> Truck </strong>
                                         <li>Truck Type: {board.truck_type}</li>
                                         <li>Truck Width: {board.truck_width}</li>
-                                        <strong className='controller'> Controller </strong>
+                                        <strong className='board-strong'> Controller </strong>
                                         <li>Controller Feature: {board.controller_feature}</li>
                                         <li>Controller Type: {board.controller_type}</li>
-                                        <strong className='remote'> Remote </strong>
+                                        <strong className='board-strong'> Remote </strong>
                                         <li>Remote Feature: {board.remote_feature}</li>
                                         <li>Remote Type: {board.remote_type}</li>
-                                        <strong className='motor'> Motor </strong>
+                                        <strong className='board-strong'> Motor </strong>
                                         <li>Motor Size: {board.motor_size}</li>
                                         <li>Motor Kv: {board.motor_kv}</li>
-                                        <strong className='wheel'> Wheel </strong>
+                                        <strong className='board-strong'> Wheel </strong>
                                         <li>Wheel Size: {board.wheel_size}</li>
                                         <li>Wheel Type: {board.wheel_type}</li>
-                                        <strong className='battery'> Battery </strong>
+                                        <strong className='board-strong'> Battery </strong>
                                         <li>Battery Voltage: {board.battery_voltage}</li>
                                         <li>Battery Type: {board.battery_type}</li>
                                         <li>Battery Capacity: {board.battery_capacity}</li>
                                         <li>Battery Configuration: {board.battery_configuration}</li>
-                                        <strong className='range'> Range </strong>
+                                        <strong className='board-strong'> Range </strong>
                                         <li>Range: {board.range_mileage}</li>
                                     </ul>
+                                    {/* Delete Button */}
+                                    <button className="delete-board-button" onClick={() => deleteBoard(board.id)}>
+                                        Delete
+                                    </button>
                                 </div>
                             )) : <p>No boards generated.</p>}
                         </div>
@@ -162,10 +316,12 @@ const Profile = () => {
                         <div>
                             {questions.length > 0 ? questions.map((question, index) => (
                                 <div className='questions-asked' key={index} style={responseStyle}>
-                                    <p><strong>Question:</strong> {question.user_input}</p>
-                                    <div><strong>Answer:</strong> {formatResponse(question.answer)}</div>
-                                    <div className='delete-question-button-container'>
-                                        <button className='delete-button' onClick={() => deleteQuestion(question.id)}>Delete</button>
+                                    <div className='question-container'>
+                                        <div className='question-div'><strong className='question-strong'>Question:</strong> {question.user_input}</div>
+                                        <div className='answer-div'><strong className='answer-strong'>Answer:</strong> {formatResponse(question.answer)}</div>
+                                        <div className='delete-question-button-container'>
+                                            <button className='delete-button' onClick={() => deleteQuestion(question.id)}>Delete</button>
+                                        </div>
                                     </div>
                                 </div>
                             )) : <p>No question was asked.</p>}

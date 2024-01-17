@@ -14,7 +14,7 @@ code {
 
 
 
-/* makes title bar look like floating*/
+/* Code to make title bar look like floating*/
 main {
   flex: 1;
   padding: 10px;
@@ -24,10 +24,10 @@ main {
 
 
 
-/* my code starts here: */
+/* My codes starts here: */
 body {
-  margin: 0; /* Remove default margin from the body */
-  color: #fff; /* Adjust text color for better visibility on dark background */
+  margin: 0; 
+  color: #fff; 
 }
 
 body::before {
@@ -45,7 +45,7 @@ body::before {
   /* background: url('jpg') center center fixed; */
   /* background: url('jpg') center center fixed; */
   background-size: cover;
-  opacity: 0.9; /* Adjust the opacity as needed */
+  opacity: 0.9;
 }
 
 
@@ -75,7 +75,7 @@ body::before {
   margin: 0 auto;
   padding: 10px;
   text-align: center;
-  background-color: gray; /* Same background color as generate and guide */
+  background-color: gray; 
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -83,8 +83,8 @@ body::before {
 .home .intro, .home .component-description {
   margin-bottom: 25px;
   padding: 10px;
-  border: 1px solid #ccc; /* Consistent with other components */
-  border-radius: 8px; /* Matched with other components */
+  border: 1px solid #ccc; 
+  border-radius: 8px; 
 }
 
 .home .intro h5 {
@@ -301,21 +301,21 @@ nav a {
   border-radius: 10px;
 }
 
-/* Individual styles for each NavLink */
 
+/* Individual styles for each NavLink */
 nav h1 {
   margin: 1px;
 }
 
-/* Bold the text on hover without any other effects */
+/* Code to bold text on hover w/o any other effects */
 nav a:hover {
   font-weight: bold;
-  background-color: gray; /* Reset background color */
-  color: white; /* Reset text color */
-  box-shadow: none; /* Reset box shadow */
+  background-color: gray; 
+  color: white; 
+  box-shadow: none; 
 }
 
-/* Individual background colors for each NavLink */
+/* Code for individual background colors for each NavLink */
 nav a[href="/"]:hover,
 nav a[href="/home"]:hover,
 nav a[href="/generate"]:hover,
@@ -323,15 +323,15 @@ nav a[href="/guru"]:hover,
 nav a[href="/qna"]:hover,
 nav a[href="/login"]:hover,
 
-/* Apply the hover effect for all links except the "DIYesk8Guide" link */
+/* Code to apply hover effect on all links except "DIYesk8Guide" */
 nav a:not(.home-link):hover {
   font-weight: bold;
-  background-color: initial; /* Reset background color */
-  color: gray; /* Reset text color */
-  box-shadow: none; /* Reset box shadow */
+  background-color: initial; 
+  color: gray; 
+  box-shadow: none; 
 }
 
-/* Style the "DIYesk8Guide" link with a black background and white text */
+/* code to style "DIYesk8Guide" link w/ white text on black background */
 nav a.home-link {
   font-size: 32px;
   color: white;
@@ -339,7 +339,7 @@ nav a.home-link {
   background-color: black;
 }
 
-/* Remove hover effects for the "DIYesk8Guide" link */
+/* Code to remove hover effects for "DIYesk8Guide" link */
 nav a.home-link:hover {
   background-color: black;
   color: white;
@@ -347,28 +347,27 @@ nav a.home-link:hover {
 }
 
 .login-link {
-  color: white; /* White text */
-  background-color: black; /* Black background */
-  border: 0.5px solid white; /* White border */
-  padding: 5px 10px; /* Padding around text */
-  border-radius: 5px; /* Optional: rounded corners */
-  margin-left: 10px; /* Adjust as needed */
+  color: white; 
+  background-color: black; 
+  border: 0.5px solid white; 
+  padding: 5px 10px; 
+  border-radius: 5px; 
+  margin-left: 10px;
 }
 
 .signup-link {
-  color: white; /* White text */
-  background-color: black; /* Black background */
-  border: 3px solid lightgreen; /* light green border */
-  padding: 5px 10px; /* Padding around text */
-  border-radius: 5px; /* Optional: rounded corners */
-  margin-left: 10px; /* Adjust as needed */
+  color: white; 
+  background-color: black; 
+  border: 3px solid lightgreen; 
+  padding: 5px 10px; 
+  border-radius: 5px; 
+  margin-left: 10px; 
 }
 
 .login-link:hover, .signup-link:hover {
-  /* Optional: hover effects */
-  background-color: #333; /* Darker background on hover */
+  background-color: #333; 
   color: white;
-  border-color: gray; /* Gray border on hover */
+  border-color: gray; 
 }
 
 
@@ -384,9 +383,9 @@ nav a.home-link:hover {
 .dropdown-menu {
   display: none;
   position: absolute;
-  top: 100%; /* Position below the menu item */
-  right: 0;  /* Align to the right edge of the menu item */
-  background-color: black; /* Dark gray background */
+  top: 100%;
+  right: 0;  
+  background-color: black; 
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   border-radius: 12px;
   z-index: 1000;
@@ -397,15 +396,15 @@ nav a.home-link:hover {
 }
 
 .dropdown-menu a {
-  display: block; /* This makes each link take a full row, aligning them vertically */
+  display: block; 
   padding: 8px 12px;
   width: 125px;
   text-decoration: none;
-  color: white; /* Change text color as needed */
+  color: white; 
 }
 
 .dropdown-menu a:hover {
-  background-color: #ddd; /* Change hover color as needed */
+  background-color: #ddd; 
 }
 
 
@@ -416,7 +415,7 @@ nav a.home-link:hover {
   margin: 0 auto;
   padding: 20px;
   text-align: center;
-  background-color: gray; /* Adjust background color */
+  background-color: gray; 
   border-radius: 8px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
@@ -472,7 +471,7 @@ nav a.home-link:hover {
 }
 
 .login button:hover {
-  background-color: rgb(3, 132, 3); /* Example: Dark background color on hover */
+  background-color: rgb(3, 132, 3); 
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.5)
 }
 
@@ -480,19 +479,18 @@ nav a.home-link:hover {
 
 /* logout button */
 .logout-link {
-  color: white; /* White text */
-  background-color: black; /* Black background */
-  border: 3px solid red; /* light green border */
-  padding: 5px 10px; /* Padding around text */
-  border-radius: 5px; /* Optional: rounded corners */
-  margin-left: 10px; /* Adjust as needed */
+  color: white; 
+  background-color: black; 
+  border: 3px solid red;
+  padding: 5px 10px; 
+  border-radius: 5px; 
+  margin-left: 10px; 
 }
 
 .logout-link:hover {
-  /* Optional: hover effects */
-  background-color: #333; /* Darker background on hover */
+  background-color: #333; 
   color: white;
-  border-color: gray; /* Gray border on hover */
+  border-color: gray; 
 }
 
 
@@ -505,7 +503,7 @@ nav a.home-link:hover {
   margin: 0 auto;
   padding: 20px;
   text-align: center;
-  background-color: gray; /* Adjust background color */
+  background-color: gray; 
   border-radius: 8px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
@@ -523,25 +521,25 @@ nav a.home-link:hover {
 
 .signup label {
   display: block;
-  margin-bottom: 2px; /* Reduced margin for tighter alignment */
+  margin-bottom: 2px; 
   color: black;
   font-size: 18px;
-  text-align: left; /* Align text to left */
+  text-align: left; 
 }
 
 .signup input,
 .signup select {
-  width: 97%; /* Full width to align with the form's width */
+  width: 97%; 
   padding: 10px;
-  margin-bottom: 2px; /* Adjusted margin for consistent spacing */
+  margin-bottom: 2px; 
   border: 1px solid #ccc;
   border-radius: 5px;
 }
 
 .signup select[name="riderStance"] {
-  width: 25%; /* Set the width of the rider stance select box */
+  width: 25%; 
   padding: 10px;
-  margin-left: 15px; /* Adjusted margin for consistent spacing */
+  margin-left: 15px; 
   border: 1px solid #ccc;
   border-radius: 5px;
 }
@@ -557,7 +555,7 @@ nav a.home-link:hover {
 }
 
 .signup button:hover {
-  background-color: rgb(3, 132, 3); /* Example: Dark background color on hover */
+  background-color: rgb(3, 132, 3); 
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.5)
 }
 
@@ -566,8 +564,8 @@ nav a.home-link:hover {
   flex-wrap: wrap;
   margin-top: 10px;
   margin-left: 10px;
-  align-items: flex-start; /* Align items to start for left alignment */
-  justify-content: left; /* Justify content to left */
+  align-items: flex-start; 
+  justify-content: left; 
 }
 
 .signup .checkbox {
@@ -581,54 +579,148 @@ nav a.home-link:hover {
 
 
 /* profile component */
+
 .profile {
   max-width: 1300px;
   margin: 0 auto;
   padding: 20px;
   text-align: center;
-  background-color: gray; /* Adjust background color */
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.profile h2 {
-  color: black;
-  font-size: 32px;
-  margin-top: 2px;
-  margin-bottom: 20px;
-}
-
-.profile ul {
-  list-style: none;
-  padding: 0;
-}
-
-.profile strong {
-  font-weight: bold;
-}
-
-.profile img {
-  max-width: 80%; /* Reduced from 100% to 50% */
-  height: auto; /* Maintains the aspect ratio of the image */
+  background-color: gray; 
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .profile div {
-  /* border: 1px solid #ccc; */
-  padding: 10px;
-  margin-bottom: 10px;
+  /* padding: 3px; */
+  margin-bottom: 3px;
 }
 
-.delete-question-button-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.profile h2 {
+  color: black;
+  font-size: 32px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+/* user data */
+.user-data-container {
+  width: 40%;
+  margin: auto;
+  /* padding: 15px; */
+}
+
+.user-data-field {
+  display: block;
   width: 100%;
-  margin-top: 10px;
+  /* margin-bottom: 15px; */
 }
 
-.delete-button {
+.user-data-label {
+  font-weight: bold;
+  /* margin-right: 10px; */
+}
+
+.user-data-value {
+  flex-grow: 1;
+  /* margin-left: 10px; */
+  /* margin-right: 10px; */
+  padding: 3px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+}
+
+.user-data-input {
+  flex-grow: 1;
+  /* margin-left: 10px; */
+  /* margin-right: 10px; */
+  font-size: 15px;
+  background-color: yellow;
+  padding: 6px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+}
+
+.user-data-label, .user-data-input, .user-data-value, .edit-button, .save-button {
+  display: block;
+  text-align: left;
+  justify-content: center;
+  margin-left: 50px;
+  /* margin-bottom: 10px; */
+}
+
+.input-and-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.edit-button, .save-button {
+  display: inline-block;
+  /* margin-top: 5px; */
+  margin-left: 5px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+}
+
+.edit-button:hover, .save-button:hover {
+  background-color: #0056b3;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
+}
+
+/* boards generated */
+.boards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 5px;
+}
+
+.board-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  max-width: 47.5%;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 12px;
+}
+
+.board-number {
+  display: block;
+  font-size: 25px;
+  margin-top: 15px;
+  margin-bottom: -10px;
+  font-weight: bolder;
+  text-align: center;
+  /* text-decoration:underline; */
+}
+
+.board-strong {
+  display: block;
+  font-size: 20px;
+  margin-top: 10px;
+  margin-left: -35px;
+  font-weight: bolder;
+  text-decoration:underline;
+}
+
+.profile-board-spec {
+  text-align: left;
+  text-justify: inter-word;
+  margin-left: 55px;
+  padding: 10px;
+}
+
+.delete-board-button {
+  /* position: relative; */
+  align-self: center;
+  /* margin-top:5px; */
+  margin-bottom: 20px;
   background-color: darkred;
   color: white;
   padding: 10px 20px;
@@ -638,9 +730,65 @@ nav a.home-link:hover {
   cursor: pointer;
 }
 
-.delete-button:hover {
-  background-color: rgb(176, 6, 6); /* Example: Dark background color on hover */
+.delete-board-button:hover {
+  background-color: rgb(176, 6, 6);
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
+}
+
+
+
+/* questions asked */
+.delete-question-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.question-container {
+  border: 2px solid rgb(242, 255, 0);
+  border-radius: 12px;
+  padding: 5px;
+}
+
+.question-div {
+  padding: 10px;
+}
+
+.answer-div {
+  padding: 10px;
+  margin: 0 20px;
+}
+
+.question-strong, .answer-strong {
+  font-weight: bolder;
+  text-decoration: underline;
+  font-size: 18px;
+}
+
+.delete-button {
+  background-color: darkred;
+  color: white;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background-color: rgb(176, 6, 6);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
+}
+
+
+.profile img {
+  max-width: 80%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 @media screen and (max-width: 600px) {
@@ -657,7 +805,7 @@ nav a.home-link:hover {
   margin: 0 auto;
   padding: 20px;
   text-align: center;
-  background-color: gray; /* Adjust background color */
+  background-color: gray;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -690,7 +838,7 @@ nav a.home-link:hover {
 }
 
 .generate button:hover {
-  background-color: #0056b3; /* Example: Dark background color on hover */
+  background-color: #0056b3;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
 }
 
@@ -719,24 +867,24 @@ nav a.home-link:hover {
 
 /* board specs list */
 .category-container {
-  margin-bottom: 50px; /* Add space between category containers */
+  margin-bottom: 50px;
 }
 
-.board_spec {
+.generate-board-spec {
   list-style: none;
   padding: 0;
   text-align: center;
 }
 
-.board_spec strong {
-  display: block; /* Ensure each strong tag is on a new line */
-  margin-bottom: 7px; /* Add some space between the strong tag and the list items */
+.generate-board-spec strong {
+  display: block;
+  margin-top: 10px;
   font-weight: bold;
   font-size: 22px;
 }
 
-.board_spec li {
-  margin-bottom: 7px; /* Add some space between list items */
+.generate-board-spec li {
+  margin-bottom: 3px;
 }
 
 
@@ -748,7 +896,7 @@ nav a.home-link:hover {
   margin: 0 auto;
   padding: 20px;
   text-align: center;
-  background-color: gray; /* Same background color as other components */
+  background-color: gray;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -763,8 +911,8 @@ nav a.home-link:hover {
 .guide-step {
   padding: 10px;
   margin-bottom: 10px;
-  border: 1px solid #ccc; /* Adjusted for consistency */
-  border-radius: 8px; /* Matched with other components */
+  border: 1px solid #ccc;
+  border-radius: 8px;
 }
 
 .guide-content {
@@ -796,7 +944,7 @@ nav a.home-link:hover {
   margin: 0 auto;
   padding: 10px;
   text-align: center;
-  background-color: gray; /* Adjust background color for the about section */
+  background-color: gray;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -817,21 +965,21 @@ nav a.home-link:hover {
 }
 
 .about .contact-us {
-  background-color: black; /* Slightly different background for contrast */
+  background-color: black;
   padding: 15px;
-  border-radius: 6px; /* Rounded corners for the contact section */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for the contact section */
-  margin-top: 30px; /* Space above the contact section */
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
 }
 
 .about .contact-us h2 {
-  color: #007bff; /* A pop of color for the contact section heading */
+  color: #007bff;
   margin-bottom: 15px;
 }
 
 .about .contact-us p {
-  font-size: 17px; /* Slightly larger font for the contact message */
-  margin-bottom: 15px; /* Spacing before the link */
+  font-size: 17px;
+  margin-bottom: 15px;
 }
 
 .about .contact-us a {
@@ -839,9 +987,9 @@ nav a.home-link:hover {
   padding: 8px 12px;
   background-color: #007bff;
   color: white;
-  border-radius: 4px; /* Rounded corners for the link */
+  border-radius: 4px;
   text-decoration: none;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Small shadow for depth */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .about .contact-us a:hover {
@@ -852,51 +1000,51 @@ nav a.home-link:hover {
 
 /* Contact Us Component */
 .contactus {
-  max-width: 700px; /* Consistent width with other components */
-  margin: 0 auto; /* Center the component */
+  max-width: 700px;
+  margin: 0 auto;
   padding: 25px;
   text-align: center;
-  background-color: gray; /* Similar background color */
-  border-radius: 8px; /* Consistent border radius */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Consistent box shadow */
+  background-color: gray;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .contactus h2 {
   color: black;
-  font-size: 32px; /* Consistent font size for headings */
+  font-size: 32px;
   margin-bottom: 15px;
   margin-top: 2px;
 }
 
 .contactus form {
   display: flex;
-  flex-direction: column; /* Align form elements in a column */
-  align-items: center; /* Center align the elements */
-  gap: 10px; /* Space between form elements */
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
 .contactus label {
   color: black;
-  font-size: 18px; /* Consistent font size for labels */
-  margin-bottom: 5px; /* Space below each label */
-  text-align: left; /* Align text to left */
-  width: 100%; /* Full width labels */
+  font-size: 18px; 
+  margin-bottom: 5px;
+  text-align: left;
+  width: 100%;
 }
 
 .contactus input[type="text"],
 .contactus input[type="email"],
 .contactus textarea {
-  width: 97%; /* Full width inputs and textarea */
+  width: 97%;
   padding: 10px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
-  border-radius: 5px; /* Rounded corners */
-  font-size: 15px; /* Consistent font size */
+  border-radius: 5px;
+  font-size: 15px;
 }
 
 .contactus textarea {
-  height: 300px; /* Set a fixed height for textarea */
-  resize: vertical; /* Allow vertical resizing */
+  height: 300px;
+  resize: vertical;
 }
 
 .contactus button {
@@ -920,24 +1068,24 @@ nav a.home-link:hover {
 /* gallery component */
 
 .gallery-container {
-  flex-direction: column; /* Stack the sections vertically */
-  align-items: center; /* Center align the child elements */
+  flex-direction: column;
+  align-items: center;
   text-align: left;
   margin-right: 210px;
   margin-left: 2px;
 }
 
 .gallery-items {
-  display: flex; /* Changed to flex display */
-  flex-wrap: wrap; /* Allows items to wrap to the next line */
-  gap: 15px; /* Space between items */
-  flex: 1; /* Takes up remaining space */
-  overflow-y: auto; /* Makes this section scrollable */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  flex: 1;
+  overflow-y: auto;
   padding: 8px;
 }
 
 .gallery-items h2 {
-  width: 100%; /* Make the title span the full width */
+  width: 100%;
   color: white;
   font-size: 24px;
   text-align: center;
@@ -945,31 +1093,30 @@ nav a.home-link:hover {
 }
 
 .gallery-item {
-  flex-basis: calc((100% / 3) - 20px - 20px); /* Each item takes up one-third of the row width minus gap */
- /* Max-width ensures items do not exceed their allocated space */
-  display: flex; /* Using flex to better control inner elements */
-  flex-direction: column; /* Aligns elements in a column */
-  align-items: center; /* Center-aligns items */
-  background-color: darkgray; /* Set background color for the entire item */
-  border-radius: 55px; /* Rounded corners for the whole item */
-  overflow: hidden; /* Ensures child elements like images do not overflow the container's rounded corners */
-  margin-bottom: 10px; /* Spacing below each item */
-  padding: 10px; /* Padding around the image within the item */
+  flex-basis: calc((100% / 3) - 20px - 20px);
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  background-color: darkgray; 
+  border-radius: 55px; 
+  overflow: hidden; 
+  margin-bottom: 10px; 
+  padding: 10px; 
 }
 
 .gallery-item img {
-  width: calc(100% - 5px); /* Adjusts image width to fit container with padding */
-  height: 320px; /* Adjusted height considering padding */
-  object-fit: contain; /* Ensures the entire image fits within the container without being cropped */
-  background-color: transparent; /* Background color for the area around the image if it doesn't cover the whole container */
+  width: calc(100% - 5px); 
+  height: 320px; 
+  object-fit: contain; 
+  background-color: transparent; 
   border-radius: 50000px;
 }
 
 .item-details {
-  padding: 10px; /* Padding inside the item details section */
-  background-color: darkgray; /* Dark gray background for the details section */
-  color: navy; /* Lighter text color for contrast */
-  text-align: left; /* Center the text */
+  padding: 10px; 
+  background-color: darkgray;
+  color: navy; 
+  text-align: left; 
 }
 
 .item-details-strong {
@@ -983,24 +1130,24 @@ nav a.home-link:hover {
 
 .file-input-wrapper {
   display: flex;
-  justify-content: center; /* Center the file input */
+  justify-content: center; 
 }
 
 .file-name-display {
-  text-align: center; /* Center the file name text */
-  margin-bottom: 10px; /* Space between file name and file input */
+  text-align: center; 
+  margin-bottom: 10px; 
   color: rgb(15, 2, 189);
   font-size: 0.9em;
   font-weight: bold;
-  word-wrap: break-word; /* Ensure long filenames wrap */
-  max-width: 90%; /* Set maximum width for filename display */
-  margin-left: auto; /* Center the filename text block */
+  word-wrap: break-word; 
+  max-width: 90%; 
+  margin-left: auto; 
   margin-right: auto;
 }
 
 .file-input-button {
-  background-color: #31b335; /* New button background color */
-  color: white; /* Text color */
+  background-color: #31b335; 
+  color: white; 
   padding: 5px 10px;
   border: none;
   border-radius: 4px;
@@ -1009,28 +1156,27 @@ nav a.home-link:hover {
 }
 
 .file-input-button:hover {
-  background-color: #096d0e; /* Darker shade for hover effect */
+  background-color: #096d0e; 
   box-shadow: 0 0 5px white;
 }
 
 .floating-form {
-  position: fixed; /* Makes the form float */
-  top: 85px; /* Distance from top of the page */
-  right: 15px; /* Distance from right of the page */
-  width: 180px; /* Width of the form */
-  background-color: gray; /* Background color of the form */
-  padding: 20px; /* Padding around the form */
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Shadow for the form */
-  z-index: 900; /* Ensures form stays on top */
-  overflow-y: auto; /* Allows scrolling inside the form if content overflows */
-  max-height: 80vh; /* Maximum height of the form */
+  position: fixed; 
+  top: 85px; 
+  right: 15px; 
+  width: 180px; 
+  background-color: gray; 
+  padding: 20px; 
+  border-radius: 8px; 
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+  z-index: 900; 
+  overflow-y: auto; 
+  max-height: 80vh; 
 }
 
-/* Adjustments for inner elements like inputs, selects, buttons for better alignment and spacing */
 .floating-form select,
 .floating-form button {
-  width: 90%; /* Width inside the form */
+  width: 90%; 
 }
 
 .floating-form button {
@@ -1038,28 +1184,28 @@ nav a.home-link:hover {
 }
 
 .floating-form input {
-  width: 93%; /* Width inside the form */
-  margin-bottom: 1px; /* Spacing between elements */
+  width: 93%; 
+  margin-bottom: 1px; 
   padding: 3px;
 }
 
 .floating-form select {
-  width: 100%; /* Adjust width as needed */
-  padding: 2px 0px; /* Adjust padding for better text visibility and size */
-  font-size: 14px; /* Adjust font size */
-  border-radius: 4px; /* Rounded corners */
-  border: 2px solid gray; /* Border color */
-  margin-bottom: 1px; /* Spacing between select elements */
+  width: 100%; 
+  padding: 2px 0px; 
+  font-size: 14px; 
+  border-radius: 4px; 
+  border: 2px solid gray; 
+  margin-bottom: 1px; 
 }
 
 .floating-form select:focus {
-  outline: none; /* Remove default focus outline */
-  border-color: #a90404; /* Change border color on focus */
+  outline: none; 
+  border-color: #a90404;
 }
 
 @media (max-height: 600px) {
   .floating-form {
-    max-height: 70vh; /* Smaller max-height for smaller screens */
+    max-height: 70vh; 
   }
 }
 
@@ -1080,8 +1226,8 @@ nav a.home-link:hover {
 }
 
 .motor-size, .motor-kv, .motor-power {
-  display: block; /* Each label will take the full width of its container */
-  margin-top: 1px; /* Optional: Add some space above the label */
+  display: block; 
+  margin-top: 1px; 
   font-size: 13px;
   color: rgb(255, 255, 255);
 }
@@ -1128,11 +1274,11 @@ nav a.home-link:hover {
 /* Hall of Fame Section */
 
 .hall-of-fame {
-  width: 95%; /* Width of the container */
+  width: 95%; 
   /* height: 735px; */
   margin-top: 25px;
-  margin-bottom: 20px; /* Space between hall-of-fame and gallery-items sections */
-  padding: 10px; /* Padding around the hall-of-fame section */
+  margin-bottom: 20px; 
+  padding: 10px; 
   /* background-image: url("https://wallpapercave.com/wp/wp4581227.jpg"); */
   background-image: url("https://wallpaperaccess.com/full/2024271.jpg");
   /* background-image: url("https://wallpapers.com/images/hd/electric-background-aukjsvm4da5furms.jpg"); */
@@ -1152,15 +1298,15 @@ nav a.home-link:hover {
   /* background-size: contain; */
   background-size: cover; 
   /* background-size: fill;  */
-  background-position: center; /* Center the image in the container */
-  background-repeat: no-repeat; /* Prevent the image from repeating */
-  border: 2px solid white; /* Add white border outline */
+  background-position: center; 
+  background-repeat: no-repeat; 
+  border: 2px solid white;
   border-radius: 45px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Optional: Add a subtle shadow for depth */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); 
 }
 
 .hall-of-fame h1 {
-  width: 100%; /* Make the title span the full width */
+  width: 100%; 
   color: black;
   font-size: 30px;
   font-weight: bolder;
@@ -1170,31 +1316,31 @@ nav a.home-link:hover {
 }
 
 .top-gallery-items {
-  display: flex; /* Similar display as gallery-items */
-  flex-wrap: wrap; /* Allow items to wrap to the next line */
-  gap: 10px; /* Space between items */
-  padding: 8px; /* Padding around the items */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 8px; 
   justify-content: center;
   margin-bottom: 37px;
 }
 
 .top-gallery-item {
-  flex-basis: calc((100% / 3) - 20px - 20px); /* Each item takes up one-third of the row width minus gap */
-  display: flex; /* Using flex for inner elements */
-  flex-direction: column; /* Align elements in a column */
-  align-items: center; /* Center-align items */
-  background-color: darkgray; /* Background color */
-  border-radius: 55px; /* Rounded corners */
-  overflow: hidden; /* Prevents overflow outside of border-radius */
-  margin-bottom: 10px; /* Spacing below each item */
-  padding: 0px; /* Padding inside each item */
+  flex-basis: calc((100% / 3) - 20px - 20px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: darkgray;
+  border-radius: 55px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  padding: 0px;
 }
 
 .top-gallery-item img {
-  width: calc(100% - 20px); /* Image width to fit container with padding */
-  height: 320px; /* Adjusted height for consistency */
-  object-fit: contain; /* Ensures the entire image fits within the container */
-  background-color: transparent; /* Background color around the image */
+  width: calc(100% - 20px);
+  height: 320px; 
+  object-fit: contain; 
+  background-color: transparent; 
   border-radius: 500000px;
 }
 
