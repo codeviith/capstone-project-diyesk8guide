@@ -770,8 +770,6 @@ nav a.home-link:hover {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
 }
 
-
-
 /* questions asked */
 .delete-question-button-container {
   display: flex;
@@ -831,6 +829,89 @@ nav a.home-link:hover {
     max-width: 80%;
   }
 }
+
+/* uploaded images */
+
+.uploaded-image-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 60%;
+  margin: auto;
+  gap: 15px;
+  padding: 10px;
+}
+
+.uploaded-images {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: transparent;
+  border-radius: 55px;
+  overflow: hidden;
+  padding: 10px;
+  border: 2px solid #ccc;
+}
+
+.uploaded-images img {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+  background-color: transparent;
+  border-radius: 100px;  
+}
+
+/* shared */
+.image-details {
+  margin-top: 35px;
+  padding: 15px;
+  width:38%;
+  background-color: transparent;
+  color: navy;
+  text-align: left;
+  border-radius: 20px;
+
+}
+
+/* liked images */
+.liked-image-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 5px;
+
+}
+
+.liked-images {
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  max-width: 47.5%;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 12px;
+
+}
+
+.liked-images img {
+  width: 60%; /* width: calc(100% - 5px) */
+  height: auto; /* 320px */
+  object-fit: contain;
+  background-color: transparent;
+  border-radius: 15px;
+  border-radius: 25px;
+}
+
+
+@media (max-width: 768px) {
+  .liked-image-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
 
 
 
@@ -1282,7 +1363,7 @@ nav a.home-link:hover {
 
 
 
-/* Heart Icon  */
+/* SVG Icons  */
 
 .heart-icon {
   width: 35px; 
@@ -1294,6 +1375,10 @@ nav a.home-link:hover {
   height: 35px;
 }
 
+.unlike-icon {
+  width: 35px; 
+  height: 35px;
+}
 
 #heart-button {
   border: none; 
@@ -1303,6 +1388,7 @@ nav a.home-link:hover {
   justify-content: center; 
   align-items: center; 
 }
+
 
 
 

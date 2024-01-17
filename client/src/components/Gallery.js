@@ -223,13 +223,13 @@ function Gallery() {
                         <div key={index} className="top-gallery-item">
                             <img src={`images/${item.image_filename}`} alt={item.image_filename} />
                             <div className="item-details">
-                                <p>Deck Type: {item.deck_brand} {item.deck_size} in.</p>
-                                <p>Battery Type: {item.battery_series}s {item.battery_parallel}p</p>
-                                <p>Motor Type: {item.motor_size} {item.motor_kv}Kv {item.motor_power}Watts</p>
-                                <p>Wheel Type: {item.wheel_size} {item.wheel_type}</p>
-                                <p>Max Speed & Range: {item.max_speed} MPH, {item.max_range} Miles</p>
-                                <p>Other Features: {item.other_features}</p>
-                                <p className='rating'>Rating: {item.hearts}</p>
+                                <p><strong className='item-details-strong'>Deck Type:</strong> {item.deck_brand} {item.deck_size} in.</p>
+                                <p><strong className='item-details-strong'>Battery Type:</strong> {item.battery_series}s {item.battery_parallel}p</p>
+                                <p><strong className='item-details-strong'>Motor Type:</strong> {item.motor_size} {item.motor_kv}Kv {item.motor_power}Watts</p>
+                                <p><strong className='item-details-strong'>Wheel Type:</strong> {item.wheel_size} {item.wheel_type}</p>
+                                <p><strong className='item-details-strong'>Max Speed & Range:</strong> {item.max_speed} MPH, {item.max_range} Miles</p>
+                                <p><strong className='item-details-strong'>Other Features:</strong> {item.other_features}</p>
+                                <p className='rating'><strong className='item-details-strong'>Rating:</strong> {item.hearts}</p>
                             </div>
                         </div>
                     ))}

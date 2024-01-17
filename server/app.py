@@ -509,6 +509,25 @@ def heart_image():
 
     return jsonify({'newHeartState': heart_record is None, 'hearts': image.hearts})
 
+@app.route('/gallery/unheart', methods=['POST'])
+def unheart_image():
+    if 'user_id' not in session:
+        return jsonify({'error': 'Authentication required'}), 401
+
+    user_id = session['user_id']
+    image_id = request.json.get('image_id')
+    image = Gallery.query.get(image_id)
+    if not image:
+        return jsonify({'error': 'Image not found'}), 404
+
+    heart_record = Heart.query.filter_by(user_id=user_id, gallery_id=image_id).first()
+    if heart_record:
+        db.session.delete(heart_record)
+        image.hearts -= 1
+        db.session.commit()
+        return jsonify({'message': 'Image unhearted successfully', 'hearts': image.hearts})
+    else:
+        return jsonify({'error': 'Heart not found'}), 404
 
 @app.route('/gallery/top')
 def get_top_images():
