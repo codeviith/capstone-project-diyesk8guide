@@ -125,6 +125,7 @@ const Signup = () => {
             <option value="">Select Rider Stance</option>
             <option value="Regular">Regular</option>
             <option value="Goofy">Goofy</option>
+            <option value="Both">Both</option>
           </select>
         </label>
         <br />

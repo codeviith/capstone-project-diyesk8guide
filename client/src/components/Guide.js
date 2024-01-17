@@ -45,7 +45,7 @@ const Guide = () => {
 
     return (
         <div className="guide">
-            <h1>Step-by-Step Guide</h1>
+            <h1>Quick Start Guide</h1>
             {stepHeaders.map((header, index) => (
                 <div key={index} className="guide-step">
                     <h2>{header}</h2>

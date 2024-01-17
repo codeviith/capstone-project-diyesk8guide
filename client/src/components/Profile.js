@@ -231,10 +231,14 @@ function Profile() {
                                     <strong className="user-data-label">Rider Stance:</strong>
                                     <div className="input-and-buttons">
                                         {editMode.rider_stance ? (
-                                            <input className="user-data-input"
+                                            <select className="user-data-select"
                                                 value={editValues.rider_stance}
                                                 onChange={(e) => setEditValues({ ...editValues, rider_stance: e.target.value })}
-                                            />
+                                            >
+                                                <option value="Regular">Regular</option>
+                                                <option value="Goofy">Goofy</option>
+                                                <option value="Both">Both</option>
+                                            </select>
                                         ) : (
                                             <span className="user-data-value">{userData.rider_stance}</span>
                                         )}
@@ -250,12 +254,36 @@ function Profile() {
                                     <strong className="user-data-label">Boards Owned:</strong>
                                     <div className="input-and-buttons">
                                         {editMode.boards_owned ? (
-                                            <input className="user-data-input"
+                                            <select className="user-data-select"
+                                                multiple
                                                 value={editValues.boards_owned}
-                                                onChange={(e) => setEditValues({ ...editValues, boards_owned: e.target.value })}
-                                            />
+                                                onChange={(e) => {
+                                                    const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
+                                                    setEditValues({ ...editValues, boards_owned: selectedOptions })
+                                                }}
+                                            >
+                                                <option value="Evolve">Evolve</option>
+                                                <option value="Lacroix">Lacroix</option>
+                                                <option value="KalyNYC">KalyNYC</option>
+                                                <option value="Metroboard">Metroboard</option>
+                                                <option value="Trampa">Trampa</option>
+                                                <option value="Mellow">Mellow</option>
+                                                <option value="Boosted">Boosted</option>
+                                                <option value="Exway">Exway</option>
+                                                <option value="Bajaboard">Bajaboard</option>
+                                                <option value="Hoyt St.">Hoyt St.</option>
+                                                <option value="Acton">Acton</option>
+                                                <option value="Backfire">Backfire</option>
+                                                <option value="Meepo">Meepo</option>
+                                                <option value="Other">Other</option>
+                                            </select>
                                         ) : (
-                                            <span className="user-data-value">{userData.boards_owned}</span>
+                                            <span className="user-data-value">
+                                                {Array.isArray(userData.boards_owned)
+                                                    ? userData.boards_owned.join(', ')
+                                                    : (userData.boards_owned || '').split(',').join(', ')}
+                                            </span>
+                                            
                                         )}
                                         {/* Edit Button */}
                                         {editMode.boards_owned && <button className="save-button" onClick={() => saveData('boards_owned')}>Save</button>}
@@ -373,3 +401,87 @@ function Profile() {
 
 export default Profile;
 
+
+
+
+
+
+
+
+
+
+////with checkboxes but code looks strange and might not be correct
+
+// {editMode.boards_owned ? (
+//         <div>
+//             {["Evolve", "Lacroix", "KalyNYC", "Metroboard", "Trampa", "Mellow", "Boosted", "Exway", "Bajaboard", "Hoyt St.", "Acton", "Backfire", "Meepo", "Other"].map((board, index) => (
+//                 <label key={index}>
+//                     <input className='user-data-checkbox'
+//                         type="checkbox"
+//                         name="boards_owned"
+//                         value={board}
+//                         checked={editValues.boards_owned.includes(board)}
+//                         onChange={(e) => {
+//                             let newSelection;
+//                             if (e.target.checked) {
+//                                 newSelection = [...editValues.boards_owned, board];  // add checked board
+//                             } else {
+//                                 newSelection = editValues.boards_owned.filter(item => item !== board);  // remove unchecked board
+//                             }
+//                             setEditValues({ ...editValues, boards_owned: newSelection });
+//                         }}
+//                     />
+//                     {board}
+//                 </label>
+//             ))}
+//         </div>
+//     ) : (
+//     <span className="user-data-value">
+//         {Array.isArray(userData.boards_owned)
+//             ? userData.boards_owned.join(', ')
+//             : (userData.boards_owned || '').split(',').join(', ')}
+//     </span>
+// )}
+
+
+
+
+
+
+
+
+
+//////multiple dropdown selection, NOT WORKING!
+
+// {editMode.boards_owned ? (
+//     <select className="user-data-select"
+//         multiple
+//         value={editValues.boards_owned}
+//         onChange={(e) => {
+//             const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
+//             setEditValues({ ...editValues, boards_owned: selectedOptions })
+//         }}
+//     >
+//         <option value="Evolve">Evolve</option>
+//         <option value="Lacroix">Lacroix</option>
+//         <option value="KalyNYC">KalyNYC</option>
+//         <option value="Metroboard">Metroboard</option>
+//         <option value="Trampa">Trampa</option>
+//         <option value="Mellow">Mellow</option>
+//         <option value="Boosted">Boosted</option>
+//         <option value="Exway">Exway</option>
+//         <option value="Bajaboard">Bajaboard</option>
+//         <option value="Hoyt St.">Hoyt St.</option>
+//         <option value="Acton">Acton</option>
+//         <option value="Backfire">Backfire</option>
+//         <option value="Meepo">Meepo</option>
+//         <option value="Other">Other</option>
+//     </select>
+// ) : (
+//     <span className="user-data-value">
+//         {Array.isArray(userData.boards_owned)
+//             ? userData.boards_owned.join(', ')
+//             : (userData.boards_owned || '').split(',').join(', ')}
+//     </span>
+    
+// )}

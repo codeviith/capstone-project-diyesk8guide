@@ -217,7 +217,7 @@ def update_user_data(user_id):
     if 'rider_stance' in data:
         user.rider_stance = data['rider_stance']
     if 'boards_owned' in data:
-        user.boards_owned = data['boards_owned']
+        user.boards_owned = ','.join(data['boards_owned'])
 
     db.session.commit()
 
