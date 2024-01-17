@@ -158,7 +158,7 @@ def signup():
     fname = data['firstName']
     lname = data['lastName']
     rider_stance = data['riderStance']
-    boards_owned = ','.join(data['boardsOwned'])  # Assuming boards_owned as a comma-separated string
+    boards_owned = ','.join(data['boardsOwned'])  # making it comma-separated string
 
     # Check if user already exists
     if User.query.filter_by(email=email).first():

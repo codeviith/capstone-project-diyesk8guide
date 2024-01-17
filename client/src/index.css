@@ -635,7 +635,7 @@ nav a.home-link:hover {
   /* margin-left: 10px; */
   /* margin-right: 10px; */
   font-size: 15px;
-  background-color: rgb(198, 234, 248);
+  background-color: rgb(198, 234, 248, 0.7);
   padding: 6px;
   border: 2px solid #ccc;
   border-radius: 6px;
@@ -646,21 +646,33 @@ nav a.home-link:hover {
   margin-left: 50px;
   /* margin-right: 10px; */
   font-size: 15px;
-  background-color: rgb(198, 234, 248);
+  background-color: rgb(198, 234, 248, 0.7);
   padding: 6px;
   border: 2px solid #ccc;
   border-radius: 6px;
 }
 
-.user-data-checkbox {
-  /* flex-grow: 1; */
-  margin-left: 50px;
-  /* margin-right: 10px; */
-  font-size: 15px;
-  background-color: rgb(198, 234, 248);
-  padding: 6px;
+.checkbox-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 7px;
+  padding: 7px;
+  font-size: 13px;;
+  color:black;
+  background-color: rgb(198, 234, 248, 0.7);
   border: 2px solid #ccc;
   border-radius: 6px;
+  margin-left: 50px;
+}
+
+.user-data-checkbox {
+  margin: 8px;
+}
+
+.user-data-checkbox[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor:pointer;
 }
 
 .user-data-label, .user-data-input, .user-data-value, .edit-button, .save-button {
