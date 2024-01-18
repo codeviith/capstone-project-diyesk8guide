@@ -229,7 +229,7 @@ body::before {
 
 .response-container {
   font-size: 22px;
-  color: #333;
+  color: rgb(136, 1, 1);
   background-color: rgba(255, 255, 255, 0.85); 
   padding: 15px;
   border-radius: 8px;
@@ -244,7 +244,7 @@ body::before {
 .guru-answer {
   font-size: 25px;
   text-decoration: bold;
-  color: black;
+  color: rgb(136, 1, 1);
 }
 
 .login-request {
@@ -812,7 +812,7 @@ nav a.home-link:hover {
 .answer-div {
   padding: 10px;
   margin: 0 20px;
-  color: black;
+  color: rgb(96, 1, 1);
 }
 
 .question-strong, .answer-strong {
@@ -821,7 +821,7 @@ nav a.home-link:hover {
   font-size: 18px;
 }
 
-.delete-button {
+.delete-question-button {
   background-color: darkred;
   color: white;
   margin-bottom: 20px;
@@ -832,7 +832,7 @@ nav a.home-link:hover {
   cursor: pointer;
 }
 
-.delete-button:hover {
+.delete-question-button:hover {
   background-color: rgb(176, 6, 6);
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
 }
@@ -853,56 +853,13 @@ nav a.home-link:hover {
 
 /* uploaded images */
 .uploaded-image-container {
-  display: block;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  /* justify-content: space-around; */
-  gap: 5px;
-}
-
-.uploaded-images {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  /* position: relative; */
-  max-width: 65%;
-  margin: 15px auto;
-  padding: 10px;
-  border: 2px solid navy;
-  border-radius: 12px;
-  background-color: transparent;
-}
-
-.uploaded-images img {
-  width: 70%;
-  height: 70%;
-  object-fit: contain;
-  background-color: transparent;
-  border-radius: 70px;  
-}
-
-/* shared */
-.image-details {
-  margin-top: 35px;
-  padding: 15px;
-  width:38%;
-  background-color: transparent;
-  color: navy;
-  text-align: left;
-  border-radius: 20px;
-}
-
-/* liked images */
-.liked-image-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   gap: 5px;
-
 }
 
-.liked-images {
+.uploaded-images {
   display: flex;
   /* flex-direction: column; */
   justify-content: space-between;
@@ -914,25 +871,84 @@ nav a.home-link:hover {
   border-radius: 12px;
 }
 
-.liked-images img {
-  width: 60%; /* width: calc(100% - 5px) */
-  height: auto; /* 320px */
+.uploaded-images img {
+  width: calc(60% - 5px);
+  height: auto;
   object-fit: contain;
   background-color: transparent;
   border-radius: 15px;
   border-radius: 25px;
 }
 
+.delete-uploaded-image-button-container {
+  text-align: center;
+}
+
+.delete-uploaded-image-button {
+    /* position: relative; */
+    margin-top:2px;
+    margin-bottom: 5px;
+    background-color: darkred;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.delete-uploaded-image-button:hover {
+  background-color: rgb(176, 6, 6);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
+}
 
 @media (max-width: 768px) {
-  .liked-image-container {
+  .uploaded-image-container {
     grid-template-columns: 1fr;
   }
 }
 
+/* shared */
+.image-details {
+  margin-top: 5px;
+  padding: 15px;
+  width:38%;
+  background-color: transparent;
+  color: navy;
+  text-align: left;
+  border-radius: 20px;
+  text-justify: inter-word;
+}
 
+/* liked images */
+.liked-image-container {
+  display: block;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  /* justify-content: space-around; */
+  gap: 5px;
+}
 
+.liked-images {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* position: relative; */
+  max-width: 75%;
+  margin: 15px auto;
+  padding: 10px;
+  border: 2px solid navy;
+  border-radius: 12px;
+  background-color: transparent;
+}
 
+.liked-images img {
+  width: 65%;
+  object-fit: contain;
+  background-color: transparent;
+  border-radius: 70px;  
+}
 
 
 /* generate component */
@@ -1251,17 +1267,20 @@ nav a.home-link:hover {
 .item-details {
   padding: 10px; 
   background-color: darkgray;
-  color: navy; 
-  text-align: left; 
+  color: black; 
+  text-align: left;
+  text-justify: inter-word;
 }
 
 .item-details-strong {
   font-weight: bold;
-  color: black
+  color: black;
+  text-justify: inter-word;
 }
 
 .rating {
   text-align: center;
+  margin-top: 35px;
 }
 
 .file-input-wrapper {

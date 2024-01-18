@@ -112,7 +112,10 @@ function Gallery() {
         }
 
         const isTooLarge = (value, fieldName, maxValue) => {
-            if (parseInt(value) > maxValue) {
+            if (typeof value === 'string' && value.length > maxValue) {
+                setUploadError(`${fieldName} must be less than ${maxValue} characters`);
+                return true;
+            } else if (parseInt(value) > maxValue) {
                 setUploadError(`${fieldName} value too large!`);
                 return true;
             }
@@ -123,11 +126,12 @@ function Gallery() {
             isTooLarge(formFields.motor_kv, 'Motor Kv', 500) ||
             isTooLarge(formFields.motor_power, 'Motor Power', 10000) ||
             isTooLarge(formFields.max_speed, 'Max Speed', 70) ||
-            isTooLarge(formFields.max_range, 'Max Range', 100)) {
-            return false;  //returns false if any field value is over the maxValue
+            isTooLarge(formFields.max_range, 'Max Range', 100) ||
+            isTooLarge(formFields.other_features, 'Other Features', 250)) {
+            return false;  // if any field value is over maxValue or over char limit
         }
 
-        return true;  //return true if all validations passed
+        return true;  // if all validations passed
     };
 
 
@@ -264,7 +268,12 @@ function Gallery() {
             <div className="floating-form">
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
                     <div className="file-input-wrapper">
-                        <input type="file" accept="image/*" onChange={handleImageChange} id="file-input" style={{ display: 'none' }} />
+                        <input id="file-input"
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImageChange}
+                            style={{ display: 'none' }}
+                        />
                         <label htmlFor="file-input" className="file-input-button">Select Image</label>
                     </div>
 
@@ -273,7 +282,13 @@ function Gallery() {
                     <div>
                         <strong className='form-label'>Deck Brand</strong>
                         <label className='deck-brand'>
-                            <input type="text" name="deck_brand" placeholder="E.g. Sector9, Omni CF, etc." value={formFields.deck_brand} onChange={handleFormFieldChange} />
+                            <input
+                                type="text"
+                                name="deck_brand"
+                                placeholder="E.g. Sector9, Omni CF, etc."
+                                value={formFields.deck_brand}
+                                onChange={handleFormFieldChange}
+                            />
                         </label>
                     </div>
 
@@ -355,13 +370,31 @@ function Gallery() {
                     <div>
                         <strong className='form-label'>Motor Type</strong>
                         <label className='motor-size'>Size (dia, length):
-                            <input type="number" name="motor_size" placeholder="E.g. 5065, 6364, etc." value={formFields.motor_size} onChange={handleFormFieldChange} />
+                            <input
+                                type="number"
+                                name="motor_size"
+                                placeholder="E.g. 5065, 6364, etc."
+                                value={formFields.motor_size}
+                                onChange={handleFormFieldChange}
+                            />
                         </label>
                         <label className='motor-kv'>Kv:
-                            <input type="number" name="motor_kv" placeholder="E.g. 170kv, 190kv, etc." value={formFields.motor_kv} onChange={handleFormFieldChange} />
+                            <input
+                                type="number"
+                                name="motor_kv"
+                                placeholder="E.g. 170kv, 190kv, etc."
+                                value={formFields.motor_kv}
+                                onChange={handleFormFieldChange}
+                            />
                         </label>
                         <label className='motor-power'>Power (Watts):
-                            <input type="number" name="motor_power" placeholder="E.g. 1500, 4000, etc." value={formFields.motor_power} onChange={handleFormFieldChange} />
+                            <input
+                                type="number"
+                                name="motor_power"
+                                placeholder="E.g. 1500, 4000, etc."
+                                value={formFields.motor_power}
+                                onChange={handleFormFieldChange}
+                            />
                         </label>
                     </div>
 
@@ -376,22 +409,56 @@ function Gallery() {
 
                     <div>
                         <strong className='form-label'>Wheel Size(mm, in.)</strong>
-                        <input type="text" name="wheel_size" placeholder="E.g. 90mm, 7in., etc." value={formFields.wheel_size} onChange={handleFormFieldChange} />
+                        <input
+                            type="text"
+                            name="wheel_size"
+                            placeholder="E.g. 90mm, 7in., etc."
+                            value={formFields.wheel_size}
+                            onChange={handleFormFieldChange}
+                            maxLength="6"
+                        />
+                        <div className='character-count'
+                            style={{ color: formFields.wheel_size.length > 5 ? 'darkred' : 'black' }}>
+                            {formFields.wheel_size.length}/6
+                        </div>
                     </div>
 
                     <div>
                         <strong className='form-label'>Max Speed (mph)</strong>
-                        <input type="number" name="max_speed" placeholder="E.g. 32" value={formFields.max_speed} onChange={handleFormFieldChange} />
+                        <input
+                            type="number"
+                            name="max_speed"
+                            placeholder="E.g. 32"
+                            value={formFields.max_speed}
+                            onChange={handleFormFieldChange}
+                        />
                     </div>
 
                     <div>
                         <strong className='form-label'>Max Range (miles)</strong>
-                        <input type="number" name="max_range" placeholder="E.g. 25" value={formFields.max_range} onChange={handleFormFieldChange} />
+                        <input
+                            type="number"
+                            name="max_range"
+                            placeholder="E.g. 25"
+                            value={formFields.max_range}
+                            onChange={handleFormFieldChange}
+                        />
                     </div>
 
                     <div>
                         <strong className='form-label'>Other Features</strong>
-                        <input type="text" name="other_features" placeholder="E.g. Custom mudguards, etc." value={formFields.other_features} onChange={handleFormFieldChange} />
+                        <input
+                            type="text"
+                            name="other_features"
+                            placeholder="E.g. Custom mudguards, etc."
+                            value={formFields.other_features}
+                            onChange={handleFormFieldChange}
+                            maxLength="250"
+                        />
+                        <div className='character-count'
+                            style={{ color: formFields.other_features.length > 230 ? 'darkred' : 'black' }}>
+                            {formFields.other_features.length}/250
+                        </div>
                     </div>
 
                     <button type="submit">Submit</button>

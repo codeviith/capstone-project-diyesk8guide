@@ -242,7 +242,7 @@ class Gallery(db.Model, SerializerMixin):
             data['isHearted'] = self.is_hearted_by_user(user_id)
         return data
 
-    heart_count = db.relationship('Heart', back_populates='gallery')
+    heart_count = db.relationship('Heart', back_populates='gallery', cascade='all, delete-orphan')
 
     def __repr__(self):
         return f'<Gallery {self.id}>'

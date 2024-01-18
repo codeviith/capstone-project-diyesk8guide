@@ -192,12 +192,28 @@ function Profile() {
         setLikedImages(likedImages.filter(image => image.id !== imageId));
     };
 
+    const deleteUploadedImage = async (imageId) => {
+        try {
+            const response = await fetch(`/gallery/delete/${imageId}`, {
+                method: 'DELETE',
+                credentials: 'include'
+            });
+            if (response.ok) {
+                setUploadedImages(uploadedImages.filter(image => image.id !== imageId));
+            } else {
+                console.error('Error deleting uploaded image');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
 
     return (
         <div className="profile"> {/* Apply 'profile' class name */}
             {isLoggedIn ? (
                 <div>
-                    {/* <h1>Profile</h1> */}
+
+                    {/* Account Section */}
                     <section>
                         <h2>Account</h2>
                         {userData && (
@@ -258,7 +274,6 @@ function Profile() {
                                         </button>
                                     </div>
                                 </div>
-
 
                                 <div className="user-data-field">
                                     <strong className="user-data-label">Rider Stance:</strong>
@@ -327,108 +342,121 @@ function Profile() {
                         )}
                     </section>
 
-                    <section>
-                        <h2>Boards Generated</h2>
-                        <div className="boards-container">
-                            {boards.length > 0 ? boards.map((board, index) => (
-                                <div className='board-div' key={index} style={responseStyle}>
-                                    <strong className='board-number'> Board {index + 1}</strong>
-                                    <ul className='profile-board-spec'>
-                                        <strong className='board-strong'> Deck </strong>
-                                        <li>Deck Type: {board.deck_type}</li>
-                                        <li>Deck Length: {board.deck_length}</li>
-                                        <li>Deck Material: {board.deck_material}</li>
-                                        <strong className='board-strong'> Truck </strong>
-                                        <li>Truck Type: {board.truck_type}</li>
-                                        <li>Truck Width: {board.truck_width}</li>
-                                        <strong className='board-strong'> Controller </strong>
-                                        <li>Controller Feature: {board.controller_feature}</li>
-                                        <li>Controller Type: {board.controller_type}</li>
-                                        <strong className='board-strong'> Remote </strong>
-                                        <li>Remote Feature: {board.remote_feature}</li>
-                                        <li>Remote Type: {board.remote_type}</li>
-                                        <strong className='board-strong'> Motor </strong>
-                                        <li>Motor Size: {board.motor_size}</li>
-                                        <li>Motor Kv: {board.motor_kv}</li>
-                                        <strong className='board-strong'> Wheel </strong>
-                                        <li>Wheel Size: {board.wheel_size}</li>
-                                        <li>Wheel Type: {board.wheel_type}</li>
-                                        <strong className='board-strong'> Battery </strong>
-                                        <li>Battery Voltage: {board.battery_voltage}</li>
-                                        <li>Battery Type: {board.battery_type}</li>
-                                        <li>Battery Capacity: {board.battery_capacity}</li>
-                                        <li>Battery Configuration: {board.battery_configuration}</li>
-                                        <strong className='board-strong'> Range </strong>
-                                        <li>Range: {board.range_mileage}</li>
-                                    </ul>
-                                    {/* Delete Button */}
-                                    <button className="delete-board-button" onClick={() => deleteBoard(board.id)}>
-                                        Delete
-                                    </button>
-                                </div>
-                            )) : <p>No boards generated.</p>}
-                        </div>
-                    </section>
+                    {/* Boards Generated Section */}
+                    {boards.length > 0 && (
+                        <section>
+                            <h2>Boards Generated</h2>
+                            <div className="boards-container">
+                                {boards.map((board, index) => (
+                                    <div className='board-div' key={index} style={responseStyle}>
+                                        <strong className='board-number'> Board {index + 1}</strong>
+                                        <ul className='profile-board-spec'>
+                                            <strong className='board-strong'> Deck </strong>
+                                            <li>Deck Type: {board.deck_type}</li>
+                                            <li>Deck Length: {board.deck_length}</li>
+                                            <li>Deck Material: {board.deck_material}</li>
+                                            <strong className='board-strong'> Truck </strong>
+                                            <li>Truck Type: {board.truck_type}</li>
+                                            <li>Truck Width: {board.truck_width}</li>
+                                            <strong className='board-strong'> Controller </strong>
+                                            <li>Controller Feature: {board.controller_feature}</li>
+                                            <li>Controller Type: {board.controller_type}</li>
+                                            <strong className='board-strong'> Remote </strong>
+                                            <li>Remote Feature: {board.remote_feature}</li>
+                                            <li>Remote Type: {board.remote_type}</li>
+                                            <strong className='board-strong'> Motor </strong>
+                                            <li>Motor Size: {board.motor_size}</li>
+                                            <li>Motor Kv: {board.motor_kv}</li>
+                                            <strong className='board-strong'> Wheel </strong>
+                                            <li>Wheel Size: {board.wheel_size}</li>
+                                            <li>Wheel Type: {board.wheel_type}</li>
+                                            <strong className='board-strong'> Battery </strong>
+                                            <li>Battery Voltage: {board.battery_voltage}</li>
+                                            <li>Battery Type: {board.battery_type}</li>
+                                            <li>Battery Capacity: {board.battery_capacity}</li>
+                                            <li>Battery Configuration: {board.battery_configuration}</li>
+                                            <strong className='board-strong'> Range </strong>
+                                            <li>Range: {board.range_mileage}</li>
+                                        </ul>
+                                        {/* Delete Button */}
+                                        <button className="delete-board-button" onClick={() => deleteBoard(board.id)}>
+                                            Delete
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        </section>
+                    )}
 
-                    <section>
-                        <h2>Questions Asked</h2>
-                        <div>
-                            {questions.length > 0 ? questions.map((question, index) => (
-                                <div className='questions-asked' key={index} style={responseStyle}>
-                                    <div className='question-container'>
-                                        <div className='question-div'><strong className='question-strong'>Question:</strong> {question.user_input}</div>
-                                        <div className='answer-div'><strong className='answer-strong'>Answer:</strong> {formatResponse(question.answer)}</div>
-                                        <div className='delete-question-button-container'>
-                                            <button className='delete-button' onClick={() => deleteQuestion(question.id)}>Delete</button>
+                    {/* Questions Asked Section */}
+                    {questions.length > 0 && (
+                        <section>
+                            <h2>Questions Asked</h2>
+                            <div className='questions-asked-container'>
+                                {questions.map((question, index) => (
+                                    <div className='questions-asked' key={index} style={responseStyle}>
+                                        <div className='question-container'>
+                                            <div className='question-div'><strong className='question-strong'>Question:</strong> {question.user_input}</div>
+                                            <div className='answer-div'><strong className='answer-strong'>Answer:</strong> {formatResponse(question.answer)}</div>
+                                            <div className='delete-question-button-container'>
+                                                <button className='delete-question-button' onClick={() => deleteQuestion(question.id)}>Delete</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            )) : <p>No question was asked.</p>}
-                        </div>
-                    </section>
+                                ))}
+                            </div>
+                        </section>
+                    )}
 
-                    <section>
-                        <h2>Uploaded Images</h2>
-                        <div className='uploaded-image-container'>
-                            {uploadedImages.length > 0 ? uploadedImages.map((image, index) => (
-                                <div className='uploaded-images' key={index}>
-                                    <img className='image-src' src={image.image_url} alt="Uploaded" />
-                                    <div className="image-details">
-                                        <p><strong className='image-details-strong'>Deck Type:</strong> {image.deck_brand} {image.deck_size} in.</p>
-                                        <p><strong className='image-details-strong'>Battery Type:</strong> {image.battery_series}s {image.battery_parallel}p</p>
-                                        <p><strong className='image-details-strong'>Motor Type:</strong> {image.motor_size} {image.motor_kv}Kv {image.motor_power}Watts</p>
-                                        <p><strong className='image-details-strong'>Wheel Type:</strong> {image.wheel_size} {image.wheel_type}</p>
-                                        <p><strong className='image-details-strong'>Max Speed & Range:</strong> {image.max_speed} MPH, {image.max_range} Miles</p>
-                                        <p><strong className='image-details-strong'>Other Features:</strong> {image.other_features}</p>
-                                        <p className='rating'><strong className='image-details-strong'>Rating:</strong> {image.hearts}</p>
+                    {/* Uploaded Images Section */}
+                    {uploadedImages.length > 0 && (
+                        <section>
+                            <h2>Uploaded Images</h2>
+                            <div className='uploaded-image-container'>
+                                {uploadedImages.map((image, index) => (
+                                    <div className='uploaded-images' key={index}>
+                                        <img className='image-src' src={image.image_url} alt="Uploaded" />
+                                        <div className="image-details">
+                                            <p><strong className='image-details-strong'>Deck Type:</strong> {image.deck_brand} {image.deck_size} in.</p>
+                                            <p><strong className='image-details-strong'>Battery Type:</strong> {image.battery_series}s {image.battery_parallel}p</p>
+                                            <p><strong className='image-details-strong'>Motor Type:</strong> {image.motor_size} {image.motor_kv}Kv {image.motor_power}Watts</p>
+                                            <p><strong className='image-details-strong'>Wheel Type:</strong> {image.wheel_size} {image.wheel_type}</p>
+                                            <p><strong className='image-details-strong'>Max Speed & Range:</strong> {image.max_speed} MPH, {image.max_range} Miles</p>
+                                            <p><strong className='image-details-strong'>Other Features:</strong> {image.other_features}</p>
+                                            <p className='rating'><strong className='image-details-strong'>Rating:</strong> {image.hearts}</p>
+                                            <p className='delete-uploaded-image-button-container'><button className="delete-uploaded-image-button" onClick={() => deleteUploadedImage(image.id)}>Delete</button></p>
+                                        </div>
                                     </div>
-                                </div>
-                            )) : <p>No images uploaded.</p>}
-                        </div>
-                    </section>
+                                ))}
+                            </div>
+                        </section>
+                    )}
 
-                    <section>
-                        <h2>Liked Images</h2>
-                        <div className='liked-image-container'>
-                            {likedImages.length > 0 ? likedImages.map((image, index) => (
-                                <div className='liked-images' key={index}>
-                                    <img className='image-src' src={image.image_url} alt="Liked" />
-                                    <div className="image-details">
-                                        <p><strong className='image-details-strong'>Deck Type:</strong> {image.deck_brand} {image.deck_size} in.</p>
-                                        <p><strong className='image-details-strong'>Battery Type:</strong> {image.battery_series}s {image.battery_parallel}p</p>
-                                        <p><strong className='image-details-strong'>Motor Type:</strong> {image.motor_size} {image.motor_kv}Kv {image.motor_power}Watts</p>
-                                        <p><strong className='image-details-strong'>Wheel Type:</strong> {image.wheel_size} {image.wheel_type}</p>
-                                        <p><strong className='image-details-strong'>Max Speed & Range:</strong> {image.max_speed} MPH, {image.max_range} Miles</p>
-                                        <p><strong className='image-details-strong'>Other Features:</strong> {image.other_features}</p>
-                                        <p className='rating'><strong className='image-details-strong'>Rating:</strong> {image.hearts}</p>
+                    {/* Liked Images Section */}
+                    {likedImages.length > 0 && (
+                        <section>
+                            <h2>Liked Images</h2>
+                            <div className='liked-image-container'>
+                                {likedImages.map((image, index) => (
+                                    <div className='liked-images' key={index}>
+                                        <img className='image-src' src={image.image_url} alt="Liked" />
+                                        <div className="image-details">
+                                            <p><strong className='image-details-strong'>Deck Type:</strong> {image.deck_brand} {image.deck_size} in.</p>
+                                            <p><strong className='image-details-strong'>Battery Type:</strong> {image.battery_series}s {image.battery_parallel}p</p>
+                                            <p><strong className='image-details-strong'>Motor Type:</strong> {image.motor_size} {image.motor_kv}Kv {image.motor_power}Watts</p>
+                                            <p><strong className='image-details-strong'>Wheel Type:</strong> {image.wheel_size} {image.wheel_type}</p>
+                                            <p><strong className='image-details-strong'>Max Speed & Range:</strong> {image.max_speed} MPH, {image.max_range} Miles</p>
+                                            <p><strong className='image-details-strong'>Other Features:</strong> {image.other_features}</p>
+                                            <p className='rating'><strong className='image-details-strong'>Rating:</strong> {image.hearts}</p>
+                                        </div>
+                                        <div onClick={() => unlikeImage(image.id)} title="Unlike" style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+                                            <UnlikeIcon />
+                                        </div>
                                     </div>
-                                    <div onClick={() => unlikeImage(image.id)} title="Unlike" style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-                                        <UnlikeIcon />
-                                    </div>
-                                </div>
-                            )) : <p>No images liked.</p>}
-                        </div>
-                    </section>
+                                ))}
+                            </div>
+                        </section>
+                    )}
                 </div>
             ) : (
                 <p>Please log in to view your profile.</p>

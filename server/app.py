@@ -479,6 +479,33 @@ def gallery():
         return jsonify([item.to_dict(user_id=user_id) for item in gallery_items])
 
 
+@app.route('/gallery/delete/<int:image_id>', methods=['DELETE'])
+def delete_uploaded_image(image_id):
+    if 'user_id' not in session:
+        return jsonify({'error': 'Authentication required'}), 401
+
+    user_id = session['user_id']
+    uploaded_image = Gallery.query.get(image_id)
+    if not uploaded_image or uploaded_image.user_id != user_id:
+        return jsonify({'error': 'Uploaded image not found or unauthorized'}), 404
+
+    try:
+        Heart.query.filter_by(gallery_id=image_id).delete() ## code to manually delete the associated heart relationship
+
+        db.session.delete(uploaded_image)
+        db.session.commit()
+
+        os.remove(os.path.join(IMAGE_UPLOAD_FOLDER, uploaded_image.image_filename))
+
+        return jsonify({'message': 'Uploaded image deleted successfully'}), 200
+    except Exception as e:
+        print(f"Error deleting uploaded image: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+### ------------------ GALLERY => HEART ------------------ ###
+
+
 @app.route('/gallery/heart', methods=['POST'])
 def heart_image():
     if 'user_id' not in session:
@@ -509,6 +536,7 @@ def heart_image():
 
     return jsonify({'newHeartState': heart_record is None, 'hearts': image.hearts})
 
+
 @app.route('/gallery/unheart', methods=['POST'])
 def unheart_image():
     if 'user_id' not in session:
@@ -529,6 +557,7 @@ def unheart_image():
     else:
         return jsonify({'error': 'Heart not found'}), 404
 
+
 @app.route('/gallery/top')
 def get_top_images():
     top_images = Gallery.query \
@@ -539,6 +568,7 @@ def get_top_images():
         .all()
     
     return jsonify([image.to_dict() for image in top_images])
+
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
