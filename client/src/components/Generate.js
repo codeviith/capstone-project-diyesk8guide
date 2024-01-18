@@ -8,7 +8,6 @@ function Generate() {
   const [motorPower, setMotorPower] = useState("");
   const [terrainType, setTerrainType] = useState("");
   const [rangeType, setRangeType] = useState("");
-
   const [deckType, setDeckType] = useState("");
   const [deckLength, setDeckLength] = useState("");
   const [deckMaterial, setDeckMaterial] = useState("");
@@ -28,6 +27,7 @@ function Generate() {
   const [batteryConfiguration, setBatteryConfiguration] = useState("");
   const [mileage, setMileage] = useState("");
   const [imageURL, setImageURL] = useState("");
+  const [boardGenerated, setBoardGenerated] = useState(false);
 
   const { isLoggedIn } = useContext(AuthContext);
 
@@ -207,54 +207,53 @@ function Generate() {
         "Approx. 45 miles per charge. Note that mileage will depend on a lot of factors such as: type of wheel, terrain conditions, motor configuration, etc."
       );
     }
+    setBoardGenerated(true);
   };
 
-  const renderBoardSpecs = () => (
-    <div className="render_board_specs">
-      <h2>Build Specs</h2>
-      {boardsData.length > 0 ? (
-        <ul>
-          {boardsData.map((board, index) => (
-            <div key={index}>
-              <ul className="generate-board-spec">
-                <strong className="board-strong"> Deck </strong>
-                <li>Deck Type: {board.deck_type}</li>
-                <li>Deck Length: {board.deck_length}</li>
-                <li>Deck Material: {board.deck_material}</li>
-                <strong className="board-strong"> Truck </strong>
-                <li>Truck Type: {board.truck_type}</li>
-                <li>Truck Width: {board.truck_width}</li>
-                <strong className="board-strong"> Controller </strong>
-                <li>Controller Feature: {board.controller_feature}</li>
-                <li>Controller Type: {board.controller_type}</li>
-                <strong className="board-strong"> Remote </strong>
-                <li>Remote Feature: {board.remote_feature}</li>
-                <li>Remote Type: {board.remote_type}</li>
-                <strong className="board-strong"> Motor </strong>
-                <li>Motor Size: {board.motor_size}</li>
-                <li>Motor Kv: {board.motor_kv}</li>
-                <strong className="board-strong"> Wheel </strong>
-                <li>Wheel Size: {board.wheel_size}</li>
-                <li>Wheel Type: {board.wheel_type}</li>
-                <strong className="board-strong"> Battery </strong>
-                <li>Battery Voltage: {board.battery_voltage}</li>
-                <li>Battery Type: {board.battery_type}</li>
-                <li>Battery Capacity: {board.battery_capacity}</li>
-                <li>Battery Configuration: {board.battery_configuration}</li>
-                <strong className="board-strong"> Range </strong>
-                <li>Range: {board.range_mileage}</li>
-              </ul>
-            </div>
-          ))}
-        </ul>
-      ) : (
-        <p>
-          No build specs available. Click <strong>"Generate Board"</strong> to
-          fetch data.
-        </p>
-      )}
-    </div>
-  );
+  const renderBoardSpecs = () => {
+    return boardGenerated && (
+      <div className="render_board_specs">
+        <h2>Build Specs</h2>
+        {boardsData.length > 0 ? (
+          <ul>
+            {boardsData.map((board, index) => (
+              <div key={index}>
+                <ul className="generate-board-spec">
+                  <strong className="board-strong"> Deck </strong>
+                  <li>Deck Type: {board.deck_type}</li>
+                  <li>Deck Length: {board.deck_length}</li>
+                  <li>Deck Material: {board.deck_material}</li>
+                  <strong className="board-strong"> Truck </strong>
+                  <li>Truck Type: {board.truck_type}</li>
+                  <li>Truck Width: {board.truck_width}</li>
+                  <strong className="board-strong"> Controller </strong>
+                  <li>Controller Feature: {board.controller_feature}</li>
+                  <li>Controller Type: {board.controller_type}</li>
+                  <strong className="board-strong"> Remote </strong>
+                  <li>Remote Feature: {board.remote_feature}</li>
+                  <li>Remote Type: {board.remote_type}</li>
+                  <strong className="board-strong"> Motor </strong>
+                  <li>Motor Size: {board.motor_size}</li>
+                  <li>Motor Kv: {board.motor_kv}</li>
+                  <strong className="board-strong"> Wheel </strong>
+                  <li>Wheel Size: {board.wheel_size}</li>
+                  <li>Wheel Type: {board.wheel_type}</li>
+                  <strong className="board-strong"> Battery </strong>
+                  <li>Battery Voltage: {board.battery_voltage}</li>
+                  <li>Battery Type: {board.battery_type}</li>
+                  <li>Battery Capacity: {board.battery_capacity}</li>
+                  <li>Battery Configuration: {board.battery_configuration}</li>
+                  <strong className="board-strong"> Range </strong>
+                  <li>Range: {board.range_mileage}</li>
+                </ul>
+              </div>
+            ))}
+          </ul>
+        ) : null}
+      </div>
+    );
+  };
+
 
   return (
     <div className="generate">
