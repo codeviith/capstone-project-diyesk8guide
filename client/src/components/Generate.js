@@ -26,14 +26,14 @@ function Generate() {
   const [batteryCapacity, setBatteryCapacity] = useState("");
   const [batteryConfiguration, setBatteryConfiguration] = useState("");
   const [mileage, setMileage] = useState("");
-  const [imageURL, setImageURL] = useState("");
   const [boardGenerated, setBoardGenerated] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const { isLoggedIn } = useContext(AuthContext);
 
   useEffect(() => {
     const updateBoardData = async () => {
-      // Post user's input to the Flask backend
       await fetch("/update_board", {
         method: "POST",
         headers: {
@@ -57,25 +57,20 @@ function Generate() {
           batteryType,
           batteryCapacity,
           batteryConfiguration,
-          mileage,
-          imageURL,
+          mileage
         }),
       });
 
-      // Fetch the latest board
       const response = await fetch("/latest_boards");
       if (response.ok) {
         const latestBoard = await response.json();
 
-        // Set the latest board in the state
         setBoardsData([latestBoard]);
       } else {
-        // Handle the case where the latest board is not found
         console.error("Error fetching latest board");
       }
     };
 
-    // Check if any of the relevant state variables have changed
     if (
       deckType !== "" ||
       deckLength !== "" ||
@@ -94,10 +89,8 @@ function Generate() {
       batteryType !== "" ||
       batteryCapacity !== "" ||
       batteryConfiguration !== "" ||
-      mileage !== "" ||
-      imageURL !== ""
+      mileage !== ""
     ) {
-      // If any of the state variables have changed, update the board data
       updateBoardData();
     }
   }, [
@@ -118,133 +111,156 @@ function Generate() {
     batteryType,
     batteryCapacity,
     batteryConfiguration,
-    mileage,
-    imageURL,
+    mileage
   ]);
 
   const handleGenerateBoard = async () => {
+    setSuccessMessage("");
+    setErrorMessage("");
+
     if (!isLoggedIn) {
       alert("Please log in to use the Generate feature.");
       return;
     }
 
-    // Set values for board spec based on user's selection input
-    if (riderLevel === "Beginner") {
-      setTruckType("Single Kingspin");
-      setTruckWidth("10in.");
-      setControllerFeature(
-        "Low Voltage Cutoff, Overheat Protection, Battery Eliminator Circuit, ABS Braking"
-      );
-      setControllerType("Flipsky ESC");
-      setRemoteFeature("Regen Braking, Reverse, LCD Display");
-      setRemoteType("Thumb-Style Throttle");
-      setDeckType("Kicktail Cruiser");
-      setDeckLength("38in.");
-      setDeckMaterial("7-ply plywood");
-    } else if (riderLevel === "Intermediate") {
-      setTruckType("Double Kingspin");
-      setTruckWidth("12in.");
-      setControllerFeature(
-        "Over-Voltage Protection, 3-12S, BEC, Low-Current Shunt, BLDC Mode, 80A Peak Current"
-      );
-      setControllerType("VESC 4.6");
-      setRemoteFeature(
-        "Regen Braking, Reverse, Cruise-Control, LCD Display, Macro Buttons"
-      );
-      setRemoteType("Trigger-Style Throttle");
-      setDeckType("Drop-Through Carver");
-      setDeckLength("42in.");
-      setDeckMaterial("Carbon Fiber");
-    } else if (riderLevel === "Expert") {
-      setTruckType("MTB Spring Loaded");
-      setTruckWidth("16in.");
-      setControllerFeature(
-        "Over-Voltage Protection, 3-12S, BEC, Low-Current Shunt, BLDC Mode, FOC Mode, 120A Peak Current, Sensorless Acceleration, Full Torque from 0RPM, Overheat Protection, Aluminum heatsink MOSFET"
-      );
-      setControllerType("VESC 6.1");
-      setRemoteFeature(
-        "Regen Braking, Reverse, Cruise Control, LCD Display, Macro Buttons, Ride Mode Toggle"
-      );
-      setRemoteType("Trigger-Style Throttle");
-      setDeckType("35 Degrees MTB Flex");
-      setDeckLength("42in.");
-      setDeckMaterial("Carbon Fiber 16-Ply");
-    }
+const selections = [
+  {value: riderLevel, name: "Rider Level"},
+  {value: motorPower, name: "Rider Style"},
+  {value: terrainType, name: "Terrain Type"},
+  {value: rangeType, name: "Range Type"}
+];
 
-    if (motorPower === "Drag Racing") {
-      setMotorSize("6374");
-      setMotorKv("235kv");
-    } else if (motorPower === "Casual Cruising") {
-      setMotorSize("6356");
-      setMotorKv("190kv");
-    } else if (motorPower === "Hill Climbing") {
-      setMotorSize("6384");
-      setMotorKv("170kv");
-    }
+const missingSelection = selections.find(selection => !selection.value);
 
-    if (terrainType === "Street") {
-      setWheelSize("90mm");
-      setWheelType("78A");
-    } else if (terrainType === "All Terrain") {
-      setWheelSize("175mm");
-      setWheelType("Pneumatic");
-    }
+if (missingSelection) {
+  setErrorMessage(`Please select an option for ${missingSelection.name}`);
+  return;
+}
 
-    if (rangeType === "Normal") {
-      setBatteryVoltage("37v Nominal");
-      setBatteryType("18650 li-ion");
-      setBatteryCapacity("3500mah per cell");
-      setBatteryConfiguration("10s4p");
-      setMileage(
-        "Approx. 22 miles per charge. Note that mileage will depend on a lot of factors such as: type of wheel, terrain conditions, motor configuration, etc."
-      );
-    } else if (rangeType === "Extended") {
-      setBatteryVoltage("44.4v Nominal");
-      setBatteryType("21700 li-ion");
-      setBatteryCapacity("4500mah per cell");
-      setBatteryConfiguration("12s8p");
-      setMileage(
-        "Approx. 45 miles per charge. Note that mileage will depend on a lot of factors such as: type of wheel, terrain conditions, motor configuration, etc."
-      );
+    try {
+      if (riderLevel === "Beginner") {
+        setTruckType("Single Kingspin");
+        setTruckWidth("10in.");
+        setControllerFeature(
+          "Low Voltage Cutoff, Overheat Protection, Battery Eliminator Circuit, ABS Braking"
+        );
+        setControllerType("Flipsky ESC");
+        setRemoteFeature("Regen Braking, Reverse, LCD Display");
+        setRemoteType("Thumb-Style Throttle");
+        setDeckType("Kicktail Cruiser");
+        setDeckLength("38in.");
+        setDeckMaterial("7-ply plywood");
+      } else if (riderLevel === "Intermediate") {
+        setTruckType("Double Kingspin");
+        setTruckWidth("12in.");
+        setControllerFeature(
+          "Over-Voltage Protection, 3-12S, BEC, Low-Current Shunt, BLDC Mode, 80A Peak Current"
+        );
+        setControllerType("VESC 4.6");
+        setRemoteFeature(
+          "Regen Braking, Reverse, Cruise-Control, LCD Display, Macro Buttons"
+        );
+        setRemoteType("Trigger-Style Throttle");
+        setDeckType("Drop-Through Carver");
+        setDeckLength("42in.");
+        setDeckMaterial("Carbon Fiber");
+      } else if (riderLevel === "Expert") {
+        setTruckType("MTB Spring Loaded");
+        setTruckWidth("16in.");
+        setControllerFeature(
+          "Over-Voltage Protection, 3-12S, BEC, Low-Current Shunt, BLDC Mode, FOC Mode, 120A Peak Current, Sensorless Acceleration, Full Torque from 0RPM, Overheat Protection, Aluminum heatsink MOSFET"
+        );
+        setControllerType("VESC 6.1");
+        setRemoteFeature(
+          "Regen Braking, Reverse, Cruise Control, LCD Display, Macro Buttons, Ride Mode Toggle"
+        );
+        setRemoteType("Trigger-Style Throttle");
+        setDeckType("35 Degrees MTB Flex");
+        setDeckLength("42in.");
+        setDeckMaterial("Carbon Fiber 16-Ply");
+      }
+
+      if (motorPower === "Drag Racing") {
+        setMotorSize("6374");
+        setMotorKv("235kv");
+      } else if (motorPower === "Casual Cruising") {
+        setMotorSize("6356");
+        setMotorKv("190kv");
+      } else if (motorPower === "Hill Climbing") {
+        setMotorSize("6384");
+        setMotorKv("170kv");
+      }
+
+      if (terrainType === "Street") {
+        setWheelSize("90mm");
+        setWheelType("78A");
+      } else if (terrainType === "All Terrain") {
+        setWheelSize("175mm");
+        setWheelType("Pneumatic");
+      }
+
+      if (rangeType === "Normal") {
+        setBatteryVoltage("37v Nominal");
+        setBatteryType("18650 li-ion");
+        setBatteryCapacity("3500mah per cell");
+        setBatteryConfiguration("10s4p");
+        setMileage(
+          "Approx. 22 miles per charge. Note that mileage will depend on a lot of factors such as: type of wheel, terrain conditions, motor configuration, etc."
+        );
+      } else if (rangeType === "Extended") {
+        setBatteryVoltage("44.4v Nominal");
+        setBatteryType("21700 li-ion");
+        setBatteryCapacity("4500mah per cell");
+        setBatteryConfiguration("12s8p");
+        setMileage(
+          "Approx. 45 miles per charge. Note that mileage will depend on a lot of factors such as: type of wheel, terrain conditions, motor configuration, etc."
+        );
+      }
+
+      setSuccessMessage("Board generated successfully.");
+      setTimeout( () => {setSuccessMessage("")}, 3000)
+
+      setBoardGenerated(true);
+    } catch (error) {
+      setErrorMessage("Failed to generate board. Please try again.");
     }
-    setBoardGenerated(true);
   };
 
   const renderBoardSpecs = () => {
     return boardGenerated && (
-      <div className="render_board_specs">
+      <div className="render-board-specs">
         <h2>Build Specs</h2>
         {boardsData.length > 0 ? (
           <ul>
             {boardsData.map((board, index) => (
-              <div key={index}>
+              <div className="generate-board-div" key={index}>
                 <ul className="generate-board-spec">
-                  <strong className="board-strong"> Deck </strong>
+                  <strong className="generate-board-strong"> Deck </strong>
                   <li>Deck Type: {board.deck_type}</li>
                   <li>Deck Length: {board.deck_length}</li>
                   <li>Deck Material: {board.deck_material}</li>
-                  <strong className="board-strong"> Truck </strong>
+                  <strong className="generate-board-strong"> Truck </strong>
                   <li>Truck Type: {board.truck_type}</li>
                   <li>Truck Width: {board.truck_width}</li>
-                  <strong className="board-strong"> Controller </strong>
+                  <strong className="generate-board-strong"> Controller </strong>
                   <li>Controller Feature: {board.controller_feature}</li>
                   <li>Controller Type: {board.controller_type}</li>
-                  <strong className="board-strong"> Remote </strong>
+                  <strong className="generate-board-strong"> Remote </strong>
                   <li>Remote Feature: {board.remote_feature}</li>
                   <li>Remote Type: {board.remote_type}</li>
-                  <strong className="board-strong"> Motor </strong>
+                  <strong className="generate-board-strong"> Motor </strong>
                   <li>Motor Size: {board.motor_size}</li>
                   <li>Motor Kv: {board.motor_kv}</li>
-                  <strong className="board-strong"> Wheel </strong>
+                  <strong className="generate-board-strong"> Wheel </strong>
                   <li>Wheel Size: {board.wheel_size}</li>
                   <li>Wheel Type: {board.wheel_type}</li>
-                  <strong className="board-strong"> Battery </strong>
+                  <strong className="generate-board-strong"> Battery </strong>
                   <li>Battery Voltage: {board.battery_voltage}</li>
                   <li>Battery Type: {board.battery_type}</li>
                   <li>Battery Capacity: {board.battery_capacity}</li>
                   <li>Battery Configuration: {board.battery_configuration}</li>
-                  <strong className="board-strong"> Range </strong>
-                  <li>Range: {board.range_mileage}</li>
+                  <strong className="generate-board-strong"> Range </strong>
+                  <li>{board.range_mileage}</li>
                 </ul>
               </div>
             ))}
@@ -315,6 +331,10 @@ function Generate() {
             </select>
           </label>
           <br />
+
+          {/* Display success or error messages */}
+          {successMessage && <div className="success-message">{successMessage}</div>}
+          {errorMessage && <div className="error-message">{errorMessage}</div>}
 
           {/* Generate Board Button */}
           <button onClick={handleGenerateBoard}>Generate Board</button>

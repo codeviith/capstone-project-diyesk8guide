@@ -346,36 +346,36 @@ function Profile() {
                     {boards.length > 0 && (
                         <section>
                             <h2>Boards Generated</h2>
-                            <div className="boards-container">
+                            <div className="profile-boards-container">
                                 {boards.map((board, index) => (
-                                    <div className='board-div' key={index} style={responseStyle}>
-                                        <strong className='board-number'> Board {index + 1}</strong>
+                                    <div className='profile-board-div' key={index} style={responseStyle}>
+                                        <strong className='profile-board-number'> Board {index + 1}</strong>
                                         <ul className='profile-board-spec'>
-                                            <strong className='board-strong'> Deck </strong>
+                                            <strong className='profile-board-strong'> Deck </strong>
                                             <li>Deck Type: {board.deck_type}</li>
                                             <li>Deck Length: {board.deck_length}</li>
                                             <li>Deck Material: {board.deck_material}</li>
-                                            <strong className='board-strong'> Truck </strong>
+                                            <strong className='profile-board-strong'> Truck </strong>
                                             <li>Truck Type: {board.truck_type}</li>
                                             <li>Truck Width: {board.truck_width}</li>
-                                            <strong className='board-strong'> Controller </strong>
+                                            <strong className='profile-board-strong'> Controller </strong>
                                             <li>Controller Feature: {board.controller_feature}</li>
                                             <li>Controller Type: {board.controller_type}</li>
-                                            <strong className='board-strong'> Remote </strong>
+                                            <strong className='profile-board-strong'> Remote </strong>
                                             <li>Remote Feature: {board.remote_feature}</li>
                                             <li>Remote Type: {board.remote_type}</li>
-                                            <strong className='board-strong'> Motor </strong>
+                                            <strong className='profile-board-strong'> Motor </strong>
                                             <li>Motor Size: {board.motor_size}</li>
                                             <li>Motor Kv: {board.motor_kv}</li>
-                                            <strong className='board-strong'> Wheel </strong>
+                                            <strong className='profile-board-strong'> Wheel </strong>
                                             <li>Wheel Size: {board.wheel_size}</li>
                                             <li>Wheel Type: {board.wheel_type}</li>
-                                            <strong className='board-strong'> Battery </strong>
+                                            <strong className='profile-board-strong'> Battery </strong>
                                             <li>Battery Voltage: {board.battery_voltage}</li>
                                             <li>Battery Type: {board.battery_type}</li>
                                             <li>Battery Capacity: {board.battery_capacity}</li>
                                             <li>Battery Configuration: {board.battery_configuration}</li>
-                                            <strong className='board-strong'> Range </strong>
+                                            <strong className='profile-board-strong'> Range </strong>
                                             <li>Range: {board.range_mileage}</li>
                                         </ul>
                                         {/* Delete Button */}
@@ -422,7 +422,7 @@ function Profile() {
                                             <p><strong className='image-details-strong'>Motor Type:</strong> {image.motor_size} {image.motor_kv}Kv {image.motor_power}Watts</p>
                                             <p><strong className='image-details-strong'>Wheel Type:</strong> {image.wheel_size} {image.wheel_type}</p>
                                             <p><strong className='image-details-strong'>Max Speed & Range:</strong> {image.max_speed} MPH, {image.max_range} Miles</p>
-                                            <p><strong className='image-details-strong'>Other Features:</strong> {image.other_features}</p>
+                                            <p><strong className='image-details-strong'>Other Features:</strong><p className='image-details-other-features'>{image.other_features}</p></p>
                                             <p className='rating'><strong className='image-details-strong'>Rating:</strong> {image.hearts}</p>
                                             <p className='delete-uploaded-image-button-container'><button className="delete-uploaded-image-button" onClick={() => deleteUploadedImage(image.id)}>Delete</button></p>
                                         </div>
@@ -446,7 +446,7 @@ function Profile() {
                                             <p><strong className='image-details-strong'>Motor Type:</strong> {image.motor_size} {image.motor_kv}Kv {image.motor_power}Watts</p>
                                             <p><strong className='image-details-strong'>Wheel Type:</strong> {image.wheel_size} {image.wheel_type}</p>
                                             <p><strong className='image-details-strong'>Max Speed & Range:</strong> {image.max_speed} MPH, {image.max_range} Miles</p>
-                                            <p><strong className='image-details-strong'>Other Features:</strong> {image.other_features}</p>
+                                            <p><strong className='image-details-strong'>Other Features:</strong><p className='image-details-other-features'>{image.other_features}</p></p>
                                             <p className='rating'><strong className='image-details-strong'>Rating:</strong> {image.hearts}</p>
                                         </div>
                                         <div onClick={() => unlikeImage(image.id)} title="Unlike" style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>

@@ -15,7 +15,7 @@ function About() {
       </span>
       <div className="contact-us">
         <h2>Questions or Concerns?</h2>
-        <p>Please don't hesitate to reach out to us with any queries or feedback.</p>
+        <p>Please don't hesitate to reach out to us with questions or feedbacks.</p>
         <NavLink to="/contactus">Contact Us</NavLink>
       </div>
     </div>

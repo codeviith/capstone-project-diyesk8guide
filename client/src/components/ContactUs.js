@@ -15,6 +15,10 @@ function ContactUs() {
 
 
     const handleChange = (e) => {
+        if (e.target.name === 'message' && e.target.value.length > 600) {
+            return; // Empty return here is to prevent adding more characters once 600 limit is reached.
+        }
+
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
@@ -49,22 +53,36 @@ function ContactUs() {
                         'Content-Type': 'application/json'
                     }
                 });
-    
-                const responseData = await response.json();
-    
+
                 if (response.ok) {
                     setSuccessMessage('Thank you for contacting us. We will be in touch shortly.');
                     setFormData({ firstName: '', lastName: '', email: '', message: '' }); // code to reset form
                 } else {
-                    setErrorMessage('Failed to submit message. Please try again.'); 
+                    setErrorMessage('Failed to submit message. Please try again.');
                 }
             } catch (error) {
                 setErrorMessage('Failed to submit message. Please try again.');
             }
         } else if (!isLoggedIn) {
-            setErrorMessage('You must log in to submit a message'); // Sets the error message if user not logged in
-            return; //empty return so as to prevent execution
+            setErrorMessage('You must log in to submit a message');
+            return;
         }
+    };
+
+    const getCharacterCountStyle = () => {
+        let color = 'inherit'; // "inherit" --> code to 'inherit' the current color
+        const messageLength = formData.message.length;
+    
+        if (messageLength > 590) {
+            color = 'darkred';
+        } else if (messageLength > 500) {
+            color = 'yellow';
+        }
+    
+        return {
+            fontWeight: messageLength > 590 ? 'bold' : 'normal',
+            color: color
+        };
     };
 
     return (
@@ -92,8 +110,16 @@ function ContactUs() {
                 </label>
                 <label>
                     Message:
-                    <textarea name="message" value={formData.message} onChange={handleChange}></textarea>
+                    <textarea
+                        name="message"
+                        value={formData.message}
+                        onChange={handleChange}
+                        maxLength={600} // Code for 600 character limit
+                    ></textarea>
                     {formErrors.message && <div className="error-message">{formErrors.message}</div>}
+                    <div style={getCharacterCountStyle()}>
+                        {formData.message.length}/600
+                    </div>
                 </label>
                 <button type="submit">Submit</button>
             </form>

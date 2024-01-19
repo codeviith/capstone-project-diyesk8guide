@@ -137,7 +137,7 @@ function Gallery() {
 
 
     const handleSubmit = async (e) => {
-        const submissionFields = {  //code to ad 'n/a' to other_features if input is blank
+        const submissionFields = {  //code to add 'n/a' to other_features if input is blank
             ...formFields,
             other_features: formFields.other_features.trim() === '' ? 'n/a' : formFields.other_features
         };
@@ -158,14 +158,14 @@ function Gallery() {
         formData.append('image', image);
 
         try {
-            let response = await fetch('/gallery/upload', {  //code to upload image
+            let response = await fetch('/gallery/upload', {  // Code to upload image
                 method: 'POST',
                 body: formData
             });
 
             if (response.ok) {
                 const responseData = await response.json();
-                const imageId = responseData.id; // Get the id of the uploaded image
+                const imageId = responseData.id; // Code to get the id of the uploaded image
 
                 response = await fetch('/gallery', {  //code to add additional data
                     method: 'POST',
@@ -232,7 +232,7 @@ function Gallery() {
                                 <p><strong className='item-details-strong'>Motor Type:</strong> {item.motor_size} {item.motor_kv}Kv {item.motor_power}Watts</p>
                                 <p><strong className='item-details-strong'>Wheel Type:</strong> {item.wheel_size} {item.wheel_type}</p>
                                 <p><strong className='item-details-strong'>Max Speed & Range:</strong> {item.max_speed} MPH, {item.max_range} Miles</p>
-                                <p><strong className='item-details-strong'>Other Features:</strong> {item.other_features}</p>
+                                <p><strong className='item-details-strong'>Other Features:</strong><p className='item-details-other-features'>{item.other_features}</p></p>
                                 <p className='rating'><strong className='item-details-strong'>Rating:</strong> {item.hearts}</p>
                             </div>
                         </div>
@@ -252,7 +252,7 @@ function Gallery() {
                             <p><strong className='item-details-strong'>Motor Type:</strong> {item.motor_size} {item.motor_kv}Kv {item.motor_power}Watts</p>
                             <p><strong className='item-details-strong'>Wheel Type:</strong> {item.wheel_size} {item.wheel_type}</p>
                             <p><strong className='item-details-strong'>Max Speed & Range:</strong> {item.max_speed} MPH, {item.max_range} Miles</p>
-                            <p><strong className='item-details-strong'>Other Features:</strong> {item.other_features}</p>
+                            <p><strong className='item-details-strong'>Other Features:</strong><p className='item-details-other-features'>{item.other_features}</p></p>
                             <HeartButton
                                 imageId={item.id}
                                 onHearted={(hearts) => updateHeartCount(index, hearts)}
@@ -447,14 +447,14 @@ function Gallery() {
 
                     <div>
                         <strong className='form-label'>Other Features</strong>
-                        <input
-                            type="text"
+                        <textarea
                             name="other_features"
-                            placeholder="E.g. Custom mudguards, etc."
+                            placeholder="E.g.VESC 6, FOCBOX Unity, GPS Module, NRF Wireless Dongle, 12s 120A BMS, Carbon Fiber Enclosure, Custom mudguards, etc."
                             value={formFields.other_features}
                             onChange={handleFormFieldChange}
+                            rows={8} // Code to set # of rows, e.g. 8-line textarea
                             maxLength="250"
-                        />
+                        ></textarea>
                         <div className='character-count'
                             style={{ color: formFields.other_features.length > 230 ? 'darkred' : 'black' }}>
                             {formFields.other_features.length}/250

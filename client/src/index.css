@@ -719,14 +719,14 @@ nav a.home-link:hover {
 }
 
 /* boards generated */
-.boards-container {
+.profile-boards-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   gap: 5px;
 }
 
-.board-div {
+.profile-board-div {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -740,7 +740,7 @@ nav a.home-link:hover {
   border-radius: 12px;
 }
 
-.board-number {
+.profile-board-number {
   display: block;
   font-size: 25px;
   margin-top: 15px;
@@ -751,7 +751,7 @@ nav a.home-link:hover {
   /* text-decoration:underline; */
 }
 
-.board-strong {
+.profile-board-strong {
   display: block;
   font-size: 20px;
   margin-top: 10px;
@@ -909,9 +909,14 @@ nav a.home-link:hover {
 }
 
 /* shared */
+.image-details p {
+  margin: 1px;
+  padding: 5px;
+}
+
 .image-details {
   margin-top: 5px;
-  padding: 15px;
+  padding: 10px;
   width:38%;
   background-color: transparent;
   color: navy;
@@ -919,6 +924,15 @@ nav a.home-link:hover {
   border-radius: 20px;
   text-justify: inter-word;
 }
+
+.image-details-strong {
+  font-weight: bold;
+  color: navy;
+}
+
+/* .image-details-other-features {
+  text-align: justify;
+} */
 
 /* liked images */
 .liked-image-container {
@@ -977,11 +991,13 @@ nav a.home-link:hover {
 .generate select {
   padding: 5px;
   font-size: 15px;
+  border-radius: 8px;
 }
 
 .generate button {
   padding: 10px;
   font-size: 20px;
+  margin-top:25px;
   background-color: #007bff;
   color: white;
   border: none;
@@ -994,15 +1010,8 @@ nav a.home-link:hover {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
 }
 
-.generate .render_image_container, .generate .render_board_specs {
+.render-board-specs {
   margin-top: 20px;
-}
-
-.generate img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
 .generate ul {
@@ -1010,33 +1019,38 @@ nav a.home-link:hover {
   padding: 0;
 }
 
-.generate strong {
-  font-weight: bold;
-}
 
 
 
-
-/* board specs list */
-.category-container {
-  margin-bottom: 50px;
+/* Generate board specs */
+.generate-board-div {
+  max-width: 60%;
+  border: 2px solid black;
+  background-color: rgb(156, 156, 156);;
+  padding: 25px;
+  border-radius: 35px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .generate-board-spec {
   list-style: none;
-  padding: 0;
   text-align: center;
 }
 
-.generate-board-spec strong {
+.generate-board-strong {
   display: block;
   margin-top: 10px;
+  text-decoration: underline;
   font-weight: bold;
   font-size: 22px;
+  text-align: center;
 }
 
 .generate-board-spec li {
   margin-bottom: 3px;
+  text-align: center;
+  padding:1px;
 }
 
 
@@ -1095,7 +1109,7 @@ nav a.home-link:hover {
   max-width: 700px;
   margin: 0 auto;
   padding: 10px;
-  text-align: center;
+  text-align: justify;
   background-color: gray;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -1264,23 +1278,33 @@ nav a.home-link:hover {
   border-radius: 50000px;
 }
 
+
+.item-details p {
+  margin: 1px;
+  padding: 2px;
+}
+
 .item-details {
   padding: 10px; 
   background-color: darkgray;
   color: black; 
   text-align: left;
-  text-justify: inter-word;
 }
+
+/* .item-details-other-features {
+  text-align: justify;
+} */
 
 .item-details-strong {
   font-weight: bold;
   color: black;
-  text-justify: inter-word;
 }
 
 .rating {
   text-align: center;
-  margin-top: 35px;
+  margin-top: 55px;
+  color:darkgreen;
+  font-weight: bold;
 }
 
 .file-input-wrapper {
@@ -1338,8 +1362,9 @@ nav a.home-link:hover {
   margin-top: 10px;
 }
 
-.floating-form input {
-  width: 93%; 
+.floating-form input,
+.floating-form textarea {
+  max-width: 93%; 
   margin-bottom: 1px; 
   padding: 3px;
 }
