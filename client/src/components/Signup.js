@@ -58,6 +58,7 @@ const Signup = () => {
     'Evolve', 'Lacroix', 'KalyNYC', 'Metroboard',
     'Trampa', 'Mellow', 'Boosted', 'Exway',
     'Bajaboard', 'Hoyt St.', 'Acton', 'Backfire',
+    'Meepo'
   ];
 
   return (

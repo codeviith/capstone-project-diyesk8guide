@@ -218,6 +218,8 @@ def update_user_data(user_id):
         user.rider_stance = data['rider_stance']
     if 'boards_owned' in data:
         user.boards_owned = ','.join(data['boards_owned'])
+    if 'password' in data:
+        user.password_hash = bcrypt.generate_password_has(data['password']).decode('utf-8')
 
     db.session.commit()
 

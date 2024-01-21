@@ -218,6 +218,8 @@ function Profile() {
                         <h2>Account</h2>
                         {userData && (
                             <div className='user-data-container'>
+
+                                {/* First Name */}
                                 <div className="user-data-field">
                                     <strong className="user-data-label">First Name:</strong>
                                     <div className="input-and-buttons">
@@ -237,6 +239,7 @@ function Profile() {
                                     </div>
                                 </div>
 
+                                {/* Last Name */}
                                 <div className="user-data-field">
                                     <strong className="user-data-label">Last Name:</strong>
                                     <div className="input-and-buttons">
@@ -256,6 +259,7 @@ function Profile() {
                                     </div>
                                 </div>
 
+                                {/* Email(login) */}
                                 <div className="user-data-field">
                                     <strong className="user-data-label">Email:</strong>
                                     <div className="input-and-buttons">
@@ -275,6 +279,29 @@ function Profile() {
                                     </div>
                                 </div>
 
+                                {/* Password */}
+                                <div className="user-data-field">
+                                    <strong className="user-data-label">Password:</strong>
+                                    <div className="input-and-buttons">
+                                        {editMode.password ? (
+                                            <input
+                                                type="password"
+                                                className="user-data-input"
+                                                value={editValues.password}
+                                                onChange={(e) => setEditValues({ ...editValues, password: e.target.value })}
+                                            />
+                                        ) : (
+                                            <span className="user-data-value">********</span> // Placeholder for password
+                                        )}
+                                        {/* Edit Button */}
+                                        {editMode.password && <button className="save-button" onClick={() => saveData('password')}>Save</button>}
+                                        <button className="edit-button" onClick={() => setEditMode({ ...editMode, password: !editMode.password })}>
+                                            {editMode.password ? 'Cancel' : 'Edit'}
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {/* Rider Stance */}
                                 <div className="user-data-field">
                                     <strong className="user-data-label">Rider Stance:</strong>
                                     <div className="input-and-buttons">
@@ -298,6 +325,7 @@ function Profile() {
                                     </div>
                                 </div>
 
+                                {/* Boards Owned */}
                                 <div className="user-data-field">
                                     <strong className="user-data-label">Boards Owned:</strong>
                                     <div className="input-and-buttons">
@@ -338,6 +366,7 @@ function Profile() {
                                         </button>
                                     </div>
                                 </div>
+
                             </div>
                         )}
                     </section>

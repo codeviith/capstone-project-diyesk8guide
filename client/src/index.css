@@ -564,16 +564,17 @@ nav a.home-link:hover {
   display: flex;
   flex-wrap: wrap;
   margin-top: 10px;
-  margin-left: 10px;
+  margin-left: 2px;
   align-items: flex-start; 
   justify-content: left; 
 }
 
-.signup .checkbox {
-  margin-right: 10px;
-  margin-left: 1px;
+.signup .checkbox-container .checkbox {
+  transform: scale(1.8);
+  margin-right: 1px;
+  margin-left: 0px;
+  cursor: pointer;
 }
-
 
 
 
