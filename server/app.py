@@ -225,6 +225,27 @@ def update_user_data(user_id):
 
     return jsonify({'message': 'User data updated successfully'}), 200
 
+@app.route('/change_password', methods=['POST'])
+def change_password():
+    if 'user_id' not in session:
+        return jsonify({'error': 'Authentication required'}), 401
+
+    user = User.query.get(session['user_id'])
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+
+    data = request.get_json()
+    current_password = data.get('currentPassword')
+    new_password = data.get('newPassword')
+
+    if not bcrypt.check_password_hash(user.password_hash, current_password):
+        return jsonify({'error': 'Current password is incorrect'}), 403
+
+    user.password_hash = bcrypt.generate_password_hash(new_password).decode('utf-8')
+    db.session.commit()
+
+    return jsonify({'message': 'Password updated successfully'}), 200
+
 
 ### ------------------ BOARDS ------------------ ###
 

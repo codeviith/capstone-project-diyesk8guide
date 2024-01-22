@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import BrokenHeartIcon from './BrokenHeartIcon';
 import UnlikeIcon from './UnlikeIcon';
 import { responseStyle } from './CommonStyles';
 import { formatResponse } from './CommonFunctions';
@@ -28,6 +27,12 @@ function Profile() {
         rider_stance: userData?.rider_stance || '',
         boards_owned: typeof userData?.boards_owned === 'string' ? userData.boards_owned.split(',') : []   // Code to ensure this is an array
     });
+    const [passwordFields, setPasswordFields] = useState({
+        currentPassword: '',
+        newPassword: '',
+        confirmNewPassword: ''
+    });
+    const [passwordError, setPasswordError] = useState('');
 
 
     useEffect(() => {
@@ -208,6 +213,40 @@ function Profile() {
         }
     };
 
+    const handlePasswordChange = async () => {
+        if (passwordFields.newPassword !== passwordFields.confirmNewPassword) { // Code to check if new passowrd and confirm new password match
+            setPasswordError("New passwords do not match.");
+            return;
+        }
+
+        try {
+            const response = await fetch('/change_password', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    currentPassword: passwordFields.currentPassword,
+                    newPassword: passwordFields.newPassword
+                }),
+                credentials: 'include'
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                setPasswordError(''); // Code to reset error message upon handle success
+                alert("Password changed successfully.");
+                setPasswordFields({ currentPassword: '', newPassword: '', confirmNewPassword: '' }); // Code to reset input field
+                setEditMode({ ...editMode, password: false });
+            } else {
+                setPasswordError(data.message);
+            }
+        } catch (error) {
+            setPasswordError("Failed to change password.");
+        }
+    };
+
+
     return (
         <div className="profile"> {/* Apply 'profile' class name */}
             {isLoggedIn ? (
@@ -284,19 +323,43 @@ function Profile() {
                                     <strong className="user-data-label">Password:</strong>
                                     <div className="input-and-buttons">
                                         {editMode.password ? (
-                                            <input
-                                                type="password"
-                                                className="user-data-input"
-                                                value={editValues.password}
-                                                onChange={(e) => setEditValues({ ...editValues, password: e.target.value })}
-                                            />
+
+                                            <div>
+                                            <label className='password-label'>
+                                                Current Password:
+                                                <input className="password-user-data-input"
+                                                    type="password"
+                                                    value={passwordFields.currentPassword}
+                                                    onChange={(e) => setPasswordFields({ ...passwordFields, currentPassword: e.target.value })}
+                                                />
+                                            </label>
+                                            <label className='password-label'>
+                                                New Password:
+                                                <input className="password-user-data-input"
+                                                    type="password"
+                                                    value={passwordFields.newPassword}
+                                                    onChange={(e) => setPasswordFields({ ...passwordFields, newPassword: e.target.value })}
+                                                />
+                                            </label>
+                                            <label className='password-label'>
+                                                Confirm New Password:
+                                                <input className="password-user-data-input"
+                                                    type="password"
+                                                    value={passwordFields.confirmNewPassword}
+                                                    onChange={(e) => setPasswordFields({ ...passwordFields, confirmNewPassword: e.target.value })}
+                                                />
+                                            </label>
+                                            {passwordError && <div className="password-error-message">{passwordError}</div>}
+                                        </div>
                                         ) : (
                                             <span className="user-data-value">********</span> // Placeholder for password
                                         )}
                                         {/* Edit Button */}
-                                        {editMode.password && <button className="save-button" onClick={() => saveData('password')}>Save</button>}
+                                        {editMode.password && <button className="save-button" onClick={handlePasswordChange}>Save</button>}
+
                                         <button className="edit-button" onClick={() => setEditMode({ ...editMode, password: !editMode.password })}>
                                             {editMode.password ? 'Cancel' : 'Edit'}
+                                            
                                         </button>
                                     </div>
                                 </div>
