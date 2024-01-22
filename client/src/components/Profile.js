@@ -34,7 +34,14 @@ function Profile() {
     });
     const [passwordError, setPasswordError] = useState('');
     const [passwordSuccess, setPasswordSuccess] = useState('');
+    const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+    const [showNewPassword, setShowNewPassword] = useState(false);
+    const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
+    const [timerId, setTimerId] = useState(null);
 
+    const toggleCurrentPasswordVisibility = () => setShowCurrentPassword(!showCurrentPassword);
+    const toggleNewPasswordVisibility = () => setShowNewPassword(!showNewPassword);
+    const toggleConfirmNewPasswordVisibility = () => setShowConfirmNewPassword(!showConfirmNewPassword);
 
     useEffect(() => {
         if (isLoggedIn) {
@@ -62,6 +69,13 @@ function Profile() {
             }));
         }
     }, [userData]);
+
+    useEffect(() => {
+        return () => {
+            clearTimeout(timerId);
+        };
+    }, []);
+
 
     const fetchUserData = async () => {
         try {
@@ -215,11 +229,24 @@ function Profile() {
     };
 
     const handlePasswordChange = async () => {
-        if (passwordFields.newPassword !== passwordFields.confirmNewPassword) { // Code to check if new passowrd and confirm new password match
+        if (passwordFields.newPassword !== passwordFields.confirmNewPassword) {
             setPasswordError("New passwords do not match.");
             setPasswordSuccess('');
+
+            if (timerId) clearTimeout(timerId);
+
+            const newTimerId = setTimeout(() => {
+                setPasswordError('');
+            }, 5000);
+            setTimerId(newTimerId);
+
             return;
         }
+
+        const dataToSend = {
+            currentPassword: passwordFields.currentPassword,
+            newPassword: passwordFields.newPassword
+        };
 
         try {
             const response = await fetch('/change_password', {
@@ -227,10 +254,7 @@ function Profile() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    currentPassword: passwordFields.currentPassword,
-                    newPassword: passwordFields.newPassword
-                }),
+                body: JSON.stringify(dataToSend),
                 credentials: 'include'
             });
 
@@ -238,15 +262,40 @@ function Profile() {
             if (response.ok) {
                 setPasswordSuccess("Password changed successfully.");
                 setPasswordError('');
-                setPasswordFields({ currentPassword: '', newPassword: '', confirmNewPassword: '' }); // Code to reset input field
+                setPasswordFields({ currentPassword: '', newPassword: '', confirmNewPassword: '' });
                 setEditMode({ ...editMode, password: false });
+
+                if (timerId) clearTimeout(timerId);
+
+                const newTimerId = setTimeout(() => {
+                    setPasswordSuccess('');
+                }, 5000);
+
+                setTimerId(newTimerId);
+
             } else {
                 setPasswordError(data.error);
                 setPasswordSuccess('');
+
+                if (timerId) clearTimeout(timerId);
+
+                const newTimerId = setTimeout(() => {
+                    setPasswordError('');
+                }, 5000);
+
+                setTimerId(newTimerId);
             }
         } catch (error) {
             setPasswordError("Failed to change password.");
             setPasswordSuccess('');
+
+            if (timerId) clearTimeout(timerId);
+
+            const newTimerId = setTimeout(() => {
+                setPasswordError('');
+            }, 5000);
+
+            setTimerId(newTimerId); 
         }
     };
 
@@ -302,7 +351,7 @@ function Profile() {
                                     </div>
                                 </div>
 
-                                {/* Email(login) */}
+                                {/* Email */}
                                 <div className="user-data-field">
                                     <strong className="user-data-label">Email:</strong>
                                     <div className="input-and-buttons">
@@ -329,31 +378,57 @@ function Profile() {
                                     {passwordError && <div className="password-error-message">{passwordError}</div>}
                                     <div className="input-and-buttons">
                                         {editMode.password ? (
-
                                             <div>
+                                                {/* Current Password Input */}
                                                 <label className='password-label'>
                                                     Current Password:
-                                                    <input className="password-user-data-input"
-                                                        type="password"
-                                                        value={passwordFields.currentPassword}
-                                                        onChange={(e) => setPasswordFields({ ...passwordFields, currentPassword: e.target.value })}
-                                                    />
+                                                    <div className="password-container">
+                                                        <input className="password-user-data-input"
+                                                            type={showCurrentPassword ? "text" : "password"}
+                                                            value={passwordFields.currentPassword}
+                                                            onChange={(e) => setPasswordFields({ ...passwordFields, currentPassword: e.target.value })}
+                                                        />
+                                                        <button className="password-toggle-button"
+                                                            type="button"
+                                                            onMouseDown={toggleCurrentPasswordVisibility}
+                                                            onMouseUp={toggleCurrentPasswordVisibility}>
+                                                            👁️
+                                                        </button>
+                                                    </div>
                                                 </label>
+                                                {/* New Password Input */}
                                                 <label className='password-label'>
                                                     New Password:
-                                                    <input className="password-user-data-input"
-                                                        type="password"
-                                                        value={passwordFields.newPassword}
-                                                        onChange={(e) => setPasswordFields({ ...passwordFields, newPassword: e.target.value })}
-                                                    />
+                                                    <div className="password-container">
+                                                        <input className="password-user-data-input"
+                                                            type={showNewPassword ? "text" : "password"}
+                                                            value={passwordFields.newPassword}
+                                                            onChange={(e) => setPasswordFields({ ...passwordFields, newPassword: e.target.value })}
+                                                        />
+                                                        <button className="password-toggle-button"
+                                                            type="button"
+                                                            onMouseDown={toggleNewPasswordVisibility}
+                                                            onMouseUp={toggleNewPasswordVisibility}>
+                                                            👁️
+                                                        </button>
+                                                    </div>
                                                 </label>
+                                                {/* Confirm New Password Input */}
                                                 <label className='password-label'>
                                                     Confirm New Password:
-                                                    <input className="password-user-data-input"
-                                                        type="password"
-                                                        value={passwordFields.confirmNewPassword}
-                                                        onChange={(e) => setPasswordFields({ ...passwordFields, confirmNewPassword: e.target.value })}
-                                                    />
+                                                    <div className="password-container">
+                                                        <input className="password-user-data-input"
+                                                            type={showConfirmNewPassword ? "text" : "password"}
+                                                            value={passwordFields.confirmNewPassword}
+                                                            onChange={(e) => setPasswordFields({ ...passwordFields, confirmNewPassword: e.target.value })}
+                                                        />
+                                                        <button className="password-toggle-button"
+                                                            type="button"
+                                                            onMouseDown={toggleConfirmNewPasswordVisibility}
+                                                            onMouseUp={toggleConfirmNewPasswordVisibility}>
+                                                            👁️
+                                                        </button>
+                                                    </div>
                                                 </label>
                                             </div>
                                         ) : (

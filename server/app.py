@@ -231,18 +231,19 @@ def change_password():
         return jsonify({'error': 'Authentication required'}), 401
 
     user_id = session['user_id']
-    data = request.json
+    data = request.get_json()
     current_password = data.get('currentPassword')
     new_password = data.get('newPassword')
 
     user = User.query.get(user_id)
+
     if not user or not bcrypt.check_password_hash(user.password_hash, current_password):
         return jsonify({'error': 'Current password is incorrect'}), 400
 
-    user.password_hash = bcrypt.generate_password_hash(new_password).decode('utf-8')
+    user.password_hash = new_password  ## Code to trigger setter in the User model
     db.session.commit()
 
-    return jsonify({'message': 'Password updated successfully'}), 200
+    return jsonify({'message': 'Password changed successfully'}), 200
 
 
 ### ------------------ BOARDS ------------------ ###
@@ -263,7 +264,6 @@ def get_latest_board():
         return jsonify({'error': 'Authentication required.'}), 401
     
     user_id = session['user_id']
-    # Query boards, order in descending order, then retrieve first one
     latest_board = Board.query.filter_by(user_id=user_id).order_by(desc(Board.timestamp)).first()
 
     if latest_board:
@@ -284,7 +284,6 @@ def delete_board_by_id(board_id):
         return {"error": "Board not found."}, 404
 
 
-# append data directly to Board:
 @app.post('/update_board')
 def update_board():
     if 'user_id' not in session:
