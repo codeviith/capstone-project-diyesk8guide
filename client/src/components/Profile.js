@@ -33,6 +33,7 @@ function Profile() {
         confirmNewPassword: ''
     });
     const [passwordError, setPasswordError] = useState('');
+    const [passwordSuccess, setPasswordSuccess] = useState('');
 
 
     useEffect(() => {
@@ -216,6 +217,7 @@ function Profile() {
     const handlePasswordChange = async () => {
         if (passwordFields.newPassword !== passwordFields.confirmNewPassword) { // Code to check if new passowrd and confirm new password match
             setPasswordError("New passwords do not match.");
+            setPasswordSuccess('');
             return;
         }
 
@@ -234,15 +236,17 @@ function Profile() {
 
             const data = await response.json();
             if (response.ok) {
-                setPasswordError(''); // Code to reset error message upon handle success
-                alert("Password changed successfully.");
+                setPasswordSuccess("Password changed successfully.");
+                setPasswordError('');
                 setPasswordFields({ currentPassword: '', newPassword: '', confirmNewPassword: '' }); // Code to reset input field
                 setEditMode({ ...editMode, password: false });
             } else {
-                setPasswordError(data.message);
+                setPasswordError(data.error);
+                setPasswordSuccess('');
             }
         } catch (error) {
             setPasswordError("Failed to change password.");
+            setPasswordSuccess('');
         }
     };
 
@@ -321,36 +325,37 @@ function Profile() {
                                 {/* Password */}
                                 <div className="user-data-field">
                                     <strong className="user-data-label">Password:</strong>
+                                    {passwordSuccess && <div className="password-success-message">{passwordSuccess}</div>}
+                                    {passwordError && <div className="password-error-message">{passwordError}</div>}
                                     <div className="input-and-buttons">
                                         {editMode.password ? (
 
                                             <div>
-                                            <label className='password-label'>
-                                                Current Password:
-                                                <input className="password-user-data-input"
-                                                    type="password"
-                                                    value={passwordFields.currentPassword}
-                                                    onChange={(e) => setPasswordFields({ ...passwordFields, currentPassword: e.target.value })}
-                                                />
-                                            </label>
-                                            <label className='password-label'>
-                                                New Password:
-                                                <input className="password-user-data-input"
-                                                    type="password"
-                                                    value={passwordFields.newPassword}
-                                                    onChange={(e) => setPasswordFields({ ...passwordFields, newPassword: e.target.value })}
-                                                />
-                                            </label>
-                                            <label className='password-label'>
-                                                Confirm New Password:
-                                                <input className="password-user-data-input"
-                                                    type="password"
-                                                    value={passwordFields.confirmNewPassword}
-                                                    onChange={(e) => setPasswordFields({ ...passwordFields, confirmNewPassword: e.target.value })}
-                                                />
-                                            </label>
-                                            {passwordError && <div className="password-error-message">{passwordError}</div>}
-                                        </div>
+                                                <label className='password-label'>
+                                                    Current Password:
+                                                    <input className="password-user-data-input"
+                                                        type="password"
+                                                        value={passwordFields.currentPassword}
+                                                        onChange={(e) => setPasswordFields({ ...passwordFields, currentPassword: e.target.value })}
+                                                    />
+                                                </label>
+                                                <label className='password-label'>
+                                                    New Password:
+                                                    <input className="password-user-data-input"
+                                                        type="password"
+                                                        value={passwordFields.newPassword}
+                                                        onChange={(e) => setPasswordFields({ ...passwordFields, newPassword: e.target.value })}
+                                                    />
+                                                </label>
+                                                <label className='password-label'>
+                                                    Confirm New Password:
+                                                    <input className="password-user-data-input"
+                                                        type="password"
+                                                        value={passwordFields.confirmNewPassword}
+                                                        onChange={(e) => setPasswordFields({ ...passwordFields, confirmNewPassword: e.target.value })}
+                                                    />
+                                                </label>
+                                            </div>
                                         ) : (
                                             <span className="user-data-value">********</span> // Placeholder for password
                                         )}
@@ -359,7 +364,7 @@ function Profile() {
 
                                         <button className="edit-button" onClick={() => setEditMode({ ...editMode, password: !editMode.password })}>
                                             {editMode.password ? 'Cancel' : 'Edit'}
-                                            
+
                                         </button>
                                     </div>
                                 </div>
