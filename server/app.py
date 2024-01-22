@@ -369,15 +369,12 @@ def handle_contact_form():
             user_id=user_id
         )
 
-        # Add the new record to the database
         db.session.add(new_contact)
         db.session.commit()
 
-        # Return a success response
         return jsonify({'message': 'Your message has been successfully submitted'}), 200
 
     except Exception as e:
-        # Handle exceptions (e.g., missing data, database errors)
         print(str(e))
         return jsonify({'error': 'An error occurred while processing your request'}), 500
 
@@ -388,7 +385,7 @@ def handle_contact_form():
 # Directory for incoming uploads
 IMAGE_UPLOAD_FOLDER = app.config['IMAGE_URL']
 
-# Making sure directory exists
+# Confirming directory exists
 os.makedirs(IMAGE_UPLOAD_FOLDER, exist_ok=True)
 
 
@@ -415,7 +412,6 @@ def upload_image():
         image.save(image_path)
         print(f"Image saved at {image_path}")
 
-        # Create and save the gallery entry with dropdown data
         new_gallery_entry = Gallery(
             image_filename=filename,
             user_id=user_id,
@@ -452,7 +448,7 @@ def get_uploaded_images():
 
     user_id = session['user_id']
     uploaded_images = Gallery.query.filter_by(user_id=user_id).all()
-    # print(uploaded_images)
+
     return jsonify([image.to_dict() for image in uploaded_images])
 
 
@@ -463,7 +459,7 @@ def get_liked_images():
 
     user_id = session['user_id']
     liked_images = db.session.query(Gallery).join(Heart, Gallery.id == Heart.gallery_id).filter(Heart.user_id == user_id).all() # Query all items that the user has liked
-    # print(liked_images)
+
     return jsonify([image.to_dict() for image in liked_images])
 
 
@@ -494,7 +490,7 @@ def gallery():
             return jsonify({'error': 'Gallery item not found'}), 404
 
     elif request.method == 'GET':
-        user_id = session.get('user_id')  # Get the logged-in user's ID, if available
+        user_id = session.get('user_id')  # Code to get the logged-in user's ID, if available
         gallery_items = Gallery.query.all()
         return jsonify([item.to_dict(user_id=user_id) for item in gallery_items])
 
@@ -510,7 +506,7 @@ def delete_uploaded_image(image_id):
         return jsonify({'error': 'Uploaded image not found or unauthorized'}), 404
 
     try:
-        Heart.query.filter_by(gallery_id=image_id).delete() ## code to manually delete the associated heart relationship
+        Heart.query.filter_by(gallery_id=image_id).delete() ## Code to manually delete the associated heart relationship
 
         db.session.delete(uploaded_image)
         db.session.commit()
@@ -541,13 +537,11 @@ def heart_image():
 
     heart_record = Heart.query.filter_by(user_id=user_id, gallery_id=image_id).first()
     if heart_record:
-        print("Heart exists, removing it")
-        # Existing heart is removed
+        # print("Heart exists, removing it")
         db.session.delete(heart_record)
         image.hearts -= 1
     else:
-        print("Heart does not exist, adding it")
-        # New heart is added
+        # print("Heart does not exist, adding it")
         new_heart = Heart(user_id=user_id, gallery_id=image_id)
         db.session.add(new_heart)
         image.hearts += 1

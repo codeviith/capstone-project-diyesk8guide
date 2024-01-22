@@ -295,8 +295,12 @@ function Profile() {
                 setPasswordError('');
             }, 5000);
 
-            setTimerId(newTimerId); 
+            setTimerId(newTimerId);
         }
+    };
+
+    const resetPasswordFields = () => {
+        setPasswordFields({ currentPassword: '', newPassword: '', confirmNewPassword: '' });
     };
 
 
@@ -436,10 +440,11 @@ function Profile() {
                                         )}
                                         {/* Edit Button */}
                                         {editMode.password && <button className="save-button" onClick={handlePasswordChange}>Save</button>}
-
-                                        <button className="edit-button" onClick={() => setEditMode({ ...editMode, password: !editMode.password })}>
+                                        <button className="edit-button" onClick={() => {
+                                            setEditMode({ ...editMode, password: !editMode.password });
+                                            resetPasswordFields();
+                                        }}>
                                             {editMode.password ? 'Cancel' : 'Edit'}
-
                                         </button>
                                     </div>
                                 </div>

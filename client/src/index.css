@@ -1602,3 +1602,19 @@ nav a.home-link:hover {
   margin-bottom: 10px;
 }
 
+.password-success-message {
+  color: rgb(0, 64, 0);
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.password-error-message {
+  color: rgb(115, 1, 1);
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
