@@ -229,17 +229,23 @@ function Profile() {
     };
 
     const handlePasswordChange = async () => {
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+        if (passwordFields.newPassword === passwordFields.currentPassword) {
+            setPasswordError("New password cannot be the same as current password");
+            setPasswordSuccess('');
+            return;
+        }
+
         if (passwordFields.newPassword !== passwordFields.confirmNewPassword) {
             setPasswordError("New passwords do not match.");
             setPasswordSuccess('');
+            return;
+        }
 
-            if (timerId) clearTimeout(timerId);
-
-            const newTimerId = setTimeout(() => {
-                setPasswordError('');
-            }, 5000);
-            setTimerId(newTimerId);
-
+        if (!passwordRegex.test(passwordFields.newPassword)) {
+            setPasswordError("Password must contain at least one uppercase letter, one number, and one special character.");
+            setPasswordSuccess('');
             return;
         }
 
@@ -276,31 +282,17 @@ function Profile() {
             } else {
                 setPasswordError(data.error);
                 setPasswordSuccess('');
-
-                if (timerId) clearTimeout(timerId);
-
-                const newTimerId = setTimeout(() => {
-                    setPasswordError('');
-                }, 5000);
-
-                setTimerId(newTimerId);
             }
         } catch (error) {
             setPasswordError("Failed to change password.");
             setPasswordSuccess('');
-
-            if (timerId) clearTimeout(timerId);
-
-            const newTimerId = setTimeout(() => {
-                setPasswordError('');
-            }, 5000);
-
-            setTimerId(newTimerId);
         }
     };
 
     const resetPasswordFields = () => {
         setPasswordFields({ currentPassword: '', newPassword: '', confirmNewPassword: '' });
+        setPasswordError('');
+        setPasswordSuccess('');
     };
 
 
