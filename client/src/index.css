@@ -1292,14 +1292,24 @@ nav a.home-link:hover {
   padding: 8px;
 }
 
-.gallery-items h2 {
+.featured-builds-container h2 {
   width: 100%;
   color: white;
-  font-size: 24px;
+  font-size: 26px;
   text-align: center;
-  margin-bottom: 10px;
+  margin: 7px;
 }
 
+.featured-builds-container {
+  background-color: black;
+  border-radius: 15px;
+  text-align: center;
+  margin: 0 auto;
+  width: 85%;
+  height: 50px;
+  padding: 1px;
+  /* box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); */
+}
 .gallery-item {
   flex-basis: calc((100% / 3) - 20px - 20px);
   display: flex; 
