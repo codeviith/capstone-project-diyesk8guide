@@ -15,7 +15,7 @@ from werkzeug.utils import secure_filename
 
 # Local imports
 from config import app, db, api
-from models import db, Board, Guru, User, ContactUs, Gallery, Heart
+from models import db, Board, Guru, User, ContactUs, Gallery, Heart, Report
 # from guru_assistant import guru_assistant
 import os
 
@@ -518,6 +518,17 @@ def delete_uploaded_image(image_id):
         print(f"Error deleting uploaded image: {e}")
         return jsonify({'error': str(e)}), 500
 
+@app.route('/gallery/top')
+def get_top_images():
+    top_images = Gallery.query \
+        .outerjoin(Heart, Gallery.id == Heart.gallery_id) \
+        .group_by(Gallery.id) \
+        .order_by(desc(func.count(Heart.gallery_id))) \
+        .limit(3) \
+        .all()
+    
+    return jsonify([image.to_dict() for image in top_images])
+
 
 ### ------------------ GALLERY => HEART ------------------ ###
 
@@ -572,16 +583,28 @@ def unheart_image():
         return jsonify({'error': 'Heart not found'}), 404
 
 
-@app.route('/gallery/top')
-def get_top_images():
-    top_images = Gallery.query \
-        .outerjoin(Heart, Gallery.id == Heart.gallery_id) \
-        .group_by(Gallery.id) \
-        .order_by(desc(func.count(Heart.gallery_id))) \
-        .limit(3) \
-        .all()
+### ------------------ GALLERY => REPORT ------------------ ###
+
+@app.route('/gallery/report/<int:image_id>', methods=['POST'])
+def report_image(image_id):
+    if 'user_id' not in session:
+        return jsonify({'error': 'Authentication required'}), 401
     
-    return jsonify([image.to_dict() for image in top_images])
+    user_id = session['user_id']
+    existing_report = Report.query.filter_by(user_id=user_id, gallery_id=image_id).first()
+
+    if existing_report:
+        return jsonify({'error': 'You have already reported this image'}), 400
+    
+    new_report = Report(user_id=user_id, gallery_id=image_id)
+    db.session.add(new_report)
+
+    gallery_item = Gallery.query.get(image_id)
+    if gallery_item.reports.count()>=10:
+        db.session.delete(gallery_item)
+
+    db.session.commit()
+    return jsonify({'message': 'Image reported successfully'}), 200
 
 
 if __name__ == '__main__':

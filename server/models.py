@@ -266,6 +266,15 @@ class Heart(db.Model, SerializerMixin):
         return f'<Heart user_id={self.user_id} gallery_id={self.gallery_id}>'
 
 
+### ------------------ REPORT ------------------ ###
+
+class Report(db.Model, SerializerMixin):
+    __tablename__ = 'reports'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    gallery_id = db.Column(db.Integer, db.ForeignKey('gallery.id'))
+
 
 ### ------------------ CONTACTUS ------------------ ###
 

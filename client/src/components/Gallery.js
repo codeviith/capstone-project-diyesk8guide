@@ -216,6 +216,19 @@ function Gallery() {
         setUploadError('');
     };
 
+    const reportImage = async (imageId) => {
+        try {
+            const response = await fetch(`/gallery/report/${imageId}`, {method: 'POST'});
+            if (response.ok) {
+                fetchGalleryItems();
+            } else {
+                console.error('Error reporting image');
+            }
+        } catch(error) {
+            console.error('Error:', error);
+        }
+    };
+
 
     return (
         <div className="gallery-container">
@@ -261,6 +274,7 @@ function Gallery() {
                                 initiallyHearted={item.isHearted}
                                 refreshTopImages={fetchTopHeartedImages}
                             />
+                            <button onClick={() => reportImage(item.id)}>Report</button>
                         </div>
                     </div>
                 ))}
