@@ -519,6 +519,13 @@ nav a.home-link:hover {
   margin-top: 10px;
 }
 
+.password-criteria, .password-criteria span {
+  /* margin-top: 5px; */
+  text-align: left;
+  font-size: 13px;
+  /* font-weight: bold; */
+}
+
 .signup label {
   display: block;
   margin-bottom: 2px; 

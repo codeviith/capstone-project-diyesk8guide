@@ -223,12 +223,6 @@ function Gallery() {
         setUploadError('');
     };
 
-
-
-
-
-
-
     const reportImage = async (imageId) => {
         if (!isLoggedIn) {
             setReportErrors(prevErrors => ({ ...prevErrors, [imageId]: 'You must log in to report a post' }));
@@ -267,12 +261,6 @@ function Gallery() {
             }, 5000);
         }
     };
-
-
-
-
-
-
 
 
     return (
