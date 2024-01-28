@@ -6,12 +6,17 @@ function Signup() {
   const [signupData, setSignupData] = useState({
     email: '',
     password: '',
+    confirmPassword: '',
     firstName: '',
     lastName: '',
     riderStance: '',
     boardsOwned: [],
   });
   const [message, setMessage] = useState({ content: '', type: '' });
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const togglePasswordVisibility = () => setShowPassword(!showPassword);
+  const toggleConfirmPasswordVisibility = () => setShowConfirmPassword(!showConfirmPassword);
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   const [passwordCriteria, setPasswordCriteria] = useState({
     hasUppercase: false,
@@ -25,13 +30,17 @@ function Signup() {
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
 
-    if (name === 'password') {
+    if (name === 'password' || name === 'confirmPassword') {
+      const updatedPassword = name === 'password' ? value : signupData.password;
+      const updatedConfirmPassword = name === 'confirmPassword' ? value : signupData.confirmPassword;
+
       setPasswordCriteria({
-        hasUppercase: /[A-Z]/.test(value),
-        hasLowercase: /[a-z]/.test(value),
-        hasNumber: /[0-9]/.test(value),
-        hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(value),
-        isLongEnough: value.length >= 8
+        hasUppercase: /[A-Z]/.test(updatedPassword),
+        hasLowercase: /[a-z]/.test(updatedPassword),
+        hasNumber: /[0-9]/.test(updatedPassword),
+        hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(updatedPassword),
+        isLongEnough: updatedPassword.length >= 6,
+        passwordsMatch: updatedPassword === updatedConfirmPassword
       });
     }
 
@@ -44,8 +53,13 @@ function Signup() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (signupData.password !== signupData.confirmPassword) {
+      setMessage({ content: 'Passwords do not match.', type: 'error' });
+      return;
+    }
+
     if (!passwordRegex.test(signupData.password)) {
-      setMessage({ content: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.', type: 'error' });
+      setMessage({ content: 'Password must contain at least: one uppercase letter, one lowercase letter, one number, one special character, and 6 characters.', type: 'error' });
       return;
     }
 
@@ -104,25 +118,53 @@ function Signup() {
         </label>
         <br />
 
-        <label>Password:
-          <input
-            type="password"
-            name="password"
-            value={signupData.password}
-            onChange={handleInputChange}
-            required
-          />
-          <span className='password-criteria'>Have at least one:
-            <span style={{ color: passwordCriteria.hasUppercase ? 'darkgreen' : 'darkred', fontWeight: passwordCriteria.hasUppercase ? 'bold' : 'normal' }}> uppercase letter, </span>
-            <span style={{ color: passwordCriteria.hasLowercase ? 'darkgreen' : 'darkred', fontWeight: passwordCriteria.hasLowercase ? 'bold' : 'normal' }}>lowercase letter, </span>
-            <span style={{ color: passwordCriteria.hasNumber ? 'darkgreen' : 'darkred', fontWeight: passwordCriteria.hasNumber ? 'bold' : 'normal' }}>number, </span>
-            <span style={{ color: passwordCriteria.hasSpecialChar ? 'darkgreen' : 'darkred', fontWeight: passwordCriteria.hasSpecialChar ? 'bold' : 'normal' }}>special character, </span>
-            <span style={{ color: passwordCriteria.isLongEnough ? 'darkgreen' : 'darkred', fontWeight: passwordCriteria.isLongEnough ? 'bold' : 'normal' }}>8 characters </span>
-          </span>
-        </label>
+        <div className="input-container">
+          <label>Password:
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              value={signupData.password}
+              onChange={handleInputChange}
+              required
+            />
+            <button className="password-visibility-toggle"
+              type="button"
+              onMouseDown={togglePasswordVisibility}
+              onMouseUp={togglePasswordVisibility}>
+              👁️
+            </button>
+            <span className='password-criteria'>Have at least:
+              <span style={{ color: passwordCriteria.hasUppercase ? 'darkgreen' : 'darkred', fontWeight: passwordCriteria.hasUppercase ? 'bold' : 'normal' }}> one uppercase letter, </span>
+              <span style={{ color: passwordCriteria.hasLowercase ? 'darkgreen' : 'darkred', fontWeight: passwordCriteria.hasLowercase ? 'bold' : 'normal' }}>one lowercase letter, </span>
+              <span style={{ color: passwordCriteria.hasNumber ? 'darkgreen' : 'darkred', fontWeight: passwordCriteria.hasNumber ? 'bold' : 'normal' }}>one number, </span>
+              <span style={{ color: passwordCriteria.hasSpecialChar ? 'darkgreen' : 'darkred', fontWeight: passwordCriteria.hasSpecialChar ? 'bold' : 'normal' }}>one special character, </span>
+              <span style={{ color: passwordCriteria.isLongEnough ? 'darkgreen' : 'darkred', fontWeight: passwordCriteria.isLongEnough ? 'bold' : 'normal' }}>6 characters </span>
+            </span>
+          </label>
+        </div>
         <br />
 
-
+        <div className="input-container">
+          <label>Confirm Password:
+            <input
+              type={showConfirmPassword ? "text" : "password"}
+              name="confirmPassword"
+              value={signupData.confirmPassword}
+              onChange={handleInputChange}
+              required
+            />
+            <button className="password-visibility-toggle"
+              type="button"
+              onMouseDown={toggleConfirmPasswordVisibility}
+              onMouseUp={toggleConfirmPasswordVisibility}>
+              👁️
+            </button>
+            <span className='password-criteria'>
+              <span style={{ color: passwordCriteria.passwordsMatch ? 'darkgreen' : 'darkred', fontWeight: passwordCriteria.passwordsMatch ? 'bold' : 'normal' }}>passwords match</span>
+            </span>
+          </label>
+        </div>
+        <br />
 
         <label>First Name:
           <input
@@ -179,7 +221,9 @@ function Signup() {
         </label>
         <br />
 
-        <button type="submit">Create Account</button>
+        <button className='submit-button'
+          type="submit">Create Account
+        </button>
       </form>
     </div>
   );
