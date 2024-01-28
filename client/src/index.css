@@ -24,7 +24,7 @@ main {
 
 
 
-/* My codes starts here: */
+/* Main CSS codes starts here: */
 body {
   margin: 0; 
   color: #fff; 
@@ -109,7 +109,7 @@ body::before {
   color: white;
   border-radius: 5px;
   text-decoration: none;
-  margin-bottom: 10px; /* Added margin-bottom */
+  margin-bottom: 10px;
 }
 
 .home .component-description a:hover {
@@ -537,19 +537,24 @@ nav a.home-link:hover {
 .signup input,
 .signup select {
   width: 97%; 
-  padding: 10px;
-  margin-bottom: 2px; 
-  border: 1px solid #ccc;
+  padding: 8px;
+  /* margin-bottom: 1px; */
+  border: 2px solid #ccc;
   border-radius: 5px;
 }
 
 .signup select[name="riderStance"] {
-  width: 25%; 
-  padding: 10px;
+  width: 30%; 
+  padding: 8px;
   font-size: 16px;
   margin-left: 15px; 
-  border: 1px solid #ccc;
+  border: 2px solid #ccc;
   border-radius: 5px;
+}
+
+.signup input:focus, .signup select:focus {
+  outline: none;
+  border-color: #a90404;
 }
 
 .submit-button {
@@ -577,7 +582,14 @@ nav a.home-link:hover {
 }
 
 .signup .checkbox-container .checkbox {
-  transform: scale(0.8);
+  transform: scale(1.5);
+  margin-right: 1px;
+  margin-left: 0px;
+  cursor: pointer;
+}
+
+.signup .checkbox-container .checkbox:focus {
+  transform: scale(2.0);
   margin-right: 1px;
   margin-left: 0px;
   cursor: pointer;
