@@ -243,6 +243,7 @@ class Gallery(db.Model, SerializerMixin):
         return data
 
     heart_count = db.relationship('Heart', back_populates='gallery', cascade='all, delete-orphan')
+    reports = db.relationship('Report', backref='gallery', lazy='dynamic')
 
     def __repr__(self):
         return f'<Gallery {self.id}>'

@@ -591,6 +591,7 @@ def report_image(image_id):
         return jsonify({'error': 'Authentication required'}), 401
     
     user_id = session['user_id']
+    gallery_item = Gallery.query.get(image_id)
     existing_report = Report.query.filter_by(user_id=user_id, gallery_id=image_id).first()
 
     if existing_report:
@@ -599,8 +600,7 @@ def report_image(image_id):
     new_report = Report(user_id=user_id, gallery_id=image_id)
     db.session.add(new_report)
 
-    gallery_item = Gallery.query.get(image_id)
-    if gallery_item.reports.count()>=10:
+    if gallery_item and gallery_item.reports.count() >= 10:
         db.session.delete(gallery_item)
 
     db.session.commit()

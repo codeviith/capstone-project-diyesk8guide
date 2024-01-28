@@ -23,7 +23,10 @@ function Gallery() {
     const [topHeartedImages, setTopHeartedImages] = useState([]); // State to store top hearted images
     const [fileName, setFileName] = useState('');
     const [uploadError, setUploadError] = useState('');
+    const [reportErrors, setReportErrors] = useState({});
+    const [reportSuccess, setReportSuccess] = useState({});
     const { isLoggedIn } = useContext(AuthContext);
+
 
     useEffect(() => {
         fetchTopHeartedImages();
@@ -135,7 +138,6 @@ function Gallery() {
     };
 
 
-
     const handleSubmit = async (e) => {
         const submissionFields = {  //code to add 'n/a' to other_features if input is blank
             ...formFields,
@@ -145,8 +147,13 @@ function Gallery() {
 
         e.preventDefault();
 
+        // if (!isLoggedIn) {
+        //     alert('You must be logged in to post.');
+        //     return;
+        // }
+
         if (!isLoggedIn) {
-            alert('You must be logged in to post.');
+            setUploadError('Please log in to post.');
             return;
         }
 
@@ -216,18 +223,56 @@ function Gallery() {
         setUploadError('');
     };
 
+
+
+
+
+
+
     const reportImage = async (imageId) => {
+        if (!isLoggedIn) {
+            setReportErrors(prevErrors => ({ ...prevErrors, [imageId]: 'You must log in to report a post' }));
+            return;
+        }
+
         try {
-            const response = await fetch(`/gallery/report/${imageId}`, {method: 'POST'});
+            const response = await fetch(`/gallery/report/${imageId}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            const data = await response.json();
+
             if (response.ok) {
+                setReportSuccess(prevSuccess => ({ ...prevSuccess, [imageId]: 'Post reported successfully' }));
+                setReportErrors(prevErrors => ({ ...prevErrors, [imageId]: '' }));
                 fetchGalleryItems();
+
+                setTimeout(() => {
+                    setReportSuccess(prevSuccess => ({ ...prevSuccess, [imageId]: '' }));
+                }, 5000);
             } else {
-                console.error('Error reporting image');
+                setReportErrors(prevErrors => ({ ...prevErrors, [imageId]: data.error }));
+
+                setTimeout(() => {
+                    setReportErrors(prevErrors => ({ ...prevErrors, [imageId]: '' }));
+                }, 5000);
             }
-        } catch(error) {
+        } catch (error) {
+            setReportErrors(prevErrors => ({ ...prevErrors, [imageId]: 'An error occurred while reporting the image' }));
             console.error('Error:', error);
+
+            setTimeout(() => {
+                setReportErrors(prevErrors => ({ ...prevErrors, [imageId]: '' }));
+            }, 5000);
         }
     };
+
+
+
+
+
+
 
 
     return (
@@ -274,7 +319,11 @@ function Gallery() {
                                 initiallyHearted={item.isHearted}
                                 refreshTopImages={fetchTopHeartedImages}
                             />
-                            <button onClick={() => reportImage(item.id)}>Report</button>
+                            {isLoggedIn && (
+                                <button className="report-button" onClick={() => reportImage(item.id)}>Report</button>
+                            )}
+                            {reportSuccess[item.id] && <div className="report-success-message">{reportSuccess[item.id]}</div>}
+                            {reportErrors[item.id] && <div className="report-error-message">{reportErrors[item.id]}</div>}
                         </div>
                     </div>
                 ))}

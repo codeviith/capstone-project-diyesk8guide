@@ -1628,3 +1628,21 @@ nav a.home-link:hover {
   margin-bottom: 10px;
 }
 
+.report-success-message {
+  color: rgb(0, 64, 0);
+  font-weight: bold;
+  text-align: center;
+  font-size: 14px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+}
+
+.report-error-message {
+  color: rgb(115, 1, 1);
+  font-weight: bold;
+  text-align: center;
+  font-size: 14px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
