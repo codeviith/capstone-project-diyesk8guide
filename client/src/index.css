@@ -1198,6 +1198,7 @@ nav a.home-link:hover {
 .about h1 {
   color: black;
   font-size: 32px;
+  text-align: center;
   margin-top: 2px;
   margin-bottom: 20px;
 }
@@ -1212,6 +1213,7 @@ nav a.home-link:hover {
 
 .about .contact-us {
   background-color: black;
+  text-align: center;
   padding: 15px;
   border-radius: 6px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -1219,16 +1221,18 @@ nav a.home-link:hover {
 }
 
 .about .contact-us h2 {
+  /* text-align: center; */
   color: #007bff;
   margin-bottom: 15px;
 }
 
 .about .contact-us p {
+  /* text-align: center; */
   font-size: 17px;
   margin-bottom: 15px;
 }
 
-.about .contact-us a {
+.navlink-button {
   display: inline-block;
   padding: 8px 12px;
   background-color: #007bff;
@@ -1238,7 +1242,7 @@ nav a.home-link:hover {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.about .contact-us a:hover {
+.navlink-button:hover {
   background-color: #0056b3;
   box-shadow: 0 0 10px white
 }
