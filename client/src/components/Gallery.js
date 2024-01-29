@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import HeartButton from './HeartButton';
+import ReportIcon1 from './ReportIcon1';
+import ReportIcon2 from './ReportIcon2';
+import ReportIcon3 from './ReportIcon3';
+import ReportIcon4 from './ReportIcon4';
 import { AuthContext } from './AuthContext';
 
 
@@ -302,15 +306,23 @@ function Gallery() {
                             <p><strong className='item-details-strong'>Wheel Type:</strong> {item.wheel_size} {item.wheel_type}</p>
                             <p><strong className='item-details-strong'>Max Speed & Range:</strong> {item.max_speed} MPH, {item.max_range} Miles</p>
                             <p><strong className='item-details-strong'>Other Features:</strong><p className='item-details-other-features'>{item.other_features}</p></p>
-                            <HeartButton
-                                imageId={item.id}
-                                onHearted={(hearts) => updateHeartCount(index, hearts)}
-                                initiallyHearted={item.isHearted}
-                                refreshTopImages={fetchTopHeartedImages}
-                            />
-                            {isLoggedIn && (
-                                <button className="report-button" onClick={() => reportImage(item.id)}>Report</button>
-                            )}
+                            <div className="item-actions">
+                                <HeartButton
+                                    imageId={item.id}
+                                    onHearted={(hearts) => updateHeartCount(index, hearts)}
+                                    initiallyHearted={item.isHearted}
+                                    refreshTopImages={fetchTopHeartedImages}
+                                />
+                                {isLoggedIn && (
+                                    <div className="report-button"
+                                        onClick={() => reportImage(item.id)}
+                                        title="Report"
+                                        style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+                                    >
+                                        <ReportIcon1 />
+                                    </div>
+                                )}
+                            </div>
                             {reportSuccess[item.id] && <div className="report-success-message">{reportSuccess[item.id]}</div>}
                             {reportErrors[item.id] && <div className="report-error-message">{reportErrors[item.id]}</div>}
                         </div>

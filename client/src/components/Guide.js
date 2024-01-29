@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from "react-router-dom";
 
 const Guide = () => {
     // Step headers
@@ -55,10 +56,14 @@ const Guide = () => {
                     <div className="guide-content">
                         <p>{stepDescriptions[index]}</p>
                         {/* Hyperlink for each step */}
-                        <a href={stepLinks[index]} target="_blank" rel="noopener noreferrer">Learn more</a>
+                        <a className='href-link' href={stepLinks[index]} target="_blank" rel="noopener noreferrer">Learn more</a>
                     </div>
                 </div>
             ))}
+            {/* <div className="footer-bottom">
+                <NavLink className="footer-bottom-link" to="/about">About</NavLink>
+                <NavLink className="footer-bottom-link" to="/contactus">Contact Us</NavLink>
+            </div> */}
         </div>
     );
 };

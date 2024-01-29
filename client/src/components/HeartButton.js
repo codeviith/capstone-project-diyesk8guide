@@ -22,7 +22,6 @@ function HeartButton({ imageId, onHearted, initiallyHearted, refreshTopImages })
             });
     
             if (!response.ok) {
-                // If backend operation fails, revert the heart count and state
                 setIsHearted(!newHeartState);
                 onHearted(newHeartState ? -1 : 1);
                 alert('Error toggling heart status.');
@@ -31,22 +30,22 @@ function HeartButton({ imageId, onHearted, initiallyHearted, refreshTopImages })
             }
         } catch (error) {
             console.error('Error during heart request:', error);
-            // Revert heart count and state on error
+            
             setIsHearted(!newHeartState);
             onHearted(newHeartState ? -1 : 1);
         }
     };
-    
 
-    // Conditional display depending on login status
     if (!isLoggedIn) {
-        return null; // Return nothing if the user not logged in
+        return null;
     }
 
     return (
-        <button id='heart-button' onClick={handleHeartClick}>
+        <div id='heart-button' 
+        onClick={handleHeartClick}
+        title='Like'>
             {isHearted ? <HeartIcon /> : <BrokenHeartIcon />}
-        </button>
+        </div>
     );
 };
 

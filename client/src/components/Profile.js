@@ -756,7 +756,11 @@ function Profile() {
                                             <p><strong className='image-details-strong'>Other Features:</strong><p className='image-details-other-features'>{image.other_features}</p></p>
                                             <p className='rating'><strong className='image-details-strong'>Rating:</strong> {image.hearts}</p>
                                         </div>
-                                        <div onClick={() => unlikeImage(image.id)} title="Unlike" style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+                                        <div className='unlike-button'
+                                            onClick={() => unlikeImage(image.id)}
+                                            title="Unlike"
+                                            style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+                                        >
                                             <UnlikeIcon />
                                         </div>
                                     </div>

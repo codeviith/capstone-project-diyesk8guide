@@ -62,8 +62,8 @@ const Home = () => {
         <Link to="/gallery">Go to Gallery</Link>
       </div>
       <div className="footer-bottom">
-        <NavLink to="/about">About</NavLink>
-        <NavLink to="/contactus">Contact Us</NavLink>
+        <NavLink className="footer-bottom-link" to="/about">About</NavLink>
+        <NavLink className="footer-bottom-link" to="/contactus">Contact Us</NavLink>
       </div>
     </div>
   );

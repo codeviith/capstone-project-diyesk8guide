@@ -616,8 +616,6 @@ nav a.home-link:hover {
 
 
 
-
-
 /* profile component */
 
 .profile {
@@ -1195,7 +1193,7 @@ nav a.home-link:hover {
   margin-top: 10px;
 }
 
-.guide a {
+.href-link {
   display: inline-block;
   margin-top: 10px;
   padding: 5px 10px;
@@ -1205,7 +1203,7 @@ nav a.home-link:hover {
   text-decoration: none;
 }
 
-.guide a:hover {
+.href-link:hover {
   background-color: #0056b3;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
 }
@@ -1441,6 +1439,13 @@ nav a.home-link:hover {
   color: black;
 }
 
+.item-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; /* Ensure the container spans the entire width of the parent */
+}
+
 .rating {
   text-align: center;
   margin-top: 55px;
@@ -1575,21 +1580,6 @@ nav a.home-link:hover {
 
 /* SVG Icons  */
 
-.heart-icon {
-  width: 35px; 
-  height: 35px;
-}
-
-.broken-heart-icon {
-  width: 35px; 
-  height: 35px;
-}
-
-.unlike-icon {
-  width: 35px; 
-  height: 35px;
-}
-
 #heart-button {
   border: none; 
   background: transparent;
@@ -1681,6 +1671,33 @@ nav a.home-link:hover {
 
 
 /* footer */
+
+.footer-bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #2e2e2e;
+  border-top: 5px solid rgb(0, 0, 0);
+  margin-top: 30px;
+}
+
+.footer-bottom-link {
+  color: #ddd;
+  font-size: 17px;
+  padding: 5px 15px;
+  margin: 0 15px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border-bottom: 3px solid transparent;
+}
+
+.footer-bottom-link:hover, 
+.footer-bottom-link:focus {
+  color: #fff;
+  border-bottom: 3px solid #007bff;
+}
+
 
 
 
