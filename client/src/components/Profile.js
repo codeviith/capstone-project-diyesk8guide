@@ -32,6 +32,15 @@ function Profile() {
         newPassword: '',
         confirmNewPassword: ''
     });
+    const [passwordCriteria, setPasswordCriteria] = useState({
+        hasUppercase: false,
+        hasLowercase: false,
+        hasNumber: false,
+        hasSpecialChar: false,
+        isLongEnough: false,
+        passwordsMatch: false,
+        currentPasswordMatches: false
+    });
     const [passwordError, setPasswordError] = useState('');
     const [passwordSuccess, setPasswordSuccess] = useState('');
     const [showCurrentPassword, setShowCurrentPassword] = useState(false);
@@ -228,24 +237,67 @@ function Profile() {
         }
     };
 
-    const handlePasswordChange = async () => {
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const handlePasswordChange = (e) => {
+        const { name, value } = e.target;
+        setPasswordFields({ ...passwordFields, [name]: value });
+
+        if (name === 'newPassword' || name === 'confirmNewPassword') {
+            const updatedPassword = name === 'newPassword' ? value : passwordFields.newPassword;
+            const updatedConfirmPassword = name === 'confirmNewPassword' ? value : passwordFields.confirmNewPassword;
+
+            setPasswordCriteria({
+                ...passwordCriteria,
+                hasUppercase: /[A-Z]/.test(updatedPassword),
+                hasLowercase: /[a-z]/.test(updatedPassword),
+                hasNumber: /[0-9]/.test(updatedPassword),
+                hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(updatedPassword),
+                isLongEnough: updatedPassword.length >= 6,
+                passwordsMatch: updatedPassword === updatedConfirmPassword
+            });
+        }
+
+        if (name === 'currentPassword') {
+            checkCurrentPassword(value);
+        }
+    };
+
+    const checkCurrentPassword = async (currentPassword) => {
+        try {
+            const response = await fetch('/check-password', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ currentPassword }),
+                credentials: 'include',
+            });
+
+            const data = await response.json();
+            if (data.matches) {
+                setPasswordCriteria(prev => ({ ...prev, currentPasswordMatches: true }));
+            } else {
+                setPasswordCriteria(prev => ({ ...prev, currentPasswordMatches: false }));
+            }
+        } catch (error) {
+            console.error('Error checking current password:', error);
+        }
+    };
+
+    const validateAndSavePassword = async () => {
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
 
         if (passwordFields.newPassword === passwordFields.currentPassword) {
             setPasswordError("New password cannot be the same as current password");
-            setPasswordSuccess('');
             return;
         }
 
         if (passwordFields.newPassword !== passwordFields.confirmNewPassword) {
             setPasswordError("New passwords do not match.");
-            setPasswordSuccess('');
             return;
         }
 
         if (!passwordRegex.test(passwordFields.newPassword)) {
-            setPasswordError("Password must contain at least one uppercase letter, one number, and one special character.");
-            setPasswordSuccess('');
+            setPasswordError("Password must contain at least one upper and lowercase letter, one number, one special character, and be at least 6 characters long.");
             return;
         }
 
@@ -290,6 +342,15 @@ function Profile() {
     };
 
     const resetPasswordFields = () => {
+        setPasswordCriteria({
+            hasUppercase: false,
+            hasLowercase: false,
+            hasNumber: false,
+            hasSpecialChar: false,
+            isLongEnough: false,
+            passwordsMatch: false,
+            currentPasswordMatches: false
+        });
         setPasswordFields({ currentPassword: '', newPassword: '', confirmNewPassword: '' });
         setPasswordError('');
         setPasswordSuccess('');
@@ -381,15 +442,21 @@ function Profile() {
                                                     <div className="password-container">
                                                         <input className="password-user-data-input"
                                                             type={showCurrentPassword ? "text" : "password"}
+                                                            name="currentPassword"
                                                             value={passwordFields.currentPassword}
-                                                            onChange={(e) => setPasswordFields({ ...passwordFields, currentPassword: e.target.value })}
+                                                            onChange={handlePasswordChange}
                                                         />
-                                                        <button className="password-toggle-button"
+                                                        <button className="current-password-toggle-button"
                                                             type="button"
                                                             onMouseDown={toggleCurrentPasswordVisibility}
                                                             onMouseUp={toggleCurrentPasswordVisibility}>
                                                             👁️
                                                         </button>
+                                                        <div className='profile-password-criteria'>
+                                                            <span style={{ color: passwordCriteria.currentPasswordMatches ? 'darkgreen' : 'darkred', fontWeight: passwordCriteria.currentPasswordMatches ? 'bold' : 'normal' }}>
+                                                                current password match
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 </label>
                                                 {/* New Password Input */}
@@ -398,15 +465,33 @@ function Profile() {
                                                     <div className="password-container">
                                                         <input className="password-user-data-input"
                                                             type={showNewPassword ? "text" : "password"}
+                                                            name="newPassword"
                                                             value={passwordFields.newPassword}
-                                                            onChange={(e) => setPasswordFields({ ...passwordFields, newPassword: e.target.value })}
+                                                            onChange={handlePasswordChange}
                                                         />
-                                                        <button className="password-toggle-button"
+                                                        <button className="new-password-toggle-button"
                                                             type="button"
                                                             onMouseDown={toggleNewPasswordVisibility}
                                                             onMouseUp={toggleNewPasswordVisibility}>
                                                             👁️
                                                         </button>
+                                                        <div className='profile-password-criteria'>Have at least:
+                                                            <span style={{ color: passwordCriteria.hasUppercase ? 'darkgreen' : 'darkred', fontWeight: passwordCriteria.hasUppercase ? 'bold' : 'normal' }}>
+                                                                one uppercase letter,
+                                                            </span>
+                                                            <span style={{ color: passwordCriteria.hasLowercase ? 'darkgreen' : 'darkred', fontWeight: passwordCriteria.hasLowercase ? 'bold' : 'normal' }}>
+                                                                one lowercase letter,
+                                                            </span>
+                                                            <span style={{ color: passwordCriteria.hasNumber ? 'darkgreen' : 'darkred', fontWeight: passwordCriteria.hasNumber ? 'bold' : 'normal' }}>
+                                                                one number,
+                                                            </span>
+                                                            <span style={{ color: passwordCriteria.hasSpecialChar ? 'darkgreen' : 'darkred', fontWeight: passwordCriteria.hasSpecialChar ? 'bold' : 'normal' }}>
+                                                                one special character,
+                                                            </span>
+                                                            <span style={{ color: passwordCriteria.isLongEnough ? 'darkgreen' : 'darkred', fontWeight: passwordCriteria.isLongEnough ? 'bold' : 'normal' }}>
+                                                                6 characters
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 </label>
                                                 {/* Confirm New Password Input */}
@@ -415,23 +500,31 @@ function Profile() {
                                                     <div className="password-container">
                                                         <input className="password-user-data-input"
                                                             type={showConfirmNewPassword ? "text" : "password"}
+                                                            name="confirmNewPassword"
                                                             value={passwordFields.confirmNewPassword}
-                                                            onChange={(e) => setPasswordFields({ ...passwordFields, confirmNewPassword: e.target.value })}
+                                                            onChange={handlePasswordChange}
                                                         />
-                                                        <button className="password-toggle-button"
+                                                        <button className="confirm-new-password-toggle-button"
                                                             type="button"
                                                             onMouseDown={toggleConfirmNewPasswordVisibility}
                                                             onMouseUp={toggleConfirmNewPasswordVisibility}>
                                                             👁️
                                                         </button>
+                                                        <div className="profile-password-criteria">
+                                                            <span style={{ color: passwordCriteria.passwordsMatch ? 'darkgreen' : 'darkred', fontWeight: passwordCriteria.passwordsMatch ? 'bold' : 'normal' }}>
+                                                                new passwords match
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 </label>
                                             </div>
                                         ) : (
-                                            <span className="user-data-value">********</span> // Placeholder for password
+                                            <span className="user-data-value">***************</span>
+                                            // The *'s are only there as a placeholder for password
+                                            // It is NEVER a good practice to display the actual password on frontend.
                                         )}
                                         {/* Edit Button */}
-                                        {editMode.password && <button className="save-button" onClick={handlePasswordChange}>Save</button>}
+                                        {editMode.password && <button className="save-button" onClick={validateAndSavePassword}>Save</button>}
                                         <button className="edit-button" onClick={() => {
                                             setEditMode({ ...editMode, password: !editMode.password });
                                             resetPasswordFields();
@@ -636,3 +729,95 @@ function Profile() {
 
 export default Profile;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const handlePasswordChange = async (e) => {
+//     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+//     const { name, value } = e.target;
+//     setPasswordFields({ ...passwordFields, [name]: value });
+
+//     if (name === 'newPassword' || name === 'confirmNewPassword') {
+//         const updatedPassword = name === 'newPassword' ? value : passwordFields.newPassword;
+//         const updatedConfirmPassword = name === 'confirmNewPassword' ? value : passwordFields.confirmNewPassword;
+
+//         setPasswordCriteria({
+//             hasUppercase: /[A-Z]/.test(updatedPassword),
+//             hasLowercase: /[a-z]/.test(updatedPassword),
+//             hasNumber: /[0-9]/.test(updatedPassword),
+//             hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(updatedPassword),
+//             isLongEnough: updatedPassword.length >= 6,
+//             passwordsMatch: updatedPassword === updatedConfirmPassword
+//         });
+//     }
+
+//     if (passwordFields.newPassword === passwordFields.currentPassword) {
+//         setPasswordError("New password cannot be the same as current password");
+//         setPasswordSuccess('');
+//         return;
+//     }
+
+//     if (passwordFields.newPassword !== passwordFields.confirmNewPassword) {
+//         setPasswordError("New passwords do not match.");
+//         setPasswordSuccess('');
+//         return;
+//     }
+
+//     if (!passwordRegex.test(passwordFields.newPassword)) {
+//         setPasswordError("Password must contain at least: one upper and lowercase letter, one number, one special character, and 6 characters.");
+//         setPasswordSuccess('');
+//         return;
+//     }
+
+//     const dataToSend = {
+//         currentPassword: passwordFields.currentPassword,
+//         newPassword: passwordFields.newPassword
+//     };
+
+//     try {
+//         const response = await fetch('/change_password', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify(dataToSend),
+//             credentials: 'include'
+//         });
+
+//         const data = await response.json();
+//         if (response.ok) {
+//             setPasswordSuccess("Password changed successfully.");
+//             setPasswordError('');
+//             setPasswordFields({ currentPassword: '', newPassword: '', confirmNewPassword: '' });
+//             setEditMode({ ...editMode, password: false });
+
+//             if (timerId) clearTimeout(timerId);
+
+//             const newTimerId = setTimeout(() => {
+//                 setPasswordSuccess('');
+//             }, 5000);
+
+//             setTimerId(newTimerId);
+
+//         } else {
+//             setPasswordError(data.error);
+//             setPasswordSuccess('');
+//         }
+//     } catch (error) {
+//         setPasswordError("Failed to change password.");
+//         setPasswordSuccess('');
+//     }
+// };

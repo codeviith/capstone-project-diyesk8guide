@@ -17,7 +17,7 @@ function Signup() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
   const toggleConfirmPasswordVisibility = () => setShowConfirmPassword(!showConfirmPassword);
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
   const [passwordCriteria, setPasswordCriteria] = useState({
     hasUppercase: false,
     hasLowercase: false,
@@ -134,11 +134,21 @@ function Signup() {
               👁️
             </button>
             <span className='password-criteria'>Have at least:
-              <span style={{ color: passwordCriteria.hasUppercase ? 'darkgreen' : 'darkred', fontWeight: passwordCriteria.hasUppercase ? 'bold' : 'normal' }}> one uppercase letter, </span>
-              <span style={{ color: passwordCriteria.hasLowercase ? 'darkgreen' : 'darkred', fontWeight: passwordCriteria.hasLowercase ? 'bold' : 'normal' }}>one lowercase letter, </span>
-              <span style={{ color: passwordCriteria.hasNumber ? 'darkgreen' : 'darkred', fontWeight: passwordCriteria.hasNumber ? 'bold' : 'normal' }}>one number, </span>
-              <span style={{ color: passwordCriteria.hasSpecialChar ? 'darkgreen' : 'darkred', fontWeight: passwordCriteria.hasSpecialChar ? 'bold' : 'normal' }}>one special character, </span>
-              <span style={{ color: passwordCriteria.isLongEnough ? 'darkgreen' : 'darkred', fontWeight: passwordCriteria.isLongEnough ? 'bold' : 'normal' }}>6 characters </span>
+              <span style={{ color: passwordCriteria.hasUppercase ? 'darkgreen' : 'darkred', fontWeight: passwordCriteria.hasUppercase ? 'bold' : 'normal' }}>
+                one uppercase letter,
+              </span>
+              <span style={{ color: passwordCriteria.hasLowercase ? 'darkgreen' : 'darkred', fontWeight: passwordCriteria.hasLowercase ? 'bold' : 'normal' }}>
+                one lowercase letter,
+              </span>
+              <span style={{ color: passwordCriteria.hasNumber ? 'darkgreen' : 'darkred', fontWeight: passwordCriteria.hasNumber ? 'bold' : 'normal' }}>
+                one number,
+              </span>
+              <span style={{ color: passwordCriteria.hasSpecialChar ? 'darkgreen' : 'darkred', fontWeight: passwordCriteria.hasSpecialChar ? 'bold' : 'normal' }}>
+                one special character,
+              </span>
+              <span style={{ color: passwordCriteria.isLongEnough ? 'darkgreen' : 'darkred', fontWeight: passwordCriteria.isLongEnough ? 'bold' : 'normal' }}>
+                6 characters
+              </span>
             </span>
           </label>
         </div>
@@ -160,7 +170,9 @@ function Signup() {
               👁️
             </button>
             <span className='password-criteria'>
-              <span style={{ color: passwordCriteria.passwordsMatch ? 'darkgreen' : 'darkred', fontWeight: passwordCriteria.passwordsMatch ? 'bold' : 'normal' }}>passwords match</span>
+              <span style={{ color: passwordCriteria.passwordsMatch ? 'darkgreen' : 'darkred', fontWeight: passwordCriteria.passwordsMatch ? 'bold' : 'normal' }}>
+                passwords match
+              </span>
             </span>
           </label>
         </div>

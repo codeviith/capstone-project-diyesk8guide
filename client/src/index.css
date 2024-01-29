@@ -685,21 +685,45 @@ nav a.home-link:hover {
 
 .password-container {
   position: relative;
-  display: inline-block;
+  /* display: inline-block; */
 }
 
 .password-container input {
   padding-right: 30px;
 }
 
-.password-toggle-button {
+.current-password-toggle-button, 
+.new-password-toggle-button, 
+.confirm-new-password-toggle-button {
   position: absolute;
-  right: 10px;
+  right: 5px;
   top: 50%;
-  transform: translateY(-50%);
   border: none;
   background: transparent;
   cursor: pointer;
+}
+
+.current-password-toggle-button {
+  transform: translateY(-90%);
+}
+
+.new-password-toggle-button {
+  transform: translateY(-140%);
+}
+
+.confirm-new-password-toggle-button {
+  transform: translateY(-90%);
+}
+
+.profile-password-criteria {
+  margin-left:50px;
+}
+
+.profile-password-criteria, .profile-password-criteria span {
+  /* margin-top: 5px; */
+  text-align: left;
+  font-size: 13px;
+  /* font-weight: bold; */
 }
 
 .password-user-data-input {

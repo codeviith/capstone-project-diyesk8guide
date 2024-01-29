@@ -197,6 +197,7 @@ def get_user_data():
     else:
         return jsonify({'error': 'User not found.'}), 404
 
+
 @app.route('/user_data/<int:user_id>', methods=['PATCH'])
 def update_user_data(user_id):
     if 'user_id' not in session or session['user_id'] != user_id:
@@ -224,6 +225,23 @@ def update_user_data(user_id):
     db.session.commit()
 
     return jsonify({'message': 'User data updated successfully'}), 200
+
+
+@app.route('/check-password', methods=['POST'])
+def check_current_password():
+    if 'user_id' not in session:
+        return jsonify({'error': 'Authentication required'}), 401
+
+    user_id = session['user_id']
+    data = request.get_json()
+    current_password = data.get('currentPassword')
+
+    user = User.query.get(user_id)
+    if user and bcrypt.check_password_hash(user.password_hash, current_password):
+        return jsonify({'matches': True})
+    else:
+        return jsonify({'matches': False})
+
 
 @app.route('/change_password', methods=['POST'])
 def change_password():
