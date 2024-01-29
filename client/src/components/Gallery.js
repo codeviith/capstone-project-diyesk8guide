@@ -291,6 +291,7 @@ function Gallery() {
                 <div className='featured-builds-container'>
                     <h2>Featured Builds</h2>
                 </div>
+                <div className='featured-builds-container-underline'></div>
                 {galleryItems.map((item, index) => (
                     <div key={index} className="gallery-item">
                         <img src={`images/${item.image_filename}`} alt={item.image_filename} />

@@ -45,7 +45,7 @@ body::before {
   /* background: url('jpg') center center fixed; */
   /* background: url('jpg') center center fixed; */
   background-size: cover;
-  opacity: 0.9;
+  opacity: 0.95;
 }
 
 
@@ -1367,13 +1367,14 @@ nav a.home-link:hover {
 .featured-builds-container h2 {
   width: 100%;
   color: white;
-  font-size: 26px;
+  font-size: 32px;
   text-align: center;
   margin: 7px;
+    /* box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); */
 }
 
 .featured-builds-container {
-  background-color: black;
+  background-color: transparent;
   border-radius: 15px;
   text-align: center;
   margin: 0 auto;
@@ -1382,6 +1383,23 @@ nav a.home-link:hover {
   padding: 1px;
   /* box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); */
 }
+
+.featured-builds-container-underline {
+  background-color: black;
+  border-radius: 15px;
+  text-align: center;
+  /* margin: 0 auto; */
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -10px;
+  margin-bottom: 30px;
+  width: 85%;
+  height: 8px;
+  padding: 1px;
+  border-radius: 8px; 
+  box-shadow: 0px 0px 7px 4px rgba(255, 255, 255, 2.2);
+}
+
 .gallery-item {
   flex-basis: calc((100% / 3) - 20px - 20px);
   display: flex; 
@@ -1401,7 +1419,6 @@ nav a.home-link:hover {
   background-color: transparent; 
   border-radius: 50000px;
 }
-
 
 .item-details p {
   margin: 1px;
