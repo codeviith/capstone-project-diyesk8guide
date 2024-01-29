@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from './AuthContext';
-import HeartIcon from './HeartIcon';
+import HeartIcon1 from './HeartIcon1';
+import HeartIcon2 from './HeartIcon2';
 import BrokenHeartIcon from './BrokenHeartIcon';
 
 function HeartButton({ imageId, onHearted, initiallyHearted, refreshTopImages }) {
@@ -44,7 +45,7 @@ function HeartButton({ imageId, onHearted, initiallyHearted, refreshTopImages })
         <div id='heart-button' 
         onClick={handleHeartClick}
         title='Like'>
-            {isHearted ? <HeartIcon /> : <BrokenHeartIcon />}
+            {isHearted ? <HeartIcon2 /> : <BrokenHeartIcon />}
         </div>
     );
 };

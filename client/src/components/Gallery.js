@@ -26,6 +26,7 @@ function Gallery() {
     const [galleryItems, setGalleryItems] = useState([]);
     const [topHeartedImages, setTopHeartedImages] = useState([]); // State to store top hearted images
     const [fileName, setFileName] = useState('');
+    const [heartSuccess, setHeartSuccess] = useState({});
     const [uploadError, setUploadError] = useState('');
     const [reportErrors, setReportErrors] = useState({});
     const [reportSuccess, setReportSuccess] = useState({});
@@ -200,9 +201,23 @@ function Gallery() {
     };
 
     const updateHeartCount = (index, change) => {
-        console.log(`Updating heart count for index ${index} with change ${change}`);
+        // console.log(`Updating heart count for index ${index} with change ${change}`);
         const newGalleryItems = [...galleryItems];
+        const postId = newGalleryItems[index].id;
+
         newGalleryItems[index].hearts += change; //code to adjust heart count by change amount
+
+        setHeartSuccess(prevHeartSuccess => ({
+            ...prevHeartSuccess,
+            [postId]: change > 0 ? "Post liked successfully" : "Post unliked successfully"
+        }));
+
+        setTimeout(() => {
+            setHeartSuccess(prevHeartSuccess => ({
+                ...prevHeartSuccess,
+                [postId]: "" // Clear the message
+            }));
+        }, 5000);
 
         setGalleryItems(newGalleryItems);
     };
@@ -323,6 +338,7 @@ function Gallery() {
                                     </div>
                                 )}
                             </div>
+                            {heartSuccess[item.id] && <div className="heart-success-message">{heartSuccess[item.id]}</div>}
                             {reportSuccess[item.id] && <div className="report-success-message">{reportSuccess[item.id]}</div>}
                             {reportErrors[item.id] && <div className="report-error-message">{reportErrors[item.id]}</div>}
                         </div>

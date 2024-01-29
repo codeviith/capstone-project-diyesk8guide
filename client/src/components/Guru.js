@@ -30,8 +30,10 @@ function Guru() {
             });
 
             const data = await response.json();
+            const fullResponse = `Question: ${userInput}\n\nAnswer: ${data.content}`;
 
-            setResponse(data.content);
+            setResponse(fullResponse);
+            setUserInput(''); // Code to reset the user input after submission
         } catch (error) {
             console.error('Error fetching data from server:', error);
         } finally {
@@ -62,7 +64,7 @@ function Guru() {
                     ) : (
                         response && (
                             <div className="response-container" style={responseStyle}>
-                                <p><strong className='guru-answer'> Answer: </strong></p>
+                                <p><strong className='guru-answer'> Response: </strong></p>
                                 {formatResponse(response)}
                             </div>
                         )

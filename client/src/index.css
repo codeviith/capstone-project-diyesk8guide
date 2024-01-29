@@ -1439,12 +1439,14 @@ nav a.home-link:hover {
   color: black;
 }
 
+
 .item-actions {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%; /* Ensure the container spans the entire width of the parent */
+  width: 100%;
 }
+
 
 .rating {
   text-align: center;
@@ -1579,6 +1581,26 @@ nav a.home-link:hover {
 
 
 /* SVG Icons  */
+
+/* .heart-icon1 {
+  width: 40px; 
+  height: 40px;
+}
+
+.heart-icon2 {
+  width: 40px; 
+  height: 40px;
+}
+
+.broken-heart-icon {
+  width: 40px; 
+  height: 40px;
+}
+
+.unlike-icon {
+  width: 40px; 
+  height: 40px;
+} */
 
 #heart-button {
   border: none; 
@@ -1734,7 +1756,8 @@ nav a.home-link:hover {
   margin-bottom: 10px;
 }
 
-.report-success-message {
+.report-success-message,
+.heart-success-message {
   color: rgb(0, 64, 0);
   font-weight: bold;
   text-align: center;
