@@ -7,7 +7,7 @@ import random
 
 # Local imports
 from app import app
-from models import db, Board, Guru, User, Gallery, Heart, ContactUs
+from models import db, Board, Guru, User, Gallery, Report, Heart, ContactUs
 
 if __name__ == '__main__':
     with app.app_context():
@@ -19,6 +19,7 @@ if __name__ == '__main__':
         Board.query.delete()
         Guru.query.delete()
         Gallery.query.delete()
+        Report.query.delete()
         ContactUs.query.delete()
 
         db.session.commit()
