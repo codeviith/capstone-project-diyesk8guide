@@ -782,6 +782,12 @@ nav a.home-link:hover {
   cursor:pointer;
 }
 
+.user-data-checkbox[type="checkbox"]:focus {
+  width: 31px;
+  height: 31px;
+  cursor:pointer;
+}
+
 .user-data-label, 
 .user-data-input, 
 .password-user-data-input, 

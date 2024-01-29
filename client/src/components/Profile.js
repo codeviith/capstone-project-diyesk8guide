@@ -5,7 +5,7 @@ import { formatResponse } from './CommonFunctions';
 import { AuthContext } from './AuthContext';
 
 function Profile() {
-    const boardOptions = ["Evolve", "Lacroix", "KalyNYC", "Metroboard", "Trampa", "Mellow", "Boosted", "Exway", "Bajaboard", "Hoyt St.", "Acton", "Backfire", "Meepo", "Other"];
+    const boardOptions = ["Evolve", "Lacroix", "KalyNYC", "Metroboard", "Trampa", "Mellow", "Boosted", "Exway", "Bajaboard", "Hoyt St.", "Acton", "Backfire", "Meepo", "_DIY_", "Other"];
 
     const { isLoggedIn } = useContext(AuthContext);
     const [userData, setUserData] = useState(null);
@@ -356,6 +356,16 @@ function Profile() {
         setPasswordSuccess('');
     };
 
+    const resetEditValues = () => {
+        setEditValues({
+            fname: userData?.fname || '',
+            lname: userData?.lname || '',
+            email: userData?.email || '',
+            rider_stance: userData?.rider_stance || '',
+            boards_owned: typeof userData?.boards_owned === 'string' ? userData.boards_owned.split(',') : []
+        });
+    };
+
 
     return (
         <div className="profile"> {/* Apply 'profile' class name */}
@@ -382,7 +392,14 @@ function Profile() {
                                         )}
                                         {/* Edit Button */}
                                         {editMode.fname && <button className="save-button" onClick={() => saveData('fname')}>Save</button>}
-                                        <button className="edit-button" onClick={() => setEditMode({ ...editMode, fname: !editMode.fname })}>
+                                        <button className="edit-button"
+                                            onClick={() => {
+                                                setEditMode({ ...editMode, fname: !editMode.fname });
+                                                if (editMode.fname) {
+                                                    resetEditValues();
+                                                }
+                                            }}
+                                        >
                                             {editMode.fname ? 'Cancel' : 'Edit'}
                                         </button>
                                     </div>
@@ -402,7 +419,14 @@ function Profile() {
                                         )}
                                         {/* Edit Button */}
                                         {editMode.lname && <button className="save-button" onClick={() => saveData('lname')}>Save</button>}
-                                        <button className="edit-button" onClick={() => setEditMode({ ...editMode, lname: !editMode.lname })}>
+                                        <button className="edit-button"
+                                            onClick={() => {
+                                                setEditMode({ ...editMode, lname: !editMode.lname });
+                                                if (editMode.lname) {
+                                                    resetEditValues();
+                                                }
+                                            }}
+                                        >
                                             {editMode.lname ? 'Cancel' : 'Edit'}
                                         </button>
                                     </div>
@@ -422,7 +446,14 @@ function Profile() {
                                         )}
                                         {/* Edit Button */}
                                         {editMode.email && <button className="save-button" onClick={() => saveData('email')}>Save</button>}
-                                        <button className="edit-button" onClick={() => setEditMode({ ...editMode, email: !editMode.email })}>
+                                        <button className="edit-button"
+                                            onClick={() => {
+                                                setEditMode({ ...editMode, email: !editMode.email });
+                                                if (editMode.email) {
+                                                    resetEditValues();
+                                                }
+                                            }}
+                                        >
                                             {editMode.email ? 'Cancel' : 'Edit'}
                                         </button>
                                     </div>
@@ -552,7 +583,14 @@ function Profile() {
                                         )}
                                         {/* Edit Button */}
                                         {editMode.rider_stance && <button className="save-button" onClick={() => saveData('rider_stance')}>Save</button>}
-                                        <button className="edit-button" onClick={() => setEditMode({ ...editMode, rider_stance: !editMode.rider_stance })}>
+                                        <button className="edit-button"
+                                            onClick={() => {
+                                                setEditMode({ ...editMode, rider_stance: !editMode.rider_stance });
+                                                if (editMode.rider_stance) {
+                                                    resetEditValues();
+                                                }
+                                            }}
+                                        >
                                             {editMode.rider_stance ? 'Cancel' : 'Edit'}
                                         </button>
                                     </div>
@@ -594,7 +632,14 @@ function Profile() {
                                         )}
                                         {/* Edit Button */}
                                         {editMode.boards_owned && <button className="save-button" onClick={() => saveData('boards_owned')}>Save</button>}
-                                        <button className="edit-button" onClick={() => setEditMode({ ...editMode, boards_owned: !editMode.boards_owned })}>
+                                        <button className="edit-button"
+                                            onClick={() => {
+                                                setEditMode({ ...editMode, boards_owned: !editMode.boards_owned });
+                                                if (editMode.boards_owned) {
+                                                    resetEditValues();
+                                                }
+                                            }}
+                                        >
                                             {editMode.boards_owned ? 'Cancel' : 'Edit'}
                                         </button>
                                     </div>
@@ -728,96 +773,3 @@ function Profile() {
 };
 
 export default Profile;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const handlePasswordChange = async (e) => {
-//     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-
-//     const { name, value } = e.target;
-//     setPasswordFields({ ...passwordFields, [name]: value });
-
-//     if (name === 'newPassword' || name === 'confirmNewPassword') {
-//         const updatedPassword = name === 'newPassword' ? value : passwordFields.newPassword;
-//         const updatedConfirmPassword = name === 'confirmNewPassword' ? value : passwordFields.confirmNewPassword;
-
-//         setPasswordCriteria({
-//             hasUppercase: /[A-Z]/.test(updatedPassword),
-//             hasLowercase: /[a-z]/.test(updatedPassword),
-//             hasNumber: /[0-9]/.test(updatedPassword),
-//             hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(updatedPassword),
-//             isLongEnough: updatedPassword.length >= 6,
-//             passwordsMatch: updatedPassword === updatedConfirmPassword
-//         });
-//     }
-
-//     if (passwordFields.newPassword === passwordFields.currentPassword) {
-//         setPasswordError("New password cannot be the same as current password");
-//         setPasswordSuccess('');
-//         return;
-//     }
-
-//     if (passwordFields.newPassword !== passwordFields.confirmNewPassword) {
-//         setPasswordError("New passwords do not match.");
-//         setPasswordSuccess('');
-//         return;
-//     }
-
-//     if (!passwordRegex.test(passwordFields.newPassword)) {
-//         setPasswordError("Password must contain at least: one upper and lowercase letter, one number, one special character, and 6 characters.");
-//         setPasswordSuccess('');
-//         return;
-//     }
-
-//     const dataToSend = {
-//         currentPassword: passwordFields.currentPassword,
-//         newPassword: passwordFields.newPassword
-//     };
-
-//     try {
-//         const response = await fetch('/change_password', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify(dataToSend),
-//             credentials: 'include'
-//         });
-
-//         const data = await response.json();
-//         if (response.ok) {
-//             setPasswordSuccess("Password changed successfully.");
-//             setPasswordError('');
-//             setPasswordFields({ currentPassword: '', newPassword: '', confirmNewPassword: '' });
-//             setEditMode({ ...editMode, password: false });
-
-//             if (timerId) clearTimeout(timerId);
-
-//             const newTimerId = setTimeout(() => {
-//                 setPasswordSuccess('');
-//             }, 5000);
-
-//             setTimerId(newTimerId);
-
-//         } else {
-//             setPasswordError(data.error);
-//             setPasswordSuccess('');
-//         }
-//     } catch (error) {
-//         setPasswordError("Failed to change password.");
-//         setPasswordSuccess('');
-//     }
-// };
