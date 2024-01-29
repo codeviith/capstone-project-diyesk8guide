@@ -1,7 +1,7 @@
 import * as React from "react"
 
 const ReportIcon4 = (props) => (
-    <svg
+    <svg className="report-icon4"
         xmlns="http://www.w3.org/2000/svg"
         xmlSpace="preserve"
         width={40}
