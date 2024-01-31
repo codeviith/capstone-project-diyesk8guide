@@ -1439,14 +1439,12 @@ nav a.home-link:hover {
   color: black;
 }
 
-
 .item-actions {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
 }
-
 
 .rating {
   text-align: center;
@@ -1615,6 +1613,7 @@ nav a.home-link:hover {
 
 
 
+
 /* Hall of Fame Section */
 
 .hall-of-fame {
@@ -1723,6 +1722,7 @@ nav a.home-link:hover {
 
 
 
+
 /* success and error messages */
 .success-message {
   color: rgb(0, 64, 0);
@@ -1775,3 +1775,4 @@ nav a.home-link:hover {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+

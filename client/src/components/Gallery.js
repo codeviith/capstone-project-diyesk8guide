@@ -100,10 +100,10 @@ function Gallery() {
             isFieldEmpty(formFields.wheel_size, 'Wheel Size') ||
             isFieldEmpty(formFields.max_speed, 'Max Speed') ||
             isFieldEmpty(formFields.max_range, 'Max Range')) {
-            return false;  //returns false if any field is empty
+            return false;  //Code to return false if any field is empty
         }
 
-        const isPositive = (value, fieldName) => {  //code to check for positive values
+        const isPositive = (value, fieldName) => {  //Code to check for positive values
             if (parseInt(value) <= 0) {
                 setUploadError(`${fieldName} must be a positive value`);
                 return false;
@@ -116,7 +116,7 @@ function Gallery() {
             !isPositive(formFields.motor_power, 'Motor Power') ||
             !isPositive(formFields.max_speed, 'Max Speed') ||
             !isPositive(formFields.max_range, 'Max Range')) {
-            return false;  //returns false if any field is not positive
+            return false;  //Code to returns false if any field is not positive
         }
 
         const isTooLarge = (value, fieldName, maxValue) => {
@@ -144,18 +144,13 @@ function Gallery() {
 
 
     const handleSubmit = async (e) => {
+        e.preventDefault();
+
         const submissionFields = {  //code to add 'n/a' to other_features if input is blank
             ...formFields,
             other_features: formFields.other_features.trim() === '' ? 'n/a' : formFields.other_features
         };
         const formData = new FormData();
-
-        e.preventDefault();
-
-        // if (!isLoggedIn) {
-        //     alert('You must be logged in to post.');
-        //     return;
-        // }
 
         if (!isLoggedIn) {
             setUploadError('Please log in to post.');
@@ -163,10 +158,10 @@ function Gallery() {
         }
 
         if (!isFormValid()) {
-            return;  //empty return if validation fails, so nothing gets submitted
+            return;  // Code for an empty return if validation fails, so nothing gets submitted
         }
 
-        setUploadError(''); //code to reset the error message
+        setUploadError(''); //Code to reset the error message
         formData.append('image', image);
 
         try {
@@ -179,7 +174,7 @@ function Gallery() {
                 const responseData = await response.json();
                 const imageId = responseData.id; // Code to get the id of the uploaded image
 
-                response = await fetch('/gallery', {  //code to add additional data
+                response = await fetch('/gallery', {  //Code to add additional data
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ id: imageId, ...submissionFields }),
