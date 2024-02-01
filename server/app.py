@@ -11,6 +11,7 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_bcrypt import Bcrypt
 from werkzeug.utils import secure_filename
+from PIL import Image
 
 
 # Local imports
@@ -416,7 +417,7 @@ def serve_image(filename):
 def upload_image():
     if 'user_id' not in session:
         return jsonify({'error': 'Authentication required.'}), 401
-    
+
     user_id = session['user_id']
     image = request.files.get('image')
 
@@ -424,11 +425,104 @@ def upload_image():
         return jsonify({'error': 'No image provided'}), 400
 
     filename = secure_filename(image.filename)
-    image_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
+    temp_path = os.path.join(IMAGE_UPLOAD_FOLDER, f"temp_{filename}")
 
     try:
-        image.save(image_path)
-        print(f"Image saved at {image_path}")
+        # Code to temporarily save the image for resizing work
+        image.save(temp_path)
+
+        # Code to open the image with Pillow
+        with Image.open(temp_path) as img:
+            width, height = img.size
+
+        ### Horizontal Images ###
+            if width >= 854 and height >= 480:
+                # Code to shrink image based by percentage so as to preserve aspect ratio
+                new_width = int(width * 0.75)
+                new_height = int(height * 0.75)
+
+                # Code to resize the image using LANCZOS
+                resized_img = img.resize((new_width, new_height), Image.LANCZOS)
+
+                # Code to save resized image
+                final_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
+                resized_img.save(final_path)
+            elif width >= 1280 and height >= 720:
+                new_width = int(width * 0.5)
+                new_height = int(height * 0.5)
+
+                resized_img = img.resize((new_width, new_height), Image.LANCZOS)
+
+                final_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
+                resized_img.save(final_path)
+            elif width >= 1920 and height >= 1080:
+                new_width = int(width * 0.335)
+                new_height = int(height * 0.335)
+
+                resized_img = img.resize((new_width, new_height), Image.LANCZOS)
+
+                final_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
+                resized_img.save(final_path)
+            elif width >= 2560 and height >= 1440:
+                new_width = int(width * 0.25)
+                new_height = int(height * 0.25)
+
+                resized_img = img.resize((new_width, new_height), Image.LANCZOS)
+
+                final_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
+                resized_img.save(final_path)
+            elif width >= 3840 and height >= 2160:
+                new_width = int(width * 0.167)
+                new_height = int(height * 0.167)
+
+                resized_img = img.resize((new_width, new_height), Image.LANCZOS)
+
+                final_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
+                resized_img.save(final_path)
+
+        ### Vertical Images ###
+            elif width >= 480 and height >= 854:
+                new_width = int(width * 0.85)
+                new_height = int(height * 0.85)
+
+                resized_img = img.resize((new_width, new_height), Image.LANCZOS)
+
+                final_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
+                resized_img.save(final_path)
+            elif width >= 720 and height >= 1280:
+                new_width = int(width * 0.57)
+                new_height = int(height * 0.57)
+
+                resized_img = img.resize((new_width, new_height), Image.LANCZOS)
+
+                final_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
+                resized_img.save(final_path)
+            elif width >= 1440 and height >= 2560:
+                new_width = int(width * 0.285)
+                new_height = int(height * 0.285)
+
+                resized_img = img.resize((new_width, new_height), Image.LANCZOS)
+
+                final_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
+                resized_img.save(final_path)
+            elif width >= 2160 and height >= 3840:
+                new_width = int(width * 0.19)
+                new_height = int(height * 0.19)
+
+                resized_img = img.resize((new_width, new_height), Image.LANCZOS)
+
+                final_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
+                resized_img.save(final_path)
+            elif width >= 2880 and height >= 5120:
+                return jsonify({'error': 'Image too big. Please size it down and try again'}), 400
+            elif width >= 5120 and height >= 2880:
+                return jsonify({'error': 'Image too big. Please size it down and try again'}), 400
+            else: # If image uploaded is small already, save the image
+                os.rename(temp_path, os.path.join(IMAGE_UPLOAD_FOLDER, filename))
+
+        # Code to remove temporary files
+        if os.path.exists(temp_path):
+            os.remove(temp_path)
 
         new_gallery_entry = Gallery(
             image_filename=filename,
@@ -451,11 +545,15 @@ def upload_image():
 
         return jsonify({
             'message': 'Image uploaded successfully',
-            'filePath': image_path,
+            'filePath': os.path.join(IMAGE_UPLOAD_FOLDER, filename),
             'id': new_gallery_entry.id
         }), 200
     except Exception as e:
-        print(f"Error saving image: {e}")
+        print(f"Error processing image: {e}")
+
+        if os.path.exists(temp_path):
+            os.remove(temp_path)
+
         return jsonify({'error': str(e)}), 500
 
 
@@ -628,3 +726,52 @@ def report_image(image_id):
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
 
+
+
+
+
+# @app.route('/gallery/upload', methods=['POST'])
+# def upload_image():
+#     if 'user_id' not in session:
+#         return jsonify({'error': 'Authentication required.'}), 401
+    
+#     user_id = session['user_id']
+#     image = request.files.get('image')
+
+#     if not image:
+#         return jsonify({'error': 'No image provided'}), 400
+
+#     filename = secure_filename(image.filename)
+#     image_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
+
+#     try:
+#         image.save(image_path)
+#         print(f"Image saved at {image_path}")
+
+#         new_gallery_entry = Gallery(
+#             image_filename=filename,
+#             user_id=user_id,
+#             deck_brand='',
+#             deck_size='',
+#             battery_series='',
+#             battery_parallel='',
+#             motor_size='',
+#             motor_kv='',
+#             motor_power='',
+#             wheel_type='',
+#             wheel_size='',
+#             max_speed='',
+#             max_range='',
+#             other_features=''
+#         )
+#         db.session.add(new_gallery_entry)
+#         db.session.commit()
+
+#         return jsonify({
+#             'message': 'Image uploaded successfully',
+#             'filePath': image_path,
+#             'id': new_gallery_entry.id
+#         }), 200
+#     except Exception as e:
+#         print(f"Error saving image: {e}")
+#         return jsonify({'error': str(e)}), 500
