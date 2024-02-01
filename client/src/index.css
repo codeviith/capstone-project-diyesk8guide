@@ -1420,7 +1420,7 @@ nav a.home-link:hover {
   height: 320px; 
   object-fit: contain; 
   background-color: transparent; 
-  border-radius: 50000px;
+  border-radius: 1000px;
 }
 
 .item-details p {
@@ -1689,7 +1689,7 @@ nav a.home-link:hover {
   height: 320px; 
   object-fit: contain; 
   background-color: transparent; 
-  border-radius: 500000px;
+  border-radius: 1000px;
 }
 
 
