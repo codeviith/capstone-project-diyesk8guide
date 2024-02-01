@@ -150,7 +150,6 @@ function Gallery() {
             ...formFields,
             other_features: formFields.other_features.trim() === '' ? 'n/a' : formFields.other_features
         };
-        const formData = new FormData();
 
         if (!isLoggedIn) {
             setUploadError('Please log in to post.');
@@ -162,6 +161,8 @@ function Gallery() {
         }
 
         setUploadError(''); // Code to reset the error message
+
+        const formData = new FormData();
         formData.append('image', image);
 
         try {
@@ -170,8 +171,9 @@ function Gallery() {
                 body: formData
             });
 
+            const responseData = await response.json();
+
             if (response.ok) {
-                const responseData = await response.json();
                 const imageId = responseData.id; // Code to get the id of the uploaded image
 
                 response = await fetch('/gallery', {  // Code to add additional data
@@ -184,14 +186,14 @@ function Gallery() {
                     fetchGalleryItems();  //code to refetch gallery so to update state
                     resetForm();
                 } else {
-                    throw new Error('Failed to submit gallery item data');
+                    throw new Error(responseData.error || 'An unknown error occurred');
                 }
             } else {
-                throw new Error('Failed to upload image');
+                throw new Error(responseData.error || 'Failed to upload image');
             }
         } catch (error) {
             console.error('Error during form submission:', error);
-            setUploadError('Error submitting form. Please try again.');
+            setUploadError(error.message); // Code to pass error message from the backend to the uploadError state
         }
     };
 

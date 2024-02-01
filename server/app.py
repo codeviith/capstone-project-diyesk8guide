@@ -435,6 +435,9 @@ def upload_image():
         with Image.open(temp_path) as img:
             width, height = img.size
 
+            if width >= 5120 or height >= 5120:
+                return jsonify({'error': 'Image too big. Please size it down and try again'}), 400
+
         ### Horizontal Images ###
             if width >= 854 and height >= 480:
                 # Code to shrink image based by percentage so as to preserve aspect ratio
@@ -513,10 +516,6 @@ def upload_image():
 
                 final_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
                 resized_img.save(final_path)
-            elif width >= 2880 and height >= 5120:
-                return jsonify({'error': 'Image too big. Please size it down and try again'}), 400
-            elif width >= 5120 and height >= 2880:
-                return jsonify({'error': 'Image too big. Please size it down and try again'}), 400
             else: # If image uploaded is small already, save the image
                 os.rename(temp_path, os.path.join(IMAGE_UPLOAD_FOLDER, filename))
 
