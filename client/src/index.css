@@ -1356,6 +1356,7 @@ nav a.home-link:hover {
 .gallery-items {
   display: flex;
   flex-wrap: wrap;
+  /* margin-top: 30px; */
   gap: 15px;
   flex: 1;
   overflow-y: auto;
@@ -1364,11 +1365,13 @@ nav a.home-link:hover {
 
 .featured-builds-container h2 {
   width: 100%;
-  color: white;
+  color: black;
   font-size: 32px;
   text-align: center;
-  margin: 7px;
-    /* box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); */
+  margin: 1px;
+  /* border: 2px solid gray;  */
+  /* margin-bottom: 10px; */
+    /* box-shadow: 0px 4px 8px rgba(0, 0, 0, 1.2); */
 }
 
 .featured-builds-container {
@@ -1382,15 +1385,15 @@ nav a.home-link:hover {
   /* box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); */
 }
 
-.featured-builds-container-underline {
+.featured-builds-container-divider {
   background-color: black;
   border-radius: 15px;
   text-align: center;
   /* margin: 0 auto; */
   margin-left: auto;
   margin-right: auto;
-  margin-top: -10px;
-  margin-bottom: 30px;
+  margin-top: 30px;
+  margin-bottom: 10px;
   width: 85%;
   height: 8px;
   padding: 1px;
@@ -1406,6 +1409,7 @@ nav a.home-link:hover {
   background-color: darkgray; 
   border-radius: 55px; 
   overflow: hidden; 
+  margin-top: 35px;
   margin-bottom: 10px; 
   padding: 10px; 
 }
