@@ -14,6 +14,7 @@ import Guide from './Guide';
 import Profile from './Profile';
 import About from "./About";
 import ContactUs from './ContactUs';
+import Donations from './Donations';
 // import Footer from './Footer';
 
 
@@ -67,6 +68,9 @@ function App() {
             </Route>
             <Route path="/contactus">
               <ContactUs />
+            </Route>
+            <Route path="/donations">
+              <Donations />
             </Route>
           </Switch>
           {/* {shouldDisplayFooter() && <Footer />} */}

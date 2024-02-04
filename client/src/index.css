@@ -1224,7 +1224,7 @@ nav a.home-link:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.about h1 {
+.about-title {
   color: black;
   font-size: 32px;
   text-align: center;
@@ -1340,6 +1340,78 @@ nav a.home-link:hover {
   background-color: #0056b3;
   box-shadow: 0 0 10px white
 }
+
+
+
+
+
+/* Donations Component */
+
+.donation {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 10px;
+  text-align: justify;
+  background-color: gray;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.donation-title {
+  color: black;
+  font-size: 32px;
+  text-align: center;
+  margin-top: 2px;
+  margin-bottom: 20px;
+}
+
+.donation span {
+  display: block;
+  margin-bottom: 1px;
+  font-size: 18px;
+  line-height: 1.5;
+  color: black;
+}
+
+.donation-button-container {
+  background-color: black;
+  text-align: center;
+  padding: 15px;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+}
+
+.donation-button-container h2 {
+  /* text-align: center; */
+  color: #007bff;
+  margin-bottom: 15px;
+}
+
+.donation-button-container p {
+  /* text-align: center; */
+  font-size: 17px;
+  margin-bottom: 15px;
+}
+
+.donation-button {
+  display: inline-block;
+  padding: 8px 12px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.donation-button:hover {
+  background-color: #0056b3;
+  box-shadow: 0 0 10px white
+}
+
+
+
+
 
 
 

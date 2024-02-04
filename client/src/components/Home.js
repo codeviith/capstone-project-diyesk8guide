@@ -64,6 +64,7 @@ const Home = () => {
       <div className="footer-bottom">
         <NavLink className="footer-bottom-link" to="/about">About</NavLink>
         <NavLink className="footer-bottom-link" to="/contactus">Contact Us</NavLink>
+        <NavLink className="footer-bottom-link" to="/donations">Donations</NavLink>
       </div>
     </div>
   );

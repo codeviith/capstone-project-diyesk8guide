@@ -52,6 +52,7 @@ function NavBar() {
                             <NavLink to="/">Home</NavLink>
                             <NavLink to="/about">About</NavLink>
                             <NavLink to="/contactus">Contact Us</NavLink>
+                            <NavLink to="/donations">Donations</NavLink>
                         </div>
                     )}
                 </div>
