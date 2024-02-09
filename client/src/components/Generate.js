@@ -19,6 +19,7 @@ function Generate() {
   const [remoteType, setRemoteType] = useState("");
   const [motorSize, setMotorSize] = useState("");
   const [motorKv, setMotorKv] = useState("");
+  // const [speed, setSpeed] = useState("");
   const [wheelSize, setWheelSize] = useState("");
   const [wheelType, setWheelType] = useState("");
   const [batteryVoltage, setBatteryVoltage] = useState("");
@@ -51,6 +52,7 @@ function Generate() {
           remoteType,
           motorSize,
           motorKv,
+          // speed,
           wheelSize,
           wheelType,
           batteryVoltage,
@@ -83,6 +85,7 @@ function Generate() {
       remoteType !== "" ||
       motorSize !== "" ||
       motorKv !== "" ||
+      // speed !== "" ||
       wheelSize !== "" ||
       wheelType !== "" ||
       batteryVoltage !== "" ||
@@ -105,6 +108,7 @@ function Generate() {
     remoteType,
     motorSize,
     motorKv,
+    // speed,
     wheelSize,
     wheelType,
     batteryVoltage,
@@ -123,19 +127,19 @@ function Generate() {
       return;
     }
 
-const selections = [
-  {value: riderLevel, name: "Rider Level"},
-  {value: motorPower, name: "Rider Style"},
-  {value: terrainType, name: "Terrain Type"},
-  {value: rangeType, name: "Range Type"}
-];
+    const selections = [
+      { value: riderLevel, name: "Rider Level" },
+      { value: motorPower, name: "Rider Style" },
+      { value: terrainType, name: "Terrain Type" },
+      { value: rangeType, name: "Range Type" }
+    ];
 
-const missingSelection = selections.find(selection => !selection.value);
+    const missingSelection = selections.find(selection => !selection.value);
 
-if (missingSelection) {
-  setErrorMessage(`Please select an option for ${missingSelection.name}`);
-  return;
-}
+    if (missingSelection) {
+      setErrorMessage(`Please select an option for ${missingSelection.name}`);
+      return;
+    }
 
     try {
       if (riderLevel === "Beginner") {
@@ -183,23 +187,40 @@ if (missingSelection) {
       if (motorPower === "Drag Racing") {
         setMotorSize("6374");
         setMotorKv("235kv");
+        // setSpeed("35mph");
       } else if (motorPower === "Casual Cruising") {
         setMotorSize("6356");
         setMotorKv("190kv");
+        // setSpeed("28mph");
       } else if (motorPower === "Hill Climbing") {
         setMotorSize("6384");
         setMotorKv("170kv");
+        // setSpeed("25mph");
       }
 
       if (terrainType === "Street") {
         setWheelSize("90mm");
         setWheelType("78A");
+      } else if (terrainType === "All Rounded") {
+        setWheelSize("107mm");
+        setWheelType("Rubber");
       } else if (terrainType === "All Terrain") {
         setWheelSize("175mm");
         setWheelType("Pneumatic");
+      } else if (terrainType === "Off-Road") {
+        setWheelSize("228mm");
+        setWheelType("Pneumatic");
       }
 
-      if (rangeType === "Normal") {
+      if (rangeType === "Portable") {
+        setBatteryVoltage("37v Nominal");
+        setBatteryType("18650 li-ion");
+        setBatteryCapacity("3000mah per cell");
+        setBatteryConfiguration("10s2p");
+        setMileage(
+          "Approx. 15 miles per charge. Note that mileage will depend on a lot of factors such as: type of wheel, terrain conditions, motor configuration, etc."
+        );
+      } else if (rangeType === "Normal") {
         setBatteryVoltage("37v Nominal");
         setBatteryType("18650 li-ion");
         setBatteryCapacity("3500mah per cell");
@@ -218,7 +239,7 @@ if (missingSelection) {
       }
 
       setSuccessMessage("Board generated successfully.");
-      setTimeout( () => {setSuccessMessage("")}, 3000)
+      setTimeout(() => { setSuccessMessage("") }, 3000)
 
       setBoardGenerated(true);
     } catch (error) {
@@ -236,31 +257,49 @@ if (missingSelection) {
               <div className="generate-board-div" key={index}>
                 <ul className="generate-board-spec">
                   <strong className="generate-board-strong"> Deck </strong>
-                  <li>Deck Type: {board.deck_type}</li>
-                  <li>Deck Length: {board.deck_length}</li>
-                  <li>Deck Material: {board.deck_material}</li>
+                  <div className="board-list-div">
+                    <li>Deck Type: {board.deck_type}</li>
+                    <li>Deck Length: {board.deck_length}</li>
+                    <li>Deck Material: {board.deck_material}</li>
+                  </div>
                   <strong className="generate-board-strong"> Truck </strong>
-                  <li>Truck Type: {board.truck_type}</li>
-                  <li>Truck Width: {board.truck_width}</li>
+                  <div className="board-list-div">
+                    <li>Truck Type: {board.truck_type}</li>
+                    <li>Truck Width: {board.truck_width}</li>
+                  </div>
                   <strong className="generate-board-strong"> Controller </strong>
-                  <li>Controller Feature: {board.controller_feature}</li>
-                  <li>Controller Type: {board.controller_type}</li>
+                  <div className="board-list-div">
+                    <li>Controller Feature: {board.controller_feature}</li>
+                    <li>Controller Type: {board.controller_type}</li>
+                  </div>
                   <strong className="generate-board-strong"> Remote </strong>
-                  <li>Remote Feature: {board.remote_feature}</li>
-                  <li>Remote Type: {board.remote_type}</li>
+                  <div className="board-list-div">
+                    <li>Remote Feature: {board.remote_feature}</li>
+                    <li>Remote Type: {board.remote_type}</li>
+                  </div>
                   <strong className="generate-board-strong"> Motor </strong>
-                  <li>Motor Size: {board.motor_size}</li>
-                  <li>Motor Kv: {board.motor_kv}</li>
+                  <div className="board-list-div">
+                    <li>Motor Size: {board.motor_size}</li>
+                    <li>Motor Kv: {board.motor_kv}</li>
+                  </div>
                   <strong className="generate-board-strong"> Wheel </strong>
-                  <li>Wheel Size: {board.wheel_size}</li>
-                  <li>Wheel Type: {board.wheel_type}</li>
+                  <div className="board-list-div">
+                    <li>Wheel Size: {board.wheel_size}</li>
+                    <li>Wheel Type: {board.wheel_type}</li>
+                  </div>
                   <strong className="generate-board-strong"> Battery </strong>
-                  <li>Battery Voltage: {board.battery_voltage}</li>
-                  <li>Battery Type: {board.battery_type}</li>
-                  <li>Battery Capacity: {board.battery_capacity}</li>
-                  <li>Battery Configuration: {board.battery_configuration}</li>
+                  <div className="board-list-div">
+                    <li>Battery Voltage: {board.battery_voltage}</li>
+                    <li>Battery Type: {board.battery_type}</li>
+                    <li>Battery Capacity: {board.battery_capacity}</li>
+                    <li>Battery Configuration: {board.battery_configuration}</li>
+                  </div>
+                  {/* <strong className="generate-board-strong"> Speed </strong>
+                  <li>{board.speed}</li> */}
                   <strong className="generate-board-strong"> Range </strong>
-                  <li>{board.range_mileage}</li>
+                  <div className="board-list-div">
+                    <li>{board.range_mileage}</li>
+                  </div>
                 </ul>
               </div>
             ))}
@@ -314,7 +353,9 @@ if (missingSelection) {
             >
               <option value="">Select Terrain Type</option>
               <option value="Street">Street</option>
+              <option value="All Rounded">All Rounded</option>
               <option value="All Terrain">All Terrain</option>
+              <option value="Off-Road">Off-Road</option>
             </select>
           </label>
           <br />
@@ -326,6 +367,7 @@ if (missingSelection) {
               onChange={(e) => setRangeType(e.target.value)}
             >
               <option value="">Select Range Type</option>
+              <option value="Portable">Portable</option>
               <option value="Normal">Normal</option>
               <option value="Extended">Extended</option>
             </select>

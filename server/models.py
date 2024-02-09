@@ -97,6 +97,7 @@ class Board(db.Model, SerializerMixin):
     remote_type = db.Column(db.String, nullable=False)
     motor_size = db.Column(db.String, nullable=False)
     motor_kv = db.Column(db.String, nullable=False)
+    # speed = db.Column(db.String, nullable=False)
     wheel_size = db.Column(db.String, nullable=False)
     wheel_type = db.Column(db.String, nullable=False)
     battery_voltage = db.Column(db.String, nullable=False)
@@ -126,6 +127,7 @@ class Board(db.Model, SerializerMixin):
             'remote_type': self.remote_type,
             'motor_size': self.motor_size,
             'motor_kv': self.motor_kv,
+            # 'speed': self.speed,
             'wheel_size': self.wheel_size,
             'wheel_type': self.wheel_type,
             'battery_voltage': self.battery_voltage,

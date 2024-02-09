@@ -322,6 +322,7 @@ def update_board():
     remote_type = data.get('remoteType', '')
     motor_size = data.get('motorSize', '')
     motor_kv = data.get('motorKv', '')
+    # speed = data.get('speed', '')
     wheel_size = data.get('wheelSize', '')
     wheel_type = data.get('wheelType', '')
     battery_voltage = data.get('batteryVoltage', '')
@@ -331,7 +332,27 @@ def update_board():
     range_mileage = data.get('mileage', '')
     image_url = data.get('imageURL', '')
 
-    board_entry = Board(user_id=user_id, deck_type=deck_type, deck_length=deck_length, deck_material=deck_material, truck_type=truck_type, truck_width=truck_width, controller_feature=controller_feature, controller_type=controller_type, remote_feature=remote_feature, remote_type=remote_type, motor_size=motor_size, motor_kv=motor_kv, wheel_size=wheel_size, wheel_type=wheel_type, battery_voltage=battery_voltage, battery_type=battery_type, battery_capacity=battery_capacity, battery_configuration=battery_configuration, range_mileage=range_mileage, image_url=image_url)
+    board_entry = Board(user_id=user_id, 
+                        deck_type=deck_type, 
+                        deck_length=deck_length, 
+                        deck_material=deck_material, 
+                        truck_type=truck_type, 
+                        truck_width=truck_width, 
+                        controller_feature=controller_feature, 
+                        controller_type=controller_type, 
+                        remote_feature=remote_feature, 
+                        remote_type=remote_type, 
+                        motor_size=motor_size, 
+                        motor_kv=motor_kv, 
+                        # speed=speed,
+                        wheel_size=wheel_size, 
+                        wheel_type=wheel_type, 
+                        battery_voltage=battery_voltage, 
+                        battery_type=battery_type, 
+                        battery_capacity=battery_capacity, 
+                        battery_configuration=battery_configuration, 
+                        range_mileage=range_mileage, 
+                        image_url=image_url)
     db.session.add(board_entry)
     db.session.commit()
 
@@ -641,7 +662,7 @@ def get_top_images():
         .order_by(desc(func.count(Heart.gallery_id))) \
         .limit(3) \
         .all()
-    
+
     return jsonify([image.to_dict() for image in top_images])
 
 
@@ -724,53 +745,3 @@ def report_image(image_id):
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
-
-
-
-
-
-# @app.route('/gallery/upload', methods=['POST'])
-# def upload_image():
-#     if 'user_id' not in session:
-#         return jsonify({'error': 'Authentication required.'}), 401
-    
-#     user_id = session['user_id']
-#     image = request.files.get('image')
-
-#     if not image:
-#         return jsonify({'error': 'No image provided'}), 400
-
-#     filename = secure_filename(image.filename)
-#     image_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
-
-#     try:
-#         image.save(image_path)
-#         print(f"Image saved at {image_path}")
-
-#         new_gallery_entry = Gallery(
-#             image_filename=filename,
-#             user_id=user_id,
-#             deck_brand='',
-#             deck_size='',
-#             battery_series='',
-#             battery_parallel='',
-#             motor_size='',
-#             motor_kv='',
-#             motor_power='',
-#             wheel_type='',
-#             wheel_size='',
-#             max_speed='',
-#             max_range='',
-#             other_features=''
-#         )
-#         db.session.add(new_gallery_entry)
-#         db.session.commit()
-
-#         return jsonify({
-#             'message': 'Image uploaded successfully',
-#             'filePath': image_path,
-#             'id': new_gallery_entry.id
-#         }), 200
-#     except Exception as e:
-#         print(f"Error saving image: {e}")
-#         return jsonify({'error': str(e)}), 500
