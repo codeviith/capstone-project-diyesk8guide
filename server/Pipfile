@@ -16,6 +16,7 @@ faker = "*"
 flask-bcrypt = "*"
 python-dotenv = "*"
 openai = "*"
+pillow = "*"
 
 [requires]
 python_full_version = "3.8.13"
