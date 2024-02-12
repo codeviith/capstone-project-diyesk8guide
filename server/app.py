@@ -742,6 +742,6 @@ def report_image(image_id):
     db.session.commit()
     return jsonify({'message': 'Image reported successfully'}), 200
 
-
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
+

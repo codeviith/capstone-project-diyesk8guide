@@ -19,7 +19,7 @@ function Generate() {
   const [remoteType, setRemoteType] = useState("");
   const [motorSize, setMotorSize] = useState("");
   const [motorKv, setMotorKv] = useState("");
-  // const [speed, setSpeed] = useState("");
+  // const [speed, setSpeed] = useState(""); 
   const [wheelSize, setWheelSize] = useState("");
   const [wheelType, setWheelType] = useState("");
   const [batteryVoltage, setBatteryVoltage] = useState("");
@@ -33,6 +33,7 @@ function Generate() {
 
   const { isLoggedIn } = useContext(AuthContext);
 
+  
   useEffect(() => {
     const updateBoardData = async () => {
       await fetch("/update_board", {

@@ -33,6 +33,7 @@ class User(db.Model, SerializerMixin):
     gurus = db.relationship('Guru', back_populates='users')
     heart_count = db.relationship('Heart', back_populates='users')
 
+
     def to_dict(self):
         return {
             'id': self.id,
