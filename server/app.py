@@ -32,9 +32,9 @@ from openai import OpenAI
 
 # Instantiate app, set attributes
 app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'   ## this is used for development build
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'   ## uncomment to test code on development server
 # app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')   ## this is used for production build on render
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')   ## uncomment for production build on render
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['IMAGE_URL'] = '/home/codeviith/Development/code/phase-5/capstone-project/diyesk8guide/server/gallery'
 
@@ -744,6 +744,6 @@ def report_image(image_id):
     db.session.commit()
     return jsonify({'message': 'Image reported successfully'}), 200
 
-if __name__ == '__main__':
+if __name__ == '__main__':   ### not needed for production build on render, but doesn't hurt to keep for development server
     app.run(port=5555, debug=True)
 
