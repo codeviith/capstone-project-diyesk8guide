@@ -23,7 +23,6 @@ import os
 # API imports
 from openai import OpenAI
 
-
 ### This puts app.db in server directory???
 # BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 # DATABASE = os.environ.get(
@@ -32,9 +31,7 @@ from openai import OpenAI
 
 # Instantiate app, set attributes
 app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'   ## uncomment to test code on development server
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')   ## uncomment for production build on render
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['IMAGE_URL'] = '/home/codeviith/Development/code/phase-5/capstone-project/diyesk8guide/server/gallery'
 
@@ -44,7 +41,6 @@ app.json.compact = False
 db.init_app(app)
 migrate = Migrate()
 migrate.init_app(app, db)
-
 
 
 # API Secret Keys
@@ -752,5 +748,5 @@ def report_image(image_id):
     db.session.commit()
     return jsonify({'message': 'Image reported successfully'}), 200
 
-if __name__ == '__main__':   ### not needed for production build on render, but doesn't hurt to keep for development server
+if __name__ == '__main__':
     app.run(port=5555, debug=True)
