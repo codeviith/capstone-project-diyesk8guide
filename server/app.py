@@ -23,7 +23,6 @@ import os
 # API imports
 from openai import OpenAI
 
-
 ### This puts app.db in server directory???
 # BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 # DATABASE = os.environ.get(
@@ -42,7 +41,6 @@ app.json.compact = False
 db.init_app(app)
 migrate = Migrate()
 migrate.init_app(app, db)
-
 
 
 # API Secret Keys
