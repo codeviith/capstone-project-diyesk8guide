@@ -76,6 +76,8 @@ def is_authenticated():
 
 
 ### ------------------ OPENAI API REQUESTS ------------------ ###
+
+
 guru_instructions = "You are an expert in electric skateboards who will be answering questions from prospective builders. Please follow the instructions: 1. You will come up with the most appropriate response that suits best for the builder's question. If you are unable to provide an appropriate response to the builder, then please provide an appropriate reason. 2.Please refrain from engaing in any other conversation that isn't related to the field of electric skateboards, and in the case that the builder asks a question that is unrelated to and/or outside the scope of electric skateboards, please respond with: 'I apologize but I can only answer questions that are related to electric skateboards.' and end with an appropriate response."
 
 ### Not using guru_assistant.py
@@ -123,14 +125,15 @@ def guru_assistant():
         )
 
 
-
 ### ------------------ AUTHENTICATION ------------------ ###
+
 
 def is_logged_in():
     return 'user_id' in session
 
 
 ### ------------------ LOG IN ------------------ ###
+
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -152,6 +155,7 @@ def logout():
 
 
 ### ------------------ SIGN UP ------------------ ###
+
 
 @app.route('/signup', methods=['POST'])
 def signup():
@@ -179,6 +183,7 @@ def signup():
 
 ### ------------------ COOKIE ------------------ ###
 
+
 @app.route('/check_session', methods=['GET'])
 def check_session():
     if 'user_id' in session:
@@ -188,6 +193,7 @@ def check_session():
 
 
 ### ------------------ USER ------------------ ###
+
 
 @app.route('/user_data', methods=['GET'])
 def get_user_data():
@@ -268,6 +274,7 @@ def change_password():
 
 
 ### ------------------ BOARDS ------------------ ###
+
 
 @app.route('/boards', methods=['GET'])
 def get_boards():
@@ -394,6 +401,7 @@ def delete_guru_question(question_id):
 
 ### ------------------ CONTACTUS ------------------ ###
 
+
 @app.route('/contact_us', methods=['POST'])
 def handle_contact_form():
     try:
@@ -419,7 +427,6 @@ def handle_contact_form():
     except Exception as e:
         print(str(e))
         return jsonify({'error': 'An error occurred while processing your request'}), 500
-
 
 
 ### ------------------ GALLERY ------------------ ###
@@ -723,6 +730,7 @@ def unheart_image():
 
 ### ------------------ GALLERY => REPORT ------------------ ###
 
+
 @app.route('/gallery/report/<int:image_id>', methods=['POST'])
 def report_image(image_id):
     if 'user_id' not in session:
@@ -746,4 +754,3 @@ def report_image(image_id):
 
 if __name__ == '__main__':   ### not needed for production build on render, but doesn't hurt to keep for development server
     app.run(port=5555, debug=True)
-
