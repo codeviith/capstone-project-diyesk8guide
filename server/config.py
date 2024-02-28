@@ -1,6 +1,6 @@
+# Remote library imports
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
-from flask_bcrypt import Bcrypt
 
 # Define metadata
 metadata = MetaData(naming_convention={

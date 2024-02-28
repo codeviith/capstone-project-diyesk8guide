@@ -10,7 +10,6 @@ from sqlalchemy import desc, func, MetaData
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_bcrypt import Bcrypt
 from werkzeug.utils import secure_filename
 from PIL import Image
 import boto3
