@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 
 # Remote library imports
-from flask import Flask, jsonify, make_response, request, session, json, send_from_directory
-from flask_restful import Resource
+from flask import Flask, jsonify, make_response, request, session, json, redirect
+from flask_restful import Resource, Api
 from flask_migrate import Migrate
 from flask_cors import CORS
 from dotenv import load_dotenv
-from sqlalchemy import desc, func
+from sqlalchemy import desc, func, MetaData
+from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_bcrypt import Bcrypt
@@ -14,7 +15,7 @@ from werkzeug.utils import secure_filename
 from PIL import Image
 import boto3
 from botocore.exceptions import NoCredentialsError
-
+import tempfile
 
 # Local imports
 from config import app, db, api
@@ -32,14 +33,24 @@ app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')   ### uncomment for production build on render
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['IMAGE_URL'] = '/home/codeviith/Development/code/phase-5/capstone-project/diyesk8guide/server/gallery'  ### modify value based on file storage location
+app.config['BASE_URL'] = os.environ.get('BASE_URL', 'http://127.0.0.1:5555')  
+###### IMPORTANT!!! make sure to configure the 'BASE_URL' environment variable as the custom domain: www.diyesk8guide.com #####
+# app.config['IMAGE_URL'] = '/home/codeviith/Development/code/phase-5/capstone-project/diyesk8guide/server/gallery'  ### modify value based on file storage location
 
 app.json.compact = False
 
-# Instantiate db
+# Define metadata, Instantiate db
+metadata = MetaData(naming_convention={
+    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
+})
+db = SQLAlchemy(metadata=metadata)
+# migrate = Migrate(app, db)
 db.init_app(app)
 migrate = Migrate()
 migrate.init_app(app, db)
+
+# Instantiate REST API
+api = Api(app)
 
 # API Secret Keys
 load_dotenv()
@@ -70,7 +81,33 @@ s3_client = boto3.client(
 S3_BUCKET = 'diyesk8guide-disk'
 
 
-### ------------------ UNIVERSAL HELPER FUNCTIONS ------------------ ###
+### ------------------ AWS S3 HELPER FUNCTION(S) ------------------ ###
+
+
+def upload_file_to_s3(file, bucket_name, object_name=None):
+    if object_name is None:
+        object_name = file.filename
+
+    try:
+        s3_client.upload_fileobj(file, bucket_name, object_name)
+        return True
+    except Exception as e:
+        print(f"Error uploading file to S3: {e}")
+        return False
+
+
+### ------------------ IMG RESIZE HELPER FUNCTION(S) ------------------ ###
+
+
+def resize_image(image_path, output_path, base_width=1024):
+    img = Image.open(image_path)
+    w_percent = (base_width / float(img.size[0]))
+    h_size = int((float(img.size[1]) * float(w_percent)))
+    img = img.resize((base_width, h_size), Image.ANTIALIAS)
+    img.save(output_path)
+
+
+### ------------------ UNIVERSAL HELPER FUNCTION(S) ------------------ ###
 
 
 def is_authenticated():
@@ -434,15 +471,16 @@ def handle_contact_form():
 ### ------------------ GALLERY ------------------ ###
 
 # Directory for incoming uploads
-IMAGE_UPLOAD_FOLDER = app.config['IMAGE_URL']
+# IMAGE_UPLOAD_FOLDER = app.config['IMAGE_URL']
 
 # Confirming directory exists
-os.makedirs(IMAGE_UPLOAD_FOLDER, exist_ok=True)
+# os.makedirs(IMAGE_UPLOAD_FOLDER, exist_ok=True)
 
 
 @app.route('/images/<filename>')
 def serve_image(filename):
-    return send_from_directory(IMAGE_UPLOAD_FOLDER, filename)
+    image_url = f"https://{S3_BUCKET}.s3.amazonaws.com/{filename}"
+    return redirect(image_url)
 
 
 @app.route('/gallery/upload', methods=['POST'])
@@ -451,62 +489,59 @@ def upload_image():
         return jsonify({'error': 'Authentication required.'}), 401
 
     user_id = session['user_id']
-    image = request.files.get('image')
-
-    if not image:
+    file = request.files['image']
+    if not file:
         return jsonify({'error': 'No image provided'}), 400
 
-    filename = secure_filename(image.filename)
-    temp_path = os.path.join(IMAGE_UPLOAD_FOLDER, f"temp_{filename}")
+    filename = secure_filename(file.filename)
+    temp_dir = tempfile.gettempdir()  ### using temp_dir is a more portable/universal method that don't rely on a specific os (best for multi-Paas platforms)
+    temp_path = os.path.join(temp_dir, f"temp_{filename}")
+    final_path = os.path.join(temp_dir, filename)
+
+    file.save(temp_path)  ### code to save img temp after resizing
 
     try:
-        # Code to temporarily save the image for resizing work
-        image.save(temp_path)
-
-        # Code to open the image with Pillow
-        with Image.open(temp_path) as img:
+        with Image.open(temp_path) as img:  ### resize img if too big
             width, height = img.size
+            if width > 1920 or height > 1080:
+                resize_image(temp_path, final_path)
+            elif width > 1080 or height > 1920:
+                resize_image(temp_path, final_path)
+            else:
+                os.rename(temp_path, final_path)
+        
+        with open(final_path, 'rb') as data:  ### this code will upload the original or resized image to S3
+            if upload_file_to_s3(data, S3_BUCKET, object_name=filename):
+                new_gallery_entry = Gallery(
+                    image_filename=filename,
+                    user_id=user_id,
+                    deck_brand='',
+                    deck_size='',
+                    battery_series='',
+                    battery_parallel='',
+                    motor_size='',
+                    motor_kv='',
+                    motor_power='',
+                    wheel_type='',
+                    wheel_size='',
+                    max_speed='',
+                    max_range='',
+                    other_features=''
+                )
+                db.session.add(new_gallery_entry)
+                db.session.commit()
 
-            if width >= 2560 or height >= 2560:
-                return jsonify({'error': 'Image too big. Please size it down and try again'}), 400
-            else: # If image uploaded is small already, save the image
-                os.rename(temp_path, os.path.join(IMAGE_UPLOAD_FOLDER, filename))
-
-        # Code to remove temporary files
-        if os.path.exists(temp_path):
-            os.remove(temp_path)
-
-        new_gallery_entry = Gallery(
-            image_filename=filename,
-            user_id=user_id,
-            deck_brand='',
-            deck_size='',
-            battery_series='',
-            battery_parallel='',
-            motor_size='',
-            motor_kv='',
-            motor_power='',
-            wheel_type='',
-            wheel_size='',
-            max_speed='',
-            max_range='',
-            other_features=''
-        )
-        db.session.add(new_gallery_entry)
-        db.session.commit()
-
-        return jsonify({
-            'message': 'Image uploaded successfully',
-            'filePath': os.path.join(IMAGE_UPLOAD_FOLDER, filename),
-            'id': new_gallery_entry.id
-        }), 200
+                return jsonify({'message': 'Image uploaded successfully', 'filePath': filename}), 200
+            else:
+                return jsonify({'error': 'Failed to upload image to S3'}), 500
     except Exception as e:
         print(f"Error processing image: {e}")
-
+        return jsonify({'error': str(e)}), 500
+    finally:  ### code to remove temp files
         if os.path.exists(temp_path):
             os.remove(temp_path)
-
-        return jsonify({'error': str(e)}), 500
+        if os.path.exists(final_path):
+            os.remove(final_path)
 
 
 @app.route('/gallery/uploaded', methods=['GET'])
@@ -574,17 +609,18 @@ def delete_uploaded_image(image_id):
         return jsonify({'error': 'Uploaded image not found or unauthorized'}), 404
 
     try:
-        Heart.query.filter_by(gallery_id=image_id).delete() ## Code to manually delete the associated heart relationship
+        s3_client.delete_object(Bucket=S3_BUCKET, Key=uploaded_image.image_filename)
+
+        Heart.query.filter_by(gallery_id=image_id).delete()  ### Code to manually delete the associated heart relationship
 
         db.session.delete(uploaded_image)
         db.session.commit()
 
-        os.remove(os.path.join(IMAGE_UPLOAD_FOLDER, uploaded_image.image_filename))
-
         return jsonify({'message': 'Uploaded image deleted successfully'}), 200
     except Exception as e:
-        print(f"Error deleting uploaded image: {e}")
-        return jsonify({'error': str(e)}), 500
+        print(f"Error deleting image from S3: {e}")
+        return jsonify({'error': 'Failed to delete image'}), 500
+
 
 @app.route('/gallery/top')
 def get_top_images():
