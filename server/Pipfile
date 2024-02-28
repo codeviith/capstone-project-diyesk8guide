@@ -19,6 +19,7 @@ openai = "*"
 pillow = "*"
 boto3 = "*"
 psycopg2 = "*"
+botocore = "*"
 
 [requires]
 python_full_version = "3.8.13"

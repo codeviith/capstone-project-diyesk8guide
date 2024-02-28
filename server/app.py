@@ -12,6 +12,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_bcrypt import Bcrypt
 from werkzeug.utils import secure_filename
 from PIL import Image
+import boto3
+from botocore.exceptions import NoCredentialsError
 
 
 # Local imports
@@ -22,12 +24,6 @@ import os
 
 # API imports
 from openai import OpenAI
-
-
-### This puts app.db in server directory???
-# BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-# DATABASE = os.environ.get(
-#     "DB_URI", f"sqlite:///{os.path.join(BASE_DIR, 'app.db')}")
 
 
 # Instantiate app, set attributes
@@ -45,20 +41,13 @@ db.init_app(app)
 migrate = Migrate()
 migrate.init_app(app, db)
 
-
-
 # API Secret Keys
 load_dotenv()
-openai_api_key = os.environ.get('OPENAI_API_KEY')
+openai_api_key = os.environ.get('OPENAI_API_KEY')  ### or os.getenv('OPENAI_API_KEY')
 app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY')
 # print("Flask Secret Key:", app.config['SECRET_KEY'])
 client = OpenAI(api_key=openai_api_key)
 # openai.api_key = openai_api_key
-
-
-# another way of getting the secret key using os.getenv??
-# os.getenv('OPENAI_API_KEY')
-
 
 # Instantiate CORS
 CORS(app, supports_credentials=True)
@@ -66,6 +55,19 @@ CORS(app, supports_credentials=True)
 
 # Initialize Bcrypt
 bcrypt = Bcrypt(app)
+
+
+### ------------------ AWS S3 CLIENT ------------------ ###
+
+
+s3_client = boto3.client(
+    's3',
+    aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
+    aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'),
+    region_name=os.environ.get('AWS_REGION')
+)
+
+S3_BUCKET = 'diyesk8guide-disk'
 
 
 ### ------------------ UNIVERSAL HELPER FUNCTIONS ------------------ ###
@@ -465,87 +467,8 @@ def upload_image():
         with Image.open(temp_path) as img:
             width, height = img.size
 
-            if width >= 5120 or height >= 5120:
+            if width >= 2560 or height >= 2560:
                 return jsonify({'error': 'Image too big. Please size it down and try again'}), 400
-
-        ### Horizontal Images ###
-            if width >= 854 and height >= 480:
-                # Code to shrink image based by percentage so as to preserve aspect ratio
-                new_width = int(width * 0.75)
-                new_height = int(height * 0.75)
-
-                # Code to resize the image using LANCZOS
-                resized_img = img.resize((new_width, new_height), Image.LANCZOS)
-
-                # Code to save resized image
-                final_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
-                resized_img.save(final_path)
-            elif width >= 1280 and height >= 720:
-                new_width = int(width * 0.5)
-                new_height = int(height * 0.5)
-
-                resized_img = img.resize((new_width, new_height), Image.LANCZOS)
-
-                final_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
-                resized_img.save(final_path)
-            elif width >= 1920 and height >= 1080:
-                new_width = int(width * 0.335)
-                new_height = int(height * 0.335)
-
-                resized_img = img.resize((new_width, new_height), Image.LANCZOS)
-
-                final_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
-                resized_img.save(final_path)
-            elif width >= 2560 and height >= 1440:
-                new_width = int(width * 0.25)
-                new_height = int(height * 0.25)
-
-                resized_img = img.resize((new_width, new_height), Image.LANCZOS)
-
-                final_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
-                resized_img.save(final_path)
-            elif width >= 3840 and height >= 2160:
-                new_width = int(width * 0.167)
-                new_height = int(height * 0.167)
-
-                resized_img = img.resize((new_width, new_height), Image.LANCZOS)
-
-                final_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
-                resized_img.save(final_path)
-
-        ### Vertical Images ###
-            elif width >= 480 and height >= 854:
-                new_width = int(width * 0.85)
-                new_height = int(height * 0.85)
-
-                resized_img = img.resize((new_width, new_height), Image.LANCZOS)
-
-                final_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
-                resized_img.save(final_path)
-            elif width >= 720 and height >= 1280:
-                new_width = int(width * 0.57)
-                new_height = int(height * 0.57)
-
-                resized_img = img.resize((new_width, new_height), Image.LANCZOS)
-
-                final_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
-                resized_img.save(final_path)
-            elif width >= 1440 and height >= 2560:
-                new_width = int(width * 0.285)
-                new_height = int(height * 0.285)
-
-                resized_img = img.resize((new_width, new_height), Image.LANCZOS)
-
-                final_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
-                resized_img.save(final_path)
-            elif width >= 2160 and height >= 3840:
-                new_width = int(width * 0.19)
-                new_height = int(height * 0.19)
-
-                resized_img = img.resize((new_width, new_height), Image.LANCZOS)
-
-                final_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
-                resized_img.save(final_path)
             else: # If image uploaded is small already, save the image
                 os.rename(temp_path, os.path.join(IMAGE_UPLOAD_FOLDER, filename))
 
