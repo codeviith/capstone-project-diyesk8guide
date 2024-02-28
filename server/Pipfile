@@ -17,6 +17,8 @@ flask-bcrypt = "*"
 python-dotenv = "*"
 openai = "*"
 pillow = "*"
+boto3 = "*"
+psycopg2 = "*"
 
 [requires]
 python_full_version = "3.8.13"
