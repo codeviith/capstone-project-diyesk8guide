@@ -3,14 +3,15 @@ from sqlalchemy.ext.associationproxy import association_proxy
 from datetime import datetime
 from sqlalchemy import DateTime, desc
 from sqlalchemy.orm import validates
-
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.hybrid import hybrid_property
+from flask import current_app
 
-from config import db, app
+from config import db
 
-bcrypt = Bcrypt()
+bcrypt = Bcrypt(current_app)
+
 
 ### ------------------ USER ------------------ ###
 
@@ -222,7 +223,7 @@ class Gallery(db.Model, SerializerMixin):
         return heart is not None
 
     def to_dict(self, user_id=None):
-        base_url = app.config['BASE_URL']
+        base_url = current_app.config['BASE_URL']  ### current_app is used here to avoid circular imports due to importing app from app.py
         data = {
             'id': self.id,
             'image_filename': self.image_filename,

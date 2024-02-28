@@ -2,7 +2,7 @@
 
 # Remote library imports
 from flask import Flask, jsonify, make_response, request, session, json, redirect
-from flask_restful import Resource, Api
+from flask_restful import Resource
 from flask_migrate import Migrate
 from flask_cors import CORS
 from dotenv import load_dotenv
@@ -18,16 +18,19 @@ from botocore.exceptions import NoCredentialsError
 import tempfile
 
 # Local imports
-from config import app, db, api
-from models import db, Board, Guru, User, ContactUs, Gallery, Heart, Report
+from models import Board, Guru, User, ContactUs, Gallery, Heart, Report
 import os
 
 # API imports
 from openai import OpenAI
 
+# Load environment variables
+load_dotenv()
 
-# Instantiate app, set attributes
+# Instantiate app
 app = Flask(__name__)
+
+# Set app attributes
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'   ### uncomment to test code on development server
 # app.config['IMAGE_URL'] = '/home/codeviith/Development/code/phase-5/capstone-project/diyesk8guide/server/gallery'  ### modify value based on file storage location
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')   ### uncomment for production build on render
@@ -37,21 +40,13 @@ app.config['BASE_URL'] = os.environ.get('BASE_URL', 'http://127.0.0.1:5555')
 
 app.json.compact = False
 
-# Define metadata, Instantiate db
-metadata = MetaData(naming_convention={
-    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
-})
-db = SQLAlchemy(metadata=metadata)
-# migrate = Migrate(app, db)
-db.init_app(app)
-migrate = Migrate()
-migrate.init_app(app, db)
+from config import db
 
-# Instantiate REST API
-api = Api(app)
+# Instantiate db
+db.init_app(app)
+migrate = Migrate(app, db)
 
 # API Secret Keys
-load_dotenv()
 openai_api_key = os.environ.get('OPENAI_API_KEY')  ### or os.getenv('OPENAI_API_KEY')
 app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY')
 # print("Flask Secret Key:", app.config['SECRET_KEY'])
