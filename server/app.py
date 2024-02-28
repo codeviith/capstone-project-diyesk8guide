@@ -15,7 +15,7 @@ from PIL import Image
 import boto3
 from botocore.exceptions import NoCredentialsError
 import tempfile
-from server.extensions import bcrypt
+from .extensions import bcrypt
 
 # Local imports
 from models import Board, Guru, User, ContactUs, Gallery, Heart, Report
