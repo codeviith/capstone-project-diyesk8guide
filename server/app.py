@@ -20,7 +20,6 @@ import tempfile
 # Local imports
 from config import app, db, api
 from models import db, Board, Guru, User, ContactUs, Gallery, Heart, Report
-# from guru_assistant import guru_assistant
 import os
 
 # API imports
@@ -117,9 +116,7 @@ def is_authenticated():
 ### ------------------ OPENAI API REQUESTS ------------------ ###
 
 
-guru_instructions = "You are an expert in electric skateboards who will be answering questions from prospective builders. Please follow the instructions: 1. You will come up with the most appropriate response that suits best for the builder's question. If you are unable to provide an appropriate response to the builder, then please provide an appropriate reason. 2.Please refrain from engaing in any other conversation that isn't related to the field of electric skateboards, and in the case that the builder asks a question that is unrelated to and/or outside the scope of electric skateboards, please respond with: 'I apologize but I can only answer questions that are related to electric skateboards.' and end with an appropriate response."
-
-### Not using guru_assistant.py
+guru_instructions = "You are an expert in electric skateboards, please answer questions from prospective builders while adhering to the following instructions: 1. You will come up with the most appropriate response that suits best for the builder's question. If you are unable to provide an appropriate response to the builder, then please provide an appropriate reason. 2.Please refrain from engaing in any other conversation that isn't related to the field of electric skateboards, and in the case that the builder asks a question that is unrelated to and/or outside the scope of electric skateboards, please respond with: 'I apologize but I can only answer questions that are related to electric skateboards.' and end with an appropriate response."
 
 @app.post('/guru_assistant')
 def guru_assistant():
@@ -148,7 +145,7 @@ def guru_assistant():
 
         answer = completion.choices[0].message.content
 
-        #Save generated response into the database for that specific user
+        ### Saves generated response into database for a specific user
         guru_entry = Guru(user_input=user_input, answer=answer, user_id=user_id)
         db.session.add(guru_entry)
         db.session.commit()
@@ -206,13 +203,13 @@ def signup():
     rider_stance = data['riderStance']
     boards_owned = ','.join(data['boardsOwned'])  # making it comma-separated string
 
-    # Check if user already exists
+    ### Check if user already exists
     if User.query.filter_by(email=email).first():
         return jsonify({'message': 'Email already in use'}), 409
 
-    # Create new user
+    ### Create new user
     new_user = User(email=email, fname=fname, lname=lname, rider_stance=rider_stance, boards_owned=boards_owned)
-    new_user.password_hash = password  # Set the password hash
+    new_user.password_hash = password  ### Sets the password hash
 
     db.session.add(new_user)
     db.session.commit()
@@ -470,12 +467,6 @@ def handle_contact_form():
 
 ### ------------------ GALLERY ------------------ ###
 
-# Directory for incoming uploads
-# IMAGE_UPLOAD_FOLDER = app.config['IMAGE_URL']
-
-# Confirming directory exists
-# os.makedirs(IMAGE_UPLOAD_FOLDER, exist_ok=True)
-
 
 @app.route('/images/<filename>')
 def serve_image(filename):
@@ -593,7 +584,7 @@ def gallery():
             return jsonify({'error': 'Gallery item not found'}), 404
 
     elif request.method == 'GET':
-        user_id = session.get('user_id')  # Code to get the logged-in user's ID, if available
+        user_id = session.get('user_id')  ### Code to get the logged-in user's ID, if available
         gallery_items = Gallery.query.all()
         return jsonify([item.to_dict(user_id=user_id) for item in gallery_items])
 
