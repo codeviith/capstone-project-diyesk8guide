@@ -7,10 +7,9 @@ from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.hybrid import hybrid_property
 from flask import current_app
+from server.extensions import bcrypt
 
 from config import db
-
-bcrypt = Bcrypt(current_app)
 
 
 ### ------------------ USER ------------------ ###
