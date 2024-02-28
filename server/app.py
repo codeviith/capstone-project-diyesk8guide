@@ -29,12 +29,11 @@ from openai import OpenAI
 # Instantiate app, set attributes
 app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'   ### uncomment to test code on development server
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+# app.config['IMAGE_URL'] = '/home/codeviith/Development/code/phase-5/capstone-project/diyesk8guide/server/gallery'  ### modify value based on file storage location
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')   ### uncomment for production build on render
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['BASE_URL'] = os.environ.get('BASE_URL', 'http://127.0.0.1:5555')  
 ###### IMPORTANT!!! make sure to configure the 'BASE_URL' environment variable as the custom domain: www.diyesk8guide.com #####
-# app.config['IMAGE_URL'] = '/home/codeviith/Development/code/phase-5/capstone-project/diyesk8guide/server/gallery'  ### modify value based on file storage location
 
 app.json.compact = False
 
