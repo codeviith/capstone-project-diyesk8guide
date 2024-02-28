@@ -16,6 +16,7 @@ from PIL import Image
 import boto3
 from botocore.exceptions import NoCredentialsError
 import tempfile
+from server.extensions import bcrypt
 
 # Local imports
 from models import Board, Guru, User, ContactUs, Gallery, Heart, Report
@@ -58,7 +59,7 @@ CORS(app, supports_credentials=True)
 # CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 # Initialize Bcrypt
-bcrypt = Bcrypt(app)
+bcrypt.init_app(app)
 
 
 ### ------------------ AWS S3 CLIENT ------------------ ###
