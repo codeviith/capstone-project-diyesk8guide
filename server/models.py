@@ -7,10 +7,9 @@ from sqlalchemy.orm import validates
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.hybrid import hybrid_property
 from flask import current_app
-from extensions import bcrypt
 
 # Local imports
-from config import db
+from config import db, bcrypt
 
 
 ### ------------------ USER ------------------ ###

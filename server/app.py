@@ -15,10 +15,10 @@ from PIL import Image
 import boto3
 from botocore.exceptions import NoCredentialsError
 import tempfile
-from extensions import bcrypt
 
 # Local imports
 from models import Board, Guru, User, ContactUs, Gallery, Heart, Report
+from config import db, bcrypt
 import os
 
 # API imports
@@ -40,7 +40,6 @@ app.config['BASE_URL'] = os.environ.get('BASE_URL', 'http://127.0.0.1:5555')
 
 app.json.compact = False
 
-from config import db
 
 # Instantiate db
 db.init_app(app)

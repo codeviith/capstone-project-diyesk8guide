@@ -1,6 +1,7 @@
 # Remote library imports
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
+from flask_bcrypt import Bcrypt
 
 # Define metadata
 metadata = MetaData(naming_convention={
@@ -9,3 +10,5 @@ metadata = MetaData(naming_convention={
 
 # Instantiate db
 db = SQLAlchemy(metadata=metadata)
+
+bcrypt = Bcrypt()
