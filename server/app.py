@@ -36,7 +36,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')   ### uncomment for production build on render
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['BASE_URL'] = os.environ.get('BASE_URL', 'http://127.0.0.1:5555')  
-###### IMPORTANT!!! make sure to configure the 'BASE_URL' environment variable as the custom domain: www.diyesk8guide.com #####
+###### IMPORTANT!!! make sure to configure the 'BASE_URL' environment variable on Render as either Render backend URL or my custom domain: www.diyesk8guide.com #####
 
 app.json.compact = False
 
@@ -48,9 +48,7 @@ migrate = Migrate(app, db)
 # API Secret Keys
 openai_api_key = os.environ.get('OPENAI_API_KEY')  ### or os.getenv('OPENAI_API_KEY')
 app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY')
-# print("Flask Secret Key:", app.config['SECRET_KEY'])
 client = OpenAI(api_key=openai_api_key)
-# openai.api_key = openai_api_key
 
 # Instantiate CORS
 CORS(app, supports_credentials=True)
