@@ -93,7 +93,7 @@ def resize_image(image_path, output_path, base_width=1024):
     img = Image.open(image_path)
     w_percent = (base_width / float(img.size[0]))
     h_size = int((float(img.size[1]) * float(w_percent)))
-    img = img.resize((base_width, h_size), Image.ANTIALIAS)
+    img = img.resize((base_width, h_size))
     img.save(output_path)
 
 
