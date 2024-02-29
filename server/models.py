@@ -195,7 +195,7 @@ class Gallery(db.Model, SerializerMixin):
     wheel_size = db.Column(db.String)
     max_speed = db.Column(db.Integer)
     max_range = db.Column(db.Integer)
-    other_features = db.Column(db.Integer)
+    other_features = db.Column(db.String)
     hearts = db.Column(db.Integer, default=0)
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
