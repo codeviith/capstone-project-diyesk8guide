@@ -168,9 +168,12 @@ function Gallery() {
         formData.append('image', image);
 
         try {
+            console.log(`Backend URL: ${process.env.REACT_APP_BACKEND_URL}`);
+
             let response = await fetch(`${backendUrl}/gallery/upload`, {  // Code to upload image
                 method: 'POST',
-                body: formData
+                body: formData,
+                credentials: 'include',
             });
 
             const responseData = await response.json();
