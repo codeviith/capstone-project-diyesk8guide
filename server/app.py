@@ -498,18 +498,18 @@ def upload_image():
                 new_gallery_entry = Gallery(
                     image_filename=filename,
                     user_id=user_id,
-                    deck_brand=None,
-                    deck_size=None,
-                    battery_series=None,
-                    battery_parallel=None,
-                    motor_size=None,
-                    motor_kv=None,
-                    motor_power=None,
-                    wheel_type=None,
-                    wheel_size=None,
-                    max_speed=None,
-                    max_range=None,
-                    other_features=None
+                    deck_brand='default_brand',
+                    deck_size='default_size',
+                    battery_series='default_series',
+                    battery_parallel='default_parallel',
+                    motor_size='default_motor_size',
+                    motor_kv='default_motor_kv',
+                    motor_power='default_motor_power',
+                    wheel_type='default_wheel_type',
+                    wheel_size='default_wheel_size',
+                    max_speed='default_max_speed',
+                    max_range='default_max_range',
+                    other_features='default_other_features'
                 )
                 db.session.add(new_gallery_entry)
                 db.session.commit()
