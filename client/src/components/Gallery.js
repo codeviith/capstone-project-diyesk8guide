@@ -32,7 +32,7 @@ function Gallery() {
     const [reportSuccess, setReportSuccess] = useState({});
     const { isLoggedIn } = useContext(AuthContext);
 
-    const backendUrl = process.env.REACT_APP_BACKEND_URL;
+    // const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 
     useEffect(() => {
@@ -42,7 +42,7 @@ function Gallery() {
 
     const fetchTopHeartedImages = async () => {
         try {
-            const response = await fetch(`${backendUrl}/gallery/top`);
+            const response = await fetch(`/gallery/top`);
             if (response.ok) {
                 const topImages = await response.json();
                 setTopHeartedImages(topImages); // Update state to get new top hearted images
@@ -54,7 +54,7 @@ function Gallery() {
 
     const fetchGalleryItems = async () => {
         try {
-            const response = await fetch(`${backendUrl}/gallery`);
+            const response = await fetch(`/gallery`);
             const data = await response.json();
             setGalleryItems(data);
         } catch (error) {
@@ -168,9 +168,9 @@ function Gallery() {
         formData.append('image', image);
 
         try {
-            console.log(`Backend URL: ${process.env.REACT_APP_BACKEND_URL}`);
+            // console.log(`Backend URL: ${process.env.REACT_APP_BACKEND_URL}`);
 
-            let response = await fetch(`${backendUrl}/gallery/upload`, {  // Code to upload image
+            let response = await fetch(`/gallery/upload`, {  // Code to upload image
                 method: 'POST',
                 body: formData,
                 credentials: 'include',
@@ -181,7 +181,7 @@ function Gallery() {
             if (response.ok) {
                 const imageId = responseData.id; // Code to get the id of the uploaded image
 
-                response = await fetch(`${backendUrl}/gallery`, {  // Code to add additional data
+                response = await fetch(`/gallery`, {  // Code to add additional data
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ id: imageId, ...submissionFields }),
@@ -251,7 +251,7 @@ function Gallery() {
         }
 
         try {
-            const response = await fetch(`${backendUrl}/gallery/report/${imageId}`, {
+            const response = await fetch(`/gallery/report/${imageId}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' }
             });

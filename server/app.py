@@ -431,7 +431,7 @@ def delete_guru_question(question_id):
 
 
 @app.route('/contact_us', methods=['POST'])
-def handle_contact_form():
+def contact_form():
     try:
         if 'user_id' not in session:
             return jsonify({'error': 'Authentication required.'}), 401
