@@ -514,16 +514,16 @@ def upload_image():
             image_url=image_url,  # Assuming you have an image_url field
             user_id=user_id,
             deck_brand='',
-            deck_size='',
-            battery_series='',
-            battery_parallel='',
-            motor_size='',
-            motor_kv='',
-            motor_power='',
+            deck_size=None,
+            battery_series=None,
+            battery_parallel=None,
+            motor_size=None,
+            motor_kv=None,
+            motor_power=None,
             wheel_type='',
             wheel_size='',
-            max_speed='',
-            max_range='',
+            max_speed=None,
+            max_range=None,
             other_features=''
         )
         db.session.add(new_gallery_entry)
