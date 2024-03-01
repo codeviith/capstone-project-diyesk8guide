@@ -483,8 +483,19 @@ def upload_image():
         ### Code to resize image
         with Image.open(image.stream) as img:
             original_width, original_height = img.size
-            target_width, target_height = (1600, 900) if original_width > original_height else (900, 1600)
-            if original_width > 1920 or original_height > 1080:
+
+            if original_width > original_height: ### Code to check for target dimen while maintaining aspect ratio
+                ### Landscape
+                target_width = 1600
+                aspect_ratio = original_height / original_width
+                target_height = int(target_width * aspect_ratio)
+            else:
+                ### Portrait
+                target_height = 1600
+                aspect_ratio = original_width / original_height
+                target_width = int(target_height * aspect_ratio)
+
+            if original_width > target_width or original_height > target_height:  ### Code to resize img if original img larger than target img
                 img = img.resize((target_width, target_height), Image.LANCZOS)
             
             ### Code to save resized image to BytesIO object
@@ -698,7 +709,7 @@ def report_image(image_id):
     new_report = Report(user_id=user_id, gallery_id=image_id)
     db.session.add(new_report)
 
-    if gallery_item and gallery_item.reports.count() >= 10:
+    if gallery_item and gallery_item.reports.count() >= 1:
         db.session.delete(gallery_item)
 
     db.session.commit()
