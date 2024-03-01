@@ -477,41 +477,39 @@ def upload_image():
     if not image:
         return jsonify({'error': 'No image provided'}), 400
 
-    # Secure filename is not necessary for S3 but useful for the key
-    filename = secure_filename(image.filename)
+    filename = secure_filename(image.filename)  ### this code isn't necessary since we're using S3 but still good practice
     
     try:
-        # Resize the image
+        ### Code to resize image
         with Image.open(image.stream) as img:
             original_width, original_height = img.size
             target_width, target_height = (1600, 900) if original_width > original_height else (900, 1600)
             if original_width > 1920 or original_height > 1080:
                 img = img.resize((target_width, target_height), Image.LANCZOS)
             
-            # Save the resized image to a BytesIO object
+            ### Code to save resized image to BytesIO object
             img_io = BytesIO()
             img_format = 'JPEG' if 'jpeg' in image.content_type else 'PNG'
             img.save(img_io, format=img_format)
             img_io.seek(0)
 
-            # Upload the image to S3
+            ### Code to upload image to S3
             s3_client.upload_fileobj(
                 img_io,
                 S3_BUCKET_NAME,
                 filename,
                 ExtraArgs={
                     'ContentType': image.content_type,
-                    # 'ACL': 'public-read'
+                    # 'ACL': 'public-read'  ### this is set to NOT ALLOWED on S3 by default
                 }
             )
 
-            # Construct the S3 URL
+            ### Code for S3 URL, this is what links the image to it's attributes
             image_url = f'https://{S3_BUCKET_NAME}.s3.amazonaws.com/{filename}'
 
-        # Save gallery entry with S3 URL
-        new_gallery_entry = Gallery(
+        new_gallery_entry = Gallery( ### saves uploaded image attributes with S3 url to db
             image_filename=filename,
-            image_url=image_url,  # Assuming you have an image_url field
+            image_url=image_url,
             user_id=user_id,
             deck_brand='',
             deck_size=None,
