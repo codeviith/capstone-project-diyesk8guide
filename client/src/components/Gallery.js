@@ -8,7 +8,7 @@ import { AuthContext } from './AuthContext';
 
 
 function Gallery() {
-    const [image, setImage] = useState(null);
+    const [image, setImage] = useState(null); 
     const [formFields, setFormFields] = useState({
         deck_brand: '',
         deck_size: '',
