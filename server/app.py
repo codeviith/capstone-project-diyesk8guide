@@ -697,7 +697,7 @@ def report_image(image_id):
     return jsonify({'message': 'Image reported successfully'}), 200
 
 if __name__ == '__main__':   ### not needed for production build on render, but doesn't hurt to keep for development server
-    # app.run(port=5555, debug=True)
-    port = int(os.environ.get('PORT', 8555))
-    app.run(host='0.0.0.0', port=port)
+    app.run(port=5555, debug=True)
+    # port = int(os.environ.get('PORT', 8555))
+    # app.run(host='0.0.0.0', port=port)
 
