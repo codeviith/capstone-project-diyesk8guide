@@ -170,7 +170,7 @@ function Gallery() {
         try {
             // console.log(`Backend URL: ${process.env.REACT_APP_BACKEND_URL}`);
 
-            let response = await fetch('https://diyesk8guide-debugging.onrender.com/gallery/upload', {  // Code to upload image
+            let response = await fetch('/gallery/upload', {  // Code to upload image
                 method: 'POST',
                 body: formData,
                 credentials: 'include',
@@ -181,7 +181,7 @@ function Gallery() {
             if (response.ok) {
                 const imageId = responseData.id; // Code to get the id of the uploaded image
 
-                response = await fetch('https://diyesk8guide-debugging.onrender.com/gallery', {  // Code to add additional data
+                response = await fetch('/gallery', {  // Code to add additional data
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ id: imageId, ...submissionFields }),
