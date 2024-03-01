@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import HeartButton from './HeartButton';
 import ReportIcon1 from './ReportIcon1';
-import ReportIcon2 from './ReportIcon2';
-import ReportIcon3 from './ReportIcon3';
-import ReportIcon4 from './ReportIcon4';
+// import ReportIcon2 from './ReportIcon2';
+// import ReportIcon3 from './ReportIcon3';
+// import ReportIcon4 from './ReportIcon4';
 import { AuthContext } from './AuthContext';
 
 
