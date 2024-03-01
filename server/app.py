@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # Remote library imports
-from flask import Flask, jsonify, make_response, request, session, json, send_from_directory
+from flask import Flask, jsonify, make_response, request, session, json, send_from_directory, redirect
 from flask_restful import Resource
 from flask_migrate import Migrate
 from flask_cors import CORS
@@ -15,7 +15,7 @@ from PIL import Image
 import boto3
 from botocore.exceptions import NoCredentialsError
 import tempfile
-
+from io import BytesIO
 
 # Local imports
 from config import app, db, api
@@ -66,33 +66,23 @@ s3_client = boto3.client(
     region_name=os.environ.get('AWS_REGION')
 )
 
-S3_BUCKET = 'diyesk8guide-disk'
+S3_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME')
 
 
 ### ------------------ AWS S3 HELPER FUNCTION(S) ------------------ ###
 
 
-def upload_file_to_s3(file, bucket_name, object_name=None):
-    if object_name is None:
-        object_name = file.filename
+# def upload_file_to_s3(file, bucket_name, object_name=None):
+#     if object_name is None:
+#         object_name = file.filename
 
-    try:
-        s3_client.upload_fileobj(file, bucket_name, object_name)
-        return True
-    except Exception as e:
-        print(f"Error uploading file to S3: {e}")
-        return False
+#     try:
+#         s3_client.upload_fileobj(file, bucket_name, object_name)
+#         return True
+#     except Exception as e:
+#         print(f"Error uploading file to S3: {e}")
+#         return False
 
-
-### ------------------ IMG RESIZE HELPER FUNCTION(S) ------------------ ###
-
-
-def resize_image(image_path, output_path, base_width=1024):
-    img = Image.open(image_path)
-    w_percent = (base_width / float(img.size[0]))
-    h_size = int((float(img.size[1]) * float(w_percent)))
-    img = img.resize((base_width, h_size))
-    img.save(output_path)
 
 
 ### ------------------ UNIVERSAL HELPER FUNCTIONS ------------------ ###
@@ -461,9 +451,12 @@ def handle_contact_form():
 
 @app.route('/images/<filename>')
 def serve_image(filename):
-    image_url = f"https://{S3_BUCKET}.s3.amazonaws.com/{filename}"
+    image_url = f'https://{S3_BUCKET_NAME}.s3.amazonaws.com/{filename}'
     return redirect(image_url)
 
+
+
+#######################
 
 @app.route('/gallery/upload', methods=['POST'])
 def upload_image():
@@ -476,212 +469,68 @@ def upload_image():
     if not image:
         return jsonify({'error': 'No image provided'}), 400
 
+    # Secure filename is not necessary for S3 but useful for the key
     filename = secure_filename(image.filename)
-
-    temp_dir = tempfile.gettempdir()  ### using temp_dir is a more portable/universal method that don't rely on a specific os (best for multi-Paas platforms)
-    temp_path = os.path.join(temp_dir, f"temp_{filename}")
-    final_path = os.path.join(temp_dir, filename)
-
-
+    
     try:
-        image.save(temp_path)  ### code to save img temp after resizing
-        
-        with Image.open(temp_path) as img:  ### code to open img with pillow and resize if too big
-            width, height = img.size
-            if width > 1920 or height > 1080:
-                resize_image(temp_path, final_path)
-            elif width > 1080 or height > 1920:
-                resize_image(temp_path, final_path)
-            else:
-                os.rename(temp_path, final_path)
-        
-        with open(final_path, 'rb') as data:  ### this code will upload the original or resized image to S3
-            if upload_file_to_s3(data, S3_BUCKET, object_name=filename):
-                new_gallery_entry = Gallery(
-                    image_filename=filename,
-                    user_id=user_id,
-                    deck_brand='',
-                    deck_size=request.form.get('deck_size'),
-                    battery_series=request.form.get('battery_series'),
-                    battery_parallel=request.form.get('battery_parallel'),
-                    motor_size=request.form.get('motor_size'),
-                    motor_kv=request.form.get('motor_kv'),
-                    motor_power=request.form.get('motor_power'),
-                    wheel_type='',
-                    wheel_size='',
-                    max_speed=request.form.get('max_speed'),
-                    max_range=request.form.get('max_range'),
-                    other_features=''
-                )
-                db.session.add(new_gallery_entry)
-                db.session.commit()
+        # Resize the image
+        with Image.open(image.stream) as img:
+            original_width, original_height = img.size
+            target_width, target_height = (1600, 900) if original_width > original_height else (900, 1600)
+            if original_width > 1920 or original_height > 1080:
+                img = img.resize((target_width, target_height), Image.LANCZOS)
+            
+            # Save the resized image to a BytesIO object
+            img_io = BytesIO()
+            img_format = 'JPEG' if 'jpeg' in image.content_type else 'PNG'
+            img.save(img_io, format=img_format)
+            img_io.seek(0)
 
-                return jsonify({'message': 'Image uploaded successfully', 'filePath': filename}), 200
-            else:
-                return jsonify({'error': 'Failed to upload image to S3'}), 500
+            # Upload the image to S3
+            s3_client.upload_fileobj(
+                img_io,
+                S3_BUCKET_NAME,
+                filename,
+                ExtraArgs={
+                    'ContentType': image.content_type,
+                    # 'ACL': 'public-read'
+                }
+            )
+
+            # Construct the S3 URL
+            image_url = f'https://{S3_BUCKET_NAME}.s3.amazonaws.com/{filename}'
+
+        # Save gallery entry with S3 URL
+        new_gallery_entry = Gallery(
+            image_filename=filename,
+            image_url=image_url,  # Assuming you have an image_url field
+            user_id=user_id,
+            deck_brand='',
+            deck_size='',
+            battery_series='',
+            battery_parallel='',
+            motor_size='',
+            motor_kv='',
+            motor_power='',
+            wheel_type='',
+            wheel_size='',
+            max_speed='',
+            max_range='',
+            other_features=''
+        )
+        db.session.add(new_gallery_entry)
+        db.session.commit()
+
+        return jsonify({
+            'message': 'Image uploaded successfully',
+            'imageURL': image_url,
+            'id': new_gallery_entry.id
+        }), 200
     except Exception as e:
         print(f"Error processing image: {e}")
         return jsonify({'error': str(e)}), 500
-    finally:  ### code to remove temp files
-        if os.path.exists(temp_path):
-            os.remove(temp_path)
-        if os.path.exists(final_path):
-            os.remove(final_path)
 
-
-# # Directory for incoming uploads
-# IMAGE_UPLOAD_FOLDER = app.config['IMAGE_URL']
-
-# # Confirming directory exists
-# os.makedirs(IMAGE_UPLOAD_FOLDER, exist_ok=True)
-
-
-# @app.route('/images/<filename>')
-# def serve_image(filename):
-#     return send_from_directory(IMAGE_UPLOAD_FOLDER, filename)
-
-
-# @app.route('/gallery/upload', methods=['POST'])
-# def upload_image():
-#     if 'user_id' not in session:
-#         return jsonify({'error': 'Authentication required.'}), 401
-
-#     user_id = session['user_id']
-#     image = request.files.get('image')
-
-#     if not image:
-#         return jsonify({'error': 'No image provided'}), 400
-
-#     filename = secure_filename(image.filename)
-#     temp_path = os.path.join(IMAGE_UPLOAD_FOLDER, f"temp_{filename}")
-
-#     try:
-#         # Code to temporarily save the image for resizing work
-#         image.save(temp_path)
-
-#         # Code to open the image with Pillow
-#         with Image.open(temp_path) as img:
-#             width, height = img.size
-
-#             if width >= 5120 or height >= 5120:
-#                 return jsonify({'error': 'Image too big. Please size it down and try again'}), 400
-
-#         ### Horizontal Images ###
-#             if width >= 854 and height >= 480:
-#                 # Code to shrink image based by percentage so as to preserve aspect ratio
-#                 new_width = int(width * 0.75)
-#                 new_height = int(height * 0.75)
-
-#                 # Code to resize the image using LANCZOS
-#                 resized_img = img.resize((new_width, new_height), Image.LANCZOS)
-
-#                 # Code to save resized image
-#                 final_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
-#                 resized_img.save(final_path)
-#             elif width >= 1280 and height >= 720:
-#                 new_width = int(width * 0.5)
-#                 new_height = int(height * 0.5)
-
-#                 resized_img = img.resize((new_width, new_height), Image.LANCZOS)
-
-#                 final_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
-#                 resized_img.save(final_path)
-#             elif width >= 1920 and height >= 1080:
-#                 new_width = int(width * 0.335)
-#                 new_height = int(height * 0.335)
-
-#                 resized_img = img.resize((new_width, new_height), Image.LANCZOS)
-
-#                 final_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
-#                 resized_img.save(final_path)
-#             elif width >= 2560 and height >= 1440:
-#                 new_width = int(width * 0.25)
-#                 new_height = int(height * 0.25)
-
-#                 resized_img = img.resize((new_width, new_height), Image.LANCZOS)
-
-#                 final_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
-#                 resized_img.save(final_path)
-#             elif width >= 3840 and height >= 2160:
-#                 new_width = int(width * 0.167)
-#                 new_height = int(height * 0.167)
-
-#                 resized_img = img.resize((new_width, new_height), Image.LANCZOS)
-
-#                 final_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
-#                 resized_img.save(final_path)
-
-#         ### Vertical Images ###
-#             elif width >= 480 and height >= 854:
-#                 new_width = int(width * 0.85)
-#                 new_height = int(height * 0.85)
-
-#                 resized_img = img.resize((new_width, new_height), Image.LANCZOS)
-
-#                 final_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
-#                 resized_img.save(final_path)
-#             elif width >= 720 and height >= 1280:
-#                 new_width = int(width * 0.57)
-#                 new_height = int(height * 0.57)
-
-#                 resized_img = img.resize((new_width, new_height), Image.LANCZOS)
-
-#                 final_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
-#                 resized_img.save(final_path)
-#             elif width >= 1440 and height >= 2560:
-#                 new_width = int(width * 0.285)
-#                 new_height = int(height * 0.285)
-
-#                 resized_img = img.resize((new_width, new_height), Image.LANCZOS)
-
-#                 final_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
-#                 resized_img.save(final_path)
-#             elif width >= 2160 and height >= 3840:
-#                 new_width = int(width * 0.19)
-#                 new_height = int(height * 0.19)
-
-#                 resized_img = img.resize((new_width, new_height), Image.LANCZOS)
-
-#                 final_path = os.path.join(IMAGE_UPLOAD_FOLDER, filename)
-#                 resized_img.save(final_path)
-#             else: # If image uploaded is small already, save the image
-#                 os.rename(temp_path, os.path.join(IMAGE_UPLOAD_FOLDER, filename))
-
-#         # Code to remove temporary files
-#         if os.path.exists(temp_path):
-#             os.remove(temp_path)
-
-#         new_gallery_entry = Gallery(
-#             image_filename=filename,
-#             user_id=user_id,
-#             deck_brand='',
-#             deck_size='',
-#             battery_series='',
-#             battery_parallel='',
-#             motor_size='',
-#             motor_kv='',
-#             motor_power='',
-#             wheel_type='',
-#             wheel_size='',
-#             max_speed='',
-#             max_range='',
-#             other_features=''
-#         )
-#         db.session.add(new_gallery_entry)
-#         db.session.commit()
-
-#         return jsonify({
-#             'message': 'Image uploaded successfully',
-#             'filePath': os.path.join(IMAGE_UPLOAD_FOLDER, filename),
-#             'id': new_gallery_entry.id
-#         }), 200
-#     except Exception as e:
-#         print(f"Error processing image: {e}")
-
-#         if os.path.exists(temp_path):
-#             os.remove(temp_path)
-
-#         return jsonify({'error': str(e)}), 500
+#######################
 
 
 @app.route('/gallery/uploaded', methods=['GET'])
@@ -749,7 +598,7 @@ def delete_uploaded_image(image_id):
         return jsonify({'error': 'Uploaded image not found or unauthorized'}), 404
 
     try:
-        s3_client.delete_object(Bucket=S3_BUCKET, Key=uploaded_image.image_filename)
+        s3_client.delete_object(Bucket=S3_BUCKET_NAME, Key=uploaded_image.image_filename)
 
         Heart.query.filter_by(gallery_id=image_id).delete()  ### Code to manually delete the associated heart relationship
 
