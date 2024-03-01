@@ -472,19 +472,22 @@ def upload_image():
         return jsonify({'error': 'Authentication required.'}), 401
 
     user_id = session['user_id']
-    file = request.files['image']
-    if not file:
+    image = request.files.get('image')
+
+    if not image:
         return jsonify({'error': 'No image provided'}), 400
 
-    filename = secure_filename(file.filename)
+    filename = secure_filename(image.filename)
+
     temp_dir = tempfile.gettempdir()  ### using temp_dir is a more portable/universal method that don't rely on a specific os (best for multi-Paas platforms)
     temp_path = os.path.join(temp_dir, f"temp_{filename}")
     final_path = os.path.join(temp_dir, filename)
 
-    file.save(temp_path)  ### code to save img temp after resizing
 
     try:
-        with Image.open(temp_path) as img:  ### resize img if too big
+        image.save(temp_path)  ### code to save img temp after resizing
+        
+        with Image.open(temp_path) as img:  ### code to open img with pillow and resize if too big
             width, height = img.size
             if width > 1920 or height > 1080:
                 resize_image(temp_path, final_path)
@@ -498,18 +501,18 @@ def upload_image():
                 new_gallery_entry = Gallery(
                     image_filename=filename,
                     user_id=user_id,
-                    deck_brand='default_brand',
+                    deck_brand='',
                     deck_size=None,
                     battery_series=None,
                     battery_parallel=None,
                     motor_size=None,
                     motor_kv=None,
                     motor_power=None,
-                    wheel_type='default_wheel_type',
-                    wheel_size='default_wheel_size',
+                    wheel_type='',
+                    wheel_size='',
                     max_speed=None,
                     max_range=None,
-                    other_features='default_other_features'
+                    other_features=''
                 )
                 db.session.add(new_gallery_entry)
                 db.session.commit()
