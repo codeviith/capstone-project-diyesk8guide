@@ -749,4 +749,4 @@ def report_image(image_id):
     return jsonify({'message': 'Image reported successfully'}), 200
 
 if __name__ == '__main__':
-    app.run(port=5555, debug=True)
+    app.run(port=5000, debug=True)
