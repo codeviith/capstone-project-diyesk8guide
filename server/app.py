@@ -23,17 +23,11 @@ import os
 # API imports
 from openai import OpenAI
 
-### This puts app.db in server directory???
-# BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-# DATABASE = os.environ.get(
-#     "DB_URI", f"sqlite:///{os.path.join(BASE_DIR, 'app.db')}")
-
-
 # Instantiate app, set attributes
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['IMAGE_URL'] = '/home/codeviith/Development/code/phase-5/capstone-project/diyesk8guide/server/gallery'
+# app.config['IMAGE_URL'] = '/home/codeviith/Development/code/phase-5/capstone-project/diyesk8guide/server/gallery'
 
 app.json.compact = False
 
@@ -50,11 +44,6 @@ app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY')
 # print("Flask Secret Key:", app.config['SECRET_KEY'])
 client = OpenAI(api_key=openai_api_key)
 # openai.api_key = openai_api_key
-
-
-# another way of getting the secret key using os.getenv??
-# os.getenv('OPENAI_API_KEY')
-
 
 # Instantiate CORS
 CORS(app, supports_credentials=True)
