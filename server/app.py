@@ -52,9 +52,7 @@ client = OpenAI(api_key=openai_api_key)
 
 # Instantiate CORS
 # CORS(app, supports_credentials=True)
-# CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}}, supports_credentials=True)
-CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}}, supports_credentials=True)
-
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}}, supports_credentials=True)
 
 # Initialize Bcrypt
 bcrypt.init_app(app)
@@ -700,4 +698,6 @@ def report_image(image_id):
 
 if __name__ == '__main__':   ### not needed for production build on render, but doesn't hurt to keep for development server
     # app.run(port=5555, debug=True)
-    app.run(host='BASE_URL', port=8555)
+    port = int(os.environ.get('PORT', 8555))
+    app.run(host='0.0.0.0', port=port)
+
