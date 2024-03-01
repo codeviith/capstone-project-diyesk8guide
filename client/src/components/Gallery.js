@@ -168,7 +168,8 @@ function Gallery() {
         try {
             let response = await fetch('/gallery/upload', {  // Code to upload image
                 method: 'POST',
-                body: formData
+                body: formData,
+                credentials: 'include'
             });
 
             const responseData = await response.json();
