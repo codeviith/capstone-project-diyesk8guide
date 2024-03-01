@@ -51,9 +51,10 @@ app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY')
 client = OpenAI(api_key=openai_api_key)
 
 # Instantiate CORS
-CORS(app, supports_credentials=True)
+# CORS(app, supports_credentials=True)
 # CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}}, supports_credentials=True)
-# CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}}, supports_credentials=True)
+
 
 # Initialize Bcrypt
 bcrypt.init_app(app)
