@@ -184,6 +184,7 @@ class Gallery(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     image_filename = db.Column(db.String, nullable=True)
+    image_url = db.Column(db.String, nullable=False)
     deck_brand = db.Column(db.String, nullable=True)
     deck_size = db.Column(db.Integer, nullable=True)
     battery_series = db.Column(db.Integer, nullable=True)
@@ -197,13 +198,13 @@ class Gallery(db.Model, SerializerMixin):
     max_range = db.Column(db.Integer, nullable=True)
     other_features = db.Column(db.String, nullable=True)
     hearts = db.Column(db.Integer, default=0)
-    image_url = db.Column(db.String, nullable=False)
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-    def __init__(self, image_filename, user_id, deck_brand, deck_size, battery_series, battery_parallel, motor_size, motor_kv, motor_power, wheel_type, wheel_size, max_speed, max_range, other_features, image_url):
-        self.image_filename = image_filename
+    def __init__(self, user_id, image_filename, image_url, deck_brand, deck_size, battery_series, battery_parallel, motor_size, motor_kv, motor_power, wheel_type, wheel_size, max_speed, max_range, other_features):
         self.user_id = user_id
+        self.image_filename = image_filename
+        self.image_url = image_url
         self.deck_brand = deck_brand
         self.deck_size = deck_size
         self.battery_series = battery_series
@@ -217,7 +218,6 @@ class Gallery(db.Model, SerializerMixin):
         self.max_range = max_range
         self.other_features = other_features
         self.hearts = 0
-        self.image_url = image_url
 
     def is_hearted_by_user(self, user_id):
         heart = Heart.query.filter_by(user_id=user_id, gallery_id=self.id).first()
