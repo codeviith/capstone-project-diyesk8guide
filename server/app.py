@@ -710,10 +710,23 @@ def report_image(image_id):
     db.session.add(new_report)
 
     if gallery_item and gallery_item.reports.count() >= 1:
-        db.session.delete(gallery_item)
+        try:
+            # Delete the image file from the S3 bucket
+            s3_client.delete_object(Bucket=S3_BUCKET_NAME, Key=gallery_item.image_filename)
 
-    db.session.commit()
-    return jsonify({'message': 'Image reported successfully'}), 200
+            # Then delete the gallery item from the database
+            db.session.delete(gallery_item)
+            db.session.commit()
+
+            return jsonify({'message': 'Image reported and deleted successfully'}), 200
+        except Exception as e:
+            print(f"Error deleting image from S3: {e}")
+
+            return jsonify({'error': 'Failed to delete image from S3'}), 500
+    else:
+        db.session.commit() ### if img report count is not at the limit, then simply just log the new report count to db
+        
+        return jsonify({'message': 'Image reported successfully'}), 200
 
 if __name__ == '__main__':   ### not needed for production build on render, but doesn't hurt to keep for development server
     app.run(port=5555, debug=True)
