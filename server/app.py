@@ -12,9 +12,10 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from PIL import Image
-import boto3
 from botocore.exceptions import NoCredentialsError
+from io import BytesIO
 import tempfile
+import boto3
 
 # Local imports
 from models import Board, Guru, User, ContactUs, Gallery, Heart, Report
@@ -52,9 +53,7 @@ client = OpenAI(api_key=openai_api_key)
 
 # Instantiate CORS
 # CORS(app, supports_credentials=True)
-# CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}}, supports_credentials=True)
-CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}}, supports_credentials=True)
-
+CORS(app, supports_credentials=True, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 # Initialize Bcrypt
 bcrypt.init_app(app)
@@ -70,33 +69,33 @@ s3_client = boto3.client(
     region_name=os.environ.get('AWS_REGION')
 )
 
-S3_BUCKET = 'diyesk8guide-disk'
+S3_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME')
 
 
 ### ------------------ AWS S3 HELPER FUNCTION(S) ------------------ ###
 
 
-def upload_file_to_s3(file, bucket_name, object_name=None):
-    if object_name is None:
-        object_name = file.filename
+# def upload_file_to_s3(file, bucket_name, object_name=None):
+#     if object_name is None:
+#         object_name = file.filename
 
-    try:
-        s3_client.upload_fileobj(file, bucket_name, object_name)
-        return True
-    except Exception as e:
-        print(f"Error uploading file to S3: {e}")
-        return False
+#     try:
+#         s3_client.upload_fileobj(file, bucket_name, object_name)
+#         return True
+#     except Exception as e:
+#         print(f"Error uploading file to S3: {e}")
+#         return False
 
 
 ### ------------------ IMG RESIZE HELPER FUNCTION(S) ------------------ ###
 
 
-def resize_image(image_path, output_path, base_width=1024):
-    img = Image.open(image_path)
-    w_percent = (base_width / float(img.size[0]))
-    h_size = int((float(img.size[1]) * float(w_percent)))
-    img = img.resize((base_width, h_size))
-    img.save(output_path)
+# def resize_image(image_path, output_path, base_width=1024):
+#     img = Image.open(image_path)
+#     w_percent = (base_width / float(img.size[0]))
+#     h_size = int((float(img.size[1]) * float(w_percent)))
+#     img = img.resize((base_width, h_size))
+#     img.save(output_path)
 
 
 ### ------------------ UNIVERSAL HELPER FUNCTION(S) ------------------ ###
@@ -463,7 +462,7 @@ def contact_form():
 
 @app.route('/images/<filename>')
 def serve_image(filename):
-    image_url = f"https://{S3_BUCKET}.s3.amazonaws.com/{filename}"
+    image_url = f'https://{S3_BUCKET_NAME}.s3.amazonaws.com/{filename}'
     return redirect(image_url)
 
 
@@ -478,57 +477,75 @@ def upload_image():
     if not image:
         return jsonify({'error': 'No image provided'}), 400
 
-    filename = secure_filename(image.filename)
-
-    temp_dir = tempfile.gettempdir()  ### using temp_dir is a more portable/universal method that don't rely on a specific os (best for multi-Paas platforms)
-    temp_path = os.path.join(temp_dir, f"temp_{filename}")
-    final_path = os.path.join(temp_dir, filename)
-
-
+    filename = secure_filename(image.filename)  ### this code isn't necessary since we're using S3 but still good practice
+    
     try:
-        image.save(temp_path)  ### code to save img temp after resizing
-        
-        with Image.open(temp_path) as img:  ### code to open img with pillow and resize if too big
-            width, height = img.size
-            if width > 1920 or height > 1080:
-                resize_image(temp_path, final_path)
-            elif width > 1080 or height > 1920:
-                resize_image(temp_path, final_path)
-            else:
-                os.rename(temp_path, final_path)
-        
-        with open(final_path, 'rb') as data:  ### this code will upload the original or resized image to S3
-            if upload_file_to_s3(data, S3_BUCKET, object_name=filename):
-                new_gallery_entry = Gallery(
-                    image_filename=filename,
-                    user_id=user_id,
-                    deck_brand='',
-                    deck_size=request.form.get('deck_size'),
-                    battery_series=request.form.get('battery_series'),
-                    battery_parallel=request.form.get('battery_parallel'),
-                    motor_size=request.form.get('motor_size'),
-                    motor_kv=request.form.get('motor_kv'),
-                    motor_power=request.form.get('motor_power'),
-                    wheel_type='',
-                    wheel_size='',
-                    max_speed=request.form.get('max_speed'),
-                    max_range=request.form.get('max_range'),
-                    other_features=''
-                )
-                db.session.add(new_gallery_entry)
-                db.session.commit()
+        ### Code to resize image
+        with Image.open(image.stream) as img:
+            original_width, original_height = img.size
 
-                return jsonify({'message': 'Image uploaded successfully', 'filePath': filename}), 200
+            if original_width > original_height: ### Code to check for target dimen while maintaining aspect ratio
+                ### Landscape
+                target_width = 1600
+                aspect_ratio = original_height / original_width
+                target_height = int(target_width * aspect_ratio)
             else:
-                return jsonify({'error': 'Failed to upload image to S3'}), 500
+                ### Portrait
+                target_height = 1600
+                aspect_ratio = original_width / original_height
+                target_width = int(target_height * aspect_ratio)
+
+            if original_width > target_width or original_height > target_height:  ### Code to resize img if original img larger than target img
+                img = img.resize((target_width, target_height), Image.LANCZOS)
+            
+            ### Code to save resized image to BytesIO object
+            img_io = BytesIO()
+            img_format = 'JPEG' if 'jpeg' in image.content_type else 'PNG'
+            img.save(img_io, format=img_format)
+            img_io.seek(0)
+
+            ### Code to upload image to S3
+            s3_client.upload_fileobj(
+                img_io,
+                S3_BUCKET_NAME,
+                filename,
+                ExtraArgs={
+                    'ContentType': image.content_type,
+                    # 'ACL': 'public-read'  ### this is set to NOT ALLOWED on S3 by default
+                }
+            )
+
+            ### Code for S3 URL, this is what links the image to it's attributes
+            image_url = f'https://{S3_BUCKET_NAME}.s3.amazonaws.com/{filename}'
+
+        new_gallery_entry = Gallery( ### saves uploaded image attributes with S3 url to db
+            image_filename=filename,
+            image_url=image_url,
+            user_id=user_id,
+            deck_brand='',
+            deck_size=None,
+            battery_series=None,
+            battery_parallel=None,
+            motor_size=None,
+            motor_kv=None,
+            motor_power=None,
+            wheel_type='',
+            wheel_size='',
+            max_speed=None,
+            max_range=None,
+            other_features=''
+        )
+        db.session.add(new_gallery_entry)
+        db.session.commit()
+
+        return jsonify({
+            'message': 'Image uploaded successfully',
+            'imageURL': image_url,
+            'id': new_gallery_entry.id
+        }), 200
     except Exception as e:
         print(f"Error processing image: {e}")
         return jsonify({'error': str(e)}), 500
-    finally:  ### code to remove temp files
-        if os.path.exists(temp_path):
-            os.remove(temp_path)
-        if os.path.exists(final_path):
-            os.remove(final_path)
 
 
 @app.route('/gallery/uploaded', methods=['GET'])
@@ -596,7 +613,7 @@ def delete_uploaded_image(image_id):
         return jsonify({'error': 'Uploaded image not found or unauthorized'}), 404
 
     try:
-        s3_client.delete_object(Bucket=S3_BUCKET, Key=uploaded_image.image_filename)
+        s3_client.delete_object(Bucket=S3_BUCKET_NAME, Key=uploaded_image.image_filename)
 
         Heart.query.filter_by(gallery_id=image_id).delete()  ### Code to manually delete the associated heart relationship
 
@@ -692,11 +709,27 @@ def report_image(image_id):
     new_report = Report(user_id=user_id, gallery_id=image_id)
     db.session.add(new_report)
 
-    if gallery_item and gallery_item.reports.count() >= 10:
-        db.session.delete(gallery_item)
+    if gallery_item and gallery_item.reports.count() >= 1:
+        try:
+            # Delete the image file from the S3 bucket
+            s3_client.delete_object(Bucket=S3_BUCKET_NAME, Key=gallery_item.image_filename)
 
-    db.session.commit()
-    return jsonify({'message': 'Image reported successfully'}), 200
+            # Then delete the gallery item from the database
+            db.session.delete(gallery_item)
+            db.session.commit()
+
+            return jsonify({'message': 'Image reported and deleted successfully'}), 200
+        except Exception as e:
+            print(f"Error deleting image from S3: {e}")
+
+            return jsonify({'error': 'Failed to delete image from S3'}), 500
+    else:
+        db.session.commit() ### if img report count is not at the limit, then simply just log the new report count to db
+        
+        return jsonify({'message': 'Image reported successfully'}), 200
 
 if __name__ == '__main__':   ### not needed for production build on render, but doesn't hurt to keep for development server
     app.run(port=5555, debug=True)
+    # port = int(os.environ.get('PORT', 8555))
+    # app.run(host='0.0.0.0', port=port)
+

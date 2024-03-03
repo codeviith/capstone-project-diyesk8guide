@@ -183,26 +183,28 @@ class Gallery(db.Model, SerializerMixin):
     serializer_rule = ('-heart_count.gallery',)
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    image_filename = db.Column(db.String)
-    deck_brand = db.Column(db.String)
-    deck_size = db.Column(db.Integer)
-    battery_series = db.Column(db.Integer)
-    battery_parallel = db.Column(db.Integer)
-    motor_size = db.Column(db.Integer)
-    motor_kv = db.Column(db.Integer)
-    motor_power = db.Column(db.Integer)
-    wheel_type = db.Column(db.String)
-    wheel_size = db.Column(db.String)
-    max_speed = db.Column(db.Integer)
-    max_range = db.Column(db.Integer)
-    other_features = db.Column(db.String)
+    image_filename = db.Column(db.String, nullable=True)
+    image_url = db.Column(db.String, nullable=False)
+    deck_brand = db.Column(db.String, nullable=True)
+    deck_size = db.Column(db.Integer, nullable=True)
+    battery_series = db.Column(db.Integer, nullable=True)
+    battery_parallel = db.Column(db.Integer, nullable=True)
+    motor_size = db.Column(db.Integer, nullable=True)
+    motor_kv = db.Column(db.Integer, nullable=True)
+    motor_power = db.Column(db.Integer, nullable=True)
+    wheel_type = db.Column(db.String, nullable=True)
+    wheel_size = db.Column(db.String, nullable=True)
+    max_speed = db.Column(db.Integer, nullable=True)
+    max_range = db.Column(db.Integer, nullable=True)
+    other_features = db.Column(db.String, nullable=True)
     hearts = db.Column(db.Integer, default=0)
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-    def __init__(self, image_filename, user_id, deck_brand, deck_size, battery_series, battery_parallel, motor_size, motor_kv, motor_power, wheel_type, wheel_size, max_speed, max_range, other_features):
-        self.image_filename = image_filename
+    def __init__(self, user_id, image_filename, image_url, deck_brand, deck_size, battery_series, battery_parallel, motor_size, motor_kv, motor_power, wheel_type, wheel_size, max_speed, max_range, other_features):
         self.user_id = user_id
+        self.image_filename = image_filename
+        self.image_url = image_url
         self.deck_brand = deck_brand
         self.deck_size = deck_size
         self.battery_series = battery_series
