@@ -16,6 +16,7 @@ from botocore.exceptions import NoCredentialsError
 from io import BytesIO
 import tempfile
 import boto3
+import json
 
 # Local imports
 from models import Board, Guru, User, ContactUs, Gallery, Heart, Report
@@ -70,12 +71,14 @@ s3_client = boto3.client(
 )
 
 cors_configuration = {
-    'CORSRules': [{
-        'AllowedOrigins': ['http://www.example.com'],
-        'AllowedMethods': ['GET'],
-        'MaxAgeSeconds': 3000,
-        'AllowedHeaders': ['Authorization']
-    }]
+    'CORSRules': [
+        {
+            'AllowedOrigins': ['https://diyesk8guide-backend.onrender.com'],
+            'AllowedMethods': ['GET'],
+            'MaxAgeSeconds': 3000,
+            'AllowedHeaders': ['*']
+        }
+    ]
 }
 
 S3_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME')
