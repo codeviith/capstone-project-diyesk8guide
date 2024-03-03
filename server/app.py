@@ -511,7 +511,7 @@ def upload_image():
                 filename,
                 ExtraArgs={
                     'ContentType': image.content_type,
-                    'ACL': 'public-read'  ### this is set to NOT ALLOWED on S3 by default
+                    # 'ACL': 'public-read'  ### this is set to NOT ALLOWED on S3 by default
                 }
             )
 
