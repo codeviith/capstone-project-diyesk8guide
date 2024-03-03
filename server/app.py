@@ -12,10 +12,10 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from PIL import Image
-import boto3
 from botocore.exceptions import NoCredentialsError
-import tempfile
 from io import BytesIO
+import tempfile
+import boto3
 
 # Local imports
 from models import Board, Guru, User, ContactUs, Gallery, Heart, Report
@@ -511,7 +511,7 @@ def upload_image():
                 filename,
                 ExtraArgs={
                     'ContentType': image.content_type,
-                    # 'ACL': 'public-read'  ### this is set to NOT ALLOWED on S3 by default
+                    'ACL': 'public-read'  ### this is set to NOT ALLOWED on S3 by default
                 }
             )
 
