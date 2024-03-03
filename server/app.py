@@ -88,7 +88,6 @@ cors_configuration = {
     ]
 }
 
-
 S3_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME')
 
 s3_client.put_bucket_cors(Bucket=S3_BUCKET_NAME, CORSConfiguration=cors_configuration)
