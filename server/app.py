@@ -73,13 +73,21 @@ s3_client = boto3.client(
 cors_configuration = {
     'CORSRules': [
         {
-            'AllowedOrigins': ['https://diyesk8guide-backend.onrender.com'],
-            'AllowedMethods': ['GET'],
-            'MaxAgeSeconds': 3000,
-            'AllowedHeaders': ['*']
+            "AllowedHeaders": [
+                "*"
+            ],
+            "AllowedMethods": [
+                "GET"
+            ],
+            "AllowedOrigins": [
+                "https://diyesk8guide-backend.onrender.com"
+            ],
+            "ExposeHeaders": [],
+            "MaxAgeSeconds": 3000
         }
     ]
 }
+
 
 S3_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME')
 
