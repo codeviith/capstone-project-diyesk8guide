@@ -72,32 +72,6 @@ s3_client = boto3.client(
 S3_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME')
 
 
-### ------------------ AWS S3 HELPER FUNCTION(S) ------------------ ###
-
-
-# def upload_file_to_s3(file, bucket_name, object_name=None):
-#     if object_name is None:
-#         object_name = file.filename
-
-#     try:
-#         s3_client.upload_fileobj(file, bucket_name, object_name)
-#         return True
-#     except Exception as e:
-#         print(f"Error uploading file to S3: {e}")
-#         return False
-
-
-### ------------------ IMG RESIZE HELPER FUNCTION(S) ------------------ ###
-
-
-# def resize_image(image_path, output_path, base_width=1024):
-#     img = Image.open(image_path)
-#     w_percent = (base_width / float(img.size[0]))
-#     h_size = int((float(img.size[1]) * float(w_percent)))
-#     img = img.resize((base_width, h_size))
-#     img.save(output_path)
-
-
 ### ------------------ UNIVERSAL HELPER FUNCTION(S) ------------------ ###
 
 
