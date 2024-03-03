@@ -16,7 +16,7 @@ from botocore.exceptions import NoCredentialsError
 from io import BytesIO
 import tempfile
 import boto3
-import json
+# import json
 
 # Local imports
 from models import Board, Guru, User, ContactUs, Gallery, Heart, Report
@@ -70,29 +70,29 @@ s3_client = boto3.client(
     region_name=os.environ.get('AWS_REGION')
 )
 
-cors_configuration = {
-    'CORSRules': [
-        {
-            "AllowedHeaders": [
-                "*"
-            ],
-            "AllowedMethods": [
-                "GET"
-            ],
-            "AllowedOrigins": [
-                "https://diyesk8guide-backend.onrender.com"
-            ],
-            "ExposeHeaders": [],
-            "MaxAgeSeconds": 3000
-        }
-    ]
-}
+# cors_configuration = {
+#     'CORSRules': [
+#         {
+#             "AllowedHeaders": [
+#                 "*"
+#             ],
+#             "AllowedMethods": [
+#                 "GET"
+#             ],
+#             "AllowedOrigins": [
+#                 "https://diyesk8guide-backend.onrender.com"
+#             ],
+#             "ExposeHeaders": [],
+#             "MaxAgeSeconds": 3000
+#         }
+#     ]
+# }
 
 S3_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME')
 
-s3_client.put_bucket_cors(Bucket=S3_BUCKET_NAME, CORSConfiguration=cors_configuration)
+# s3_client.put_bucket_cors(Bucket=S3_BUCKET_NAME, CORSConfiguration=cors_configuration)
 
-print("CORS configuration set successfully.")
+# print("CORS configuration set successfully.")
 
 
 ### ------------------ UNIVERSAL HELPER FUNCTION(S) ------------------ ###
