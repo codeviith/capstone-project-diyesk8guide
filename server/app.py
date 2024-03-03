@@ -69,7 +69,20 @@ s3_client = boto3.client(
     region_name=os.environ.get('AWS_REGION')
 )
 
+cors_configuration = {
+    'CORSRules': [{
+        'AllowedOrigins': ['http://www.example.com'],
+        'AllowedMethods': ['GET'],
+        'MaxAgeSeconds': 3000,
+        'AllowedHeaders': ['Authorization']
+    }]
+}
+
 S3_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME')
+
+s3_client.put_bucket_cors(Bucket=S3_BUCKET_NAME, CORSConfiguration=cors_configuration)
+
+print("CORS configuration set successfully.")
 
 
 ### ------------------ UNIVERSAL HELPER FUNCTION(S) ------------------ ###
@@ -437,6 +450,7 @@ def contact_form():
 @app.route('/images/<filename>')
 def serve_image(filename):
     image_url = f'https://{S3_BUCKET_NAME}.s3.amazonaws.com/{filename}'
+    print (image_url)
     return redirect(image_url)
 
 
