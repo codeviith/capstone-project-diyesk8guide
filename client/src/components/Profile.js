@@ -47,6 +47,10 @@ function Profile() {
     const [showCurrentPassword, setShowCurrentPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
+    const [deleteAccountConfirmation, setDeleteAccountConfirmation] = useState('');
+    const [showDeleteAccountConfirmation, setShowDeleteAccountConfirmation] = useState(false);
+    const [accountDeletionSuccess, setAccountDeletionSuccess] = useState('');
+    const [accountDeletionError, setAccountDeletionError] = useState('');
     const [timerId, setTimerId] = useState(null);
 
     const toggleCurrentPasswordVisibility = () => setShowCurrentPassword(!showCurrentPassword);
@@ -367,6 +371,48 @@ function Profile() {
         });
     };
 
+    const handleDeleteAccount = async () => {
+        if (deleteAccountConfirmation === "I confirm") {
+            try {
+                const response = await fetch('/delete_account', {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ confirmation: "I confirm I want to delete my account" }),
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    setAccountDeletionSuccess("Account deleted successfully. Sorry to see you go. Returning to home page...");
+                    setTimeout(() => {
+                        window.location.href = '/'; // returns user to home page
+                    }, 3000);
+                } else {
+                    setAccountDeletionError(data.error || "Failed to delete account.");
+                    setTimeout(() => {
+                        setAccountDeletionError('');
+                    }, 3000);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                setAccountDeletionError("An error occurred while deleting the account.");
+                setTimeout(() => {
+                    setAccountDeletionError('');
+                }, 3000);
+            }
+        } else {
+            setAccountDeletionError("Confirmation did not match. Please type 'I confirm' to confirm deletion of your account.");
+            setTimeout(() => {
+                setAccountDeletionError('');
+            }, 3000);
+        }
+
+        setDeleteAccountConfirmation(''); // Resets the confirmation input box for user to retype confirmation
+    };
+
+
 
     return (
         <div className="profile"> {/* Apply 'profile' class name */}
@@ -553,7 +599,7 @@ function Profile() {
                                         ) : (
                                             <span className="user-data-value">***************</span>
                                             // The *'s are only there as a placeholder for password
-                                            // It is NEVER a good practice to display the actual password on frontend.
+                                            // It is NEVER EVER a good practice to display the actual password on frontend.
                                         )}
                                         {/* Edit Button */}
                                         {editMode.password && <button className="save-button" onClick={validateAndSavePassword}>Save</button>}
@@ -644,6 +690,30 @@ function Profile() {
                                             {editMode.boards_owned ? 'Cancel' : 'Edit'}
                                         </button>
                                     </div>
+                                </div>
+                                {/* Delete Account Section */}
+                                <div className="delete-account-section">
+                                    <button
+                                        className="delete-account-button"
+                                        onClick={() => setShowDeleteAccountConfirmation(true)}
+                                    >
+                                        Delete Account
+                                    </button>
+                                    {showDeleteAccountConfirmation && (
+                                        <>
+                                            <p>Are you sure you want to delete your account? This cannot be undone. Please type: 'I confirm' to confirm deletion of your account.</p>
+                                            <input
+                                                type="text"
+                                                value={deleteAccountConfirmation}
+                                                onChange={(e) => setDeleteAccountConfirmation(e.target.value)}
+                                                placeholder="Type 'I confirm' here"
+                                            />
+                                            <button onClick={handleDeleteAccount}>Confirm Deletion</button>
+                                        </>
+                                    )}
+                                    {/* Account Deletion Messages */}
+                                    {accountDeletionSuccess && <div className="account-delete-success-message"> {accountDeletionSuccess} </div>}
+                                    {accountDeletionError && <div className="account-delete-error-message"> {accountDeletionError} </div>}
                                 </div>
 
                             </div>
