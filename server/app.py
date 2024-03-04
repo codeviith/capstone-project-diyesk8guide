@@ -70,29 +70,29 @@ s3_client = boto3.client(
     region_name=os.environ.get('AWS_REGION')
 )
 
-cors_configuration = {
-    'CORSRules': [
-        {
-            "AllowedHeaders": [
-                "*"
-            ],
-            "AllowedMethods": [
-                "GET"
-            ],
-            "AllowedOrigins": [
-                "https://diyesk8guide-backend.onrender.com"
-            ],
-            "ExposeHeaders": [],
-            "MaxAgeSeconds": 3000
-        }
-    ]
-}
+# cors_configuration = {
+#     'CORSRules': [
+#         {
+#             "AllowedHeaders": [
+#                 "*"
+#             ],
+#             "AllowedMethods": [
+#                 "GET"
+#             ],
+#             "AllowedOrigins": [
+#                 "https://diyesk8guide-backend.onrender.com"
+#             ],
+#             "ExposeHeaders": [],
+#             "MaxAgeSeconds": 3000
+#         }
+#     ]
+# }
 
 S3_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME')
 
-s3_client.put_bucket_cors(Bucket=S3_BUCKET_NAME, CORSConfiguration=cors_configuration)
+# s3_client.put_bucket_cors(Bucket=S3_BUCKET_NAME, CORSConfiguration=cors_configuration)
 
-print("CORS configuration set successfully.")
+# print("CORS configuration set successfully.")
 
 
 ### ------------------ UNIVERSAL HELPER FUNCTION(S) ------------------ ###
@@ -296,6 +296,33 @@ def change_password():
     db.session.commit()
 
     return jsonify({'message': 'Password changed successfully'}), 200
+
+
+### --------------------- DELETE USER ACCOUNT --------------------- ###
+
+
+@app.route('/delete_account', methods=['POST'])
+def delete_account():
+    if 'user_id' not in session:
+        return jsonify({'error': 'Authentication required'}), 401
+
+    user_id = session['user_id']
+    data = request.get_json()
+    confirmation = data.get('confirmation')
+
+    # Check if the user confirmed the deletion
+    if confirmation != "I confirm I want to delete my account":
+        return jsonify({'error': 'Confirmation does not match, account not deleted.'}), 400
+
+    # Proceed to delete the user account
+    user = User.query.get(user_id)
+    if user:
+        db.session.delete(user)
+        db.session.commit()
+        session.pop('user_id', None)  # Log the user out
+        return jsonify({'message': 'Account deleted successfully'}), 200
+    else:
+        return jsonify({'error': 'User not found.'}), 404
 
 
 ### ------------------ BOARDS ------------------ ###
