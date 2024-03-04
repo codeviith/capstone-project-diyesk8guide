@@ -701,7 +701,7 @@ function Profile() {
                                     </button>
                                     {showDeleteAccountConfirmation && (
                                         <>
-                                            <p>Are you sure you want to delete your account? This cannot be undone. Please type: 'I confirm' to confirm deletion of your account.</p>
+                                            <p className='account-deletion-confirmation-message'>Are you sure you want to delete your account? This cannot be undone. Please type: 'I confirm' to confirm deletion of your account.</p>
                                             <input
                                                 type="text"
                                                 value={deleteAccountConfirmation}

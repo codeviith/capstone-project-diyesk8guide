@@ -1857,3 +1857,26 @@ nav a.home-link:hover {
   margin-bottom: 10px;
 }
 
+.account-deletion-confirmation-message {
+  color: rgb(255, 238, 0);
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.account-delete-success-message {
+  color: rgb(0, 64, 0);
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.account-delete-error-message {
+  color: rgb(115, 1, 1);
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
