@@ -26,9 +26,9 @@ class User(db.Model, SerializerMixin):
     rider_stance = db.Column(db.String, nullable=False)
     boards_owned = db.Column(db.String)
 
-    boards = db.relationship('Board', back_populates='users', cascade='all, delete-orphan')
-    gurus = db.relationship('Guru', back_populates='users', cascade='all, delete-orphan')
-    heart_count = db.relationship('Heart', back_populates='users', cascade='all, delete-orphan')
+    boards = db.relationship('Board', back_populates='users')
+    gurus = db.relationship('Guru', back_populates='users')
+    heart_count = db.relationship('Heart', back_populates='users')
 
     def to_dict(self):
         return {
@@ -235,7 +235,7 @@ class Gallery(db.Model, SerializerMixin):
         return data
 
     heart_count = db.relationship('Heart', back_populates='gallery', cascade='all, delete-orphan')
-    reports = db.relationship('Report', backref='gallery', lazy='dynamic', cascade='all, delete-orphan')
+    reports = db.relationship('Report', backref='gallery', lazy='dynamic')
 
     def __repr__(self):
         return f'<Gallery {self.id}>'
@@ -281,3 +281,4 @@ class ContactUs(db.Model, SerializerMixin):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     user = db.relationship('User')
+
