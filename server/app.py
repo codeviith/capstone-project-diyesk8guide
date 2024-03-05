@@ -314,11 +314,26 @@ def delete_account():
         return jsonify({'error': 'Confirmation does not match, account not deleted.'}), 400
 
     try:  ### code to manually delete all data, i.e. boards, questions, and images,etc, associated with this user
+        hearts = Heart.query.filter_by(user_id=user_id).all()
+        for heart in hearts:
+            gallery_item = Gallery.query.get(heart.gallery_id)
+            if gallery_item:
+                gallery_item.hearts = Gallery.hearts - 1  ### code to manually decrease heart count
+                db.session.add(gallery_item)  ### adds the changes to be ready for db.commit
+
+        reports = Report.query.filter_by(user_id=user_id).all()
+        for report in reports:
+            gallery_item = Gallery.query.get(report.gallery_id)
+            if gallery_item and hasattr(gallery_item, 'report_count'):  ### code to check if gallery_item has 'report_count' attribute
+                gallery_item.report_count -= 1   ### code to manually decrease report count
+                db.session.add(gallery_item)   ### again, adds the changes to be ready for db.commit
+
+        Heart.query.filter_by(user_id=user_id).delete()
+        Report.query.filter(Report.user_id == user_id).delete()
         Board.query.filter_by(user_id=user_id).delete()
-
         Guru.query.filter_by(user_id=user_id).delete()
-
         gallery_images = Gallery.query.filter_by(user_id=user_id).all()
+
         for image in gallery_images:
             try:
                 s3_client.delete_object(Bucket=S3_BUCKET_NAME, Key=image.image_filename)
@@ -326,9 +341,6 @@ def delete_account():
                 app.logger.error(f'Failed to delete image {image.image_filename} from S3: {e}')
             
             db.session.delete(image)
-
-        Heart.query.filter_by(user_id=user_id).delete()
-        Report.query.filter(Report.user_id == user_id).delete()
 
         user = User.query.get(user_id)  ### user account is deleted LAST because need to have everything else deleted first.
         db.session.delete(user)
