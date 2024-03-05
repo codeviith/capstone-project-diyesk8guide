@@ -419,8 +419,6 @@ function Profile() {
     };
 
 
-
-
     return (
         <div className="profile"> {/* Apply 'profile' class name */}
             {isLoggedIn ? (

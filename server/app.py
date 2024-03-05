@@ -70,29 +70,7 @@ s3_client = boto3.client(
     region_name=os.environ.get('AWS_REGION')
 )
 
-# cors_configuration = {
-#     'CORSRules': [
-#         {
-#             "AllowedHeaders": [
-#                 "*"
-#             ],
-#             "AllowedMethods": [
-#                 "GET"
-#             ],
-#             "AllowedOrigins": [
-#                 "https://diyesk8guide-backend.onrender.com"
-#             ],
-#             "ExposeHeaders": [],
-#             "MaxAgeSeconds": 3000
-#         }
-#     ]
-# }
-
 S3_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME')
-
-# s3_client.put_bucket_cors(Bucket=S3_BUCKET_NAME, CORSConfiguration=cors_configuration)
-
-# print("CORS configuration set successfully.")
 
 
 ### ------------------ UNIVERSAL HELPER FUNCTION(S) ------------------ ###
@@ -190,7 +168,7 @@ def signup():
     fname = data['firstName']
     lname = data['lastName']
     rider_stance = data['riderStance']
-    boards_owned = ','.join(data['boardsOwned'])  # making it comma-separated string
+    boards_owned = ','.join(data['boardsOwned'])
 
     ### Check if user already exists
     if User.query.filter_by(email=email).first():
@@ -767,10 +745,9 @@ def report_image(image_id):
 
     if gallery_item and gallery_item.reports.count() >= 3:
         try:
-            # Delete the image file from the S3 bucket
+
             s3_client.delete_object(Bucket=S3_BUCKET_NAME, Key=gallery_item.image_filename)
 
-            # Then delete the gallery item from the database
             db.session.delete(gallery_item)
             db.session.commit()
 
@@ -786,6 +763,5 @@ def report_image(image_id):
 
 if __name__ == '__main__':   ### not needed for production build on render, but doesn't hurt to keep for development server
     app.run(port=5555, debug=True)
-    # port = int(os.environ.get('PORT', 8555))
-    # app.run(host='0.0.0.0', port=port)
+
 
