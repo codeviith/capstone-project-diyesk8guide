@@ -380,7 +380,7 @@ function Profile() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ confirmation: "I confirm I want to delete my account" }),
+                    body: JSON.stringify({ confirmation: "I confirm" }),
                 });
 
                 const data = await response.json();

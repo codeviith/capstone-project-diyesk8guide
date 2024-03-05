@@ -310,19 +310,38 @@ def delete_account():
     data = request.get_json()
     confirmation = data.get('confirmation')
 
-    # Check if the user confirmed the deletion
-    if confirmation != "I confirm I want to delete my account":
+    if confirmation != "I confirm":
         return jsonify({'error': 'Confirmation does not match, account not deleted.'}), 400
 
-    # Proceed to delete the user account
-    user = User.query.get(user_id)
-    if user:
+    try:  ### code to manually delete all data, i.e. boards, questions, and images,etc, associated with this user
+        Board.query.filter_by(user_id=user_id).delete()
+
+        Guru.query.filter_by(user_id=user_id).delete()
+
+        gallery_images = Gallery.query.filter_by(user_id=user_id).all()
+        for image in gallery_images:
+            try:
+                s3_client.delete_object(Bucket=S3_BUCKET_NAME, Key=image.image_filename)
+            except Exception as e:
+                app.logger.error(f'Failed to delete image {image.image_filename} from S3: {e}')
+            
+            db.session.delete(image)
+
+        Heart.query.filter_by(user_id=user_id).delete()
+        Report.query.filter(Report.user_id == user_id).delete()
+
+        user = User.query.get(user_id)  ### user account is deleted LAST because need to have everything else deleted first.
         db.session.delete(user)
         db.session.commit()
-        session.pop('user_id', None)  # Log the user out
-        return jsonify({'message': 'Account deleted successfully'}), 200
-    else:
-        return jsonify({'error': 'User not found.'}), 404
+
+        session.pop('user_id', None)  ### code to log the user out
+
+        return jsonify({'message': 'Account and all associated data deleted successfully'}), 200
+    except Exception as e:
+        db.session.rollback()
+        app.logger.error(f'Error during account deletion: {e}')
+
+        return jsonify({'error': 'An error occurred during account deletion.'}), 500
 
 
 ### ------------------ BOARDS ------------------ ###
