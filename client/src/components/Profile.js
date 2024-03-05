@@ -816,7 +816,7 @@ function Profile() {
                                             <p><strong className='image-details-strong'>Wheel Type:</strong> {image.wheel_size} {image.wheel_type}</p>
                                             <p><strong className='image-details-strong'>Max Speed & Range:</strong> {image.max_speed} MPH, {image.max_range} Miles</p>
                                             <p><strong className='image-details-strong'>Other Features:</strong><p className='image-details-other-features'>{image.other_features}</p></p>
-                                            <p className='rating'><strong className='image-details-strong'>Rating:</strong> {image.hearts}</p>
+                                            <p className='rating'><strong className='image-details-strong'>Rating:</strong> {image.hearts} likes</p>
                                             <p className='delete-uploaded-image-button-container'><button className="delete-uploaded-image-button" onClick={() => deleteUploadedImage(image.id)}>Delete</button></p>
                                         </div>
                                     </div>
@@ -840,7 +840,7 @@ function Profile() {
                                             <p><strong className='image-details-strong'>Wheel Type:</strong> {image.wheel_size} {image.wheel_type}</p>
                                             <p><strong className='image-details-strong'>Max Speed & Range:</strong> {image.max_speed} MPH, {image.max_range} Miles</p>
                                             <p><strong className='image-details-strong'>Other Features:</strong><p className='image-details-other-features'>{image.other_features}</p></p>
-                                            <p className='rating'><strong className='image-details-strong'>Rating:</strong> {image.hearts}</p>
+                                            <p className='rating'><strong className='image-details-strong'>Rating:</strong> {image.hearts} likes</p>
                                         </div>
                                         <div className='unlike-button'
                                             onClick={() => unlikeImage(image.id)}

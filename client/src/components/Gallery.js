@@ -300,7 +300,7 @@ function Gallery() {
                                 <p><strong className='item-details-strong'>Wheel Type:</strong> {item.wheel_size} {item.wheel_type}</p>
                                 <p><strong className='item-details-strong'>Max Speed & Range:</strong> {item.max_speed} MPH, {item.max_range} Miles</p>
                                 <p><strong className='item-details-strong'>Other Features:</strong><p className='item-details-other-features'>{item.other_features}</p></p>
-                                <p className='rating'><strong className='item-details-strong'>Rating:</strong> {item.hearts}</p>
+                                <p className='rating'><strong className='item-details-strong'>Rating:</strong> {item.hearts} likes</p>
                             </div>
                         </div>
                     ))}
