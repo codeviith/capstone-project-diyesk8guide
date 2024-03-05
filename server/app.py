@@ -765,7 +765,7 @@ def report_image(image_id):
     new_report = Report(user_id=user_id, gallery_id=image_id)
     db.session.add(new_report)
 
-    if gallery_item and gallery_item.reports.count() >= 1:
+    if gallery_item and gallery_item.reports.count() >= 3:
         try:
             # Delete the image file from the S3 bucket
             s3_client.delete_object(Bucket=S3_BUCKET_NAME, Key=gallery_item.image_filename)
