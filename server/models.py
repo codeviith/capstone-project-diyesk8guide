@@ -11,9 +11,7 @@ from flask import current_app
 # Local imports
 from config import db, bcrypt
 
-
 ### ------------------ USER ------------------ ###
-
 
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
@@ -28,11 +26,9 @@ class User(db.Model, SerializerMixin):
     rider_stance = db.Column(db.String, nullable=False)
     boards_owned = db.Column(db.String)
 
-
     boards = db.relationship('Board', back_populates='users', cascade='all, delete-orphan')
     gurus = db.relationship('Guru', back_populates='users', cascade='all, delete-orphan')
     heart_count = db.relationship('Heart', back_populates='users', cascade='all, delete-orphan')
-
 
     def to_dict(self):
         return {
@@ -43,7 +39,6 @@ class User(db.Model, SerializerMixin):
             'rider_stance': self.rider_stance,
             'boards_owned': self.boards_owned
         }
-
 
     @hybrid_property
     def password_hash(self):
@@ -59,7 +54,6 @@ class User(db.Model, SerializerMixin):
             password.encode('utf-8')
         )
 
-
     @validates('email')
     def validate_email(self, key, email):
         if len(email) == 0:
@@ -74,10 +68,8 @@ class User(db.Model, SerializerMixin):
         
         return password
 
-
     def __repr__(self):
         return f'<User {self.id}>'
-
 
 ### ------------------ BOARD ------------------ ###
 class Board(db.Model, SerializerMixin):
@@ -112,7 +104,7 @@ class Board(db.Model, SerializerMixin):
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-    users = db.relationship('User', back_populates='boards', cascade='all, delete-orphan')
+    users = db.relationship('User', back_populates='boards')
 
     def to_dict(self):
         return {
@@ -141,12 +133,10 @@ class Board(db.Model, SerializerMixin):
             'user_id': self.user_id
         }
 
-
     def __repr__(self):
         return f'<Board {self.id}>'
 
 ### ------------------ GURU ------------------ ###
-
 
 class Guru(db.Model, SerializerMixin):
     __tablename__ = 'gurus'
@@ -159,7 +149,7 @@ class Guru(db.Model, SerializerMixin):
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-    users = db.relationship('User', back_populates='gurus', cascade='all, delete-orphan')
+    users = db.relationship('User', back_populates='gurus')
 
     def to_dict(self):
         return {
@@ -169,13 +159,10 @@ class Guru(db.Model, SerializerMixin):
             'user_id': self.user_id
         }
 
-
     def __repr__(self):
         return f'<Guru {self.id}>'
 
-
 ### ------------------ GALLERY ------------------ ###
-
 
 class Gallery(db.Model, SerializerMixin):
     __tablename__ = 'gallery'
@@ -254,7 +241,6 @@ class Gallery(db.Model, SerializerMixin):
         return f'<Gallery {self.id}>'
 
 
-
 ### ------------------ HEART ------------------ ###
 
 class Heart(db.Model, SerializerMixin):
@@ -265,12 +251,11 @@ class Heart(db.Model, SerializerMixin):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
     gallery_id = db.Column(db.Integer, db.ForeignKey('gallery.id'), primary_key=True)
 
-    users = db.relationship('User', back_populates='heart_count', cascade='all, delete-orphan')
-    gallery = db.relationship('Gallery', back_populates='heart_count', cascade='all, delete-orphan')
+    users = db.relationship('User', back_populates='heart_count')
+    gallery = db.relationship('Gallery', back_populates='heart_count')
 
     def __repr__(self):
         return f'<Heart user_id={self.user_id} gallery_id={self.gallery_id}>'
-
 
 ### ------------------ REPORT ------------------ ###
 
@@ -280,7 +265,6 @@ class Report(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     gallery_id = db.Column(db.Integer, db.ForeignKey('gallery.id'))
-
 
 ### ------------------ CONTACTUS ------------------ ###
 
@@ -296,4 +280,4 @@ class ContactUs(db.Model, SerializerMixin):
     message = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-    user = db.relationship('User', cascade='all, delete-orphan')
+    user = db.relationship('User')
