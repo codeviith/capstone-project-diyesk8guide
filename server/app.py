@@ -312,8 +312,8 @@ def delete_account():
         Guru.query.filter_by(user_id=user_id).delete()
 
         gallery_images = Gallery.query.filter_by(user_id=user_id).all()
-        
-        for image in gallery_images:
+
+        for image in gallery_images:  ### code to find and delete the image associated with the user in S3
             try:
                 s3_client.delete_object(Bucket=S3_BUCKET_NAME, Key=image.image_filename)
             except Exception as e:
@@ -323,7 +323,7 @@ def delete_account():
 
         user = User.query.get(user_id)  ### user account is deleted LAST because need to have everything else deleted first.
         db.session.delete(user)
-        db.session.commit()
+        db.session.commit()   ### code to commit all the deletions above
 
         session.pop('user_id', None)  ### code to log the user out
 
@@ -393,7 +393,7 @@ def update_board():
     remote_type = data.get('remoteType', '')
     motor_size = data.get('motorSize', '')
     motor_kv = data.get('motorKv', '')
-    # speed = data.get('speed', '')
+    # speed = data.get('speed', '')   ### not for current release, possibly later for a new feature?
     wheel_size = data.get('wheelSize', '')
     wheel_type = data.get('wheelType', '')
     battery_voltage = data.get('batteryVoltage', '')
@@ -546,7 +546,7 @@ def upload_image():
                 filename,
                 ExtraArgs={
                     'ContentType': image.content_type,
-                    # 'ACL': 'public-read'  ### this is set to NOT ALLOWED on S3 by default
+                    # 'ACL': 'public-read'  ### Not dealing with ACL at all for now, but possibly later
                 }
             )
 
@@ -558,7 +558,7 @@ def upload_image():
             image_url=image_url,
             user_id=user_id,
             deck_brand='',
-            deck_size=None,
+            deck_size=None,  ### values are 'None' because the Gallery model specify these columns as Int type.
             battery_series=None,
             battery_parallel=None,
             motor_size=None,
