@@ -29,9 +29,9 @@ class User(db.Model, SerializerMixin):
     boards_owned = db.Column(db.String)
 
 
-    boards = db.relationship('Board', back_populates='users')
-    gurus = db.relationship('Guru', back_populates='users')
-    heart_count = db.relationship('Heart', back_populates='users')
+    boards = db.relationship('Board', back_populates='users', cascade='all, delete-orphan')
+    gurus = db.relationship('Guru', back_populates='users', cascade='all, delete-orphan')
+    heart_count = db.relationship('Heart', back_populates='users', cascade='all, delete-orphan')
 
 
     def to_dict(self):
@@ -112,7 +112,7 @@ class Board(db.Model, SerializerMixin):
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-    users = db.relationship('User', back_populates='boards')
+    users = db.relationship('User', back_populates='boards', cascade='all, delete-orphan')
 
     def to_dict(self):
         return {
@@ -159,7 +159,7 @@ class Guru(db.Model, SerializerMixin):
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-    users = db.relationship('User', back_populates='gurus')
+    users = db.relationship('User', back_populates='gurus', cascade='all, delete-orphan')
 
     def to_dict(self):
         return {
@@ -248,7 +248,7 @@ class Gallery(db.Model, SerializerMixin):
         return data
 
     heart_count = db.relationship('Heart', back_populates='gallery', cascade='all, delete-orphan')
-    reports = db.relationship('Report', backref='gallery', lazy='dynamic')
+    reports = db.relationship('Report', backref='gallery', lazy='dynamic', cascade='all, delete-orphan')
 
     def __repr__(self):
         return f'<Gallery {self.id}>'
@@ -265,8 +265,8 @@ class Heart(db.Model, SerializerMixin):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
     gallery_id = db.Column(db.Integer, db.ForeignKey('gallery.id'), primary_key=True)
 
-    users = db.relationship('User', back_populates='heart_count')
-    gallery = db.relationship('Gallery', back_populates='heart_count')
+    users = db.relationship('User', back_populates='heart_count', cascade='all, delete-orphan')
+    gallery = db.relationship('Gallery', back_populates='heart_count', cascade='all, delete-orphan')
 
     def __repr__(self):
         return f'<Heart user_id={self.user_id} gallery_id={self.gallery_id}>'
@@ -296,4 +296,4 @@ class ContactUs(db.Model, SerializerMixin):
     message = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-    user = db.relationship('User')
+    user = db.relationship('User', cascade='all, delete-orphan')
