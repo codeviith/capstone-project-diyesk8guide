@@ -388,29 +388,36 @@ function Profile() {
                     setAccountDeletionSuccess("Account deleted successfully. Sorry to see you go. Returning to home page...");
                     setTimeout(() => {
                         window.location.href = '/'; // returns user to home page
-                    }, 3000);
+                    }, 5000);
                 } else {
                     setAccountDeletionError(data.error || "Failed to delete account.");
                     setTimeout(() => {
                         setAccountDeletionError('');
-                    }, 3000);
+                    }, 3500);
                 }
             } catch (error) {
                 console.error('Error:', error);
                 setAccountDeletionError("An error occurred while deleting the account.");
                 setTimeout(() => {
                     setAccountDeletionError('');
-                }, 3000);
+                }, 3500);
             }
         } else {
             setAccountDeletionError("Confirmation did not match. Please type 'I confirm' to confirm deletion of your account.");
             setTimeout(() => {
                 setAccountDeletionError('');
-            }, 3000);
+            }, 3500);
         }
 
         setDeleteAccountConfirmation(''); // Resets the confirmation input box for user to retype confirmation
     };
+
+    const handleCancelDelete = () => {
+        setShowDeleteAccountConfirmation(false);
+        setDeleteAccountConfirmation('');
+        setAccountDeletionError(''); // Optionally clear any error message
+    };
+
 
 
 
@@ -691,27 +698,35 @@ function Profile() {
                                         </button>
                                     </div>
                                 </div>
-                                {/* Delete Account Section */}
+
+                                {/* Account Deletion Section */}
                                 <div className="delete-account-section">
-                                    <button
-                                        className="delete-account-button"
+                                    <button className="delete-account-button"
                                         onClick={() => setShowDeleteAccountConfirmation(true)}
                                     >
                                         Delete Account
                                     </button>
                                     {showDeleteAccountConfirmation && (
-                                        <>
-                                            <p className='account-deletion-confirmation-message'>Are you sure you want to delete your account? This cannot be undone. Please type: 'I confirm' to confirm deletion of your account.</p>
-                                            <input
+                                        <div>
+                                            <p className='account-deletion-confirmation-message'>Are you sure you want to delete your account? This cannot be undone. Please type: "I confirm" to confirm deletion of your account.</p>
+                                            <input className='account-deletion-confirmation-input'
                                                 type="text"
                                                 value={deleteAccountConfirmation}
                                                 onChange={(e) => setDeleteAccountConfirmation(e.target.value)}
                                                 placeholder="Type 'I confirm' here"
                                             />
-                                            <button onClick={handleDeleteAccount}>Confirm Deletion</button>
-                                        </>
+                                            <button className='account-delete-confirm-button'
+                                                onClick={handleDeleteAccount}
+                                            >
+                                                Confirm Deletion
+                                            </button>
+                                            <button className='account-delete-cancel-button'
+                                                onClick={handleCancelDelete}
+                                            >
+                                                Cancel
+                                            </button>
+                                        </div>
                                     )}
-                                    {/* Account Deletion Messages */}
                                     {accountDeletionSuccess && <div className="account-delete-success-message"> {accountDeletionSuccess} </div>}
                                     {accountDeletionError && <div className="account-delete-error-message"> {accountDeletionError} </div>}
                                 </div>
