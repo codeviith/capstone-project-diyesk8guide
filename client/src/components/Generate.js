@@ -32,8 +32,9 @@ function Generate() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const { isLoggedIn } = useContext(AuthContext);
+  const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
 
-  
+
   useEffect(() => {
     const updateBoardData = async () => {
       await fetch("/update_board", {

@@ -32,7 +32,7 @@ function Gallery() {
     const [reportSuccess, setReportSuccess] = useState({});
     const { isLoggedIn } = useContext(AuthContext);
 
-    // const backendUrl = process.env.REACT_APP_BACKEND_URL;
+    const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
 
 
     useEffect(() => {

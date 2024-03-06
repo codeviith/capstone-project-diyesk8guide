@@ -26,6 +26,8 @@ function Signup() {
     isLongEnough: false
   });
 
+  const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
+
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;

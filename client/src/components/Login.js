@@ -7,17 +7,20 @@ const Login = () => {
     email: '',
     password: '',
   });
-  const [message, setMessage] = useState({ content: '', type: '' }); // Consolidated message state
+  const [message, setMessage] = useState({ content: '', type: '' });
   const { setIsLoggedIn } = useContext(AuthContext);
-  // Initialize useHistory hook for navigation
+
+  const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
+
+  // Code to initialize useHistory hook for navigation
   const history = useHistory();
 
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    setMessage({ content: '', type: '' }); // Clear any existing messages
+    setMessage({ content: '', type: '' });
 
-    fetch('/login', { // Make a request to the login endpoint in Flask API
+    fetch('/login', {
       method: 'POST',
       credentials: 'include', //*******code to include cookies********
       headers: {
@@ -27,14 +30,14 @@ const Login = () => {
     })
       .then(response => response.json())
       .then(data => {
-        if (data.success) { // Assuming your API returns a 'success' field
-          setIsLoggedIn(true); // Set the logged-in state
+        if (data.success) {
+          setIsLoggedIn(true);
           setMessage({ content: 'Login Successful. Redirecting...', type: 'success' });
           setTimeout(() => {
-            history.push('/profile'); // Redirect to the home page or another page
-          }, 2000); // Delay for 2 seconds before redirecting
-        } else { // Handle login failure (e.g., show an error message)
-          console.error('Login failed:', data.message); // Assuming your API returns a 'message' field
+            history.push('/profile');
+          }, 2000);
+        } else {
+          console.error('Login failed:', data.message);
           setMessage({ content: 'Login failed. Please check your email and password then try again.', type: 'error' });
         }
       })
@@ -44,7 +47,6 @@ const Login = () => {
       });
   };
 
-  // Function to navigate to the signup route
   const handleCreateAccount = () => {
     history.push('/signup');
   };

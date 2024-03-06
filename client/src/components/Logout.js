@@ -4,6 +4,10 @@ import { AuthContext } from './AuthContext';
 
 const Logout = () => {
     const { setIsLoggedIn } = useContext(AuthContext);
+
+    const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
+
+    // Code to initialize useHistory hook for navigation
     const history = useHistory();
 
     useEffect(() => {

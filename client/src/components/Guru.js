@@ -9,6 +9,8 @@ function Guru() {
     const [loading, setLoading] = useState(false);
     const { isLoggedIn } = useContext(AuthContext); // Using useContext to access isLoggedIn
 
+    const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();

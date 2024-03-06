@@ -8,12 +8,15 @@ function HeartButton({ imageId, onHearted, initiallyHearted, refreshTopImages })
     const { isLoggedIn } = useContext(AuthContext);
     const [isHearted, setIsHearted] = useState(initiallyHearted);
 
+    const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
+
+
     const handleHeartClick = async () => {
         // "Optimistically" update the heart count, aka. update the count ahead of the backend operation
         const newHeartState = !isHearted;
         setIsHearted(newHeartState);
         onHearted(newHeartState ? 1 : -1); // Increment or decrement heart count
-    
+
         try {
             const response = await fetch('/gallery/heart', {
                 method: 'POST',
@@ -21,7 +24,7 @@ function HeartButton({ imageId, onHearted, initiallyHearted, refreshTopImages })
                 body: JSON.stringify({ image_id: imageId }),
                 credentials: 'include',
             });
-    
+
             if (!response.ok) {
                 setIsHearted(!newHeartState);
                 onHearted(newHeartState ? -1 : 1);
@@ -31,7 +34,7 @@ function HeartButton({ imageId, onHearted, initiallyHearted, refreshTopImages })
             }
         } catch (error) {
             console.error('Error during heart request:', error);
-            
+
             setIsHearted(!newHeartState);
             onHearted(newHeartState ? -1 : 1);
         }
@@ -42,9 +45,9 @@ function HeartButton({ imageId, onHearted, initiallyHearted, refreshTopImages })
     }
 
     return (
-        <div id='heart-button' 
-        onClick={handleHeartClick}
-        title='Like'>
+        <div id='heart-button'
+            onClick={handleHeartClick}
+            title='Like'>
             {isHearted ? <HeartIcon2 /> : <BrokenHeartIcon />}
         </div>
     );

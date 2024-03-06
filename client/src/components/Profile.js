@@ -57,6 +57,9 @@ function Profile() {
     const toggleNewPasswordVisibility = () => setShowNewPassword(!showNewPassword);
     const toggleConfirmNewPasswordVisibility = () => setShowConfirmNewPassword(!showConfirmNewPassword);
 
+    const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
+
+
     useEffect(() => {
         if (isLoggedIn) {
             fetchUserData();
@@ -89,7 +92,6 @@ function Profile() {
             clearTimeout(timerId);
         };
     }, []);
-
 
     const fetchUserData = async () => {
         try {
