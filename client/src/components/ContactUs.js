@@ -13,6 +13,8 @@ function ContactUs() {
     const [successMessage, setSuccessMessage] = useState('');
     const { isLoggedIn } = useContext(AuthContext);
 
+    const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
+
 
     const handleChange = (e) => {
         if (e.target.name === 'message' && e.target.value.length > 600) {
@@ -46,7 +48,7 @@ function ContactUs() {
 
         if (Object.keys(errors).length === 0 && isLoggedIn) {
             try {
-                const response = await fetch('/contact_us', {
+                const response = await fetch(`${backendUrl}/contact_us`, {
                     method: 'POST',
                     body: JSON.stringify(formData),
                     headers: {
@@ -72,13 +74,13 @@ function ContactUs() {
     const getCharacterCountStyle = () => {
         let color = 'inherit'; // "inherit" --> code to 'inherit' the current color
         const messageLength = formData.message.length;
-    
+
         if (messageLength > 590) {
             color = 'darkred';
         } else if (messageLength > 500) {
             color = 'yellow';
         }
-    
+
         return {
             fontWeight: messageLength > 590 ? 'bold' : 'normal',
             color: color

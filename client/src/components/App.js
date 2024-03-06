@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, useLocation } from 'react-router-dom';
+import { BrowserRouter as Route, Switch } from 'react-router-dom';
 import { AuthProvider } from './AuthContext';
 import Generate from './Generate';
 import NavBar from "./NavBar";

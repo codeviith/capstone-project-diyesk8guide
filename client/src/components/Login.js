@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
 
-const Login = () => {
+function Login() {
   const [loginData, setLoginData] = useState({
     email: '',
     password: '',
@@ -12,12 +12,14 @@ const Login = () => {
   // Initialize useHistory hook for navigation
   const history = useHistory();
 
+  const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
+
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
     setMessage({ content: '', type: '' }); // Clear any existing messages
 
-    fetch('/login', { // Make a request to the login endpoint in Flask API
+    fetch(`${backendUrl}/login`, { // Make a request to the login endpoint in Flask API
       method: 'POST',
       credentials: 'include', //*******code to include cookies********
       headers: {
@@ -89,5 +91,3 @@ const Login = () => {
 };
 
 export default Login;
-
-

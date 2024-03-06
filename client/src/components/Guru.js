@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { responseStyle } from './CommonStyles'
 import { formatResponse } from './CommonFunctions'
 import { AuthContext } from './AuthContext';
@@ -8,6 +8,8 @@ function Guru() {
     const [response, setResponse] = useState('');
     const [loading, setLoading] = useState(false);
     const { isLoggedIn } = useContext(AuthContext); // Using useContext to access isLoggedIn
+
+    const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
 
 
     const handleSubmit = async (e) => {
@@ -21,7 +23,7 @@ function Guru() {
         try {
             setLoading(true);
 
-            const response = await fetch('/guru_assistant', {
+            const response = await fetch(`${backendUrl}/guru_assistant`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
