@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const checkLoginStatus = async () => {
             try {
-                const response = await fetch('/check_session', {
+                const response = await fetch(`${backendUrl}/check_session`, {
                     credentials: 'include', // Include credentials for cookies
                 });
                 const data = await response.json();

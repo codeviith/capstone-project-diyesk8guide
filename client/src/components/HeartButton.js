@@ -18,7 +18,7 @@ function HeartButton({ imageId, onHearted, initiallyHearted, refreshTopImages })
         onHearted(newHeartState ? 1 : -1); // Increment or decrement heart count
 
         try {
-            const response = await fetch('/gallery/heart', {
+            const response = await fetch(`${backendUrl}/gallery/heart`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ image_id: imageId }),

@@ -23,7 +23,7 @@ function Guru() {
         try {
             setLoading(true);
 
-            const response = await fetch('/guru_assistant', {
+            const response = await fetch(`${backendUrl}/guru_assistant`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

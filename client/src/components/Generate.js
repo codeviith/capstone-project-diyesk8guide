@@ -37,7 +37,7 @@ function Generate() {
 
   useEffect(() => {
     const updateBoardData = async () => {
-      await fetch("/update_board", {
+      await fetch(`${backendUrl}/update_board`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -65,7 +65,7 @@ function Generate() {
         }),
       });
 
-      const response = await fetch("/latest_boards");
+      const response = await fetch(`${backendUrl}/latest_boards`);
       if (response.ok) {
         const latestBoard = await response.json();
 

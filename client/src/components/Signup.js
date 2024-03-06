@@ -65,7 +65,7 @@ function Signup() {
       return;
     }
 
-    fetch('/signup', {
+    fetch(`${backendUrl}/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

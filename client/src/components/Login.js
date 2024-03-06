@@ -20,7 +20,7 @@ const Login = () => {
     e.preventDefault();
     setMessage({ content: '', type: '' });
 
-    fetch('/login', {
+    fetch(`${backendUrl}/login`, {
       method: 'POST',
       credentials: 'include', //*******code to include cookies********
       headers: {

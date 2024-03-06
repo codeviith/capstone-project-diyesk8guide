@@ -21,6 +21,7 @@ boto3 = "*"
 psycopg2 = "*"
 botocore = "*"
 gunicorn = "*"
+flask-session = "*"
 
 [requires]
 python_full_version = "3.8.13"

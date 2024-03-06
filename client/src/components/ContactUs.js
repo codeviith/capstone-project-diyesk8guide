@@ -48,7 +48,7 @@ function ContactUs() {
 
         if (Object.keys(errors).length === 0 && isLoggedIn) {
             try {
-                const response = await fetch('/contact_us', {
+                const response = await fetch(`${backendUrl}/contact_us`, {
                     method: 'POST',
                     body: JSON.stringify(formData),
                     headers: {
