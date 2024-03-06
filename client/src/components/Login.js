@@ -9,6 +9,7 @@ function Login() {
   });
   const [message, setMessage] = useState({ content: '', type: '' }); // Consolidated message state
   const { setIsLoggedIn } = useContext(AuthContext);
+  
   // Initialize useHistory hook for navigation
   const history = useHistory();
 
