@@ -26,7 +26,7 @@ function Signup() {
     isLongEnough: false
   });
 
-  const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
+  // const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
 
 
   const handleInputChange = (e) => {
@@ -65,7 +65,7 @@ function Signup() {
       return;
     }
 
-    fetch(`${backendUrl}/signup`, {
+    fetch('/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

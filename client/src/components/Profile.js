@@ -57,7 +57,7 @@ function Profile() {
     const toggleNewPasswordVisibility = () => setShowNewPassword(!showNewPassword);
     const toggleConfirmNewPasswordVisibility = () => setShowConfirmNewPassword(!showConfirmNewPassword);
 
-    const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
+    // const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
 
 
     useEffect(() => {
@@ -96,7 +96,7 @@ function Profile() {
 
     const fetchUserData = async () => {
         try {
-            const response = await fetch(`${backendUrl}/user_data`, { credentials: 'include' });
+            const response = await fetch('/user_data', { credentials: 'include' });
             const data = await response.json();
             setUserData(data);
         } catch (error) {
@@ -106,7 +106,7 @@ function Profile() {
 
     const fetchBoards = async () => {
         try {
-            const response = await fetch(`${backendUrl}/boards`, { credentials: 'include' });
+            const response = await fetch('/boards', { credentials: 'include' });
             const data = await response.json();
             setBoards(data);
         } catch (error) {
@@ -116,7 +116,7 @@ function Profile() {
 
     const fetchQuestions = async () => {
         try {
-            const response = await fetch(`${backendUrl}/guru`, { credentials: 'include' });
+            const response = await fetch('/guru', { credentials: 'include' });
             const data = await response.json();
             console.log('Questions:', data);
             setQuestions(data);
@@ -127,7 +127,7 @@ function Profile() {
 
     const fetchUploadedImages = async () => {
         try {
-            const response = await fetch(`${backendUrl}/gallery/uploaded`, { credentials: 'include' });
+            const response = await fetch('/gallery/uploaded', { credentials: 'include' });
             const data = await response.json();
             setUploadedImages(data);
         } catch (error) {
@@ -137,7 +137,7 @@ function Profile() {
 
     const fetchLikedImages = async () => {
         try {
-            const response = await fetch(`${backendUrl}/gallery/liked`, { credentials: 'include' });
+            const response = await fetch('/gallery/liked', { credentials: 'include' });
             const data = await response.json();
             setLikedImages(data);
         } catch (error) {
@@ -151,7 +151,7 @@ function Profile() {
 
     const deleteQuestion = async (questionId) => {
         try {
-            const response = await fetch(`${backendUrl}/guru/${questionId}`, {
+            const response = await fetch(`/guru/${questionId}`, {
                 method: 'DELETE',
                 credentials: 'include'
             });
@@ -168,7 +168,7 @@ function Profile() {
 
     const saveData = async (field) => {
         try {
-            const response = await fetch(`${backendUrl}/user_data/${userData.id}`, {
+            const response = await fetch(`/user_data/${userData.id}`, {
                 method: 'PATCH',
                 credentials: 'include',
                 headers: {
@@ -190,7 +190,7 @@ function Profile() {
 
     const deleteBoard = async (boardId) => {
         try {
-            const response = await fetch(`${backendUrl}/boards/${boardId}`, {
+            const response = await fetch(`/boards/${boardId}`, {
                 method: 'DELETE',
                 credentials: 'include'
             });
@@ -206,7 +206,7 @@ function Profile() {
 
     const unlikeImage = async (imageId) => {
         try {
-            const response = await fetch(`${backendUrl}/gallery/unheart`, {
+            const response = await fetch('/gallery/unheart', {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
@@ -231,7 +231,7 @@ function Profile() {
 
     const deleteUploadedImage = async (imageId) => {
         try {
-            const response = await fetch(`${backendUrl}/gallery/delete/${imageId}`, {
+            const response = await fetch(`/gallery/delete/${imageId}`, {
                 method: 'DELETE',
                 credentials: 'include'
             });
@@ -271,7 +271,7 @@ function Profile() {
 
     const checkCurrentPassword = async (currentPassword) => {
         try {
-            const response = await fetch(`${backendUrl}/check-password`, {
+            const response = await fetch('/check-password', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -315,7 +315,7 @@ function Profile() {
         };
 
         try {
-            const response = await fetch(`${backendUrl}/change_password`, {
+            const response = await fetch('/change_password', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -377,7 +377,7 @@ function Profile() {
     const handleDeleteAccount = async () => {
         if (deleteAccountConfirmation === "I confirm") {
             try {
-                const response = await fetch(`${backendUrl}/delete_account`, {
+                const response = await fetch('/delete_account', {
                     method: 'POST',
                     credentials: 'include',
                     headers: {

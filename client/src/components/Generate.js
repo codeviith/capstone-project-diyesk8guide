@@ -32,12 +32,12 @@ function Generate() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const { isLoggedIn } = useContext(AuthContext);
-  const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
+  // const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
 
   
   useEffect(() => {
     const updateBoardData = async () => {
-      await fetch(`${backendUrl}/update_board`, {
+      await fetch('/update_board', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -65,7 +65,7 @@ function Generate() {
         }),
       });
 
-      const response = await fetch(`${backendUrl}/latest_boards`);
+      const response = await fetch('/latest_boards');
       if (response.ok) {
         const latestBoard = await response.json();
 

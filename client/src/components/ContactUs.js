@@ -13,7 +13,7 @@ function ContactUs() {
     const [successMessage, setSuccessMessage] = useState('');
     const { isLoggedIn } = useContext(AuthContext);
 
-    const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
+    // const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
 
 
     const handleChange = (e) => {
@@ -48,7 +48,7 @@ function ContactUs() {
 
         if (Object.keys(errors).length === 0 && isLoggedIn) {
             try {
-                const response = await fetch(`${backendUrl}/contact_us`, {
+                const response = await fetch('/contact_us', {
                     method: 'POST',
                     body: JSON.stringify(formData),
                     headers: {

@@ -8,7 +8,7 @@ function HeartButton({ imageId, onHearted, initiallyHearted, refreshTopImages })
     const { isLoggedIn } = useContext(AuthContext);
     const [isHearted, setIsHearted] = useState(initiallyHearted);
 
-    const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
+    // const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
 
 
     const handleHeartClick = async () => {
@@ -18,7 +18,7 @@ function HeartButton({ imageId, onHearted, initiallyHearted, refreshTopImages })
         onHearted(newHeartState ? 1 : -1); // Increment or decrement heart count
     
         try {
-            const response = await fetch(`${backendUrl}/gallery/heart`, {
+            const response = await fetch('/gallery/heart', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ image_id: imageId }),

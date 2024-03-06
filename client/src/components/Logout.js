@@ -6,13 +6,13 @@ function Logout() {
     const { setIsLoggedIn } = useContext(AuthContext);
     const history = useHistory();
 
-    const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
+    // const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
 
 
     useEffect(() => {
         const logoutUser = async () => {
             try {
-                const response = await fetch(`${backendUrl}/logout`, {
+                const response = await fetch('/logout', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ function Logout() {
         };
 
         logoutUser();
-    }, [setIsLoggedIn, history, backendUrl]);
+    }, [setIsLoggedIn, history]);
 
     return <div>Logging out...</div>;
 };
