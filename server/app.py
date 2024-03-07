@@ -2,7 +2,6 @@
 
 # Remote library imports
 from flask import Flask, jsonify, make_response, request, session, json, redirect
-from flask_session import Session
 from flask_restful import Resource
 from flask_migrate import Migrate
 from flask_cors import CORS
@@ -53,18 +52,14 @@ openai_api_key = os.environ.get('OPENAI_API_KEY')  ### or os.getenv('OPENAI_API_
 app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY')
 client = OpenAI(api_key=openai_api_key)
 
-# Instantiate Session
-app.config['SESSION_COOKIE_SECURE'] = True
-app.config['SESSION_COOKIE_SAMESITE'] = 'None'
-
-Session(app)
-
 # Instantiate CORS
 # CORS(app, supports_credentials=True)
 CORS(app, supports_credentials=True, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 # Initialize Bcrypt
 bcrypt.init_app(app)
+
+
 
 
 ### ------------------ AWS S3 CLIENT ------------------ ###
