@@ -42,7 +42,6 @@ app.config['BASE_URL'] = os.environ.get('BASE_URL', 'http://127.0.0.1:5555')
 
 app.json.compact = False
 
-
 # Instantiate db
 db.init_app(app)
 migrate = Migrate(app, db)
@@ -59,25 +58,7 @@ CORS(app, supports_credentials=True, resources={r"/*": {"origins": "http://local
 # Initialize Bcrypt
 bcrypt.init_app(app)
 
-# Config Session
-app.config['SESSION_COOKIE_SECURE'] = True  # Code to specifically only send cookies over HTTPS
-app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'  # Code to set rules for retaining cookies on the same site: Strict, Lax, or None
-app.config['SESSION_COOKIE_HTTPONLY'] = True 
-app.config['SESSION_COOKIE_DOMAIN'] = 'http://localhost:3000'
-
-# @app.after_request
-# def after_request_func(response):
-#     response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
-#     response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-#     response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH')
-#     response.headers.add('Access-Control-Allow-Credentials', 'true')
-#     return response
-
-
-
-
 ### ------------------ AWS S3 CLIENT ------------------ ###
-
 
 s3_client = boto3.client(
     's3',
@@ -88,16 +69,12 @@ s3_client = boto3.client(
 
 S3_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME')
 
-
 ### ------------------ UNIVERSAL HELPER FUNCTION(S) ------------------ ###
-
 
 def is_authenticated():
     return 'user_id' in session
 
-
 ### ------------------ OPENAI API REQUESTS ------------------ ###
-
 
 guru_instructions = "You are an expert in electric skateboards(aka. eboards, e-boards, or esk8), please answer questions from prospective builders while adhering to the following instructions: 1. You will come up with the most appropriate response that suits best for the builder's question. If you are unable to provide an appropriate response to the builder, then please provide an appropriate reason. 2.Please refrain from engaing in any other conversation that isn't related to the field of electric skateboards, and in the case that the builder asks a question that is unrelated to and/or outside the scope of electric skateboards, please respond with: 'I apologize but I can only answer questions that are related to electric skateboards.' and end with an appropriate response."
 
@@ -143,16 +120,12 @@ def guru_assistant():
             jsonify({"error": "Cannot formulate a response."}), 500
         )
 
-
 ### ------------------ AUTHENTICATION ------------------ ###
-
 
 def is_logged_in():
     return 'user_id' in session
 
-
 ### ------------------ LOG IN ------------------ ###
-
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -164,7 +137,6 @@ def login():
     else:
         return jsonify({'success': False, 'message': 'Invalid email or password'}), 401
 
-
 ### ------------------ LOG OUT ------------------ ###
 
 @app.route('/logout', methods=['POST'])
@@ -172,9 +144,7 @@ def logout():
     session.pop('user_id', None)
     return jsonify({'message': 'Logged out successfully'}), 200
 
-
 ### ------------------ SIGN UP ------------------ ###
-
 
 @app.route('/signup', methods=['POST'])
 def signup():
@@ -199,9 +169,7 @@ def signup():
 
     return jsonify({'message': 'Account created successfully'}), 201
 
-
 ### ------------------ COOKIE ------------------ ###
-
 
 @app.route('/check_session', methods=['GET'])
 def check_session():
@@ -210,9 +178,7 @@ def check_session():
     else:
         return jsonify({'logged_in': False}), 200
 
-
 ### ------------------ USER ------------------ ###
-
 
 @app.route('/user_data', methods=['GET'])
 def get_user_data():
@@ -224,7 +190,6 @@ def get_user_data():
         return jsonify(user.to_dict()), 200
     else:
         return jsonify({'error': 'User not found.'}), 404
-
 
 @app.route('/user_data/<int:user_id>', methods=['PATCH'])
 def update_user_data(user_id):
@@ -254,7 +219,6 @@ def update_user_data(user_id):
 
     return jsonify({'message': 'User data updated successfully'}), 200
 
-
 @app.route('/check-password', methods=['POST'])
 def check_current_password():
     if 'user_id' not in session:
@@ -269,7 +233,6 @@ def check_current_password():
         return jsonify({'matches': True})
     else:
         return jsonify({'matches': False})
-
 
 @app.route('/change_password', methods=['POST'])
 def change_password():
@@ -291,9 +254,7 @@ def change_password():
 
     return jsonify({'message': 'Password changed successfully'}), 200
 
-
 ### --------------------- DELETE USER ACCOUNT --------------------- ###
-
 
 @app.route('/delete_account', methods=['POST'])
 def delete_account():
@@ -350,9 +311,7 @@ def delete_account():
 
         return jsonify({'error': 'An error occurred during account deletion.'}), 500
 
-
 ### ------------------ BOARDS ------------------ ###
-
 
 @app.route('/boards', methods=['GET'])
 def get_boards():
@@ -362,7 +321,6 @@ def get_boards():
     user_id = session['user_id']
     boards = Board.query.filter_by(user_id=user_id).all()
     return make_response(jsonify([board.to_dict() for board in boards]), 200)
-
 
 @app.route('/latest_boards')
 def get_latest_board():
@@ -377,7 +335,6 @@ def get_latest_board():
     else:
         return jsonify({'error': 'No board data available.'}), 404
 
-
 @app.route('/boards/<int:board_id>', methods=['DELETE'])
 def delete_board_by_id(board_id):
     board = Board.query.filter(Board.id == board_id).first()
@@ -388,7 +345,6 @@ def delete_board_by_id(board_id):
         return {"message": "Board deleted successfully."}, 200
     else:
         return {"error": "Board not found."}, 404
-
 
 @app.post('/update_board')
 def update_board():
@@ -445,9 +401,7 @@ def update_board():
 
     return {"message": "Board data saved successfully."}, 200
 
-
 ### ------------------ GURU ------------------ ###
-
 
 @app.route('/guru', methods=['GET'])
 def get_guru_data():
@@ -462,7 +416,6 @@ def get_guru_data():
     except Exception as e:
         return jsonify({'error': str(e)})
 
-
 @app.route('/guru/<int:question_id>', methods=['DELETE'])
 def delete_guru_question(question_id):
     try:
@@ -476,9 +429,7 @@ def delete_guru_question(question_id):
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-
 ### ------------------ CONTACTUS ------------------ ###
-
 
 @app.route('/contact_us', methods=['POST'])
 def contact_form():
@@ -506,16 +457,13 @@ def contact_form():
         print(str(e))
         return jsonify({'error': 'An error occurred while processing your request'}), 500
 
-
 ### ------------------ GALLERY ------------------ ###
-
 
 @app.route('/images/<filename>')
 def serve_image(filename):
     image_url = f'https://{S3_BUCKET_NAME}.s3.amazonaws.com/{filename}'
     print (image_url)
     return redirect(image_url)
-
 
 @app.route('/gallery/upload', methods=['POST'])
 def upload_image():
@@ -598,7 +546,6 @@ def upload_image():
         print(f"Error processing image: {e}")
         return jsonify({'error': str(e)}), 500
 
-
 @app.route('/gallery/uploaded', methods=['GET'])
 def get_uploaded_images():
     if 'user_id' not in session:
@@ -609,7 +556,6 @@ def get_uploaded_images():
 
     return jsonify([image.to_dict() for image in uploaded_images])
 
-
 @app.route('/gallery/liked', methods=['GET'])
 def get_liked_images():
     if 'user_id' not in session:
@@ -619,7 +565,6 @@ def get_liked_images():
     liked_images = db.session.query(Gallery).join(Heart, Gallery.id == Heart.gallery_id).filter(Heart.user_id == user_id).all() # Query all items that the user has liked
 
     return jsonify([image.to_dict() for image in liked_images])
-
 
 @app.route('/gallery', methods=['GET', 'POST'])
 def gallery():
@@ -652,7 +597,6 @@ def gallery():
         gallery_items = Gallery.query.all()
         return jsonify([item.to_dict(user_id=user_id) for item in gallery_items])
 
-
 @app.route('/gallery/delete/<int:image_id>', methods=['DELETE'])
 def delete_uploaded_image(image_id):
     if 'user_id' not in session:
@@ -676,7 +620,6 @@ def delete_uploaded_image(image_id):
         print(f"Error deleting image from S3: {e}")
         return jsonify({'error': 'Failed to delete image'}), 500
 
-
 @app.route('/gallery/top')
 def get_top_images():
     top_images = Gallery.query \
@@ -688,9 +631,7 @@ def get_top_images():
 
     return jsonify([image.to_dict() for image in top_images])
 
-
 ### ------------------ GALLERY => HEART ------------------ ###
-
 
 @app.route('/gallery/heart', methods=['POST'])
 def heart_image():
@@ -720,7 +661,6 @@ def heart_image():
 
     return jsonify({'newHeartState': heart_record is None, 'hearts': image.hearts})
 
-
 @app.route('/gallery/unheart', methods=['POST'])
 def unheart_image():
     if 'user_id' not in session:
@@ -741,9 +681,7 @@ def unheart_image():
     else:
         return jsonify({'error': 'Heart not found'}), 404
 
-
 ### ------------------ GALLERY => REPORT ------------------ ###
-
 
 @app.route('/gallery/report/<int:image_id>', methods=['POST'])
 def report_image(image_id):
@@ -780,5 +718,7 @@ def report_image(image_id):
 
 if __name__ == '__main__':   ### not needed for production build on render, but doesn't hurt to keep for development server
     app.run(port=5555, debug=True)
+
+
 
 
