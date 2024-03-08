@@ -54,7 +54,7 @@ client = OpenAI(api_key=openai_api_key)
 
 # Instantiate CORS
 # CORS(app, supports_credentials=True)
-CORS(app, supports_credentials=True, resources={r"/*": {"origins": "https://diyesk8guide-frontend.onrender.com/"}})
+CORS(app, supports_credentials=True, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 # Initialize Bcrypt
 bcrypt.init_app(app)
@@ -63,7 +63,7 @@ bcrypt.init_app(app)
 app.config['SESSION_COOKIE_SECURE'] = True  # Code to specifically only send cookies over HTTPS
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'  # Code to set rules for retaining cookies on the same site: Strict, Lax, or None
 app.config['SESSION_COOKIE_HTTPONLY'] = True 
-app.config['SESSION_COOKIE_DOMAIN'] = 'https://diyesk8guide-frontend.onrender.com/'
+app.config['SESSION_COOKIE_DOMAIN'] = 'http://localhost:3000'
 
 # @app.after_request
 # def after_request_func(response):
