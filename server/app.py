@@ -54,19 +54,19 @@ client = OpenAI(api_key=openai_api_key)
 
 # Instantiate CORS
 # CORS(app, supports_credentials=True)
-CORS(app, supports_credentials=True, resources={r"/*": {"origins": "http://localhost:3000"}})
+CORS(app, supports_credentials=True, resources={r"/*": {"origins": ["http://localhost:3000"]}})
 
 # Initialize Bcrypt
 bcrypt.init_app(app)
 
 
-@app.after_request
-def after_request_func(response):
-    response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH')
-    response.headers.add('Access-Control-Allow-Credentials', 'true')
-    return response
+# @app.after_request
+# def after_request_func(response):
+#     response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
+#     response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+#     response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH')
+#     response.headers.add('Access-Control-Allow-Credentials', 'true')
+#     return response
 
 
 
