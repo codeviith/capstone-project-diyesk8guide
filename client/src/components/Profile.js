@@ -102,7 +102,7 @@ function Profile() {
             console.error('Error fetching user data:', error);
         }
 
-
+//////////////////////////////////////
         fetch(`${backendUrl}/debug/session`, {
             method: 'GET',
             credentials: 'include', // Include cookies in the request
@@ -119,7 +119,7 @@ function Profile() {
             .catch(error => {
                 console.error('There was a problem with the fetch operation:', error);
             });
-
+//////////////////////////////////////
     };
 
     const fetchBoards = async () => {

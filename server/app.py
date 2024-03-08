@@ -58,9 +58,10 @@ CORS(app, supports_credentials=True, resources={r"/*": {"origins": "https://diye
 # Configure session cookies
 app.config['SESSION_COOKIE_SECURE'] = True  ### cookies will be sent only over HTTPS --> good for production
 # app.config['SESSION_COOKIE_SECURE'] = False  ### cookies will NOT be over HTTPS --> good for development
+app.config['REMEMBER_COOKIE_SECURE'] = True
 app.config['SESSION_COOKIE_HTTPONLY'] = True  ### Security against hacker access via .js
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax' ### Can also use 'Strict'
-app.config['SESSION_COOKIE_DOMAIN'] = 'https://diyesk8guide-frontend.onrender.com'
+# app.config['SESSION_COOKIE_DOMAIN'] = 'https://diyesk8guide-frontend.onrender.com'
 app.config['SESSION_COOKIE_PATH'] = '/'
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7) 
 
@@ -747,6 +748,15 @@ def report_image(image_id):
         db.session.commit() ### if img report count is not at the limit, then simply just log the new report count to db
         
         return jsonify({'message': 'Image reported successfully'}), 200
+
+### ------------------ HANDLE EXCEPTION ERRORS ------------------ ###
+
+@app.errorhandler(Exception)
+def handle_exception(e):
+    # You can make this more specific to catch particular exceptions
+    response = {"error": "A server error occurred", "details": str(e)}
+    return jsonify(response), 500
+
 
 if __name__ == '__main__':   ### not needed for production build on render, but doesn't hurt to keep for development server
     app.run(port=5555, debug=True)

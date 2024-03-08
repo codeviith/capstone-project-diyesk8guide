@@ -25,7 +25,6 @@ const Login = () => {
       credentials: 'include', //*******code to include cookies********
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': 'https://diyesk8guide-frontend.onrender.com'
       },
       body: JSON.stringify(loginData),
     })
