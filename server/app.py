@@ -60,6 +60,15 @@ CORS(app, supports_credentials=True, resources={r"/*": {"origins": "http://local
 bcrypt.init_app(app)
 
 
+@app.after_request
+def after_request_func(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')  # or a specific domain instead of '*'
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+    response.headers.add('Access-Control-Allow-Credentials', 'true')  # If you need to support cookies across domains
+    return response
+
+
 
 
 ### ------------------ AWS S3 CLIENT ------------------ ###
