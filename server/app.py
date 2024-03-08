@@ -125,6 +125,25 @@ def guru_assistant():
 def is_logged_in():
     return 'user_id' in session
 
+
+
+##### DEBUG #####
+@app.route('/debug/session', methods=['GET'])
+def debug_session():
+    if 'user_id' in session:
+        return jsonify({'user_id': session['user_id']}), 200
+    else:
+        return jsonify({'message': 'No active session'}), 401
+
+
+@app.route('/debug/headers', methods=['GET'])
+def debug_headers():
+    headers = request.headers
+    print(headers)
+    return jsonify({'headers': dict(headers)}), 200
+
+
+
 ### ------------------ LOG IN ------------------ ###
 
 @app.route('/login', methods=['POST'])

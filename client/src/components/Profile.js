@@ -101,6 +101,25 @@ function Profile() {
         } catch (error) {
             console.error('Error fetching user data:', error);
         }
+
+
+        fetch(`${backendUrl}/debug/session`, {
+            method: 'GET',
+            credentials: 'include', // Include cookies in the request
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data); // Log the response data
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+
     };
 
     const fetchBoards = async () => {
