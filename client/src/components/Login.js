@@ -25,6 +25,7 @@ const Login = () => {
       credentials: 'include', //*******code to include cookies********
       headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
       },
       body: JSON.stringify(loginData),
     })
