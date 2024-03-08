@@ -8,7 +8,7 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 from sqlalchemy import desc, func, MetaData
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
+from datetime import datetime, timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from PIL import Image
@@ -55,8 +55,22 @@ client = OpenAI(api_key=openai_api_key)
 # CORS(app, supports_credentials=True)
 CORS(app, supports_credentials=True, resources={r"/*": {"origins": "https://diyesk8guide-frontend.onrender.com"}})
 
+# Configure session cookies
+app.config['SESSION_COOKIE_SECURE'] = True  ### cookies will be sent only over HTTPS --> good for production
+# app.config['SESSION_COOKIE_SECURE'] = False  ### cookies will NOT be over HTTPS --> good for development
+app.config['SESSION_COOKIE_HTTPONLY'] = True  ### Security against hacker access via .js
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax' ### Can also use 'Strict'
+app.config['SESSION_COOKIE_DOMAIN'] = 'https://diyesk8guide-frontend.onrender.com'
+app.config['SESSION_COOKIE_PATH'] = '/'
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7) 
+
+
 # Initialize Bcrypt
 bcrypt.init_app(app)
+
+
+
+
 
 ### ------------------ AWS S3 CLIENT ------------------ ###
 
@@ -143,6 +157,14 @@ def debug_headers():
     return jsonify({'headers': dict(headers)}), 200
 
 
+### ------------------ COOKIE ------------------ ###
+
+@app.route('/check_session', methods=['GET'])
+def check_session():
+    if 'user_id' in session:
+        return jsonify({'logged_in': True}), 200
+    else:
+        return jsonify({'logged_in': False}), 200
 
 ### ------------------ LOG IN ------------------ ###
 
@@ -187,15 +209,6 @@ def signup():
     db.session.commit()
 
     return jsonify({'message': 'Account created successfully'}), 201
-
-### ------------------ COOKIE ------------------ ###
-
-@app.route('/check_session', methods=['GET'])
-def check_session():
-    if 'user_id' in session:
-        return jsonify({'logged_in': True}), 200
-    else:
-        return jsonify({'logged_in': False}), 200
 
 ### ------------------ USER ------------------ ###
 
@@ -737,7 +750,3 @@ def report_image(image_id):
 
 if __name__ == '__main__':   ### not needed for production build on render, but doesn't hurt to keep for development server
     app.run(port=5555, debug=True)
-
-
-
-
