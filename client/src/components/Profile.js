@@ -105,7 +105,7 @@ function Profile() {
 //////////////////////////////////////
         fetch(`${backendUrl}/debug/session`, {
             method: 'GET',
-            credentials: 'include', // Include cookies in the request
+            credentials: 'include', // Code to include cookies in the fetch request
         })
             .then(response => {
                 if (!response.ok) {
@@ -114,7 +114,7 @@ function Profile() {
                 return response.json();
             })
             .then(data => {
-                console.log(data); // Log the response data
+                console.log(data);
             })
             .catch(error => {
                 console.error('There was a problem with the fetch operation:', error);
