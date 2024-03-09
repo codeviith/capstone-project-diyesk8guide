@@ -29,6 +29,8 @@ from openai import OpenAI
 
 # Load environment variables
 load_dotenv()
+print(os.environ.get('FLASK_SECRET_KEY')) 
+
 
 # Instantiate app
 app = Flask(__name__)
@@ -50,7 +52,7 @@ Session(app)
 
 # API Secret Keys
 openai_api_key = os.environ.get('OPENAI_API_KEY')  ### or os.getenv('OPENAI_API_KEY')
-app.config['SECRET_KEY'] = 'temporary_secret_key_for_debugging'
+app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY')
 client = OpenAI(api_key=openai_api_key)
 
 # Instantiate CORS
@@ -75,6 +77,10 @@ app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
 
 # Initialize Bcrypt
 bcrypt.init_app(app)
+
+
+
+print(app.config['SECRET_KEY'])
 
 
 
@@ -185,8 +191,8 @@ def login():
         else:
             return jsonify({'success': False, 'message': 'Invalid email or password'}), 401
     except Exception as e:
-        app.logger.error('Login error: {}'.format(e))  # Debugging
-        return jsonify({'error': 'Internal server error'}), 500
+        app.logger.error(f"Login error: {e}")
+        return jsonify({'error': 'Internal Server Error', 'message': str(e)}), 500
 
 ### ------------------ LOG OUT ------------------ ###
 
