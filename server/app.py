@@ -77,7 +77,8 @@ app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
 bcrypt.init_app(app)
 
 
-
+secret_key = os.urandom(24).hex()
+print(secret_key)  
 
 
 ### ------------------ AWS S3 CLIENT ------------------ ###
