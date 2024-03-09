@@ -50,7 +50,7 @@ Session(app)
 
 # API Secret Keys
 openai_api_key = os.environ.get('OPENAI_API_KEY')  ### or os.getenv('OPENAI_API_KEY')
-app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY')
+app.config['SECRET_KEY'] = os.environ.get('temporary_secret_key_for_debugging')
 client = OpenAI(api_key=openai_api_key)
 
 # Instantiate CORS
@@ -76,9 +76,6 @@ app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
 # Initialize Bcrypt
 bcrypt.init_app(app)
 
-
-secret_key = os.urandom(24).hex()
-print(secret_key)  
 
 
 ### ------------------ AWS S3 CLIENT ------------------ ###
