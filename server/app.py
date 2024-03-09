@@ -41,7 +41,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['BASE_URL'] = os.environ.get('BASE_URL', 'http://127.0.0.1:5555')  
 ###### IMPORTANT!!! make sure to configure the 'BASE_URL' environment variable on Render as either Render backend URL or my custom domain: www.diyesk8guide.com #####
 
-app.json.compact = False
+# app.json.compact = False
 
 # Instantiate db
 db.init_app(app)
