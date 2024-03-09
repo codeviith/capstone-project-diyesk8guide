@@ -57,7 +57,7 @@ client = OpenAI(api_key=openai_api_key)
 CORS(app, supports_credentials=True, resources={r"/*": {"origins": "https://diyesk8guide-frontend.onrender.com"}})
 
 # configure session
-app.config['SESSION_TYPE'] = 'sqlalchemy'
+# app.config['SESSION_TYPE'] = 'sqlalchemy'
 # app.config['SESSION_SQLALCHEMY'] = db
 app.config['SESSION_PERMANENT'] = False
 
