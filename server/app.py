@@ -164,7 +164,7 @@ def logout():
 def signup():
     data = request.get_json()
     email = data['email']
-    password = data['password']
+    plaintext_password = data['password']  ### the plaintext password is received here from the request
     fname = data['firstName']
     lname = data['lastName']
     rider_stance = data['riderStance']
@@ -174,9 +174,12 @@ def signup():
     if User.query.filter_by(email=email).first():
         return jsonify({'message': 'Email already in use'}), 409
 
+    ### Making sure the password is hashed before commit
+    hashed_password = bcrypt.generate_password_hash(plaintext_password).decode('utf-8')
+
     ### Create new user
     new_user = User(email=email, fname=fname, lname=lname, rider_stance=rider_stance, boards_owned=boards_owned)
-    new_user.password_hash = password  ### Sets the password hash
+    new_user.password_hash = hashed_password   ### Sets the password hash
 
     db.session.add(new_user)
     db.session.commit()
