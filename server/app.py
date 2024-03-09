@@ -21,7 +21,7 @@ import boto3
 
 # Local imports
 from models import Board, Guru, User, ContactUs, Gallery, Heart, Report
-from config import db, bcrypt
+from config import bcrypt
 import os
 
 # API imports
@@ -77,7 +77,6 @@ Session(app)
 
 # Initialize Bcrypt
 bcrypt.init_app(app)
-
 
 ### ------------------ AWS S3 CLIENT ------------------ ###
 
