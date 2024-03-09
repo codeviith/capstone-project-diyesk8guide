@@ -1,15 +1,15 @@
+
 #!/usr/bin/env python3
 
 # Remote library imports
 from flask import Flask, jsonify, make_response, request, session, json, redirect
 from flask_restful import Resource
 from flask_migrate import Migrate
-from flask_session import Session
 from flask_cors import CORS
 from dotenv import load_dotenv
 from sqlalchemy import desc, func, MetaData
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime, timedelta
+from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from PIL import Image
@@ -21,7 +21,7 @@ import boto3
 
 # Local imports
 from models import Board, Guru, User, ContactUs, Gallery, Heart, Report
-from config import bcrypt, db
+from config import db, bcrypt
 import os
 
 # API imports
@@ -36,16 +36,15 @@ app = Flask(__name__)
 # Set app attributes
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'   ### uncomment to test code on development server
 # app.config['IMAGE_URL'] = '/home/codeviith/Development/code/phase-5/capstone-project/diyesk8guide/server/gallery'  ### modify value based on file storage location
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') + "?sslmode=require"  ### uncomment for production build on render
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')   ### uncomment for production build on render
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['BASE_URL'] = os.environ.get('BASE_URL', 'http://127.0.0.1:5555')  
 ###### IMPORTANT!!! make sure to configure the 'BASE_URL' environment variable on Render as either Render backend URL or my custom domain: www.diyesk8guide.com #####
 
-# app.json.compact = False
+app.json.compact = False
 
 # Instantiate db
 db.init_app(app)
-# db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 # API Secret Keys
@@ -57,26 +56,10 @@ client = OpenAI(api_key=openai_api_key)
 # CORS(app, supports_credentials=True)
 CORS(app, supports_credentials=True, resources={r"/*": {"origins": "https://diyesk8guide-frontend.onrender.com"}})
 
-# configure session
-app.config['SESSION_TYPE'] = 'sqlalchemy'
-app.config['SESSION_SQLALCHEMY'] = db
-app.config['SESSION_PERMANENT'] = False
-
-# Configure session cookies
-app.config['SESSION_COOKIE_SECURE'] = True  ### cookies will be sent only over HTTPS --> good for production
-# app.config['SESSION_COOKIE_SECURE'] = False  ### cookies will NOT be over HTTPS --> good for development
-app.config['REMEMBER_COOKIE_SECURE'] = True
-app.config['SESSION_COOKIE_HTTPONLY'] = True  ### Security against hacker access via .js
-app.config['SESSION_COOKIE_SAMESITE'] = 'Lax' ### Can also use 'Strict'
-app.config['SESSION_COOKIE_DOMAIN'] = 'None'
-app.config['SESSION_COOKIE_PATH'] = '/'
-# app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7) 
-
-# Instantiate session
-Session(app)
-
 # Initialize Bcrypt
 bcrypt.init_app(app)
+
+
 
 ### ------------------ AWS S3 CLIENT ------------------ ###
 
