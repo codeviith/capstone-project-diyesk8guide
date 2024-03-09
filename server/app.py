@@ -178,13 +178,17 @@ def check_session():
 
 @app.route('/login', methods=['POST'])
 def login():
-    data = request.get_json()
-    user = User.query.filter_by(email=data['email']).first()
-    if user and bcrypt.check_password_hash(user.password_hash, data['password']):
-        session['user_id'] = user.id
-        return jsonify({'success': True, 'message': 'Logged in successfully'}), 200
-    else:
-        return jsonify({'success': False, 'message': 'Invalid email or password'}), 401
+    try:
+        data = request.get_json()
+        user = User.query.filter_by(email=data['email']).first()
+        if user and bcrypt.check_password_hash(user.password_hash, data['password']):
+            session['user_id'] = user.id
+            return jsonify({'success': True, 'message': 'Logged in successfully'}), 200
+        else:
+            return jsonify({'success': False, 'message': 'Invalid email or password'}), 401
+    except Exception as e:
+        app.logger.error('Login error: {}'.format(e))  # Debugging
+        return jsonify({'error': 'Internal server error'}), 500
 
 ### ------------------ LOG OUT ------------------ ###
 
