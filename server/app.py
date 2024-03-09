@@ -68,8 +68,8 @@ app.config['SESSION_COOKIE_SECURE'] = True  ### cookies will be sent only over H
 app.config['REMEMBER_COOKIE_SECURE'] = True
 app.config['SESSION_COOKIE_HTTPONLY'] = True  ### Security against hacker access via .js
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax' ### Can also use 'Strict'
-# app.config['SESSION_COOKIE_DOMAIN'] = 'https://diyesk8guide-frontend.onrender.com'
-# app.config['SESSION_COOKIE_PATH'] = '/'
+app.config['SESSION_COOKIE_DOMAIN'] = 'None'
+app.config['SESSION_COOKIE_PATH'] = '/'
 # app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7) 
 
 # Instantiate session
@@ -198,11 +198,15 @@ def logout():
 
 ### ------------------ SIGN UP ------------------ ###
 
+################################################
+
+
+
 @app.route('/signup', methods=['POST'])
 def signup():
     data = request.get_json()
     email = data['email']
-    password = data['password']
+    plaintext_password = data['password']  ### the plaintext password is received here from the request
     fname = data['firstName']
     lname = data['lastName']
     rider_stance = data['riderStance']
@@ -212,14 +216,44 @@ def signup():
     if User.query.filter_by(email=email).first():
         return jsonify({'message': 'Email already in use'}), 409
 
+    ### Making sure the password is hashed before commit
+    hashed_password = bcrypt.generate_password_hash(plaintext_password).decode('utf-8')
+
     ### Create new user
     new_user = User(email=email, fname=fname, lname=lname, rider_stance=rider_stance, boards_owned=boards_owned)
-    new_user.password_hash = password  ### Sets the password hash
+    new_user.password_hash = hashed_password   ### Sets the password hash
 
     db.session.add(new_user)
     db.session.commit()
 
     return jsonify({'message': 'Account created successfully'}), 201
+
+
+
+################################################
+
+# @app.route('/signup', methods=['POST'])
+# def signup():
+#     data = request.get_json()
+#     email = data['email']
+#     password = data['password']
+#     fname = data['firstName']
+#     lname = data['lastName']
+#     rider_stance = data['riderStance']
+#     boards_owned = ','.join(data['boardsOwned'])
+
+#     ### Check if user already exists
+#     if User.query.filter_by(email=email).first():
+#         return jsonify({'message': 'Email already in use'}), 409
+
+#     ### Create new user
+#     new_user = User(email=email, fname=fname, lname=lname, rider_stance=rider_stance, boards_owned=boards_owned)
+#     new_user.password_hash = password  ### Sets the password hash
+
+#     db.session.add(new_user)
+#     db.session.commit()
+
+#     return jsonify({'message': 'Account created successfully'}), 201
 
 ### ------------------ USER ------------------ ###
 
