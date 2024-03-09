@@ -44,7 +44,8 @@ app.config['BASE_URL'] = os.environ.get('BASE_URL', 'http://127.0.0.1:5555')
 app.json.compact = False
 
 # Instantiate db
-db.init_app(app)
+# db.init_app(app)
+db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 # API Secret Keys
