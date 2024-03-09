@@ -21,7 +21,7 @@ import boto3
 
 # Local imports
 from models import Board, Guru, User, ContactUs, Gallery, Heart, Report
-from config import bcrypt
+from config import bcrypt, db
 import os
 
 # API imports
@@ -44,8 +44,8 @@ app.config['BASE_URL'] = os.environ.get('BASE_URL', 'http://127.0.0.1:5555')
 app.json.compact = False
 
 # Instantiate db
-# db.init_app(app)
-db = SQLAlchemy(app)
+db.init_app(app)
+# db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 # API Secret Keys
