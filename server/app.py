@@ -50,7 +50,7 @@ Session(app)
 
 # API Secret Keys
 openai_api_key = os.environ.get('OPENAI_API_KEY')  ### or os.getenv('OPENAI_API_KEY')
-app.config['SECRET_KEY'] = os.environ.get('temporary_secret_key_for_debugging')
+app.config['SECRET_KEY'] = 'temporary_secret_key_for_debugging'
 client = OpenAI(api_key=openai_api_key)
 
 # Instantiate CORS
