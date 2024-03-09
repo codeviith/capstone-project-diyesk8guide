@@ -29,8 +29,6 @@ from openai import OpenAI
 
 # Load environment variables
 load_dotenv()
-print(os.environ.get('FLASK_SECRET_KEY')) 
-
 
 # Instantiate app
 app = Flask(__name__)
@@ -70,18 +68,13 @@ app.config['SESSION_COOKIE_SECURE'] = True  ### cookies will be sent only over H
 app.config['REMEMBER_COOKIE_SECURE'] = True
 app.config['SESSION_COOKIE_HTTPONLY'] = True  ### Security against hacker access via .js
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax' ### Can also use 'Strict'
-app.config['SESSION_COOKIE_DOMAIN'] = 'https://diyesk8guide-frontend.onrender.com'
+# app.config['SESSION_COOKIE_DOMAIN'] = 'https://diyesk8guide-frontend.onrender.com'
 app.config['SESSION_COOKIE_PATH'] = '/'
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7) 
 
 
 # Initialize Bcrypt
 bcrypt.init_app(app)
-
-
-
-print(app.config['SECRET_KEY'])
-
 
 
 ### ------------------ AWS S3 CLIENT ------------------ ###
