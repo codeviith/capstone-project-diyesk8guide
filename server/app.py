@@ -181,11 +181,12 @@ def login():
         user = User.query.filter_by(email=data['email']).first()
         if user and bcrypt.check_password_hash(user.password_hash, data['password']):
             session['user_id'] = user.id
+            app.logger.info('User logged in: %s', user.id)  ### code to log successul login
             return jsonify({'success': True, 'message': 'Logged in successfully'}), 200
         else:
             return jsonify({'success': False, 'message': 'Invalid email or password'}), 401
     except Exception as e:
-        app.logger.error(f"Login error: {e}")
+        app.logger.error(f"Login error: {e}")  ## code to log unsuccessful login
         return jsonify({'error': 'Internal Server Error', 'message': str(e)}), 500
 
 ### ------------------ LOG OUT ------------------ ###
@@ -225,6 +226,7 @@ def signup():
 @app.route('/user_data', methods=['GET'])
 def get_user_data():
     if 'user_id' not in session:
+        app.logger.info('Session check failed: user_id not in session')  ### code to log session checks
         return jsonify({'error': 'Authentication required.'}), 401
 
     user = User.query.get(session['user_id'])
