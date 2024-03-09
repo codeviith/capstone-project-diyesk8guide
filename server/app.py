@@ -46,7 +46,6 @@ app.json.compact = False
 # Instantiate db
 db.init_app(app)
 migrate = Migrate(app, db)
-Session(app)
 
 # API Secret Keys
 openai_api_key = os.environ.get('OPENAI_API_KEY')  ### or os.getenv('OPENAI_API_KEY')
@@ -56,6 +55,9 @@ client = OpenAI(api_key=openai_api_key)
 # Instantiate CORS
 # CORS(app, supports_credentials=True)
 CORS(app, supports_credentials=True, resources={r"/*": {"origins": "https://diyesk8guide-frontend.onrender.com"}})
+
+# Instantiate session
+Session(app)
 
 # configure session
 app.config['SESSION_TYPE'] = 'sqlalchemy'
@@ -68,7 +70,7 @@ app.config['SESSION_COOKIE_SECURE'] = True  ### cookies will be sent only over H
 app.config['REMEMBER_COOKIE_SECURE'] = True
 app.config['SESSION_COOKIE_HTTPONLY'] = True  ### Security against hacker access via .js
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax' ### Can also use 'Strict'
-# app.config['SESSION_COOKIE_DOMAIN'] = 'https://diyesk8guide-frontend.onrender.com'
+app.config['SESSION_COOKIE_DOMAIN'] = 'https://diyesk8guide-frontend.onrender.com'
 app.config['SESSION_COOKIE_PATH'] = '/'
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7) 
 
