@@ -181,45 +181,43 @@ def check_session():
 @app.route('/login', methods=['POST'])
 def login():
     try:
-        ### code to parse incoming request data
         data = request.get_json()
-        email = data.get('email')
-        plaintext_password = data.get('password')  ### the plaintext password is received here from the request
-        
-        user = User.query.filter_by(email=email).first()  ### code to retrieve user by email
-        
-        if user and bcrypt.check_password_hash(user.password_hash, plaintext_password):
-            print(f"Password verification succeeded for {email}")
-            session['user_id'] = user.id   ### code to log user in if password matches
-            app.logger.info('User logged in: %s', user.id)
-            
+        user = User.query.filter_by(email=data['email']).first()
+        if user and bcrypt.check_password_hash(user.password_hash, data['password']):
+            session['user_id'] = user.id
+            app.logger.info('User logged in: %s', user.id)  ### code to log successul login
             return jsonify({'success': True, 'message': 'Logged in successfully'}), 200
         else:
-            print(f"Password verification failed for {email}") 
             return jsonify({'success': False, 'message': 'Invalid email or password'}), 401
     except Exception as e:
-        app.logger.error(f"Login error: {e}")
-
+        app.logger.error(f"Login error: {e}")  ## code to log unsuccessful login
         return jsonify({'error': 'Internal Server Error', 'message': str(e)}), 500
 
 
-
-#####original#####
+##### HASHED VER -- NOT WORKING #####
 # @app.route('/login', methods=['POST'])
 # def login():
 #     try:
+#         ### code to parse incoming request data
 #         data = request.get_json()
-#         user = User.query.filter_by(email=data['email']).first()
-#         if user and bcrypt.check_password_hash(user.password_hash, data['password']):
-#             session['user_id'] = user.id
-#             app.logger.info('User logged in: %s', user.id)  ### code to log successul login
+#         email = data.get('email')
+#         plaintext_password = data.get('password')  ### the plaintext password is received here from the request
+        
+#         user = User.query.filter_by(email=email).first()  ### code to retrieve user by email
+        
+#         if user and bcrypt.check_password_hash(user.password_hash, plaintext_password):
+#             print(f"Password verification succeeded for {email}")
+#             session['user_id'] = user.id   ### code to log user in if password matches
+#             app.logger.info('User logged in: %s', user.id)
+            
 #             return jsonify({'success': True, 'message': 'Logged in successfully'}), 200
 #         else:
+#             print(f"Password verification failed for {email}") 
 #             return jsonify({'success': False, 'message': 'Invalid email or password'}), 401
 #     except Exception as e:
-#         app.logger.error(f"Login error: {e}")  ## code to log unsuccessful login
-#         return jsonify({'error': 'Internal Server Error', 'message': str(e)}), 500
+#         app.logger.error(f"Login error: {e}")
 
+#         return jsonify({'error': 'Internal Server Error', 'message': str(e)}), 500
 
 
 ### ------------------ LOG OUT ------------------ ###
@@ -231,12 +229,11 @@ def logout():
 
 ### ------------------ SIGN UP ------------------ ###
 
-
 @app.route('/signup', methods=['POST'])
 def signup():
     data = request.get_json()
     email = data['email']
-    plaintext_password = data['password']  ### the plaintext password is received here from the request
+    password = data['password']
     fname = data['firstName']
     lname = data['lastName']
     rider_stance = data['riderStance']
@@ -246,13 +243,9 @@ def signup():
     if User.query.filter_by(email=email).first():
         return jsonify({'message': 'Email already in use'}), 409
 
-    ### Making sure the password is hashed before commit
-    hashed_password = bcrypt.generate_password_hash(plaintext_password).decode('utf-8')
-    print(f"Hashed password for {email}: {hashed_password}") 
-
     ### Create new user
     new_user = User(email=email, fname=fname, lname=lname, rider_stance=rider_stance, boards_owned=boards_owned)
-    new_user.password_hash = hashed_password   ### Sets the password hash
+    new_user.password_hash = password  ### Sets the password hash
 
     db.session.add(new_user)
     db.session.commit()
@@ -260,13 +253,12 @@ def signup():
     return jsonify({'message': 'Account created successfully'}), 201
 
 
-
-######original######
+##### HASHED VER -- NOT WORKING #####
 # @app.route('/signup', methods=['POST'])
 # def signup():
 #     data = request.get_json()
 #     email = data['email']
-#     password = data['password']
+#     plaintext_password = data['password']  ### the plaintext password is received here from the request
 #     fname = data['firstName']
 #     lname = data['lastName']
 #     rider_stance = data['riderStance']
@@ -276,16 +268,18 @@ def signup():
 #     if User.query.filter_by(email=email).first():
 #         return jsonify({'message': 'Email already in use'}), 409
 
+#     ### Making sure the password is hashed before commit
+#     hashed_password = bcrypt.generate_password_hash(plaintext_password).decode('utf-8')
+#     print(f"Hashed password for {email}: {hashed_password}") 
+
 #     ### Create new user
 #     new_user = User(email=email, fname=fname, lname=lname, rider_stance=rider_stance, boards_owned=boards_owned)
-#     new_user.password_hash = password  ### Sets the password hash
+#     new_user.password_hash = hashed_password   ### Sets the password hash
 
 #     db.session.add(new_user)
 #     db.session.commit()
 
 #     return jsonify({'message': 'Account created successfully'}), 201
-
-
 
 
 ### ------------------ USER ------------------ ###
