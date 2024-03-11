@@ -66,12 +66,12 @@ CORS(app, supports_credentials=True, resources={r"/*": {"origins": "https://diye
 # configure session
 # app.config['SESSION_TYPE'] = 'sqlalchemy'
 # app.config['SESSION_SQLALCHEMY'] = db
-# app.config['SESSION_PERMANENT'] = False
+app.config['SESSION_PERMANENT'] = True
 
 # Configure session cookies
 app.config['SESSION_COOKIE_SECURE'] = True  ### cookies will be sent only over HTTPS --> good for production
 # app.config['SESSION_COOKIE_SECURE'] = False  ### cookies will NOT be over HTTPS --> good for development
-# app.config['REMEMBER_COOKIE_SECURE'] = True
+app.config['REMEMBER_COOKIE_SECURE'] = True
 app.config['SESSION_COOKIE_HTTPONLY'] = True  ### Security against hacker access via .js
 app.config['SESSION_COOKIE_SAMESITE'] = 'None' ### Can also use 'Strict'
 app.config['SESSION_COOKIE_PATH'] = '/'
