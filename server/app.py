@@ -3,19 +3,19 @@
 
 # Remote library imports
 from flask import Flask, jsonify, make_response, request, session, json, redirect
-from flask_restful import Resource
+# from flask_restful import Resource
 from flask_migrate import Migrate
 from flask_cors import CORS
 from dotenv import load_dotenv
-from sqlalchemy import desc, func, MetaData
+from sqlalchemy import desc, func
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-from werkzeug.security import generate_password_hash, check_password_hash
+# from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from PIL import Image
-from botocore.exceptions import NoCredentialsError
+# from botocore.exceptions import NoCredentialsError
 from io import BytesIO
-import tempfile
+# import tempfile
 import boto3
 # import json
 
