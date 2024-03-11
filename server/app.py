@@ -189,11 +189,13 @@ def login():
         user = User.query.filter_by(email=email).first()  ### code to retrieve user by email
         
         if user and bcrypt.check_password_hash(user.password_hash, plaintext_password):
+            print(f"Password verification succeeded for {email}")
             session['user_id'] = user.id   ### code to log user in if password matches
             app.logger.info('User logged in: %s', user.id)
             
             return jsonify({'success': True, 'message': 'Logged in successfully'}), 200
         else:
+            print(f"Password verification failed for {email}") 
             return jsonify({'success': False, 'message': 'Invalid email or password'}), 401
     except Exception as e:
         app.logger.error(f"Login error: {e}")
@@ -246,6 +248,7 @@ def signup():
 
     ### Making sure the password is hashed before commit
     hashed_password = bcrypt.generate_password_hash(plaintext_password).decode('utf-8')
+    print(f"Hashed password for {email}: {hashed_password}") 
 
     ### Create new user
     new_user = User(email=email, fname=fname, lname=lname, rider_stance=rider_stance, boards_owned=boards_owned)
