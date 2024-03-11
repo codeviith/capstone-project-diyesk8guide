@@ -80,6 +80,9 @@ CORS(app, supports_credentials=True, resources={r"/*": {"origins": "https://diye
 # Initialize Bcrypt
 bcrypt.init_app(app)
 
+# configure logging
+if not app.debug:
+    app.logger.setLevel(logging.INFO)
 
 
 ### ------------------ AWS S3 CLIENT ------------------ ###
@@ -177,9 +180,6 @@ def check_session():
         return jsonify({'logged_in': False}), 200
 
 ### ------------------ LOG IN ------------------ ###
-
-if not app.debug:
-    app.logger.setLevel(logging.INFO)
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -287,17 +287,35 @@ def signup():
 
 ### ------------------ USER ------------------ ###
 
+
 @app.route('/user_data', methods=['GET'])
 def get_user_data():
-    if 'user_id' not in session:
-        app.logger.info('Session check failed: user_id not in session')  ### code to log session checks
-        return jsonify({'error': 'Authentication required.'}), 401
+    try:
+        if 'user_id' not in session:
+            app.logger.info('Session check failed: user_id not in session')
+            return jsonify({'error': 'Authentication required.'}), 401
 
-    user = User.query.get(session['user_id'])
-    if user:
-        return jsonify(user.to_dict()), 200
-    else:
-        return jsonify({'error': 'User not found.'}), 404
+        user = User.query.get(session['user_id'])
+        if user:
+            return jsonify(user.to_dict()), 200
+        else:
+            return jsonify({'error': 'User not found.'}), 404
+    except Exception as e:
+        app.logger.error(f"Error fetching user data: {e}", exc_info=True)
+        return jsonify({'error': 'Internal Server Error'}), 500
+
+
+# @app.route('/user_data', methods=['GET'])
+# def get_user_data():
+#     if 'user_id' not in session:
+#         app.logger.info('Session check failed: user_id not in session')  ### code to log session checks
+#         return jsonify({'error': 'Authentication required.'}), 401
+
+#     user = User.query.get(session['user_id'])
+#     if user:
+#         return jsonify(user.to_dict()), 200
+#     else:
+#         return jsonify({'error': 'User not found.'}), 404
 
 @app.route('/user_data/<int:user_id>', methods=['PATCH'])
 def update_user_data(user_id):
@@ -421,14 +439,29 @@ def delete_account():
 
 ### ------------------ BOARDS ------------------ ###
 
+
 @app.route('/boards', methods=['GET'])
 def get_boards():
-    if 'user_id' not in session:
-        return jsonify({'error': 'Authentication required.'}), 401
-    
-    user_id = session['user_id']
-    boards = Board.query.filter_by(user_id=user_id).all()
-    return make_response(jsonify([board.to_dict() for board in boards]), 200)
+    try:
+        if 'user_id' not in session:
+            return jsonify({'error': 'Authentication required.'}), 401
+        
+        user_id = session['user_id']
+        boards = Board.query.filter_by(user_id=user_id).all()
+        return make_response(jsonify([board.to_dict() for board in boards]), 200)
+    except Exception as e:
+        app.logger.error(f"Error fetching boards: {e}", exc_info=True)
+        return jsonify({'error': 'Internal Server Error'}), 500
+
+
+# @app.route('/boards', methods=['GET'])
+# def get_boards():
+#         if 'user_id' not in session:
+#             return jsonify({'error': 'Authentication required.'}), 401
+        
+#         user_id = session['user_id']
+#         boards = Board.query.filter_by(user_id=user_id).all()
+#         return make_response(jsonify([board.to_dict() for board in boards]), 200)
 
 @app.route('/latest_boards')
 def get_latest_board():
@@ -522,7 +555,23 @@ def get_guru_data():
         
         return make_response(jsonify([guru_datum.to_dict() for guru_datum in guru_data]), 200)
     except Exception as e:
-        return jsonify({'error': str(e)})
+        app.logger.error(f"Error fetching guru data: {e}", exc_info=True)
+        return jsonify({'error': 'Internal Server Error'}), 500
+
+
+
+# @app.route('/guru', methods=['GET'])
+# def get_guru_data():
+#     try:
+#         if 'user_id' not in session:
+#             return jsonify({'error': 'Authentication required.'}), 401
+        
+#         user_id = session['user_id']
+#         guru_data = Guru.query.filter_by(user_id=user_id).all()
+        
+#         return make_response(jsonify([guru_datum.to_dict() for guru_datum in guru_data]), 200)
+#     except Exception as e:
+#         return jsonify({'error': str(e)})
 
 @app.route('/guru/<int:question_id>', methods=['DELETE'])
 def delete_guru_question(question_id):
@@ -656,23 +705,52 @@ def upload_image():
 
 @app.route('/gallery/uploaded', methods=['GET'])
 def get_uploaded_images():
-    if 'user_id' not in session:
-        return jsonify({'error': 'Authentication required.'}), 401
+    try:
+        if 'user_id' not in session:
+            return jsonify({'error': 'Authentication required.'}), 401
 
-    user_id = session['user_id']
-    uploaded_images = Gallery.query.filter_by(user_id=user_id).all()
+        user_id = session['user_id']
+        uploaded_images = Gallery.query.filter_by(user_id=user_id).all()
 
-    return jsonify([image.to_dict() for image in uploaded_images])
+        return jsonify([image.to_dict() for image in uploaded_images])
+    except Exception as e:
+        app.logger.error(f"Error fetching uploaded images: {e}", exc_info=True)
+        return jsonify({'error': 'Internal Server Error'}), 500
 
 @app.route('/gallery/liked', methods=['GET'])
 def get_liked_images():
-    if 'user_id' not in session:
-        return jsonify({'error': 'Authentication required.'}), 401
+    try:
+        if 'user_id' not in session:
+            return jsonify({'error': 'Authentication required.'}), 401
 
-    user_id = session['user_id']
-    liked_images = db.session.query(Gallery).join(Heart, Gallery.id == Heart.gallery_id).filter(Heart.user_id == user_id).all() # Query all items that the user has liked
+        user_id = session['user_id']
+        liked_images = db.session.query(Gallery).join(Heart, Gallery.id == Heart.gallery_id).filter(Heart.user_id == user_id).all()
 
-    return jsonify([image.to_dict() for image in liked_images])
+        return jsonify([image.to_dict() for image in liked_images])
+    except Exception as e:
+        app.logger.error(f"Error fetching liked images: {e}", exc_info=True)
+        return jsonify({'error': 'Internal Server Error'}), 500
+
+
+# @app.route('/gallery/uploaded', methods=['GET'])
+# def get_uploaded_images():
+#     if 'user_id' not in session:
+#         return jsonify({'error': 'Authentication required.'}), 401
+
+#     user_id = session['user_id']
+#     uploaded_images = Gallery.query.filter_by(user_id=user_id).all()
+
+#     return jsonify([image.to_dict() for image in uploaded_images])
+
+# @app.route('/gallery/liked', methods=['GET'])
+# def get_liked_images():
+#     if 'user_id' not in session:
+#         return jsonify({'error': 'Authentication required.'}), 401
+
+#     user_id = session['user_id']
+#     liked_images = db.session.query(Gallery).join(Heart, Gallery.id == Heart.gallery_id).filter(Heart.user_id == user_id).all() # Query all items that the user has liked
+
+#     return jsonify([image.to_dict() for image in liked_images])
 
 @app.route('/gallery', methods=['GET', 'POST'])
 def gallery():
