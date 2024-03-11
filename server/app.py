@@ -57,6 +57,8 @@ client = OpenAI(api_key=openai_api_key)
 # CORS(app, supports_credentials=True)
 CORS(app, supports_credentials=True, resources={r"/*": {"origins": "https://diyesk8guide-frontend.onrender.com"}})
 
+# Instantiate session
+Session(app)
 
 # configure session
 app.config['SESSION_TYPE'] = 'sqlalchemy'
@@ -70,9 +72,6 @@ app.config['REMEMBER_COOKIE_SECURE'] = True
 app.config['SESSION_COOKIE_HTTPONLY'] = True  ### Security against hacker access via .js
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax' ### Can also use 'Strict'
 app.config['SESSION_COOKIE_DOMAIN'] = 'None'
-
-# Instantiate session
-Session(app)
 
 
 # Initialize Bcrypt
