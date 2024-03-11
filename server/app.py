@@ -10,7 +10,7 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 from sqlalchemy import desc, func
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
+from datetime import datetime, timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from PIL import Image
@@ -75,8 +75,9 @@ app.config['REMEMBER_COOKIE_SECURE'] = True
 app.config['SESSION_COOKIE_HTTPONLY'] = True  ### Security against hacker access via .js
 app.config['SESSION_COOKIE_SAMESITE'] = 'None' ### Can also use 'Strict'
 app.config['SESSION_COOKIE_PATH'] = '/'
-app.config['SESSION_COOKIE_DOMAIN'] = 'None'
+# app.config['SESSION_COOKIE_DOMAIN'] = 'None'
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=15) 
+# app.config['SESSION_REFRESH_EACH_REQUEST'] = True
 
 
 # Initialize Bcrypt
