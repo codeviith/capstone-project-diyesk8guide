@@ -57,7 +57,7 @@ client = OpenAI(api_key=openai_api_key)
 
 # Instantiate CORS
 # CORS(app, supports_credentials=True)
-CORS(app, supports_credentials=True, resources={r"/*": {"origins": "https://diyesk8guide-frontend.onrender.com"}})
+CORS(app, supports_credentials=True, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 
 # Instantiate session
