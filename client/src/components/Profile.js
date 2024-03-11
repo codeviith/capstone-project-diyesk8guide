@@ -95,7 +95,9 @@ function Profile() {
 
     const fetchUserData = async () => {
         try {
-            const response = await fetch(`${backendUrl}/user_data`, { credentials: 'include' });
+            const response = await fetch(`${backendUrl}/user_data`,
+            { credentials: 'include'
+        });
             const data = await response.json();
             setUserData(data);
         } catch (error) {
@@ -124,7 +126,9 @@ function Profile() {
 
     const fetchBoards = async () => {
         try {
-            const response = await fetch(`${backendUrl}/boards`, { credentials: 'include' });
+            const response = await fetch(`${backendUrl}/boards`,
+            { credentials: 'include'
+        });
             const data = await response.json();
             setBoards(data);
         } catch (error) {
@@ -134,7 +138,9 @@ function Profile() {
 
     const fetchQuestions = async () => {
         try {
-            const response = await fetch(`${backendUrl}/guru`, { credentials: 'include' });
+            const response = await fetch(`${backendUrl}/guru`,
+            { credentials: 'include'
+        });
             const data = await response.json();
             console.log('Questions:', data);
             setQuestions(data);
@@ -145,7 +151,9 @@ function Profile() {
 
     const fetchUploadedImages = async () => {
         try {
-            const response = await fetch(`${backendUrl}/gallery/uploaded`, { credentials: 'include' });
+            const response = await fetch(`${backendUrl}/gallery/uploaded`,
+            { credentials: 'include'
+        });
             const data = await response.json();
             setUploadedImages(data);
         } catch (error) {
@@ -155,7 +163,9 @@ function Profile() {
 
     const fetchLikedImages = async () => {
         try {
-            const response = await fetch(`${backendUrl}/gallery/liked`, { credentials: 'include' });
+            const response = await fetch(`${backendUrl}/gallery/liked`,
+            { credentials: 'include'
+        });
             const data = await response.json();
             setLikedImages(data);
         } catch (error) {
