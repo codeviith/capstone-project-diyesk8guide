@@ -1,14 +1,16 @@
+
 #!/usr/bin/env python3
 
 # Remote library imports
 from flask import Flask, jsonify, make_response, request, session, json, redirect
 from flask_restful import Resource
 from flask_migrate import Migrate
+from flask_session import Session
 from flask_cors import CORS
 from dotenv import load_dotenv
-from sqlalchemy import desc, func, MetaData
+from sqlalchemy import desc, func
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
+from datetime import datetime, timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from PIL import Image
@@ -16,7 +18,8 @@ from botocore.exceptions import NoCredentialsError
 from io import BytesIO
 import tempfile
 import boto3
-# import json
+import json
+import logging
 
 # Local imports
 from models import Board, Guru, User, ContactUs, Gallery, Heart, Report
@@ -42,9 +45,9 @@ app.config['BASE_URL'] = os.environ.get('BASE_URL', 'http://127.0.0.1:5555')
 
 app.json.compact = False
 
-
 # Instantiate db
 db.init_app(app)
+# db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 # API Secret Keys
@@ -54,14 +57,38 @@ client = OpenAI(api_key=openai_api_key)
 
 # Instantiate CORS
 # CORS(app, supports_credentials=True)
-CORS(app, supports_credentials=True, resources={r"/*": {"origins": "http://localhost:3000"}})
+CORS(app, supports_credentials=True, resources={r"/*": {"origins": "https://diyesk8guide-frontend.onrender.com"}})
+
+
+# Instantiate session
+# Session(app)
+
+# configure session
+# app.config['SESSION_TYPE'] = 'sqlalchemy'
+# app.config['SESSION_SQLALCHEMY'] = db
+app.config['SESSION_PERMANENT'] = True
+
+# Configure session cookies
+app.config['SESSION_COOKIE_SECURE'] = True  ### cookies will be sent only over HTTPS --> good for production
+# app.config['SESSION_COOKIE_SECURE'] = False  ### cookies will NOT be over HTTPS --> good for development
+app.config['REMEMBER_COOKIE_SECURE'] = True
+app.config['SESSION_COOKIE_HTTPONLY'] = True  ### Security against hacker access via .js
+app.config['SESSION_COOKIE_SAMESITE'] = 'None' ### Can also use 'Strict'
+app.config['SESSION_COOKIE_PATH'] = '/'
+# app.config['SESSION_COOKIE_DOMAIN'] = 'None'
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=15) 
+# app.config['SESSION_REFRESH_EACH_REQUEST'] = True
+
 
 # Initialize Bcrypt
 bcrypt.init_app(app)
 
+# configure logging
+if not app.debug:
+    app.logger.setLevel(logging.INFO)
+
 
 ### ------------------ AWS S3 CLIENT ------------------ ###
-
 
 s3_client = boto3.client(
     's3',
@@ -72,16 +99,12 @@ s3_client = boto3.client(
 
 S3_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME')
 
-
 ### ------------------ UNIVERSAL HELPER FUNCTION(S) ------------------ ###
-
 
 def is_authenticated():
     return 'user_id' in session
 
-
 ### ------------------ OPENAI API REQUESTS ------------------ ###
-
 
 guru_instructions = "You are an expert in electric skateboards(aka. eboards, e-boards, or esk8), please answer questions from prospective builders while adhering to the following instructions: 1. You will come up with the most appropriate response that suits best for the builder's question. If you are unable to provide an appropriate response to the builder, then please provide an appropriate reason. 2.Please refrain from engaing in any other conversation that isn't related to the field of electric skateboards, and in the case that the builder asks a question that is unrelated to and/or outside the scope of electric skateboards, please respond with: 'I apologize but I can only answer questions that are related to electric skateboards.' and end with an appropriate response."
 
@@ -127,26 +150,80 @@ def guru_assistant():
             jsonify({"error": "Cannot formulate a response."}), 500
         )
 
-
 ### ------------------ AUTHENTICATION ------------------ ###
-
 
 def is_logged_in():
     return 'user_id' in session
 
 
-### ------------------ LOG IN ------------------ ###
 
+##### DEBUG #####
+@app.route('/debug/session', methods=['GET'])
+def debug_session():
+    if 'user_id' in session:
+        return jsonify({'user_id': session['user_id']}), 200
+    else:
+        return jsonify({'message': 'No active session'}), 401
+
+
+@app.route('/debug/headers', methods=['GET'])
+def debug_headers():
+    headers = request.headers
+    print(headers)
+    return jsonify({'headers': dict(headers)}), 200
+
+
+### ------------------ COOKIE ------------------ ###
+
+@app.route('/check_session', methods=['GET'])
+def check_session():
+    if 'user_id' in session:
+        return jsonify({'logged_in': True}), 200
+    else:
+        return jsonify({'logged_in': False}), 200
+
+### ------------------ LOG IN ------------------ ###
 
 @app.route('/login', methods=['POST'])
 def login():
-    data = request.get_json()
-    user = User.query.filter_by(email=data['email']).first()
-    if user and bcrypt.check_password_hash(user.password_hash, data['password']):
-        session['user_id'] = user.id
-        return jsonify({'success': True, 'message': 'Logged in successfully'}), 200
-    else:
-        return jsonify({'success': False, 'message': 'Invalid email or password'}), 401
+    try:
+        data = request.get_json()
+        user = User.query.filter_by(email=data['email']).first()
+        if user and bcrypt.check_password_hash(user.password_hash, data['password']):
+            session['user_id'] = user.id
+            app.logger.info('User logged in: %s', user.id)  ### code to log successul login
+            return jsonify({'success': True, 'message': 'Logged in successfully'}), 200
+        else:
+            return jsonify({'success': False, 'message': 'Invalid email or password'}), 401
+    except Exception as e:
+        app.logger.error(f"Login error: {e}")  ## code to log unsuccessful login
+        return jsonify({'error': 'Internal Server Error', 'message': str(e)}), 500
+
+
+##### HASHED VER -- NOT WORKING #####
+# @app.route('/login', methods=['POST'])
+# def login():
+#     try:
+#         ### code to parse incoming request data
+#         data = request.get_json()
+#         email = data.get('email')
+#         plaintext_password = data.get('password')  ### the plaintext password is received here from the request
+        
+#         user = User.query.filter_by(email=email).first()  ### code to retrieve user by email
+        
+#         if user and bcrypt.check_password_hash(user.password_hash, plaintext_password):
+#             print(f"Password verification succeeded for {email}")
+#             session['user_id'] = user.id   ### code to log user in if password matches
+#             app.logger.info('User logged in: %s', user.id)
+            
+#             return jsonify({'success': True, 'message': 'Logged in successfully'}), 200
+#         else:
+#             print(f"Password verification failed for {email}") 
+#             return jsonify({'success': False, 'message': 'Invalid email or password'}), 401
+#     except Exception as e:
+#         app.logger.error(f"Login error: {e}")
+
+#         return jsonify({'error': 'Internal Server Error', 'message': str(e)}), 500
 
 
 ### ------------------ LOG OUT ------------------ ###
@@ -156,9 +233,7 @@ def logout():
     session.pop('user_id', None)
     return jsonify({'message': 'Logged out successfully'}), 200
 
-
 ### ------------------ SIGN UP ------------------ ###
-
 
 @app.route('/signup', methods=['POST'])
 def signup():
@@ -184,15 +259,33 @@ def signup():
     return jsonify({'message': 'Account created successfully'}), 201
 
 
-### ------------------ COOKIE ------------------ ###
+##### HASHED VER -- NOT WORKING #####
+# @app.route('/signup', methods=['POST'])
+# def signup():
+#     data = request.get_json()
+#     email = data['email']
+#     plaintext_password = data['password']  ### the plaintext password is received here from the request
+#     fname = data['firstName']
+#     lname = data['lastName']
+#     rider_stance = data['riderStance']
+#     boards_owned = ','.join(data['boardsOwned'])
 
+#     ### Check if user already exists
+#     if User.query.filter_by(email=email).first():
+#         return jsonify({'message': 'Email already in use'}), 409
 
-@app.route('/check_session', methods=['GET'])
-def check_session():
-    if 'user_id' in session:
-        return jsonify({'logged_in': True}), 200
-    else:
-        return jsonify({'logged_in': False}), 200
+#     ### Making sure the password is hashed before commit
+#     hashed_password = bcrypt.generate_password_hash(plaintext_password).decode('utf-8')
+#     print(f"Hashed password for {email}: {hashed_password}") 
+
+#     ### Create new user
+#     new_user = User(email=email, fname=fname, lname=lname, rider_stance=rider_stance, boards_owned=boards_owned)
+#     new_user.password_hash = hashed_password   ### Sets the password hash
+
+#     db.session.add(new_user)
+#     db.session.commit()
+
+#     return jsonify({'message': 'Account created successfully'}), 201
 
 
 ### ------------------ USER ------------------ ###
@@ -200,15 +293,32 @@ def check_session():
 
 @app.route('/user_data', methods=['GET'])
 def get_user_data():
-    if 'user_id' not in session:
-        return jsonify({'error': 'Authentication required.'}), 401
+    try:
+        if 'user_id' not in session:
+            app.logger.info('Session check failed: user_id not in session')
+            return jsonify({'error': 'Authentication required.'}), 401
 
-    user = User.query.get(session['user_id'])
-    if user:
-        return jsonify(user.to_dict()), 200
-    else:
-        return jsonify({'error': 'User not found.'}), 404
+        user = User.query.get(session['user_id'])
+        if user:
+            return jsonify(user.to_dict()), 200
+        else:
+            return jsonify({'error': 'User not found.'}), 404
+    except Exception as e:
+        app.logger.error(f"Error fetching user data: {e}", exc_info=True)
+        return jsonify({'error': 'Internal Server Error'}), 500
 
+
+# @app.route('/user_data', methods=['GET'])
+# def get_user_data():
+#     if 'user_id' not in session:
+#         app.logger.info('Session check failed: user_id not in session')  ### code to log session checks
+#         return jsonify({'error': 'Authentication required.'}), 401
+
+#     user = User.query.get(session['user_id'])
+#     if user:
+#         return jsonify(user.to_dict()), 200
+#     else:
+#         return jsonify({'error': 'User not found.'}), 404
 
 @app.route('/user_data/<int:user_id>', methods=['PATCH'])
 def update_user_data(user_id):
@@ -238,7 +348,6 @@ def update_user_data(user_id):
 
     return jsonify({'message': 'User data updated successfully'}), 200
 
-
 @app.route('/check-password', methods=['POST'])
 def check_current_password():
     if 'user_id' not in session:
@@ -253,7 +362,6 @@ def check_current_password():
         return jsonify({'matches': True})
     else:
         return jsonify({'matches': False})
-
 
 @app.route('/change_password', methods=['POST'])
 def change_password():
@@ -275,9 +383,7 @@ def change_password():
 
     return jsonify({'message': 'Password changed successfully'}), 200
 
-
 ### --------------------- DELETE USER ACCOUNT --------------------- ###
-
 
 @app.route('/delete_account', methods=['POST'])
 def delete_account():
@@ -334,19 +440,31 @@ def delete_account():
 
         return jsonify({'error': 'An error occurred during account deletion.'}), 500
 
-
 ### ------------------ BOARDS ------------------ ###
 
 
 @app.route('/boards', methods=['GET'])
 def get_boards():
-    if 'user_id' not in session:
-        return jsonify({'error': 'Authentication required.'}), 401
-    
-    user_id = session['user_id']
-    boards = Board.query.filter_by(user_id=user_id).all()
-    return make_response(jsonify([board.to_dict() for board in boards]), 200)
+    try:
+        if 'user_id' not in session:
+            return jsonify({'error': 'Authentication required.'}), 401
+        
+        user_id = session['user_id']
+        boards = Board.query.filter_by(user_id=user_id).all()
+        return make_response(jsonify([board.to_dict() for board in boards]), 200)
+    except Exception as e:
+        app.logger.error(f"Error fetching boards: {e}", exc_info=True)
+        return jsonify({'error': 'Internal Server Error'}), 500
 
+
+# @app.route('/boards', methods=['GET'])
+# def get_boards():
+#         if 'user_id' not in session:
+#             return jsonify({'error': 'Authentication required.'}), 401
+        
+#         user_id = session['user_id']
+#         boards = Board.query.filter_by(user_id=user_id).all()
+#         return make_response(jsonify([board.to_dict() for board in boards]), 200)
 
 @app.route('/latest_boards')
 def get_latest_board():
@@ -361,7 +479,6 @@ def get_latest_board():
     else:
         return jsonify({'error': 'No board data available.'}), 404
 
-
 @app.route('/boards/<int:board_id>', methods=['DELETE'])
 def delete_board_by_id(board_id):
     board = Board.query.filter(Board.id == board_id).first()
@@ -372,7 +489,6 @@ def delete_board_by_id(board_id):
         return {"message": "Board deleted successfully."}, 200
     else:
         return {"error": "Board not found."}, 404
-
 
 @app.post('/update_board')
 def update_board():
@@ -429,9 +545,7 @@ def update_board():
 
     return {"message": "Board data saved successfully."}, 200
 
-
 ### ------------------ GURU ------------------ ###
-
 
 @app.route('/guru', methods=['GET'])
 def get_guru_data():
@@ -444,8 +558,23 @@ def get_guru_data():
         
         return make_response(jsonify([guru_datum.to_dict() for guru_datum in guru_data]), 200)
     except Exception as e:
-        return jsonify({'error': str(e)})
+        app.logger.error(f"Error fetching guru data: {e}", exc_info=True)
+        return jsonify({'error': 'Internal Server Error'}), 500
 
+
+
+# @app.route('/guru', methods=['GET'])
+# def get_guru_data():
+#     try:
+#         if 'user_id' not in session:
+#             return jsonify({'error': 'Authentication required.'}), 401
+        
+#         user_id = session['user_id']
+#         guru_data = Guru.query.filter_by(user_id=user_id).all()
+        
+#         return make_response(jsonify([guru_datum.to_dict() for guru_datum in guru_data]), 200)
+#     except Exception as e:
+#         return jsonify({'error': str(e)})
 
 @app.route('/guru/<int:question_id>', methods=['DELETE'])
 def delete_guru_question(question_id):
@@ -460,9 +589,7 @@ def delete_guru_question(question_id):
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-
 ### ------------------ CONTACTUS ------------------ ###
-
 
 @app.route('/contact_us', methods=['POST'])
 def contact_form():
@@ -490,16 +617,13 @@ def contact_form():
         print(str(e))
         return jsonify({'error': 'An error occurred while processing your request'}), 500
 
-
 ### ------------------ GALLERY ------------------ ###
-
 
 @app.route('/images/<filename>')
 def serve_image(filename):
     image_url = f'https://{S3_BUCKET_NAME}.s3.amazonaws.com/{filename}'
     print (image_url)
     return redirect(image_url)
-
 
 @app.route('/gallery/upload', methods=['POST'])
 def upload_image():
@@ -582,28 +706,54 @@ def upload_image():
         print(f"Error processing image: {e}")
         return jsonify({'error': str(e)}), 500
 
-
 @app.route('/gallery/uploaded', methods=['GET'])
 def get_uploaded_images():
-    if 'user_id' not in session:
-        return jsonify({'error': 'Authentication required.'}), 401
+    try:
+        if 'user_id' not in session:
+            return jsonify({'error': 'Authentication required.'}), 401
 
-    user_id = session['user_id']
-    uploaded_images = Gallery.query.filter_by(user_id=user_id).all()
+        user_id = session['user_id']
+        uploaded_images = Gallery.query.filter_by(user_id=user_id).all()
 
-    return jsonify([image.to_dict() for image in uploaded_images])
-
+        return jsonify([image.to_dict() for image in uploaded_images])
+    except Exception as e:
+        app.logger.error(f"Error fetching uploaded images: {e}", exc_info=True)
+        return jsonify({'error': 'Internal Server Error'}), 500
 
 @app.route('/gallery/liked', methods=['GET'])
 def get_liked_images():
-    if 'user_id' not in session:
-        return jsonify({'error': 'Authentication required.'}), 401
+    try:
+        if 'user_id' not in session:
+            return jsonify({'error': 'Authentication required.'}), 401
 
-    user_id = session['user_id']
-    liked_images = db.session.query(Gallery).join(Heart, Gallery.id == Heart.gallery_id).filter(Heart.user_id == user_id).all() # Query all items that the user has liked
+        user_id = session['user_id']
+        liked_images = db.session.query(Gallery).join(Heart, Gallery.id == Heart.gallery_id).filter(Heart.user_id == user_id).all()
 
-    return jsonify([image.to_dict() for image in liked_images])
+        return jsonify([image.to_dict() for image in liked_images])
+    except Exception as e:
+        app.logger.error(f"Error fetching liked images: {e}", exc_info=True)
+        return jsonify({'error': 'Internal Server Error'}), 500
 
+
+# @app.route('/gallery/uploaded', methods=['GET'])
+# def get_uploaded_images():
+#     if 'user_id' not in session:
+#         return jsonify({'error': 'Authentication required.'}), 401
+
+#     user_id = session['user_id']
+#     uploaded_images = Gallery.query.filter_by(user_id=user_id).all()
+
+#     return jsonify([image.to_dict() for image in uploaded_images])
+
+# @app.route('/gallery/liked', methods=['GET'])
+# def get_liked_images():
+#     if 'user_id' not in session:
+#         return jsonify({'error': 'Authentication required.'}), 401
+
+#     user_id = session['user_id']
+#     liked_images = db.session.query(Gallery).join(Heart, Gallery.id == Heart.gallery_id).filter(Heart.user_id == user_id).all() # Query all items that the user has liked
+
+#     return jsonify([image.to_dict() for image in liked_images])
 
 @app.route('/gallery', methods=['GET', 'POST'])
 def gallery():
@@ -636,7 +786,6 @@ def gallery():
         gallery_items = Gallery.query.all()
         return jsonify([item.to_dict(user_id=user_id) for item in gallery_items])
 
-
 @app.route('/gallery/delete/<int:image_id>', methods=['DELETE'])
 def delete_uploaded_image(image_id):
     if 'user_id' not in session:
@@ -660,7 +809,6 @@ def delete_uploaded_image(image_id):
         print(f"Error deleting image from S3: {e}")
         return jsonify({'error': 'Failed to delete image'}), 500
 
-
 @app.route('/gallery/top')
 def get_top_images():
     top_images = Gallery.query \
@@ -672,9 +820,7 @@ def get_top_images():
 
     return jsonify([image.to_dict() for image in top_images])
 
-
 ### ------------------ GALLERY => HEART ------------------ ###
-
 
 @app.route('/gallery/heart', methods=['POST'])
 def heart_image():
@@ -704,7 +850,6 @@ def heart_image():
 
     return jsonify({'newHeartState': heart_record is None, 'hearts': image.hearts})
 
-
 @app.route('/gallery/unheart', methods=['POST'])
 def unheart_image():
     if 'user_id' not in session:
@@ -725,9 +870,7 @@ def unheart_image():
     else:
         return jsonify({'error': 'Heart not found'}), 404
 
-
 ### ------------------ GALLERY => REPORT ------------------ ###
-
 
 @app.route('/gallery/report/<int:image_id>', methods=['POST'])
 def report_image(image_id):
@@ -762,7 +905,14 @@ def report_image(image_id):
         
         return jsonify({'message': 'Image reported successfully'}), 200
 
+### ------------------ HANDLE EXCEPTION ERRORS ------------------ ###
+
+@app.errorhandler(Exception)
+def handle_exception(e):
+    # You can make this more specific to catch particular exceptions
+    response = {"error": "A server error occurred", "details": str(e)}
+    return jsonify(response), 500
+
+
 if __name__ == '__main__':   ### not needed for production build on render, but doesn't hurt to keep for development server
     app.run(port=5555, debug=True)
-
-
