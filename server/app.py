@@ -75,7 +75,8 @@ app.config['SESSION_COOKIE_SECURE'] = True  ### cookies will be sent only over H
 app.config['SESSION_COOKIE_HTTPONLY'] = True  ### Security against hacker access via .js
 app.config['SESSION_COOKIE_SAMESITE'] = 'None' ### Can also use 'Strict'
 app.config['SESSION_COOKIE_PATH'] = '/'
-# app.config['SESSION_COOKIE_DOMAIN'] = 'None'
+app.config['SESSION_COOKIE_DOMAIN'] = 'None'
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=15) 
 
 
 # Initialize Bcrypt
