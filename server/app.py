@@ -3,21 +3,22 @@
 
 # Remote library imports
 from flask import Flask, jsonify, make_response, request, session, json, redirect
-# from flask_restful import Resource
+from flask_restful import Resource
 from flask_migrate import Migrate
+from flask_session import Session
 from flask_cors import CORS
 from dotenv import load_dotenv
 from sqlalchemy import desc, func
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-# from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from PIL import Image
-# from botocore.exceptions import NoCredentialsError
+from botocore.exceptions import NoCredentialsError
 from io import BytesIO
-# import tempfile
+import tempfile
 import boto3
-# import json
+import json
 
 # Local imports
 from models import Board, Guru, User, ContactUs, Gallery, Heart, Report
@@ -55,6 +56,24 @@ client = OpenAI(api_key=openai_api_key)
 # Instantiate CORS
 # CORS(app, supports_credentials=True)
 CORS(app, supports_credentials=True, resources={r"/*": {"origins": "https://diyesk8guide-frontend.onrender.com"}})
+
+
+# configure session
+app.config['SESSION_TYPE'] = 'sqlalchemy'
+app.config['SESSION_SQLALCHEMY'] = db
+app.config['SESSION_PERMANENT'] = False
+
+# Configure session cookies
+app.config['SESSION_COOKIE_SECURE'] = True  ### cookies will be sent only over HTTPS --> good for production
+# app.config['SESSION_COOKIE_SECURE'] = False  ### cookies will NOT be over HTTPS --> good for development
+app.config['REMEMBER_COOKIE_SECURE'] = True
+app.config['SESSION_COOKIE_HTTPONLY'] = True  ### Security against hacker access via .js
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax' ### Can also use 'Strict'
+app.config['SESSION_COOKIE_DOMAIN'] = 'None'
+
+# Instantiate session
+Session(app)
+
 
 # Initialize Bcrypt
 bcrypt.init_app(app)
