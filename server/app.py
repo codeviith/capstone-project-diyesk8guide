@@ -157,22 +157,19 @@ def is_logged_in():
     return 'user_id' in session
 
 
-
 ##### DEBUG #####
-@app.route('/debug/session', methods=['GET'])
-def debug_session():
-    if 'user_id' in session:
-        return jsonify({'user_id': session['user_id']}), 200
-    else:
-        return jsonify({'message': 'No active session'}), 401
+# @app.route('/debug/session', methods=['GET'])
+# def debug_session():
+#     if 'user_id' in session:
+#         return jsonify({'user_id': session['user_id']}), 200
+#     else:
+#         return jsonify({'message': 'No active session'}), 401
 
-
-@app.route('/debug/headers', methods=['GET'])
-def debug_headers():
-    headers = request.headers
-    print(headers)
-    return jsonify({'headers': dict(headers)}), 200
-
+# @app.route('/debug/headers', methods=['GET'])
+# def debug_headers():
+#     headers = request.headers
+#     print(headers)
+#     return jsonify({'headers': dict(headers)}), 200
 
 ### ------------------ COOKIE ------------------ ###
 
@@ -199,33 +196,6 @@ def login():
     except Exception as e:
         app.logger.error(f"Login error: {e}")  ## code to log unsuccessful login
         return jsonify({'error': 'Internal Server Error', 'message': str(e)}), 500
-
-
-##### HASHED VER -- NOT WORKING #####
-# @app.route('/login', methods=['POST'])
-# def login():
-#     try:
-#         ### code to parse incoming request data
-#         data = request.get_json()
-#         email = data.get('email')
-#         plaintext_password = data.get('password')  ### the plaintext password is received here from the request
-        
-#         user = User.query.filter_by(email=email).first()  ### code to retrieve user by email
-        
-#         if user and bcrypt.check_password_hash(user.password_hash, plaintext_password):
-#             print(f"Password verification succeeded for {email}")
-#             session['user_id'] = user.id   ### code to log user in if password matches
-#             app.logger.info('User logged in: %s', user.id)
-            
-#             return jsonify({'success': True, 'message': 'Logged in successfully'}), 200
-#         else:
-#             print(f"Password verification failed for {email}") 
-#             return jsonify({'success': False, 'message': 'Invalid email or password'}), 401
-#     except Exception as e:
-#         app.logger.error(f"Login error: {e}")
-
-#         return jsonify({'error': 'Internal Server Error', 'message': str(e)}), 500
-
 
 ### ------------------ LOG OUT ------------------ ###
 
@@ -259,38 +229,7 @@ def signup():
 
     return jsonify({'message': 'Account created successfully'}), 201
 
-
-##### HASHED VER -- NOT WORKING #####
-# @app.route('/signup', methods=['POST'])
-# def signup():
-#     data = request.get_json()
-#     email = data['email']
-#     plaintext_password = data['password']  ### the plaintext password is received here from the request
-#     fname = data['firstName']
-#     lname = data['lastName']
-#     rider_stance = data['riderStance']
-#     boards_owned = ','.join(data['boardsOwned'])
-
-#     ### Check if user already exists
-#     if User.query.filter_by(email=email).first():
-#         return jsonify({'message': 'Email already in use'}), 409
-
-#     ### Making sure the password is hashed before commit
-#     hashed_password = bcrypt.generate_password_hash(plaintext_password).decode('utf-8')
-#     print(f"Hashed password for {email}: {hashed_password}") 
-
-#     ### Create new user
-#     new_user = User(email=email, fname=fname, lname=lname, rider_stance=rider_stance, boards_owned=boards_owned)
-#     new_user.password_hash = hashed_password   ### Sets the password hash
-
-#     db.session.add(new_user)
-#     db.session.commit()
-
-#     return jsonify({'message': 'Account created successfully'}), 201
-
-
 ### ------------------ USER ------------------ ###
-
 
 @app.route('/user_data', methods=['GET'])
 def get_user_data():
@@ -307,19 +246,6 @@ def get_user_data():
     except Exception as e:
         app.logger.error(f"Error fetching user data: {e}", exc_info=True)
         return jsonify({'error': 'Internal Server Error'}), 500
-
-
-# @app.route('/user_data', methods=['GET'])
-# def get_user_data():
-#     if 'user_id' not in session:
-#         app.logger.info('Session check failed: user_id not in session')  ### code to log session checks
-#         return jsonify({'error': 'Authentication required.'}), 401
-
-#     user = User.query.get(session['user_id'])
-#     if user:
-#         return jsonify(user.to_dict()), 200
-#     else:
-#         return jsonify({'error': 'User not found.'}), 404
 
 @app.route('/user_data/<int:user_id>', methods=['PATCH'])
 def update_user_data(user_id):
@@ -443,7 +369,6 @@ def delete_account():
 
 ### ------------------ BOARDS ------------------ ###
 
-
 @app.route('/boards', methods=['GET'])
 def get_boards():
     try:
@@ -456,16 +381,6 @@ def get_boards():
     except Exception as e:
         app.logger.error(f"Error fetching boards: {e}", exc_info=True)
         return jsonify({'error': 'Internal Server Error'}), 500
-
-
-# @app.route('/boards', methods=['GET'])
-# def get_boards():
-#         if 'user_id' not in session:
-#             return jsonify({'error': 'Authentication required.'}), 401
-        
-#         user_id = session['user_id']
-#         boards = Board.query.filter_by(user_id=user_id).all()
-#         return make_response(jsonify([board.to_dict() for board in boards]), 200)
 
 @app.route('/latest_boards')
 def get_latest_board():
@@ -562,20 +477,6 @@ def get_guru_data():
         app.logger.error(f"Error fetching guru data: {e}", exc_info=True)
         return jsonify({'error': 'Internal Server Error'}), 500
 
-
-
-# @app.route('/guru', methods=['GET'])
-# def get_guru_data():
-#     try:
-#         if 'user_id' not in session:
-#             return jsonify({'error': 'Authentication required.'}), 401
-        
-#         user_id = session['user_id']
-#         guru_data = Guru.query.filter_by(user_id=user_id).all()
-        
-#         return make_response(jsonify([guru_datum.to_dict() for guru_datum in guru_data]), 200)
-#     except Exception as e:
-#         return jsonify({'error': str(e)})
 
 @app.route('/guru/<int:question_id>', methods=['DELETE'])
 def delete_guru_question(question_id):
