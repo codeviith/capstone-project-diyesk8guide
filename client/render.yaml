@@ -1,0 +1,10 @@
+services:
+- type: web
+  name: diyesk8guide-frontend
+  env: static
+  buildCommand: npm run build
+  staticPublishPath: build
+  routes:
+    - type: rewrite
+      source: /** # Matches all paths
+      destination: /index.html # Redirects to index.html
