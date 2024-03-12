@@ -72,12 +72,13 @@ app.config['SESSION_PERMANENT'] = True
 app.config['SESSION_COOKIE_SECURE'] = True  ### cookies will be sent only over HTTPS --> good for production
 # app.config['SESSION_COOKIE_SECURE'] = False  ### cookies will NOT be over HTTPS --> good for development
 app.config['REMEMBER_COOKIE_SECURE'] = True
+app.config['REMEMBER_COOKIE_HTTPONLY'] = True
+app.config['SESSION_REFRESH_EACH_REQUEST'] = True
 app.config['SESSION_COOKIE_HTTPONLY'] = True  ### Security against hacker access via .js
 app.config['SESSION_COOKIE_SAMESITE'] = 'None' ### Can also use 'Strict'
 app.config['SESSION_COOKIE_PATH'] = '/'
 # app.config['SESSION_COOKIE_DOMAIN'] = 'None'
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=15) 
-# app.config['SESSION_REFRESH_EACH_REQUEST'] = True
 
 
 # Initialize Bcrypt
