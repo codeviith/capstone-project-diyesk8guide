@@ -73,9 +73,9 @@ app.config['SESSION_COOKIE_SECURE'] = True  ### cookies will be sent only over H
 # app.config['SESSION_COOKIE_SECURE'] = False  ### cookies will NOT be over HTTPS --> good for development
 app.config['REMEMBER_COOKIE_SECURE'] = True
 app.config['SESSION_COOKIE_HTTPONLY'] = True  ### Security against hacker access via .js
-app.config['SESSION_COOKIE_SAMESITE'] = 'None' ### Can also use 'Strict'
-app.config['SESSION_COOKIE_PATH'] = '/'
-app.config['SESSION_COOKIE_DOMAIN'] = 'https://diyesk8guide-frontend.onrender.com'
+app.config['SESSION_COOKIE_SAMESITE'] = 'None' ### Can also use 'Lax' but None is more secure
+# app.config['SESSION_COOKIE_PATH'] = '/'
+# app.config['SESSION_COOKIE_DOMAIN'] = 'https://diyesk8guide-frontend.onrender.com'
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=15) 
 # app.config['SESSION_REFRESH_EACH_REQUEST'] = True
 
