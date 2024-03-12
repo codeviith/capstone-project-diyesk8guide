@@ -20,9 +20,9 @@ function HeartButton({ imageId, onHearted, initiallyHearted, refreshTopImages })
         try {
             const response = await fetch(`${backendUrl}/gallery/heart`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ image_id: imageId }),
                 credentials: 'include',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ image_id: imageId })
             });
 
             if (!response.ok) {

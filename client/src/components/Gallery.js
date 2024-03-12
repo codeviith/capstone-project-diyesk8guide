@@ -42,7 +42,9 @@ function Gallery() {
 
     const fetchTopHeartedImages = async () => {
         try {
-            const response = await fetch(`${backendUrl}/gallery/top`);
+            const response = await fetch(`${backendUrl}/gallery/top`, {
+                credentials: 'include'
+            });
             if (response.ok) {
                 const topImages = await response.json();
                 setTopHeartedImages(topImages); // Update state to get new top hearted images
@@ -54,7 +56,9 @@ function Gallery() {
 
     const fetchGalleryItems = async () => {
         try {
-            const response = await fetch(`${backendUrl}/gallery`);
+            const response = await fetch(`${backendUrl}/gallery`, {
+                credentials: 'include'
+            });
             const data = await response.json();
             setGalleryItems(data);
         } catch (error) {
@@ -172,8 +176,8 @@ function Gallery() {
 
             let response = await fetch(`${backendUrl}/gallery/upload`, {  // Code to upload image
                 method: 'POST',
-                body: formData,
                 credentials: 'include',
+                body: formData
             });
 
             const responseData = await response.json();
@@ -183,6 +187,7 @@ function Gallery() {
 
                 response = await fetch(`${backendUrl}/gallery`, {  // Code to add additional data
                     method: 'POST',
+                    credentials: 'include',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ id: imageId, ...submissionFields }),
                 });
@@ -253,6 +258,7 @@ function Gallery() {
         try {
             const response = await fetch(`${backendUrl}/gallery/report/${imageId}`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: { 'Content-Type': 'application/json' }
             });
 

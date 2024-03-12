@@ -67,6 +67,7 @@ function Signup() {
 
     fetch(`${backendUrl}/signup`, {
       method: 'POST',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },

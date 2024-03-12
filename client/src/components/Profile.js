@@ -301,11 +301,11 @@ function Profile() {
         try {
             const response = await fetch(`${backendUrl}/check-password`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ currentPassword }),
-                credentials: 'include',
+                body: JSON.stringify({ currentPassword })
             });
 
             const data = await response.json();
@@ -345,11 +345,11 @@ function Profile() {
         try {
             const response = await fetch(`${backendUrl}/change_password`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(dataToSend),
-                credentials: 'include'
+                body: JSON.stringify(dataToSend)
             });
 
             const data = await response.json();

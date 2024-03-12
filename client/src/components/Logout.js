@@ -15,10 +15,10 @@ const Logout = () => {
             try {
                 const response = await fetch(`${backendUrl}/logout`, {
                     method: 'POST',
+                    credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json',
-                    },
-                    credentials: 'include', // If you're using cookies
+                    }
                 });
 
                 if (response.ok) {
