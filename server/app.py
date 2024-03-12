@@ -75,9 +75,9 @@ app.config['REMEMBER_COOKIE_SECURE'] = True
 app.config['SESSION_COOKIE_HTTPONLY'] = True  ### Security against hacker access via .js
 app.config['SESSION_COOKIE_SAMESITE'] = 'None' ### Can also use 'Strict'
 app.config['SESSION_COOKIE_PATH'] = '/'
-# app.config['SESSION_COOKIE_DOMAIN'] = 'None'
+app.config['SESSION_COOKIE_DOMAIN'] = 'https://diyesk8guide-frontend.onrender.com'
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=15) 
-app.config['SESSION_REFRESH_EACH_REQUEST'] = True
+# app.config['SESSION_REFRESH_EACH_REQUEST'] = True
 
 
 # Initialize Bcrypt
