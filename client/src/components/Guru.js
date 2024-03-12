@@ -25,6 +25,7 @@ function Guru() {
 
             const response = await fetch(`${backendUrl}/guru_assistant`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },

@@ -39,6 +39,7 @@ function Generate() {
     const updateBoardData = async () => {
       await fetch(`${backendUrl}/update_board`, {
         method: "POST",
+        credentials: 'include',
         headers: {
           "Content-Type": "application/json",
         },
@@ -65,7 +66,9 @@ function Generate() {
         }),
       });
 
-      const response = await fetch(`${backendUrl}/latest_boards`);
+      const response = await fetch(`${backendUrl}/latest_boards`, {
+        credentials: 'include'
+      });
       if (response.ok) {
         const latestBoard = await response.json();
 
