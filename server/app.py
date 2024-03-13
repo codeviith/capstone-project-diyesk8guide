@@ -55,17 +55,17 @@ app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY')
 client = OpenAI(api_key=openai_api_key)
 
 # Instantiate CORS
-# CORS(app, supports_credentials=True, resources={r"/*": {"origins": "https://diyesk8guide-frontend.onrender.com"}})
-CORS(app, resources={
-    r"/*": {
-        "origins": ["https://diyesk8guide-frontend.onrender.com"],
-        "methods": ["GET"],  ### code for allowed methods
-        "allow_headers": ["*"],  ### code for allowed headers
-        "expose_headers": [],  ### code for headers that browsers are allowed access to
-        "supports_credentials": True,
-        "max_age": 3000,  ### code for maximum cache age for preflight requests
-    }
-})
+CORS(app, supports_credentials=True, resources={r"/*": {"origins": "https://diyesk8guide-frontend.onrender.com"}})
+# CORS(app, resources={
+#     r"/*": {
+#         "origins": ["https://diyesk8guide-frontend.onrender.com"],
+#         "methods": ["GET"],  ### code for allowed methods
+#         "allow_headers": ["*"],  ### code for allowed headers
+#         "expose_headers": [],  ### code for headers that browsers are allowed access to
+#         "supports_credentials": True,
+#         "max_age": 3000,  ### code for maximum cache age for preflight requests
+#     }
+# })
 
 # configure session
 # app.config['SESSION_TYPE'] = 'sqlalchemy'
