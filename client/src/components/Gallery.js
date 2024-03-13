@@ -83,7 +83,7 @@ function Gallery() {
 
     const isFormValid = () => {
         if (!image) {
-            setUploadError("Image cannot be empty");
+            setUploadError("No image file selected.");
             return false;
         }
 

@@ -74,10 +74,6 @@ app.config['SESSION_COOKIE_SAMESITE'] = 'None' ### Can also use 'Lax' but None i
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=15) 
 # app.config['SESSION_REFRESH_EACH_REQUEST'] = True
 
-
-# app.config['image_url'] = f'https://{S3_BUCKET_NAME}.s3.amazonaws.com/{filename}'
-
-
 # Initialize Bcrypt
 bcrypt.init_app(app)
 
@@ -305,7 +301,7 @@ def change_password():
     if not user or not bcrypt.check_password_hash(user.password_hash, current_password):
         return jsonify({'error': 'Current password is incorrect'}), 400
 
-    user.password_hash = new_password  ## Code to trigger setter in the User model
+    user.password_hash = new_password  ### Code to trigger setter in the User model
     db.session.commit()
 
     return jsonify({'message': 'Password changed successfully'}), 200
@@ -369,7 +365,6 @@ def delete_account():
 
 ### ------------------ BOARDS ------------------ ###
 
-
 @app.route('/boards', methods=['GET'])
 def get_boards():
     try:
@@ -382,16 +377,6 @@ def get_boards():
     except Exception as e:
         app.logger.error(f"Error fetching boards: {e}", exc_info=True)
         return jsonify({'error': 'Internal Server Error'}), 500
-
-
-# @app.route('/boards', methods=['GET'])
-# def get_boards():
-#         if 'user_id' not in session:
-#             return jsonify({'error': 'Authentication required.'}), 401
-        
-#         user_id = session['user_id']
-#         boards = Board.query.filter_by(user_id=user_id).all()
-#         return make_response(jsonify([board.to_dict() for board in boards]), 200)
 
 @app.route('/latest_boards')
 def get_latest_board():
@@ -488,21 +473,6 @@ def get_guru_data():
         app.logger.error(f"Error fetching guru data: {e}", exc_info=True)
         return jsonify({'error': 'Internal Server Error'}), 500
 
-
-
-# @app.route('/guru', methods=['GET'])
-# def get_guru_data():
-#     try:
-#         if 'user_id' not in session:
-#             return jsonify({'error': 'Authentication required.'}), 401
-        
-#         user_id = session['user_id']
-#         guru_data = Guru.query.filter_by(user_id=user_id).all()
-        
-#         return make_response(jsonify([guru_datum.to_dict() for guru_datum in guru_data]), 200)
-#     except Exception as e:
-#         return jsonify({'error': str(e)})
-
 @app.route('/guru/<int:question_id>', methods=['DELETE'])
 def delete_guru_question(question_id):
     try:
@@ -548,9 +518,13 @@ def contact_form():
 
 @app.route('/images/<filename>')
 def serve_image(filename):
-    image_url = f'https://{S3_BUCKET_NAME}.s3.amazonaws.com/{filename}'
-    print (image_url)
-    return redirect(image_url)
+    try:
+        image_url = f'https://{S3_BUCKET_NAME}.s3.amazonaws.com/{filename}'
+        # print (image_url)
+        return redirect(image_url)
+    except Exception as e:
+        app.logger.error(f"Error serving image: {filename}, Error: {e}")
+        return jsonify({'error': 'Image not found'}), 404
 
 @app.route('/gallery/upload', methods=['POST'])
 def upload_image():
@@ -815,8 +789,8 @@ def report_image(image_id):
 
 @app.errorhandler(Exception)
 def handle_exception(e):
-    # You can make this more specific to catch particular exceptions
     response = {"error": "A server error occurred", "details": str(e)}
+
     return jsonify(response), 500
 
 
