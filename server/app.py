@@ -37,7 +37,6 @@ app = Flask(__name__)
 
 # Set app attributes
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'   ### uncomment to test code on development server
-# app.config['IMAGE_URL'] = '/home/codeviith/Development/code/phase-5/capstone-project/diyesk8guide/server/gallery'  ### modify value based on file storage location
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')   ### uncomment for production build on render
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['BASE_URL'] = os.environ.get('BASE_URL', 'http://127.0.0.1:5555')  
@@ -59,10 +58,6 @@ client = OpenAI(api_key=openai_api_key)
 # CORS(app, supports_credentials=True)
 CORS(app, supports_credentials=True, resources={r"/*": {"origins": "https://diyesk8guide-frontend.onrender.com"}})
 
-
-# Instantiate session
-# Session(app)
-
 # configure session
 # app.config['SESSION_TYPE'] = 'sqlalchemy'
 # app.config['SESSION_SQLALCHEMY'] = db
@@ -78,6 +73,9 @@ app.config['SESSION_COOKIE_SAMESITE'] = 'None' ### Can also use 'Lax' but None i
 # app.config['SESSION_COOKIE_DOMAIN'] = 'https://diyesk8guide-frontend.onrender.com'
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=15) 
 # app.config['SESSION_REFRESH_EACH_REQUEST'] = True
+
+
+# app.config['image_url'] = f'https://{S3_BUCKET_NAME}.s3.amazonaws.com/{filename}'
 
 
 # Initialize Bcrypt
@@ -199,33 +197,6 @@ def login():
         app.logger.error(f"Login error: {e}")  ## code to log unsuccessful login
         return jsonify({'error': 'Internal Server Error', 'message': str(e)}), 500
 
-
-##### HASHED VER -- NOT WORKING #####
-# @app.route('/login', methods=['POST'])
-# def login():
-#     try:
-#         ### code to parse incoming request data
-#         data = request.get_json()
-#         email = data.get('email')
-#         plaintext_password = data.get('password')  ### the plaintext password is received here from the request
-        
-#         user = User.query.filter_by(email=email).first()  ### code to retrieve user by email
-        
-#         if user and bcrypt.check_password_hash(user.password_hash, plaintext_password):
-#             print(f"Password verification succeeded for {email}")
-#             session['user_id'] = user.id   ### code to log user in if password matches
-#             app.logger.info('User logged in: %s', user.id)
-            
-#             return jsonify({'success': True, 'message': 'Logged in successfully'}), 200
-#         else:
-#             print(f"Password verification failed for {email}") 
-#             return jsonify({'success': False, 'message': 'Invalid email or password'}), 401
-#     except Exception as e:
-#         app.logger.error(f"Login error: {e}")
-
-#         return jsonify({'error': 'Internal Server Error', 'message': str(e)}), 500
-
-
 ### ------------------ LOG OUT ------------------ ###
 
 @app.route('/logout', methods=['POST'])
@@ -258,38 +229,7 @@ def signup():
 
     return jsonify({'message': 'Account created successfully'}), 201
 
-
-##### HASHED VER -- NOT WORKING #####
-# @app.route('/signup', methods=['POST'])
-# def signup():
-#     data = request.get_json()
-#     email = data['email']
-#     plaintext_password = data['password']  ### the plaintext password is received here from the request
-#     fname = data['firstName']
-#     lname = data['lastName']
-#     rider_stance = data['riderStance']
-#     boards_owned = ','.join(data['boardsOwned'])
-
-#     ### Check if user already exists
-#     if User.query.filter_by(email=email).first():
-#         return jsonify({'message': 'Email already in use'}), 409
-
-#     ### Making sure the password is hashed before commit
-#     hashed_password = bcrypt.generate_password_hash(plaintext_password).decode('utf-8')
-#     print(f"Hashed password for {email}: {hashed_password}") 
-
-#     ### Create new user
-#     new_user = User(email=email, fname=fname, lname=lname, rider_stance=rider_stance, boards_owned=boards_owned)
-#     new_user.password_hash = hashed_password   ### Sets the password hash
-
-#     db.session.add(new_user)
-#     db.session.commit()
-
-#     return jsonify({'message': 'Account created successfully'}), 201
-
-
 ### ------------------ USER ------------------ ###
-
 
 @app.route('/user_data', methods=['GET'])
 def get_user_data():
@@ -306,19 +246,6 @@ def get_user_data():
     except Exception as e:
         app.logger.error(f"Error fetching user data: {e}", exc_info=True)
         return jsonify({'error': 'Internal Server Error'}), 500
-
-
-# @app.route('/user_data', methods=['GET'])
-# def get_user_data():
-#     if 'user_id' not in session:
-#         app.logger.info('Session check failed: user_id not in session')  ### code to log session checks
-#         return jsonify({'error': 'Authentication required.'}), 401
-
-#     user = User.query.get(session['user_id'])
-#     if user:
-#         return jsonify(user.to_dict()), 200
-#     else:
-#         return jsonify({'error': 'User not found.'}), 404
 
 @app.route('/user_data/<int:user_id>', methods=['PATCH'])
 def update_user_data(user_id):
@@ -733,27 +660,6 @@ def get_liked_images():
     except Exception as e:
         app.logger.error(f"Error fetching liked images: {e}", exc_info=True)
         return jsonify({'error': 'Internal Server Error'}), 500
-
-
-# @app.route('/gallery/uploaded', methods=['GET'])
-# def get_uploaded_images():
-#     if 'user_id' not in session:
-#         return jsonify({'error': 'Authentication required.'}), 401
-
-#     user_id = session['user_id']
-#     uploaded_images = Gallery.query.filter_by(user_id=user_id).all()
-
-#     return jsonify([image.to_dict() for image in uploaded_images])
-
-# @app.route('/gallery/liked', methods=['GET'])
-# def get_liked_images():
-#     if 'user_id' not in session:
-#         return jsonify({'error': 'Authentication required.'}), 401
-
-#     user_id = session['user_id']
-#     liked_images = db.session.query(Gallery).join(Heart, Gallery.id == Heart.gallery_id).filter(Heart.user_id == user_id).all() # Query all items that the user has liked
-
-#     return jsonify([image.to_dict() for image in liked_images])
 
 @app.route('/gallery', methods=['GET', 'POST'])
 def gallery():
