@@ -1,10 +1,8 @@
 # Remote library imports
 from sqlalchemy_serializer import SerializerMixin
-from sqlalchemy.ext.associationproxy import association_proxy
 from datetime import datetime
-from sqlalchemy import DateTime, desc
+from sqlalchemy import DateTime
 from sqlalchemy.orm import validates
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.hybrid import hybrid_property
 from flask import current_app
 
