@@ -298,7 +298,7 @@ function Gallery() {
                 <div className="top-gallery-items">
                     {topHeartedImages.map((item, index) => (
                         <div key={index} className="top-gallery-item">
-                            <img src={`${backendUrl}/images/${item.image_url}`} alt={item.image_filename} />
+                            <img src={item.image_url} alt={item.image_filename} />
                             <div className="item-details">
                                 <p><strong className='item-details-strong'>Deck Type:</strong> {item.deck_brand} {item.deck_size} in.</p>
                                 <p><strong className='item-details-strong'>Battery Type:</strong> {item.battery_series}s {item.battery_parallel}p</p>
@@ -321,7 +321,7 @@ function Gallery() {
                 </div>
                 {galleryItems.map((item, index) => (
                     <div key={index} className="gallery-item">
-                        <img src={`${backendUrl}/images/${item.image_url}`} alt={item.image_filename} />
+                        <img src={item.image_url} alt={item.image_filename} />
                         <div className="item-details">
                             <p><strong className='item-details-strong'>Deck Type:</strong> {item.deck_brand} {item.deck_size} in.</p>
                             <p><strong className='item-details-strong'>Battery Type:</strong> {item.battery_series}s {item.battery_parallel}p</p>
