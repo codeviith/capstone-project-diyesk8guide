@@ -73,8 +73,10 @@ app.config['SESSION_COOKIE_SAMESITE'] = 'None' ### Can also use 'Lax' but None i
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=15) 
 # app.config['SESSION_REFRESH_EACH_REQUEST'] = True
 
+
 # Initialize Bcrypt
 bcrypt.init_app(app)
+
 
 # configure logging
 # if not app.debug:
