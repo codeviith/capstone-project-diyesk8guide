@@ -73,10 +73,8 @@ app.config['SESSION_COOKIE_SAMESITE'] = 'None' ### Can also use 'Lax' but None i
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=15) 
 # app.config['SESSION_REFRESH_EACH_REQUEST'] = True
 
-
 # Initialize Bcrypt
 bcrypt.init_app(app)
-
 
 # configure logging
 # if not app.debug:
@@ -101,7 +99,7 @@ def is_authenticated():
 
 ### ------------------ OPENAI API REQUESTS ------------------ ###
 
-guru_instructions = "You are an expert in electric skateboards(aka. eboards, e-boards, or esk8), please answer questions from prospective builders while adhering to the following instructions: 1. You will come up with the most appropriate response that suits best for the builder's question. If you are unable to provide an appropriate response to the builder, then please provide an appropriate reason. 2.Please refrain from engaing in any other conversation that isn't related to the field of electric skateboards, and in the case that the builder asks a question that is unrelated to and/or outside the scope of electric skateboards, please respond with: 'I apologize but I can only answer questions that are related to electric skateboards.' and end with an appropriate response."
+guru_instructions = "You are an expert in electric skateboards(aka. eboards, e-boards, or esk8), please answer questions from builders while adhering to the following instructions: 1. You will come up with the most appropriate response that suits best for the builder's question. If you are unable to provide an appropriate response to the builder, then please provide an appropriate reason. 2.Please refrain from engaing in any other conversation that isn't related to the field of electric skateboards, and in the case that the builder asks a question that is unrelated to and/or outside the scope of electric skateboards, please respond with: 'I apologize but I can only answer questions that are related to electric skateboards.' and end with an appropriate response."
 
 @app.post('/guru_assistant')
 def guru_assistant():
@@ -145,28 +143,30 @@ def guru_assistant():
             jsonify({"error": "Cannot formulate a response."}), 500
         )
 
+### ------------------ ROOT/HOME ------------------ ###
+
+@app.route('/')
+def home():
+    return jsonify({'message': 'Welcome to the API'}), 200
+
 ### ------------------ AUTHENTICATION ------------------ ###
 
 def is_logged_in():
     return 'user_id' in session
 
-
-
 ##### DEBUG #####
-@app.route('/debug/session', methods=['GET'])
-def debug_session():
-    if 'user_id' in session:
-        return jsonify({'user_id': session['user_id']}), 200
-    else:
-        return jsonify({'message': 'No active session'}), 401
+# @app.route('/debug/session', methods=['GET'])
+# def debug_session():
+#     if 'user_id' in session:
+#         return jsonify({'user_id': session['user_id']}), 200
+#     else:
+#         return jsonify({'message': 'No active session'}), 401
 
-
-@app.route('/debug/headers', methods=['GET'])
-def debug_headers():
-    headers = request.headers
-    print(headers)
-    return jsonify({'headers': dict(headers)}), 200
-
+# @app.route('/debug/headers', methods=['GET'])
+# def debug_headers():
+#     headers = request.headers
+#     print(headers)
+#     return jsonify({'headers': dict(headers)}), 200
 
 ### ------------------ COOKIE ------------------ ###
 
