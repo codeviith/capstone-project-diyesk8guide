@@ -77,8 +77,8 @@ app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=15)
 bcrypt.init_app(app)
 
 # configure logging
-if not app.debug:
-    app.logger.setLevel(logging.INFO)
+# if not app.debug:
+#     app.logger.setLevel(logging.INFO)
 
 
 ### ------------------ AWS S3 CLIENT ------------------ ###
@@ -184,7 +184,7 @@ def login():
         user = User.query.filter_by(email=data['email']).first()
         if user and bcrypt.check_password_hash(user.password_hash, data['password']):
             session['user_id'] = user.id
-            app.logger.info('User logged in: %s', user.id)  ### code to log successul login
+            # app.logger.info('User logged in: %s', user.id)  ### code to log successul login
             return jsonify({'success': True, 'message': 'Logged in successfully'}), 200
         else:
             return jsonify({'success': False, 'message': 'Invalid email or password'}), 401
@@ -230,7 +230,7 @@ def signup():
 def get_user_data():
     try:
         if 'user_id' not in session:
-            app.logger.info('Session check failed: user_id not in session')
+            # app.logger.info('Session check failed: user_id not in session')
             return jsonify({'error': 'Authentication required.'}), 401
 
         user = User.query.get(session['user_id'])
