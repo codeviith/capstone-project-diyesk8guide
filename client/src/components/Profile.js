@@ -8,7 +8,7 @@ import { AuthContext } from './AuthContext';
 function Profile() {
     const boardOptions = ["Evolve", "Lacroix", "KalyNYC", "Metroboard", "Trampa", "Mellow", "Boosted", "Exway", "Bajaboard", "Hoyt St.", "Acton", "Backfire", "Meepo", "_DIY_", "Other"];
 
-    const { isLoggedIn } = useContext(AuthContext);
+    const {isLoggedIn} = useContext(AuthContext);
     const [userData, setUserData] = useState(null);
     const [boards, setBoards] = useState([]);
     const [questions, setQuestions] = useState([]);
@@ -105,22 +105,22 @@ function Profile() {
         }
 
 //////////////////////////////////////
-        fetch(`${backendUrl}/debug/session`, {
-            method: 'GET',
-            credentials: 'include', // Code to include cookies in the fetch request
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log(data);
-            })
-            .catch(error => {
-                console.error('There was a problem with the fetch operation:', error);
-            });
+        // fetch(`${backendUrl}/debug/session`, {
+        //     method: 'GET',
+        //     credentials: 'include', // Code to include cookies in the fetch request
+        // })
+        //     .then(response => {
+        //         if (!response.ok) {
+        //             throw new Error('Network response was not ok');
+        //         }
+        //         return response.json();
+        //     })
+        //     .then(data => {
+        //         console.log(data);
+        //     })
+        //     .catch(error => {
+        //         console.error('There was a problem with the fetch operation:', error);
+        //     });
 //////////////////////////////////////
     };
 
