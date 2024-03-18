@@ -45,7 +45,7 @@ app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY')
 client = OpenAI(api_key=openai_api_key)
 
 # Instantiate CORS
-CORS(app, supports_credentials=True, resources={r"/*": {"origins": "https://diyesk8guide-frontend.onrender.com"}})
+CORS(app, supports_credentials=True, resources={r"/*": {"origins": "https://diyesk8guide.com"}})
 # CORS(app, resources={
 #     r"/*": {
 #         "origins": ["https://diyesk8guide-frontend.onrender.com"],
