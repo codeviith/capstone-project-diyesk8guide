@@ -75,14 +75,14 @@ function ContactUs() {
         let color = 'inherit'; // "inherit" --> code to 'inherit' the current color
         const messageLength = formData.message.length;
 
-        if (messageLength > 590) {
+        if (messageLength > 580) {
             color = 'darkred';
         } else if (messageLength > 500) {
             color = 'yellow';
         }
 
         return {
-            fontWeight: messageLength > 590 ? 'bold' : 'normal',
+            fontWeight: messageLength > 580 ? 'bold' : 'normal',
             color: color
         };
     };
