@@ -8,7 +8,7 @@ import { AuthContext } from './AuthContext';
 function Profile() {
     const boardOptions = ["Evolve", "Lacroix", "KalyNYC", "Metroboard", "Trampa", "Mellow", "Boosted", "Exway", "Bajaboard", "Hoyt St.", "Acton", "Backfire", "Meepo", "_DIY_", "Other"];
 
-    const {isLoggedIn} = useContext(AuthContext);
+    const {isLoggedIn, setLoggedIn} = useContext(AuthContext);
     const [userData, setUserData] = useState(null);
     const [boards, setBoards] = useState([]);
     const [questions, setQuestions] = useState([]);
