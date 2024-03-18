@@ -4,14 +4,16 @@ import { NavLink } from "react-router-dom";
 const Guide = () => {
     // Step headers
     const stepHeaders = [
-        "Step 1: Have a Game Plan",
-        "Step 2: Make a Design",
+        "Step 1: Create a Game Plan",
+        "Step 2: Select a Design",
         "Step 3: Research for Parts",
-        "Step 4: ",
-        "Step 5: ",
-        "Step 6: ",
-        "Step 7: ",
-        "Step 8: "
+        "Step 4: Prepare a Workspace",
+        "Step 5: Gather Materials & Tools",
+        "Step 6: Assemble and Secure the Parts",
+        "Step 7: Install the Battery & Electrical Components",
+        "Step 8: Establish the wiring connections",
+        "Step 9: Configure the Electronics",
+        "Step 10: Test Run and Fine Tuning"
     ];
 
     // Step descriptions
