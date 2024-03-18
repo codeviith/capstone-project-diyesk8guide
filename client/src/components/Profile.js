@@ -142,7 +142,7 @@ function Profile() {
             { credentials: 'include'
         });
             const data = await response.json();
-            console.log('Questions:', data);
+            // console.log('Questions:', data);
             setQuestions(data);
         } catch (error) {
             console.error('Error fetching guru data:', error);
