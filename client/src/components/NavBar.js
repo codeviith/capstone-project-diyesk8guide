@@ -26,7 +26,7 @@ function NavBar() {
 
     const toggleMenu = () => {
         setShowMenu(!showMenu);
-        console.log("Menu toggled", !showMenu);
+        // console.log("Menu toggled", !showMenu);
     };
 
     return (

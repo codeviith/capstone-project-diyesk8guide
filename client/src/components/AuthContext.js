@@ -1,44 +1,47 @@
 import React, { createContext, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
-/// Create Authcontext
+/// Create Authcontext Istance:
 export const AuthContext = createContext();
 
-/// AuthProvider component
+/// AuthProvider Component:
 export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
 
     /// Code to initialize useHistory hook for navigation
-    // const history = useHistory();
+    const history = useHistory();
 
     useEffect(() => {
+        let intervalId;
+
         const checkLoginStatus = async () => {
             try {
                 const response = await fetch(`${backendUrl}/check_session`, {
-                    credentials: 'include', // code to include credentials for cookies
+                    credentials: 'include', // Code to include credentials for cookies
                 });
                 const data = await response.json();
-                setIsLoggedIn(data.logged_in);
+                if (!data.logged_in && isLoggedIn) {
+                    alert("Your session has expired. Please log in again.");
+                    setIsLoggedIn(false);
+                } else if (data.logged_in && !isLoggedIn) {
+                    setIsLoggedIn(true);
+                }
             } catch (error) {
                 console.error('Error checking login status:', error);
             }
         };
 
-        checkLoginStatus();
+        if (isLoggedIn) {
+            intervalId = setInterval(checkLoginStatus, 60000); // Code to check session at a set interval
+        }
 
-        const intervalId = setInterval(() => {
-            checkLoginStatus().then(() => {
-                if (!isLoggedIn) {
-                    alert("Your session has expired. Please log in again.");
-                    clearInterval(intervalId);  // code to clear the interval checks
-                    window.location.href = '/login'; // code to redirect to login page
-                    // history.push('/login'); // Code to redirect to login page
-                }
-            });
-        }, 60000); // code to set the time interval
-
-        return () => clearInterval(intervalId);
+        return () => {
+            if (intervalId) {
+                clearInterval(intervalId); // Code to clear the check interval for cleanup
+            }
+        };
     }, [isLoggedIn]);
 
     return (
