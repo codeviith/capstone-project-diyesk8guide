@@ -1,16 +1,16 @@
 import React, { createContext, useState, useEffect } from 'react';
 
-// Create Authcontext
+/// Create Authcontext
 export const AuthContext = createContext();
 
-// AuthProvider component
+/// AuthProvider component
 export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
 
-    // Code to initialize useHistory hook for navigation
-    const history = useHistory();
+    /// Code to initialize useHistory hook for navigation
+    // const history = useHistory();
 
     useEffect(() => {
         const checkLoginStatus = async () => {

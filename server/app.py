@@ -1,4 +1,4 @@
-# Remote library imports
+### Remote library imports
 from flask import Flask, jsonify, make_response, request, session, redirect
 from flask_migrate import Migrate
 from flask_cors import CORS
@@ -11,21 +11,21 @@ from io import BytesIO
 import boto3
 import logging
 
-# Local imports
+### Local imports
 from models import Board, Guru, User, ContactUs, Gallery, Heart, Report
 from config import db, bcrypt
 import os
 
-# API imports
+### API imports
 from openai import OpenAI
 
-# Load environment variables
+### Load environment variables
 load_dotenv()
 
-# Instantiate app
+### Instantiate app
 app = Flask(__name__)
 
-# Set app attributes
+### Set app attributes
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'   ### uncomment to test code on development server
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')   ### uncomment for production build on render
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -34,17 +34,17 @@ app.config['BASE_URL'] = os.environ.get('BASE_URL', 'http://127.0.0.1:5555')
 
 app.json.compact = False
 
-# Instantiate db
+### Instantiate db
 db.init_app(app)
 # db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-# API Secret Keys
+### API Secret Keys
 openai_api_key = os.environ.get('OPENAI_API_KEY')  ### or os.getenv('OPENAI_API_KEY')
 app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY')
 client = OpenAI(api_key=openai_api_key)
 
-# Instantiate CORS
+### Instantiate CORS
 CORS(app, supports_credentials=True, resources={r"/*": {"origins": "https://diyesk8guide.com"}})
 # CORS(app, resources={
 #     r"/*": {
@@ -57,12 +57,12 @@ CORS(app, supports_credentials=True, resources={r"/*": {"origins": "https://diye
 #     }
 # })
 
-# configure session
+### configure session
 # app.config['SESSION_TYPE'] = 'sqlalchemy'
 # app.config['SESSION_SQLALCHEMY'] = db
 app.config['SESSION_PERMANENT'] = True
 
-# Configure session cookies
+### Configure session cookies
 app.config['SESSION_COOKIE_SECURE'] = True  ### cookies will be sent only over HTTPS --> good for production
 # app.config['SESSION_COOKIE_SECURE'] = False  ### cookies will NOT be over HTTPS --> good for development
 app.config['REMEMBER_COOKIE_SECURE'] = True
@@ -73,10 +73,10 @@ app.config['SESSION_COOKIE_SAMESITE'] = 'None' ### Can also use 'Lax' but None i
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=15) 
 # app.config['SESSION_REFRESH_EACH_REQUEST'] = True
 
-# Initialize Bcrypt
+### Initialize Bcrypt
 bcrypt.init_app(app)
 
-# configure logging
+### configure logging
 # if not app.debug:
 #     app.logger.setLevel(logging.INFO)
 
