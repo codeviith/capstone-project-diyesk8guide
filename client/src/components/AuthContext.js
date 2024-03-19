@@ -14,8 +14,6 @@ export const AuthProvider = ({ children }) => {
     const history = useHistory();
 
     useEffect(() => {
-        let intervalId;
-
         const checkLoginStatus = async () => {
             try {
                 const response = await fetch(`${backendUrl}/check_session`, {
@@ -25,13 +23,17 @@ export const AuthProvider = ({ children }) => {
                 if (!data.logged_in && isLoggedIn) {
                     alert("Your session has expired. Please log in again.");
                     setIsLoggedIn(false);
-                } else if (data.logged_in && !isLoggedIn) {
+                    history.push('/login');  // Code to redirect to login page after session expires
+                } else if (data.logged_in) {
                     setIsLoggedIn(true);
                 }
             } catch (error) {
                 console.error('Error checking login status:', error);
             }
         };
+
+        checkLoginStatus();
+        let intervalId;
 
         if (isLoggedIn) {
             intervalId = setInterval(checkLoginStatus, 60000); // Code to check session at a set interval
@@ -42,7 +44,7 @@ export const AuthProvider = ({ children }) => {
                 clearInterval(intervalId); // Code to clear the check interval for cleanup
             }
         };
-    }, [isLoggedIn]);
+    }, [isLoggedIn, history]);
 
     return (
         <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>

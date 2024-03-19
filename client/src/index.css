@@ -194,7 +194,7 @@ body::before {
 }
 
 .guru-form input {
-  width: 100%;
+  width: 85%;
   max-width: 850px;
   padding: 10px;
   margin-bottom: 10px;
