@@ -23,7 +23,7 @@ const Logout = () => {
 
                 if (response.ok) {
                     setIsLoggedIn(false);
-                    history.push('/login'); // Redirect to login page after logout
+                    history.push('/login'); // Code to redirect to login page after logout
                 } else {
                     console.error('Logout failed');
                 }

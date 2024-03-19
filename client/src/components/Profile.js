@@ -8,7 +8,7 @@ import { AuthContext } from './AuthContext';
 function Profile() {
     const boardOptions = ["Evolve", "Lacroix", "KalyNYC", "Metroboard", "Trampa", "Mellow", "Boosted", "Exway", "Bajaboard", "Hoyt St.", "Acton", "Backfire", "Meepo", "_DIY_", "Other"];
 
-    const { isLoggedIn, setLoggedIn } = useContext(AuthContext);
+    const { isLoggedIn } = useContext(AuthContext);
     const [userData, setUserData] = useState(null);
     const [boards, setBoards] = useState([]);
     const [questions, setQuestions] = useState([]);
@@ -93,29 +93,29 @@ function Profile() {
         };
     }, []);
 
-    useEffect(() => {
-        const checkSessionStatus = async () => {
-            try {
-                const response = await fetch(`${backendUrl}/check_session`, {
-                    credentials: 'include'
-                });
+    // useEffect(() => {
+    //     const checkSessionStatus = async () => {
+    //         try {
+    //             const response = await fetch(`${backendUrl}/check_session`, {
+    //                 credentials: 'include'
+    //             });
 
-                const data = await response.json();
+    //             const data = await response.json();
 
-                if (!data.logged_in) {
-                    alert("Your session has expired. Please log in again.");
-                    setLoggedIn(false);
-                    window.location.href = '/login'; // code to redirect to login
-                }
-            } catch (error) {
-                console.error('Error checking session status:', error);
-            }
-        };
+    //             if (!data.logged_in) {
+    //                 alert("Your session has expired. Please log in again.");
+    //                 setLoggedIn(false);
+    //                 window.location.href = '/login'; // code to redirect to login
+    //             }
+    //         } catch (error) {
+    //             console.error('Error checking session status:', error);
+    //         }
+    //     };
 
-        const sessionCheckInterval = setInterval(checkSessionStatus, 60000);  // code to check the session status at a set time
+    //     const sessionCheckInterval = setInterval(checkSessionStatus, 60000);  // code to check the session status at a set time
 
-        return () => clearInterval(sessionCheckInterval);
-    }, [setLoggedIn]);
+    //     return () => clearInterval(sessionCheckInterval);
+    // }, [setLoggedIn]);
 
     const fetchUserData = async () => {
         try {
