@@ -193,21 +193,28 @@ body::before {
   margin-bottom: 20px;
 }
 
+
+
+
 .guru-form input {
-  width: 85%;
-  max-width: 850px;
   padding: 10px;
   margin-bottom: 10px;
   font-size: 18px;
-  box-sizing: border-box;
-  /* font-family:Verdana, Geneva, Tahoma, sans-serif; */
+  width: 850px;
+  max-width: 100%; 
+  box-sizing: border-box; 
 }
 
-@media screen and (min-width: 900px) {
+@media screen and (max-width: 899px) {
   .guru-form input {
-    width: 850px; /* This makes sure the width is fixed at 850px for larger screens */
+    width: 85%; 
   }
 }
+
+
+
+
+
 
 .guru-button {
   background-color: #333;
