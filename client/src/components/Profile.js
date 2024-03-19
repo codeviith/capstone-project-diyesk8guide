@@ -8,7 +8,7 @@ import { AuthContext } from './AuthContext';
 function Profile() {
     const boardOptions = ["Evolve", "Lacroix", "KalyNYC", "Metroboard", "Trampa", "Mellow", "Boosted", "Exway", "Bajaboard", "Hoyt St.", "Acton", "Backfire", "Meepo", "_DIY_", "Other"];
 
-    const {isLoggedIn, setLoggedIn} = useContext(AuthContext);
+    const { isLoggedIn, setLoggedIn } = useContext(AuthContext);
     const [userData, setUserData] = useState(null);
     const [boards, setBoards] = useState([]);
     const [questions, setQuestions] = useState([]);
@@ -93,18 +93,43 @@ function Profile() {
         };
     }, []);
 
+    useEffect(() => {
+        const checkSessionStatus = async () => {
+            try {
+                const response = await fetch(`${backendUrl}/check_session`, {
+                    credentials: 'include'
+                });
+
+                const data = await response.json();
+
+                if (!data.logged_in) {
+                    alert("Your session has expired. Please log in again.");
+                    setLoggedIn(false);
+                    window.location.href = '/login'; // code to redirect to login
+                }
+            } catch (error) {
+                console.error('Error checking session status:', error);
+            }
+        };
+
+        const sessionCheckInterval = setInterval(checkSessionStatus, 60000);  // code to check the session status at a set time
+
+        return () => clearInterval(sessionCheckInterval);
+    }, [setLoggedIn]);
+
     const fetchUserData = async () => {
         try {
             const response = await fetch(`${backendUrl}/user_data`,
-            { credentials: 'include'
-        });
+                {
+                    credentials: 'include'
+                });
             const data = await response.json();
             setUserData(data);
         } catch (error) {
             console.error('Error fetching user data:', error);
         }
 
-//////////////////////////////////////
+        //////////////////////////////////////
         // fetch(`${backendUrl}/debug/session`, {
         //     method: 'GET',
         //     credentials: 'include', // Code to include cookies in the fetch request
@@ -121,14 +146,15 @@ function Profile() {
         //     .catch(error => {
         //         console.error('There was a problem with the fetch operation:', error);
         //     });
-//////////////////////////////////////
+        //////////////////////////////////////
     };
 
     const fetchBoards = async () => {
         try {
             const response = await fetch(`${backendUrl}/boards`,
-            { credentials: 'include'
-        });
+                {
+                    credentials: 'include'
+                });
             const data = await response.json();
             setBoards(data);
         } catch (error) {
@@ -139,8 +165,9 @@ function Profile() {
     const fetchQuestions = async () => {
         try {
             const response = await fetch(`${backendUrl}/guru`,
-            { credentials: 'include'
-        });
+                {
+                    credentials: 'include'
+                });
             const data = await response.json();
             // console.log('Questions:', data);
             setQuestions(data);
@@ -152,8 +179,9 @@ function Profile() {
     const fetchUploadedImages = async () => {
         try {
             const response = await fetch(`${backendUrl}/gallery/uploaded`,
-            { credentials: 'include'
-        });
+                {
+                    credentials: 'include'
+                });
             const data = await response.json();
             setUploadedImages(data);
         } catch (error) {
@@ -164,8 +192,9 @@ function Profile() {
     const fetchLikedImages = async () => {
         try {
             const response = await fetch(`${backendUrl}/gallery/liked`,
-            { credentials: 'include'
-        });
+                {
+                    credentials: 'include'
+                });
             const data = await response.json();
             setLikedImages(data);
         } catch (error) {
