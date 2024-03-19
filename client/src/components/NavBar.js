@@ -38,13 +38,14 @@ function NavBar() {
                 <NavLink to="/guru">Guru</NavLink>
                 {/* <NavLink to="/qna">Q&A</NavLink> */}
                 <NavLink to="/gallery">Gallery</NavLink>
-
             </div>
+
+            <button class="hamburger" aria-label="Toggle menu">☰</button>
+
             <div className="nav-links-right"> {/* Container for right-hand side links */}
                 {/* Menu Item to toggle dropdown */}
                 <div className="menu-item" onClick={toggleMenu}>
                     <MenuIcon />
-
                     {/* Dropdown Menu */}
                     {showMenu && (
                         <div className={`dropdown-menu ${showMenu ? 'show-dropdown' : ''}`}>

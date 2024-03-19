@@ -100,13 +100,55 @@ button {
 
 @media screen and (max-width: 768px) {
   .guru-form input, .login input, .signup input {
-    width: 85%; /* More responsive on smaller screens */
+    width: 85%;
   }
 }
 
+.hamburger {
+  display: none;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
 
+/* Hide nav links on mobile */
+@media screen and (max-width: 768px) {
+  .nav-links-left, .nav-links-right {
+    display: none;
+  }
 
+  /* Show the hamburger icon */
+  .hamburger {
+    display: block;
+  }
 
+  /* Style adjustments for mobile */
+  nav {
+    justify-content: space-between; 
+  }
+}
+
+.show {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  width: 100%; 
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: black;
+  padding-top: 10px;
+  border-bottom-left-radius: 11px;
+  border-bottom-right-radius: 11px;
+}
+
+@media screen and (max-width: 768px) {
+  .nav-links-left.show, .nav-links-right.show {
+    display: flex;
+  }
+}
 
 
 
