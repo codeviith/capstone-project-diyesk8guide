@@ -33,9 +33,12 @@ const Guide = () => {
         "free, if possible, workshop where you will spend the next few weeks, or even months, planning, building, and testing your " +
         "board. Generally, a large tabletop complemented with a rolling stool and quick access to tools and/or machineries would " +
         "be sufficient. As a word of caution, please make sure the workshop is well ventilated as you will be working with wood/metal " +
-        "dust and solder fumes throughout the build. Please remember that safety should always be your number one priority."
+        "dust and solder fumes throughout the build. Please remember that safety should always be your number one priority.",
         //Step 4
-        "Description for Step 4...",
+        "'Man is a tool-using animal. Without tools he is nothing, with tools he is all.' ~Thomas Carlyle. " + //want a new line here
+        "This is yet another important step in the eboard journey. Having the right tools and materials is what sets apart a successful " +
+        "project versus an unsuccessful one. Here are a few of the recommended tools for starters: ",
+        //"list of tools here...and maybe with pictures??? not sure yet",
         //Step 5
         "Description for Step 5...",
         //Step 6
