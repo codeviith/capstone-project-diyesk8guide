@@ -5,36 +5,35 @@ const Guide = () => {
     // Step headers
     const stepHeaders = [
         "Step 1: Create a Game Plan",
-        "Step 2: Select a Design",
-        "Step 3: Research for Parts",
-        "Step 4: Prepare a Workspace",
-        "Step 5: Gather Materials & Tools",
-        "Step 6: Assemble and Secure the Parts",
-        "Step 7: Install the Battery & Electrical Components",
-        "Step 8: Establish the wiring connections",
-        "Step 9: Configure the Electronics",
-        "Step 10: Test Run and Fine Tuning"
+        "Step 2: Research for Parts",
+        "Step 3: Prepare a Workspace",
+        "Step 4: Gather Materials & Tools",
+        "Step 5: Assemble and Secure the Parts",
+        "Step 6: Install the Battery & Electrical Components",
+        "Step 7: Establish the wiring connections",
+        "Step 8: Configure the Electronics",
+        "Step 9: Test Run and Fine Tuning"
     ];
 
     // Step descriptions
     const stepDescriptions = [
         "So you've been wanting to make an electric skateboard for quite some time now but " +
         "you don't know where to start. Well, the first thing to do is to make a game plan " +
-        "that documents the steps to your build process with questions and answers. For example, " +
-        "you might start the first step with a quick sketch of the board you wish to build. Then " +
-        "you can start asking questions " +
-        "This means drawing sketches, jotting down any ideas that pop into mind, and doing research " +
-        "on electric skateboards. Once you feel ready enough, you can start making a game plan " +
-        "that documents each step of build process. This is a must in your e-board building " +
-        "journey—I cannot stress this enough on how important it is. In the next few steps, we will " +
-        "discuss a few basic steps to get started.",
-        "Description for Step 2: Additional information...",
-        "Description for Step 3: Further details...",
-        "Description for Step 4...",
-        "Description for Step 5...",
-        "Description for Step 6...",
-        "Description for Step 7...",
-        "Description for Step 8..."
+        "that documents the expected process of your build." +
+        "This means designing and drawing out sketches, jotting down any ideas that pop into mind, and doing research " +
+        "on electric skateboards. This is a must in your e-board building journey and we cannot stress" +
+        "how important it is. Once you have a game plan and a design in mind, you can then move on to researching for parts.", //Step 1
+        "This is one of the most crucial steps in your eboard building process: selecting for parts. A top performing" +
+        "and reliable eboard depends on the material that it is built from. This is the step that requires the most time" +
+        "and researh on. Higher quality parts means less time spent on fixing breakdowns and more time riding." +
+        "We always advicenew builders to take this step seriously and select reputable parts.", //Step 2
+        "Description for Step 3: Further details...", //Step 3
+        "Description for Step 4...", //Step 4
+        "Description for Step 5...", //Step 5
+        "Description for Step 6...", //Step 6
+        "Description for Step 7...", //Step 7
+        "Description for Step 8...", //Step 8
+        "Description for Step 9..." //Step 9
     ];
 
     // Step href links
