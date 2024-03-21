@@ -35,10 +35,15 @@ const Guide = () => {
         "be sufficient. As a word of caution, please make sure the workshop is well ventilated as you will be working with wood/metal " +
         "dust and solder fumes throughout the build. Please remember that safety should always be your number one priority.",
         //Step 4
-        "",
+        "", // See JSX for the content.
         //"list of tools here...and maybe with pictures??? not sure yet",
         //Step 5
-        "Description for Step 5...",
+        "Now here is the exciting part. This is where we put together the board and witness our creation coming to life. What was only " +
+        "an idea a moment ago, now takes shape and form right in front of your eyes. And the key to making this step succesful is adequate securement. " +
+        "Recommended materials include but not limited to: nails, machine screws, threaded inserts, nuts and bolts, CA glue, staples, rivets, etc. " +
+        "Because the board is subjected to vibrations of the road, it is always best practice to use machine screws or nuts and bolts. For parts that needs " +
+        "extra security, it is best to apply some locktite to the threads, or use a nylon nut. Applying these extra measures of security to make sure " +
+        "the parts stay attached to your board will reduce the chances of breakdowns during the ride.",
         //Step 6
         "Description for Step 6...",
         //Step 7
