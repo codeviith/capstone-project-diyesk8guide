@@ -216,6 +216,11 @@ body::before {
   }
 }
 
+.guru-form input:focus {
+  outline: none; 
+  border-color: #a90404;
+}
+
 .guru-button {
   background-color: #333;
   color: white;
@@ -473,6 +478,11 @@ nav a.home-link:hover {
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 15px;
+}
+
+.login input:focus {
+  outline: none; 
+  border-color: #a90404;
 }
 
 .login button {
@@ -887,7 +897,10 @@ nav a.home-link:hover {
   width: 175px;
 }
 
-
+.account-deletion-confirmation-input:focus {
+  outline: none; 
+  border-color: #a90404;
+}
 
 /* boards generated */
 .profile-boards-container {
@@ -1166,6 +1179,11 @@ nav a.home-link:hover {
   border-radius: 8px;
 }
 
+.generate select:focus {
+  outline: none; 
+  border-color: #a90404;
+}
+
 .generate button {
   padding: 10px;
   font-size: 20px;
@@ -1391,6 +1409,11 @@ nav a.home-link:hover {
 .contactus textarea {
   height: 300px;
   resize: vertical;
+}
+
+.contactus input:focus, .contactus textarea:focus {
+  outline: none; 
+  border-color: #a90404;
 }
 
 .contactus button {
@@ -1659,7 +1682,7 @@ nav a.home-link:hover {
   padding: 3px;
 }
 
-.floating-form input:focus {
+.floating-form input:focus, .floating-form textarea:focus {
   outline: none; 
   border-color: #a90404;
 }

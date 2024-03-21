@@ -22,7 +22,7 @@ function Guru() {
         }
 
         if (!userInput.trim()) {
-            setError('Please enter a question.');
+            setError('Question cannot be empty.');
             return;  // Empty return to prevent submission on empty input
         } else {
             setError(''); // Code to reset the error message if the above check/validation passes
