@@ -8,6 +8,7 @@ const Login = () => {
     password: '',
   });
   const [message, setMessage] = useState({ content: '', type: '' });
+  const [errors, setErrors] = useState({});
   const { setIsLoggedIn } = useContext(AuthContext);
 
   const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
@@ -15,10 +16,13 @@ const Login = () => {
   // Code to initialize useHistory hook for navigation
   const history = useHistory();
 
-
   const handleLoginSubmit = (e) => {
     e.preventDefault();
     setMessage({ content: '', type: '' });
+
+    if (!validateForm()) {  // Code to validate the form before attempting to log in.
+      return;  //  The empty return here is to stop the submission if the validation fails.
+    }
 
     fetch(`${backendUrl}/login`, {
       method: 'POST',
@@ -51,6 +55,24 @@ const Login = () => {
     history.push('/signup');
   };
 
+  const validateForm = () => {
+    let valErrors = {email: '', password: ''};
+    let isValid = true;
+
+    if (!loginData.email) {
+      valErrors.email = 'Email cannot be empty.';
+      isValid = false;
+    }
+
+    if (!loginData.password) {
+      valErrors.password = 'Password cannot be empty';
+      isValid = false;
+    }
+
+    setErrors(valErrors);
+    return isValid;
+  }
+
   return (
     <div className='login'>
       <h2>Please Sign In to Continue...</h2>
@@ -71,6 +93,7 @@ const Login = () => {
             onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
           />
         </label>
+        {errors.email && <div className='error-message'>{errors.email}</div>}
         <br />
         <label>Password:
           <input
@@ -79,10 +102,10 @@ const Login = () => {
             onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
           />
         </label>
+        {errors.password && <div className='error-message'>{errors.password}</div>}
         <br />
         <button type="submit">Login</button>
       </form>
-
 
       <h4> New Builders </h4>
       <button onClick={handleCreateAccount}>Sign Up</button>
@@ -91,5 +114,3 @@ const Login = () => {
 };
 
 export default Login;
-
-
