@@ -45,7 +45,11 @@ const Guide = () => {
         "extra security, it is best to apply some locktite to the threads, or use a nylon nut. Applying these extra measures of security to make sure " +
         "the parts stay attached to your board will reduce the chances of breakdowns during the ride.",
         //Step 6
-        "Description for Step 6...",
+        "By the time you reach this step, the board is about 70% completed. All that's left is installing and configuring the electronics. But before " +
+        "that, we need to first install the battery and all the electrical components, i.e ESC, anti-spark toggle switch, R/C reciever, etc. We strongly " +
+        "advise on taking pre-cautionary measures to prevent damage to the battery upon riding. This include making sure that " +
+        "the battery is securely sesated inside a hardened and durable enclosure, e.g carbon fiber. This will help prevent damage to the battery should the " +
+        "board encounter rough terrains. ", // prob need to shorten this and clarify some more stuff.
         //Step 7
         "Description for Step 7...",
         //Step 8
