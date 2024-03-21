@@ -59,14 +59,15 @@ function Guru() {
                 <>
                     {/* Form for user input */}
                     <form className="guru-form" onSubmit={handleSubmit}>
-                        <strong className='guru-prompt'> Hello, I am your Esk8 Guru. What question do you have for me? </strong>
+                        <strong className='guru-prompt'> Hello, I am your Esk8 Guru. What question do you have for me?</strong>
+                        <div className='guru-note'>(Note: Please be as specific as possible for the best results.)</div>
                         <input
                             type="text"
                             value={userInput}
                             onChange={(e) => setUserInput(e.target.value)}
                             placeholder="Ask me anything about electric skateboards..."
                         />
-                        {error && <div className='error-message'>{error}</div>}
+                        {error && <div className='guru-error-message'>{error}</div>}
                         <button className='guru-button' type="guru-submit">Ask</button>
                     </form>
 

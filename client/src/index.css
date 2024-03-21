@@ -180,6 +180,14 @@ body::before {
   display: flex;
 }
 
+.guru-note {
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+  font-style: italic;
+  font-size: 18px;
+}
+
 .guru-form strong {
   font-size: 23px;
   color: white;
@@ -1933,5 +1941,13 @@ nav a.home-link:hover {
   font-weight: bold;
   font-size: 18px;
   margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.guru-error-message {
+  color: rgb(252, 136, 136);
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 10px;
   margin-bottom: 10px;
 }
