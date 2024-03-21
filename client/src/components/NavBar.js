@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
 import Header from "./Header";
-import MenuIcon from './MenuIcon';
+// import MenuIcon from './MenuIcon';
 
 function NavBar() {
     const { isLoggedIn } = useContext(AuthContext);
@@ -51,6 +51,8 @@ function NavBar() {
                             <NavLink to="/about">About</NavLink>
                             <NavLink to="/contactus">Contact Us</NavLink>
                             <NavLink to="/donations">Donations</NavLink>
+                            <NavLink to="/disclaimers">Disclaimers</NavLink>
+                            <NavLink to="/rulesandpolicies">Rules & Policies</NavLink>
                         </div>
                     )}
                 </div>

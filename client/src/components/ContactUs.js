@@ -18,7 +18,7 @@ function ContactUs() {
 
     const handleChange = (e) => {
         if (e.target.name === 'message' && e.target.value.length > 600) {
-            return; // Empty return here is to prevent adding more characters once 600 limit is reached.
+            return; // The empty return here is to prevent adding more characters once 600 limit is reached.
         }
 
         setFormData({
@@ -58,7 +58,12 @@ function ContactUs() {
 
                 if (response.ok) {
                     setSuccessMessage('Thank you for contacting us. We will be in touch shortly.');
-                    setFormData({ firstName: '', lastName: '', email: '', message: '' }); // code to reset form
+                    setFormData({   // code to reset form
+                        firstName: '',
+                        lastName: '',
+                        email: '',
+                        message: ''
+                    });
                 } else {
                     setErrorMessage('Failed to submit message. Please try again.');
                 }
