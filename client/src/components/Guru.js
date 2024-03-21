@@ -7,6 +7,7 @@ function Guru() {
     const [userInput, setUserInput] = useState('');
     const [response, setResponse] = useState('');
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
     const { isLoggedIn } = useContext(AuthContext); // Using useContext to access isLoggedIn
 
     const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
@@ -18,6 +19,13 @@ function Guru() {
         if (!isLoggedIn) {
             alert('Please log in to ask a question.');
             return;
+        }
+
+        if (!userInput.trim()) {
+            setError('Please enter a question.');
+            return;  // Empty return to prevent submission on empty input
+        } else {
+            setError(''); // Code to reset the error message if the above check/validation passes
         }
 
         try {
@@ -58,12 +66,13 @@ function Guru() {
                             onChange={(e) => setUserInput(e.target.value)}
                             placeholder="Ask me anything about electric skateboards..."
                         />
+                        {error && <div className='error-message'>{error}</div>}
                         <button className='guru-button' type="guru-submit">Ask</button>
                     </form>
 
                     {/* Display loading or response */}
                     {loading ? (
-                        <div className="loading-container">Thinking... Please Wait</div>
+                        <div className="loading-container">Thinking... This may take a while, please be patient.</div>
                     ) : (
                         response && (
                             <div className="response-container" style={responseStyle}>
