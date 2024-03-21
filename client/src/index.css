@@ -189,7 +189,7 @@ body::before {
 }
 
 .guru-form strong {
-  font-size: 23px;
+  font-size: 25px;
   color: white;
   margin-bottom: 20px;
 }
@@ -1945,7 +1945,7 @@ nav a.home-link:hover {
 }
 
 .guru-error-message {
-  color: rgb(252, 136, 136);
+  color: rgb(255, 71, 71);
   font-weight: bold;
   font-size: 18px;
   margin-top: 10px;

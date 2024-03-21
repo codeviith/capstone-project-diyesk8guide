@@ -60,7 +60,7 @@ function Guru() {
                     {/* Form for user input */}
                     <form className="guru-form" onSubmit={handleSubmit}>
                         <strong className='guru-prompt'> Hello, I am your Esk8 Guru. What question do you have for me?</strong>
-                        <div className='guru-note'>(Note: Please be as specific as possible for the best results.)</div>
+                        <div className='guru-note'>(Note: Please be as clear and specific as possible and avoid using abbreviations for the best results.)</div>
                         <input
                             type="text"
                             value={userInput}
