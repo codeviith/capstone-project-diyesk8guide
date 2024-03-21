@@ -35,9 +35,9 @@ const Guide = () => {
         "be sufficient. As a word of caution, please make sure the workshop is well ventilated as you will be working with wood/metal " +
         "dust and solder fumes throughout the build. Please remember that safety should always be your number one priority.",
         //Step 4
-        "'Man is a tool-using animal. Without tools he is nothing, with tools he is all.' ~Thomas Carlyle.<br />" + //want a new line here
+        """'Man is a tool-using animal. Without tools he is nothing, with tools he is all.' ~Thomas Carlyle.<br />" + //want a new line here
         "This is yet another important step in the eboard journey. Having the right tools and materials is what sets apart a successful " +
-        "project versus an unsuccessful one. Here are a few of the recommended tools for starters: ",
+        "project versus an unsuccessful one. Here are a few of the recommended tools for starters: """,
         //"list of tools here...and maybe with pictures??? not sure yet",
         //Step 5
         "Description for Step 5...",
@@ -70,12 +70,13 @@ const Guide = () => {
                 <div key={index} className="guide-step">
                     <h2>{header}</h2>
                     <div className="guide-content">
-                        {/* Check if index is 3 for step 4, then split and add <br /> for new line */}
+                        {/* If index is 3, which is equivalent to step 4, then split and add <br /> after quote */}
                         {index === 3 ? (
                             <p>
                                 {"'Man is a tool-using animal. Without tools he is nothing, with tools he is all.' ~Thomas Carlyle."}
                                 <br />
-                                {"This is yet another important step in the eboard journey. Having the right tools and materials is what sets apart a successful project versus an unsuccessful one. Here are a few of the recommended tools for starters: "}
+                                {"This is yet another important step in the eboard journey. Having the right tools and materials is what sets " +
+                                "apart a successful project versus an unsuccessful one. Here are a few of the recommended tools for starters: "}
                             </p>
                         ) : (
                             <p>{stepDescriptions[index]}</p>
