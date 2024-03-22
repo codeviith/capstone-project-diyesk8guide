@@ -83,7 +83,7 @@ const Guide = () => {
                                 {"'Man is a tool-using animal. Without tools he is nothing, with tools he is all.' ~Thomas Carlyle."}
                                 <br />
                                 {"This is yet another important step in the eboard journey. Having the right tools and materials is what sets " +
-                                "apart a successful project versus an unsuccessful one. Here are a few of the recommended tools for starters: "}
+                                    "apart a successful project versus an unsuccessful one. Here are a few of the recommended tools for starters: "}
                             </p>
                         ) : (
                             <p>{stepDescriptions[index]}</p>
@@ -93,10 +93,13 @@ const Guide = () => {
                     </div>
                 </div>
             ))}
-            {/* <div className="footer-bottom">
+            <div className="footer-bottom">
                 <NavLink className="footer-bottom-link" to="/about">About</NavLink>
                 <NavLink className="footer-bottom-link" to="/contactus">Contact Us</NavLink>
-            </div> */}
+                <NavLink className="footer-bottom-link" to="/donations">Donations</NavLink>
+                <NavLink className="footer-bottom-link" to="/disclaimers">Disclaimers</NavLink>
+                <NavLink className="footer-bottom-link" to="/policies">Rules & Policies</NavLink>
+            </div>
         </div>
     );
 };
