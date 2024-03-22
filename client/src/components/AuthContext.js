@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
             clearTimeout(inactivityTimer);
             setInactivityTimer(setTimeout(() => {
                 setShowInactivityModal(true);
-            }, 120000));  ///////!!!!!!! replace 120000 with: 14 * 60 * 1000!!!!!!///////      // ### code to show warning at 14 min of inactivity
+            }, 120000));  ///////!!!!!!! replace 120000 with: 13 * 60 * 1000!!!!!!///////      // ### code to show warning at 14 min of inactivity
         };
 
         window.addEventListener('mousemove', handleActivity);
@@ -80,7 +80,7 @@ export const AuthProvider = ({ children }) => {
                 clearTimeout(inactivityTimer); // code to clear the existing inactivity timer
                 setInactivityTimer(setTimeout(() => { // code to restart the inactivity timer
                     setShowInactivityModal(true);
-                }, 120000)); ///////!!!!!!! replace 120000 with: 14 * 60 * 1000!!!!!!///////     code to reset/restart timer for another 14 minutes
+                }, 120000)); ///////!!!!!!! replace 120000 with: 13 * 60 * 1000!!!!!!///////     code to reset/restart timer for another 14 minutes
             } else {
                 console.log("session not refreshed") // code to handle session could not be refreshed, to log the user out
             }
@@ -88,6 +88,23 @@ export const AuthProvider = ({ children }) => {
             console.error('Error keeping session alive:', error);
         }
     };
+
+    const logMeOut = async () => {
+        try {
+            const response = await fetch(`${backendUrl}/logout`, {
+                method: 'POST',
+                credentials: 'include',
+            });
+            if (response.ok) {
+                setIsLoggedIn(false); // code to update state after logging out
+                history.push('/login'); // code to redirect user to login page
+            } else {
+                console.error('Failed to log out');  // code to log any errors
+            }
+        } catch (error) {
+            console.error('Error logging out:', error);
+        }
+    }
 
 
     return (
@@ -99,6 +116,10 @@ export const AuthProvider = ({ children }) => {
                     <button className='keep-session-alive-button'
                         onClick={keepSessionAlive}>
                         Keep Me Logged In
+                    </button>
+                    <button className='session-logout-button'
+                        onClick={logMeOut}>
+                        Log Me Out
                     </button>
                 </div>
             )}
