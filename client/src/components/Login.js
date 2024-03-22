@@ -118,17 +118,23 @@ const Login = () => {
               onMouseDown={handleMouseDownPassword}
               onMouseUp={handleMouseUpPassword}
               onMouseLeave={handleMouseUpPassword}  // Code for extra security to make sure password remains hidden
-              >👁️
+            >👁️
             </button>
           </div>
         </label>
         {errors.password && <div className='error-message'>{errors.password}</div>}
         <br />
-        <button type="submit">Login</button>
+        <button className='login-button'
+          type="submit"
+        >Login
+        </button>
       </form>
 
       <h4> New Builders </h4>
-      <button onClick={handleCreateAccount}>Sign Up</button>
+      <button className='signup-button'
+        onClick={handleCreateAccount}
+      >Sign Up
+      </button>
     </div>
   );
 };

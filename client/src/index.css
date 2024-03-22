@@ -488,7 +488,7 @@ nav a.home-link:hover {
   border-color: #a90404;
 }
 
-.login button {
+.login-button, .signup-button {
   background-color: darkgreen;
   color: white;
   padding: 10px 20px;
@@ -498,7 +498,7 @@ nav a.home-link:hover {
   cursor: pointer;
 }
 
-.login button:hover {
+.login-button, .signup-button:hover {
   background-color: rgb(3, 132, 3); 
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.5)
 }
