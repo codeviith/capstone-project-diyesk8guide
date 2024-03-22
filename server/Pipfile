@@ -23,6 +23,7 @@ botocore = "*"
 gunicorn = "*"
 flask-session = "*"
 cors = "*"
+python-dateutil = "*"
 
 [requires]
 python_full_version = "3.8.13"
