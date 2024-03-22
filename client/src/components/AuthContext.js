@@ -78,9 +78,9 @@ export const AuthProvider = ({ children }) => {
             if (response.ok) {
                 setShowInactivityModal(false); // code to hide the modal
                 clearTimeout(inactivityTimer); // code to clear the existing inactivity timer
-                setInactivityTimer(setTimeout(() => { // code to restart the inactivity timer
-                    setShowInactivityModal(true);
-                }, 120000)); ///////!!!!!!! replace 120000 with: 13 * 60 * 1000!!!!!!///////     code to reset/restart timer for another 14 minutes
+                // setInactivityTimer(setTimeout(() => { // code to restart the inactivity timer
+                //     setShowInactivityModal(true);
+                // }, 120000)); ///////!!!!!!! replace 120000 with: 13 * 60 * 1000!!!!!!///////     code to reset/restart timer for another 14 minutes
             } else {
                 console.log("session not refreshed") // code to handle session could not be refreshed, to log the user out
             }
@@ -97,7 +97,9 @@ export const AuthProvider = ({ children }) => {
             });
             if (response.ok) {
                 setIsLoggedIn(false); // code to update state after logging out
-                history.push('/login'); // code to redirect user to login page
+                setShowInactivityModal(false);  // code to hide the modal
+                clearTimeout(inactivityTimer);  // code to clear the inactivity timer so as to prevent reappearing.
+                history.push('/login'); // code to redirect user to login page, which is the exclude endpoint from session check
             } else {
                 console.error('Failed to log out');  // code to log any errors
             }
