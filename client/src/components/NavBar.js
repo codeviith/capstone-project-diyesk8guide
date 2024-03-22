@@ -51,8 +51,8 @@ function NavBar() {
                             <NavLink to="/about">About</NavLink>
                             <NavLink to="/donations">Donations</NavLink>
                             <NavLink to="/disclaimers">Disclaimers</NavLink>
-                            <NavLink to="/rulesandpolicies">Rules & Policies</NavLink>
-                            <NavLink to="/contactus">Contact Us</NavLink>
+                            <NavLink to="/rules-and-policies">Rules & Policies</NavLink>
+                            <NavLink to="/contact-us">Contact Us</NavLink>
                         </div>
                     )}
                 </div>

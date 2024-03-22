@@ -68,7 +68,7 @@ function App() {
             <Route path="/about">
               <About />
             </Route>
-            <Route path="/contactus">
+            <Route path="/contact-us">
               <ContactUs />
             </Route>
             <Route path="/donations">
@@ -77,7 +77,7 @@ function App() {
             <Route path="/disclaimers">
               <Disclaimers />
             </Route>
-            <Route path="/rulesandpolicies">
+            <Route path="/rules-and-policies">
               <RulesAndPolicies />
             </Route>
           </Switch>
