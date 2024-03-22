@@ -16,11 +16,10 @@ function About() {
       <div className="contact-us">
         <h2>Questions or Concerns?</h2>
         <p>Please don't hesitate to reach out to us with questions or feedbacks.</p>
-        <NavLink className="navlink-button" to="/contactus">Contact Us</NavLink>
+        <NavLink className="navlink-button" to="/contact-us">Contact Us</NavLink>
       </div>
     </div>
   );
 }
 
 export default About;
-
