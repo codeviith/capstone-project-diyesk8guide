@@ -4,12 +4,14 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 from dotenv import load_dotenv
 from sqlalchemy import desc, func
-from datetime import timedelta
+from datetime import timedelta, datetime, timezone
 from werkzeug.utils import secure_filename
 from PIL import Image
 from io import BytesIO
 import boto3
 import logging
+from dateutil.parser import isoparse
+
 
 ### Local imports
 from models import Board, Guru, User, ContactUs, Gallery, Heart, Report
@@ -79,6 +81,22 @@ bcrypt.init_app(app)
 ### configure logging
 # if not app.debug:
 #     app.logger.setLevel(logging.INFO)
+
+
+
+### ------------------ SESSION ACTIVITY CHECK ------------------ ###
+
+@app.before_request
+def before_request_func():
+    excluded_routes = ['login', 'signup', 'static']  ### code to exclude the endpoints from activity check
+    if request.endpoint not in excluded_routes:
+        if 'last_activity' in session:
+            last_activity = isoparse(session['last_activity'])
+            if datetime.now(timezone.utc) - last_activity > timedelta(minutes=15):
+                session.clear()
+                return jsonify({'error': 'Session timed out. Please log in again.'}), 401
+            else:
+                session['last_activity'] = datetime.now(timezone.utc).isoformat()
 
 
 ### ------------------ AWS S3 CLIENT ------------------ ###
@@ -177,6 +195,16 @@ def check_session():
     else:
         return jsonify({'logged_in': False}), 200
 
+### ------------ KEEP SESSION ALIVE ------------ ###
+
+@app.route('/keep_session_alive', methods=['POST'])
+def keep_session_alive():
+    if 'user_id' in session:
+        session['last_activity'] = datetime.now(timezone.utc).isoformat()  ### code to update session's time of last activity to keep it alive
+        return jsonify({'message': 'Session refreshed successfully.'}), 200
+    else:
+        return jsonify({'error': 'Session expired or invalid.'}), 401  ### code to consider session as expired
+
 ### ------------------ LOG IN ------------------ ###
 
 @app.route('/login', methods=['POST'])
@@ -186,6 +214,7 @@ def login():
         user = User.query.filter_by(email=data['email']).first()
         if user and bcrypt.check_password_hash(user.password_hash, data['password']):
             session['user_id'] = user.id
+            session['last_activity'] = datetime.now(timezone.utc).isoformat()
             # app.logger.info('User logged in: %s', user.id)  ### code to log successul login
             return jsonify({'success': True, 'message': 'Logged in successfully'}), 200
         else:

@@ -7,11 +7,34 @@ export const AuthContext = createContext();
 /// AuthProvider Component:
 export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [showInactivityModal, setShowInactivityModal] = useState(false);
+    const [inactivityTimer, setInactivityTimer] = useState(null);
 
     const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
 
     /// Code to initialize useHistory hook for navigation
     const history = useHistory();
+
+
+    useEffect(() => {
+        const handleActivity = () => {
+            clearTimeout(inactivityTimer);
+            setInactivityTimer(setTimeout(() => {
+                setShowInactivityModal(true);
+            }, 14 * 60 * 1000)); // ### code to show warning at 14 min of inactivity
+        };
+
+        window.addEventListener('mousemove', handleActivity);
+        window.addEventListener('keydown', handleActivity);
+
+        handleActivity();
+
+        return () => {
+            window.removeEventListener('mousemove', handleActivity);
+            window.removeEventListener('keydown', handleActivity);
+            clearTimeout(inactivityTimer);
+        };
+    }, [inactivityTimer]);
 
     useEffect(() => {
         const checkLoginStatus = async () => {
@@ -46,9 +69,39 @@ export const AuthProvider = ({ children }) => {
         };
     }, [isLoggedIn, history]);
 
+    const keepSessionAlive = async () => {
+        try {
+            const response = await fetch(`${backendUrl}/keep_session_alive`, {
+                method: 'POST',
+                credentials: 'include',
+            });
+            if (response.ok) {
+                setShowInactivityModal(false); // code to hide the modal
+                clearTimeout(inactivityTimer); // code to clear the existing inactivity timer
+                setInactivityTimer(setTimeout(() => { // code to restart the inactivity timer
+                    setShowInactivityModal(true);
+                }, 120000)); ///////!!!!!!! replace 60000 with: 14 * 60 * 1000!!!!!!///////     code to reset/restart timer for another 14 minutes
+            } else {
+                console.log("session not refreshed") // code to handle session could not be refreshed, to log the user out
+            }
+        } catch (error) {
+            console.error('Error keeping session alive:', error);
+        }
+    };
+
+
     return (
         <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
             {children}
+            {showInactivityModal && (
+                <div style={{ position: 'fixed', top: '20%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'white', padding: '20px', zIndex: 100 }}>
+                    <p>Your session is about to expire due to inactivity.</p>
+                    <button className='keep-session-alive-button'
+                        onClick={keepSessionAlive}>
+                        Keep Me Logged In
+                    </button>
+                </div>
+            )}
         </AuthContext.Provider>
     );
 };
