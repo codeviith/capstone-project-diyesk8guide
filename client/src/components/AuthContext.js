@@ -18,18 +18,15 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const handleActivity = () => {
-            resetInactivityTimer(); // Call resetInactivityTimer on any activity
+            resetInactivityTimer(); // code to resetInactivityTimer on any activity
         };
 
-        // Attach event listeners for user activity
         window.addEventListener('mousemove', handleActivity);
         window.addEventListener('keydown', handleActivity);
 
-        // Initialize the timer once on component mount
-        resetInactivityTimer();
+        resetInactivityTimer();  // code to initialize the timer
 
-        // Cleanup
-        return () => {
+        return () => {  // code to cleanup event listeners
             window.removeEventListener('mousemove', handleActivity);
             window.removeEventListener('keydown', handleActivity);
             clearTimeout(inactivityTimer);
@@ -78,7 +75,7 @@ export const AuthProvider = ({ children }) => {
 
             if (response.ok) {
                 setShowInactivityModal(false);
-                resetInactivityTimer();  // Reset the timer after keeping session alive
+                resetInactivityTimer();  // code to reset timer after keeping session alive
             } else {
                 console.log("session not refreshed") // code to handle session could not be refreshed, to log the user out
             }
@@ -107,12 +104,25 @@ export const AuthProvider = ({ children }) => {
     }
 
     const resetInactivityTimer = () => {
-        clearTimeout(inactivityTimer);
-        const newTimer = setTimeout(() => {
+        setInactivityTimer((currentTimer) => {
+            clearTimeout(currentTimer);
+            return null; // code to clear current timer
+        });
+
+        const newTimer = setTimeout(() => {  // code to set new timer
             setShowInactivityModal(true);
-        }, 120000); ///////!!!!!!! replace 120000 with: 13 * 60 * 1000!!!!!!///////
+        }, 120000); ///////!!!!!!! replace 120000 with: 13 * 60 * 1000 for production!!!!!!///////
+
         setInactivityTimer(newTimer);
     };
+
+    // const resetInactivityTimer = () => {
+    //     clearTimeout(inactivityTimer);
+    //     const newTimer = setTimeout(() => {
+    //         setShowInactivityModal(true);
+    //     }, 120000); ///////!!!!!!! replace 120000 with: 13 * 60 * 1000 for production!!!!!!///////
+    //     setInactivityTimer(newTimer);
+    // };
 
 
     return (
