@@ -503,6 +503,17 @@ nav a.home-link:hover {
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.5)
 }
 
+.login-password-toggle-button {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+
+
 
 
 /* logout button */
@@ -520,6 +531,7 @@ nav a.home-link:hover {
   color: white;
   border-color: gray; 
 }
+
 
 
 

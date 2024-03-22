@@ -102,11 +102,12 @@ const Login = () => {
         <br />
         <label>Password:
           <input
-            type={showPassword ? "text" : "password"} // Code to toggle between text and password, text will display the password, password hides it in '*' symbol
+            type={showPassword ? "text" : "password"} // Code to toggle between text and password, text displays the password, password displays * symbol
             value={loginData.password}
             onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
           />
-          <button
+          {/* Toggle visibility button */}
+          <button className='login-password-toggle-button'
             type="button"
             onClick={togglePasswordVisibility}
             >👁️
