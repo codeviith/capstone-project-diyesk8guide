@@ -74,9 +74,13 @@ const Login = () => {
     return isValid;
   };
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
+  const handleMouseDownPassword = () => {
+    setShowPassword(true);
+  }
+
+  const handleMouseUpPassword = () => {
+    setShowPassword(false);
+  }
 
   return (
     <div className='login'>
@@ -106,11 +110,13 @@ const Login = () => {
             value={loginData.password}
             onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
           />
-          {/* Toggle visibility button */}
+          {/* Toggle Password Visibility Button */}
           <button className='login-password-toggle-button'
             type="button"
-            onClick={togglePasswordVisibility}
-            >👁️
+            onMouseDown={handleMouseDownPassword}
+            onMouseUp={handleMouseUpPassword}
+            onMouseLeave={handleMouseUpPassword}>
+            👁️
           </button>
         </label>
         {errors.password && <div className='error-message'>{errors.password}</div>}
