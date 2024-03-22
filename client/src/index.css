@@ -411,6 +411,7 @@ nav a.home-link:hover {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   border-radius: 12px;
   z-index: 1000;
+  min-width: 150px;
 }
 
 .show-dropdown {
@@ -420,9 +421,9 @@ nav a.home-link:hover {
 .dropdown-menu a {
   display: block; 
   padding: 8px 12px;
-  width: 125px;
   text-decoration: none;
-  color: white; 
+  color: white;
+  white-space: nowrap;
 }
 
 .dropdown-menu a:hover {
@@ -1404,7 +1405,7 @@ nav a.home-link:hover {
   width: 97%;
   padding: 10px;
   margin-bottom: 10px;
-  border: 1px solid #ccc;
+  border: 2px solid #ccc;
   border-radius: 5px;
   font-size: 15px;
 }
