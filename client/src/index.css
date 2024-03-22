@@ -68,6 +68,53 @@ body::before {
 
 
 
+
+
+
+/* Session Modal Container */
+.session-expiry-modal {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.session-expiry-text {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.buttons-container {
+  display: flex;
+  gap: 10px;
+}
+
+.keep-session-alive-button,
+.session-logout-button {
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+}
+
+.keep-session-alive-button:hover,
+.session-logout-button:hover {
+  background-color: #0056b3;
+}
+
+
+
+
+
+
 /* Home component */
 
 .home {

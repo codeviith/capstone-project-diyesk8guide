@@ -18,23 +18,23 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const handleActivity = () => {
-            clearTimeout(inactivityTimer);
-            setInactivityTimer(setTimeout(() => {
-                setShowInactivityModal(true);
-            }, 120000));  ///////!!!!!!! replace 120000 with: 13 * 60 * 1000!!!!!!///////      // ### code to show warning at 14 min of inactivity
+            resetInactivityTimer(); // Call resetInactivityTimer on any activity
         };
 
+        // Attach event listeners for user activity
         window.addEventListener('mousemove', handleActivity);
         window.addEventListener('keydown', handleActivity);
 
-        handleActivity();
+        // Initialize the timer once on component mount
+        resetInactivityTimer();
 
+        // Cleanup
         return () => {
             window.removeEventListener('mousemove', handleActivity);
             window.removeEventListener('keydown', handleActivity);
             clearTimeout(inactivityTimer);
         };
-    }, [inactivityTimer]);
+    }, []);
 
     useEffect(() => {
         const checkLoginStatus = async () => {
@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }) => {
         let intervalId;
 
         if (isLoggedIn) {
-            intervalId = setInterval(checkLoginStatus, 60000); // Code to check session at a set interval
+            intervalId = setInterval(checkLoginStatus, 300000); // Code to check session at a set interval
         }
 
         return () => {
@@ -75,12 +75,10 @@ export const AuthProvider = ({ children }) => {
                 method: 'POST',
                 credentials: 'include',
             });
+
             if (response.ok) {
-                setShowInactivityModal(false); // code to hide the modal
-                clearTimeout(inactivityTimer); // code to clear the existing inactivity timer
-                // setInactivityTimer(setTimeout(() => { // code to restart the inactivity timer
-                //     setShowInactivityModal(true);
-                // }, 120000)); ///////!!!!!!! replace 120000 with: 13 * 60 * 1000!!!!!!///////     code to reset/restart timer for another 14 minutes
+                setShowInactivityModal(false);
+                resetInactivityTimer();  // Reset the timer after keeping session alive
             } else {
                 console.log("session not refreshed") // code to handle session could not be refreshed, to log the user out
             }
@@ -108,21 +106,31 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
+    const resetInactivityTimer = () => {
+        clearTimeout(inactivityTimer);
+        const newTimer = setTimeout(() => {
+            setShowInactivityModal(true);
+        }, 120000); ///////!!!!!!! replace 120000 with: 13 * 60 * 1000!!!!!!///////
+        setInactivityTimer(newTimer);
+    };
+
 
     return (
         <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
             {children}
             {showInactivityModal && (
-                <div style={{ position: 'fixed', top: '20%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'white', padding: '20px', zIndex: 100 }}>
-                    <p>Your session is about to expire due to inactivity.</p>
-                    <button className='keep-session-alive-button'
-                        onClick={keepSessionAlive}>
-                        Keep Me Logged In
-                    </button>
-                    <button className='session-logout-button'
-                        onClick={logMeOut}>
-                        Log Me Out
-                    </button>
+                <div className="session-expiry-modal">
+                    <p className="session-expiry-text">Your session is about to expire due to inactivity.</p>
+                    <div className='buttons-container'>
+                        <button className='keep-session-alive-button'
+                            onClick={keepSessionAlive}>
+                            Keep Me Logged In
+                        </button>
+                        <button className='session-logout-button'
+                            onClick={logMeOut}>
+                            Log Me Out
+                        </button>
+                    </div>
                 </div>
             )}
         </AuthContext.Provider>
