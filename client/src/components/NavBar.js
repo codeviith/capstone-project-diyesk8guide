@@ -49,10 +49,10 @@ function NavBar() {
                             {isLoggedIn && <NavLink to="/profile">Profile</NavLink>}
                             <NavLink to="/">Home</NavLink>
                             <NavLink to="/about">About</NavLink>
-                            <NavLink to="/contactus">Contact Us</NavLink>
                             <NavLink to="/donations">Donations</NavLink>
                             <NavLink to="/disclaimers">Disclaimers</NavLink>
                             <NavLink to="/rulesandpolicies">Rules & Policies</NavLink>
+                            <NavLink to="/contactus">Contact Us</NavLink>
                         </div>
                     )}
                 </div>

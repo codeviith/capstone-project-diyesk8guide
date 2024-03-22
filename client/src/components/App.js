@@ -15,6 +15,8 @@ import Profile from './Profile';
 import About from "./About";
 import ContactUs from './ContactUs';
 import Donations from './Donations';
+import Disclaimers from './Disclaimers';
+import RulesAndPolicies from './RulesAndPolicies';
 // import Footer from './Footer';
 
 
@@ -71,6 +73,12 @@ function App() {
             </Route>
             <Route path="/donations">
               <Donations />
+            </Route>
+            <Route path="/disclaimers">
+              <Disclaimers />
+            </Route>
+            <Route path="/rulesandpolicies">
+              <RulesAndPolicies />
             </Route>
           </Switch>
           {/* {shouldDisplayFooter() && <Footer />} */}
