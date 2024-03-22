@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
             clearTimeout(inactivityTimer);
             setInactivityTimer(setTimeout(() => {
                 setShowInactivityModal(true);
-            }, 14 * 60 * 1000)); // ### code to show warning at 14 min of inactivity
+            }, 120000));  ///////!!!!!!! replace 120000 with: 14 * 60 * 1000!!!!!!///////      // ### code to show warning at 14 min of inactivity
         };
 
         window.addEventListener('mousemove', handleActivity);
@@ -80,7 +80,7 @@ export const AuthProvider = ({ children }) => {
                 clearTimeout(inactivityTimer); // code to clear the existing inactivity timer
                 setInactivityTimer(setTimeout(() => { // code to restart the inactivity timer
                     setShowInactivityModal(true);
-                }, 120000)); ///////!!!!!!! replace 60000 with: 14 * 60 * 1000!!!!!!///////     code to reset/restart timer for another 14 minutes
+                }, 120000)); ///////!!!!!!! replace 120000 with: 14 * 60 * 1000!!!!!!///////     code to reset/restart timer for another 14 minutes
             } else {
                 console.log("session not refreshed") // code to handle session could not be refreshed, to log the user out
             }
