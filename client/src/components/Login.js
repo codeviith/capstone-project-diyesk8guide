@@ -10,6 +10,7 @@ const Login = () => {
   const [message, setMessage] = useState({ content: '', type: '' });
   const [errors, setErrors] = useState({});
   const { setIsLoggedIn } = useContext(AuthContext);
+  const [showPassword, setShowPassword] = useState(false);
 
   const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
 
@@ -71,7 +72,11 @@ const Login = () => {
 
     setErrors(valErrors);
     return isValid;
-  }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   return (
     <div className='login'>
@@ -97,10 +102,15 @@ const Login = () => {
         <br />
         <label>Password:
           <input
-            type="password"
+            type={showPassword ? "text" : "password"} // Code to toggle between text and password, text will display the password, password hides it in '*' symbol
             value={loginData.password}
             onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
           />
+          <button
+            type="button"
+            onClick={togglePasswordVisibility}
+            >👁️
+          </button>
         </label>
         {errors.password && <div className='error-message'>{errors.password}</div>}
         <br />
