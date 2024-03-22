@@ -57,7 +57,7 @@ const Login = () => {
   };
 
   const validateForm = () => {
-    let valErrors = {email: '', password: ''};
+    let valErrors = { email: '', password: '' };
     let isValid = true;
 
     if (!loginData.email) {
@@ -82,6 +82,7 @@ const Login = () => {
     setShowPassword(false);
   }
 
+
   return (
     <div className='login'>
       <h2>Please Sign In to Continue...</h2>
@@ -105,19 +106,21 @@ const Login = () => {
         {errors.email && <div className='error-message'>{errors.email}</div>}
         <br />
         <label>Password:
-          <input
-            type={showPassword ? "text" : "password"} // Code to toggle between text and password, text displays the password, password displays * symbol
-            value={loginData.password}
-            onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
-          />
-          {/* Toggle Password Visibility Button */}
-          <button className='login-password-toggle-button'
-            type="button"
-            onMouseDown={handleMouseDownPassword}
-            onMouseUp={handleMouseUpPassword}
-            onMouseLeave={handleMouseUpPassword}>
-            👁️
-          </button>
+          <div className='password-input-box'>
+            <input
+              type={showPassword ? "text" : "password"} // Code to toggle between text and password, text displays the password, password displays * symbol
+              value={loginData.password}
+              onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
+            />
+            {/* Toggle Password Visibility Button */}
+            <button className='login-password-toggle-button'
+              type="button"
+              onMouseDown={handleMouseDownPassword}
+              onMouseUp={handleMouseUpPassword}
+              onMouseLeave={handleMouseUpPassword}  // Code for extra security to make sure password remains hidden
+              >👁️
+            </button>
+          </div>
         </label>
         {errors.password && <div className='error-message'>{errors.password}</div>}
         <br />

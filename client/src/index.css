@@ -503,14 +503,36 @@ nav a.home-link:hover {
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.5)
 }
 
+.password-input-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-box input {
+  flex: 1;
+  padding-right: 40px;
+}
+
 .login-password-toggle-button {
+  position: absolute;
+  right: 10px;
+  padding: 5px 8px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: inherit;
+}
+
+/* .login-password-toggle-button {
   position: absolute;
   right: 5px;
   top: 50%;
   border: none;
   background: transparent;
   cursor: pointer;
-}
+} */
 
 
 
