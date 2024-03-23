@@ -76,7 +76,7 @@ export const AuthProvider = ({ children }) => {
         };
 
         checkLoginStatus();
-    }, []);
+    }, [backendUrl]);
 
     useEffect(() => {
         const handleActivity = () => {
