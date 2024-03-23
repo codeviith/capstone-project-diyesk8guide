@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 export const AuthContext = createContext();
 
-const INACTIVITY_TIMEOUT_VALUE = 60000;
+const INACTIVITY_TIMEOUT_VALUE = 180000;
 
 export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
