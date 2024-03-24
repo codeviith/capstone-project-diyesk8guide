@@ -1,19 +1,21 @@
-/////////// without using useCallback /////////////
+/////////// updated code to handle user inactivity and timer reset w/o useCallback /////////////
 
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 
 export const AuthContext = createContext();
 
-const INACTIVITY_TIMEOUT_VALUE = 180000;
+const INACTIVITY_TIMEOUT_VALUE = 3 * 60 * 1000;
 
 export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [showInactivityModal, setShowInactivityModal] = useState(false);
+    
     const history = useHistory();
+    const inactivityTimerRef = useRef(null);  // code to use useRef to hold timer reference
+    
     const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
 
-    let inactivityTimer = null;
 
     const keepSessionAlive = async () => {
         const response = await fetch(`${backendUrl}/keep_session_alive`, {
@@ -34,18 +36,18 @@ export const AuthProvider = ({ children }) => {
         if (response.ok) {
             setIsLoggedIn(false);
             setShowInactivityModal(false);
-            clearTimeout(inactivityTimer);
+            clearTimeout(inactivityTimerRef.current);
             history.push('/login');
         }
     };
 
     function resetInactivityTimer() {
-        if (isLoggedIn) {
-            clearTimeout(inactivityTimer);
-            inactivityTimer = setTimeout(() => {
+        clearTimeout(inactivityTimerRef.current);
+        inactivityTimerRef.current = setTimeout(() => {
+            if (isLoggedIn) {
                 setShowInactivityModal(true);
-            }, INACTIVITY_TIMEOUT_VALUE);
-        }
+            }
+        }, INACTIVITY_TIMEOUT_VALUE);
     }
 
     useEffect(() => {
@@ -65,27 +67,27 @@ export const AuthProvider = ({ children }) => {
     }, [backendUrl]);
 
     useEffect(() => {
-        if (isLoggedIn) {
-            const handleActivity = () => {
-                resetInactivityTimer();
-            };
+        const handleUserActivity = () => resetInactivityTimer();
 
-            window.addEventListener('mousemove', handleActivity);
-            window.addEventListener('keydown', handleActivity);
+        window.addEventListener('mousemove', handleUserActivity);
+        window.addEventListener('mousedown', handleUserActivity);
+        window.addEventListener('keypress', handleUserActivity);
+        window.addEventListener('scroll', handleUserActivity);
+        resetInactivityTimer();  // code to initialize the timer
 
-            resetInactivityTimer();
+        return () => {  // code to cleanup event listeners
+            window.removeEventListener('mousemove', handleUserActivity);
+            window.removeEventListener('mousedown', handleUserActivity);
+            window.removeEventListener('keypress', handleUserActivity);
+            window.removeEventListener('scroll', handleUserActivity);
+            clearTimeout(inactivityTimerRef.current);
+        };
+    }, [isLoggedIn]); // code for isLoggedIn dependency to add/remove event listeners based on login status
 
-            return () => {
-                window.removeEventListener('mousemove', handleActivity);
-                window.removeEventListener('keydown', handleActivity);
-                clearTimeout(inactivityTimer);
-            };
-        }
-    }, [isLoggedIn]);
-
-    useEffect(() => {
-        return () => clearTimeout(inactivityTimer);
+    useEffect(() => {  // code to ensure timer is cleared on component unmount
+        return () => clearTimeout(inactivityTimerRef.current);
     }, []);
+
 
     return (
         <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
@@ -95,11 +97,13 @@ export const AuthProvider = ({ children }) => {
                     <p className="session-expiry-text">Your session is about to expire due to inactivity.</p>
                     <div className='buttons-container'>
                         <button className='keep-session-alive-button'
-                            onClick={keepSessionAlive}>
+                        onClick={keepSessionAlive}
+                        >
                             Keep Me Logged In
                         </button>
                         <button className='session-logout-button'
-                            onClick={logMeOut}>
+                        onClick={logMeOut}
+                        >
                             Log Me Out
                         </button>
                     </div>
@@ -122,9 +126,11 @@ export const AuthProvider = ({ children }) => {
 
 
 
-//////////// using useCallback ////////////
 
-// import React, { createContext, useState, useEffect, useCallback } from 'react';
+
+/////////// without using useCallback /////////////
+
+// import React, { createContext, useState, useEffect } from 'react';
 // import { useHistory } from 'react-router-dom';
 
 // export const AuthContext = createContext();
@@ -134,59 +140,45 @@ export const AuthProvider = ({ children }) => {
 // export const AuthProvider = ({ children }) => {
 //     const [isLoggedIn, setIsLoggedIn] = useState(false);
 //     const [showInactivityModal, setShowInactivityModal] = useState(false);
-//     const [inactivityTimer, setInactivityTimer] = useState(null);
-
 //     const history = useHistory();
 //     const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
 
-
-//     const resetInactivityTimer = useCallback(() => {
-//         if (isLoggedIn) {
-//             clearTimeout(inactivityTimer);
-
-//             const timer = setTimeout(() => {
-//                 setShowInactivityModal(true);
-//             }, INACTIVITY_TIMEOUT_VALUE);
-
-//             setInactivityTimer(timer);
-//         }
-//     }, [isLoggedIn, inactivityTimer]);
+//     let inactivityTimer = null;
 
 //     const keepSessionAlive = async () => {
-//         try {
-//             const response = await fetch(`${backendUrl}/keep_session_alive`, {
-//                 method: 'POST',
-//                 credentials: 'include',
-//             });
-//             if (response.ok) {
-//                 setShowInactivityModal(false);
-//                 resetInactivityTimer();
-//             } else {
-//                 console.log("Session not refreshed");
-//             }
-//         } catch (error) {
-//             console.error('Error keeping session alive:', error);
+//         const response = await fetch(`${backendUrl}/keep_session_alive`, {
+//             method: 'POST',
+//             credentials: 'include',
+//         });
+
+//         if (response.ok) {
+//             setShowInactivityModal(false);
+//             resetInactivityTimer();
 //         }
 //     };
 
 //     const logMeOut = async () => {
-//         try {
-//             const response = await fetch(`${backendUrl}/logout`, {
-//                 method: 'POST',
-//                 credentials: 'include',
-//             });
-//             if (response.ok) {
-//                 setIsLoggedIn(false);
-//                 setShowInactivityModal(false);
-//                 clearTimeout(inactivityTimer);
-//                 history.push('/login');
-//             } else {
-//                 console.error('Failed to log out');
-//             }
-//         } catch (error) {
-//             console.error('Error logging out:', error);
+//         const response = await fetch(`${backendUrl}/logout`, {
+//             method: 'POST',
+//             credentials: 'include',
+//         });
+
+//         if (response.ok) {
+//             setIsLoggedIn(false);
+//             setShowInactivityModal(false);
+//             clearTimeout(inactivityTimer);
+//             history.push('/login');
 //         }
 //     };
+
+//     function resetInactivityTimer() {
+//         if (isLoggedIn) {
+//             clearTimeout(inactivityTimer);
+//             inactivityTimer = setTimeout(() => {
+//                 setShowInactivityModal(true);
+//             }, INACTIVITY_TIMEOUT_VALUE);
+//         }
+//     }
 
 //     useEffect(() => {
 //         const checkLoginStatus = async () => {
@@ -205,26 +197,28 @@ export const AuthProvider = ({ children }) => {
 //     }, [backendUrl]);
 
 //     useEffect(() => {
-//         const handleActivity = () => {
-//             if (isLoggedIn) {
-//                 resetInactivityTimer();
-//             }
-//         };
-
 //         if (isLoggedIn) {
+//             const handleActivity = () => {
+//                 resetInactivityTimer();
+//             };
+
 //             window.addEventListener('mousemove', handleActivity);
 //             window.addEventListener('keydown', handleActivity);
-//         }
 
-//         return () => {
-//             window.removeEventListener('mousemove', handleActivity);
-//             window.removeEventListener('keydown', handleActivity);
-//         };
-//     }, [isLoggedIn, resetInactivityTimer]);
+//             resetInactivityTimer();  // code to initialize the timer
+
+//             return () => {  // code to cleanup event listeners
+//                 window.removeEventListener('mousemove', handleActivity);
+//                 window.removeEventListener('keydown', handleActivity);
+//                 clearTimeout(inactivityTimer);
+//             };
+//         }
+//     }, [isLoggedIn]);
 
 //     useEffect(() => {
 //         return () => clearTimeout(inactivityTimer);
-//     }, [inactivityTimer]);
+//     }, []);
+
 
 //     return (
 //         <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
@@ -233,8 +227,14 @@ export const AuthProvider = ({ children }) => {
 //                 <div className="session-expiry-modal">
 //                     <p className="session-expiry-text">Your session is about to expire due to inactivity.</p>
 //                     <div className='buttons-container'>
-//                         <button onClick={keepSessionAlive}>Keep Me Logged In</button>
-//                         <button onClick={logMeOut}>Log Me Out</button>
+//                         <button className='keep-session-alive-button'
+//                             onClick={keepSessionAlive}>
+//                             Keep Me Logged In
+//                         </button>
+//                         <button className='session-logout-button'
+//                             onClick={logMeOut}>
+//                             Log Me Out
+//                         </button>
 //                     </div>
 //                 </div>
 //             )}
@@ -257,6 +257,8 @@ export const AuthProvider = ({ children }) => {
 
 
 
+/////////////// original w/o check session ///////////////
+
 // import React, { createContext, useState, useEffect } from 'react';
 // import { useHistory } from 'react-router-dom';
 
@@ -278,22 +280,22 @@ export const AuthProvider = ({ children }) => {
 //     const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
 
 
-//     useEffect(() => {
-//         const handleActivity = () => {
-//             resetInactivityTimer(); // code to resetInactivityTimer on any activity
-//         };
+    // useEffect(() => {
+    //     const handleActivity = () => {
+    //         resetInactivityTimer(); // code to resetInactivityTimer on any activity
+    //     };
 
-//         window.addEventListener('mousemove', handleActivity);
-//         window.addEventListener('keydown', handleActivity);
+    //     window.addEventListener('mousemove', handleActivity);
+    //     window.addEventListener('keydown', handleActivity);
 
-//         resetInactivityTimer();  // code to initialize the timer
+    //     resetInactivityTimer();  // code to initialize the timer
 
-//         return () => {  // code to cleanup event listeners
-//             window.removeEventListener('mousemove', handleActivity);
-//             window.removeEventListener('keydown', handleActivity);
-//             clearTimeout(inactivityTimer);
-//         };
-//     }, []);
+    //     return () => {  // code to cleanup event listeners
+    //         window.removeEventListener('mousemove', handleActivity);
+    //         window.removeEventListener('keydown', handleActivity);
+    //         clearTimeout(inactivityTimer);
+    //     };
+    // }, []);
 
 //     useEffect(() => {
 //         const checkLoginStatus = async () => {
