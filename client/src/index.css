@@ -1971,6 +1971,50 @@ nav a.home-link:hover {
 }
 
 
+.footer-bottom-login,
+.footer-bottom-signup,
+.footer-bottom-about,
+.footer-bottom-donation,
+.footer-bottom-contactus {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  background-color: #2e2e2e;
+  border-top: 5px solid rgb(0, 0, 0);
+  margin-top: 30px;
+}
+
+.footer-bottom-link-login,
+.footer-bottom-link-signup,
+.footer-bottom-link-about,
+.footer-bottom-link-donation,
+.footer-bottom-link-contactus {
+  color: #ddd;
+  font-size: 13px;
+  padding: 5px 10px;
+  margin: 0 10px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border-bottom: 3px solid transparent;
+}
+
+.footer-bottom-link-login:hover,
+.footer-bottom-link-login:focus,
+.footer-bottom-link-signup:hover,
+.footer-bottom-link-signup:focus,
+.footer-bottom-link-about:hover,
+.footer-bottom-link-about:focus,
+.footer-bottom-link-donation:hover,
+.footer-bottom-link-donation:focus,
+.footer-bottom-link-contactus:hover,
+.footer-bottom-link-contactus:focus {
+  color: #fff;
+  border-bottom: 3px solid #007bff;
+}
+
+
+
 
 
 
