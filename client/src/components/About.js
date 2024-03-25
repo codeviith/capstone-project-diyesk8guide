@@ -17,12 +17,11 @@ function About() {
         <h2>Questions or Concerns?</h2>
         <p>Please don't hesitate to reach out to us with questions or feedbacks.</p>
         <NavLink className="navlink-button" to="/contact-us">Contact Us</NavLink>
-      </div>
-      <div className="footer-bottom">
-        <NavLink className="footer-bottom-link" to="/contact-us">Contact Us</NavLink>
-        <NavLink className="footer-bottom-link" to="/donations">Donations</NavLink>
-        <NavLink className="footer-bottom-link" to="/disclaimers">Disclaimers</NavLink>
-        <NavLink className="footer-bottom-link" to="/rules-and-policies">Rules & Policies</NavLink>
+        <div className="footer-bottom">
+          <NavLink className="footer-bottom-link" to="/donations">Donations</NavLink>
+          <NavLink className="footer-bottom-link" to="/disclaimers">Disclaimers</NavLink>
+          <NavLink className="footer-bottom-link" to="/rules-and-policies">Rules & Policies</NavLink>
+        </div>
       </div>
     </div>
   );
