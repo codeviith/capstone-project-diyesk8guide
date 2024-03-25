@@ -6,8 +6,8 @@ import { useHistory } from 'react-router-dom';
 export const AuthContext = createContext();
 
 const INACTIVITY_TIMEOUT_VALUE = 3 * 60 * 1000;
-const AUTO_LOGOUT_TIMEOUT_VALUE = 5 * 60 * 1000;
-const COUNTDOWN_TO_LOGOUT = (AUTO_LOGOUT_TIMEOUT_VALUE - INACTIVITY_TIMEOUT_VALUE) / 1000;
+// const AUTO_LOGOUT_TIMEOUT_VALUE = 5 * 60 * 1000;
+const COUNTDOWN_TO_LOGOUT = 2 * 60 * 1000;
 
 export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -53,7 +53,14 @@ export const AuthProvider = ({ children }) => {
         setCountdownTime(COUNTDOWN_TO_LOGOUT);
         clearInterval(countdownIntervalRef.current);
         countdownIntervalRef.current = setInterval(() => {
-            setCountdownTime(prevTime => prevTime - 1);
+            setCountdownTime(prevTime => {
+                if (prevTime <= 1) {
+                    clearInterval(countdownIntervalRef.current);
+                    logMeOut(); // code to automatically log the user out once countdown reaches 0
+                    return 0;
+                }
+                return prevTime - 1;
+            });
         }, 1000);
     };
 
@@ -69,11 +76,11 @@ export const AuthProvider = ({ children }) => {
             }
         }, INACTIVITY_TIMEOUT_VALUE);
 
-        autoLogoutTimerRef.current = setTimeout(() => {  // code to set up automatic logout after x minutes of inactivity
-            if (isLoggedIn) {
-                logMeOut();  // code to call on the logout function to log the user out
-            }
-        }, AUTO_LOGOUT_TIMEOUT_VALUE);
+        // autoLogoutTimerRef.current = setTimeout(() => {  // code to set up automatic logout after x minutes of inactivity
+        //     if (isLoggedIn) {
+        //         logMeOut();  // code to call on the logout function to log the user out
+        //     }
+        // }, AUTO_LOGOUT_TIMEOUT_VALUE);
     }
 
     useEffect(() => {
