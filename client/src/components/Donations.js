@@ -19,6 +19,12 @@ function Donations() {
                 <p>Please click the button below. You will be redirected to a secured external site.</p>
                 <a href="https://pay.diyesk8guide.com/" className="donation-button" target="_blank" rel="noopener noreferrer">Make a Donation</a>
             </div>
+            <div className="footer-bottom">
+                <NavLink className="footer-bottom-link" to="/about">About</NavLink>
+                <NavLink className="footer-bottom-link" to="/contact-us">Contact Us</NavLink>
+                <NavLink className="footer-bottom-link" to="/disclaimers">Disclaimers</NavLink>
+                <NavLink className="footer-bottom-link" to="/rules-and-policies">Rules & Policies</NavLink>
+            </div>
         </div>
     );
 }

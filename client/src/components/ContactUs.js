@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from "./AuthContext";
+import { NavLink } from 'react-router-dom';
 
 function ContactUs() {
     const [formData, setFormData] = useState({
@@ -130,6 +131,12 @@ function ContactUs() {
                 </label>
                 <button type="submit">Submit</button>
             </form>
+            <div className="footer-bottom">
+                <NavLink className="footer-bottom-link" to="/about">About</NavLink>
+                <NavLink className="footer-bottom-link" to="/donations">Donations</NavLink>
+                <NavLink className="footer-bottom-link" to="/disclaimers">Disclaimers</NavLink>
+                <NavLink className="footer-bottom-link" to="/rules-and-policies">Rules & Policies</NavLink>
+            </div>
         </div>
     );
 }
