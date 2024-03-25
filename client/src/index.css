@@ -129,8 +129,17 @@ body::before {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.home .intro, .home .component-description {
+.home .intro, .home {
   margin-bottom: 25px;
+  padding: 10px;
+  border: 1px solid #ccc; 
+  border-radius: 8px; 
+}
+
+.component-description {
+  margin-bottom: 25px;
+  margin-left: 300px;
+  margin-right: 300px;
   padding: 10px;
   border: 1px solid #ccc; 
   border-radius: 8px; 

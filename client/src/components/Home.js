@@ -8,8 +8,7 @@ const Home = () => {
     <div className="home">
       <div className="intro">
         <h5>
-          Welcome to DIYesk8Guide: Your Gateway to DIY Electric Skateboard
-          Builds!
+          Welcome to DIYesk8Guide
         </h5>
         <span style={{ whiteSpace: "pre-wrap" }}>
           Are you ready to elevate your skateboarding experience to a whole new
