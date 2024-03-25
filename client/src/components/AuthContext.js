@@ -7,14 +7,17 @@ export const AuthContext = createContext();
 
 const INACTIVITY_TIMEOUT_VALUE = 3 * 60 * 1000;
 const AUTO_LOGOUT_TIMEOUT_VALUE = 5 * 60 * 1000;
+const COUNTDOWN_START = (AUTO_LOGOUT_TIMEOUT_VALUE - INACTIVITY_TIMEOUT_VALUE) / 1000;
 
 export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [showInactivityModal, setShowInactivityModal] = useState(false);
+    const [countdownTime, setCountdownTime] = useState(COUNTDOWN_START);
 
     const history = useHistory();
     const inactivityTimerRef = useRef(null);  // code for useRef to hold timer reference for inactivity
     const autoLogoutTimerRef = useRef(null);  // code for useRef to hold timer reference for autoLogout
+    const countdownIntervalRef = useRef(null);  // code for useRef to hold timer reference for countdown
 
     const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
 
@@ -26,6 +29,7 @@ export const AuthProvider = ({ children }) => {
         });
         if (response.ok) {
             setShowInactivityModal(false);
+            clearInterval(countdownIntervalRef.current);
             resetInactivityTimer();
         }
     };
@@ -38,25 +42,28 @@ export const AuthProvider = ({ children }) => {
         if (response.ok) {
             setIsLoggedIn(false);
             setShowInactivityModal(false);
-            clearTimeout(inactivityTimerRef.current);
-            clearTimeout(autoLogoutTimerRef.current);
-            history.push('/login');
+            clearInterval(countdownIntervalRef.current);  // code to clear countdown
+            clearTimeout(inactivityTimerRef.current);  // code to clear inactivity timer
+            clearTimeout(autoLogoutTimerRef.current);  // code to clear autologout timer
+            history.push('/login');  // code to redirect to login page
         }
     };
 
     function resetInactivityTimer() {
         clearTimeout(inactivityTimerRef.current);
         clearTimeout(autoLogoutTimerRef.current);
+        clearInterval(countdownIntervalRef.current);
 
         inactivityTimerRef.current = setTimeout(() => {
             if (isLoggedIn) {
                 setShowInactivityModal(true);
+                startCountdown();  // code to start the countdown once modal has been shown to user
             }
         }, INACTIVITY_TIMEOUT_VALUE);
 
-        autoLogoutTimerRef.current = setTimeout(() => {
+        autoLogoutTimerRef.current = setTimeout(() => {  // code to set up automatic logout after x minutes of inactivity
             if (isLoggedIn) {
-                logMeOut();
+                logMeOut();  // code to call on the logout function to log the user out
             }
         }, AUTO_LOGOUT_TIMEOUT_VALUE);
     }
@@ -94,6 +101,7 @@ export const AuthProvider = ({ children }) => {
             window.removeEventListener('scroll', handleUserActivity);
             clearTimeout(inactivityTimerRef.current);
             clearTimeout(autoLogoutTimerRef.current);
+            clearInterval(countdownIntervalRef.current);
         };
     }, [isLoggedIn]); // code for isLoggedIn dependency to add/remove event listeners based on login status
 
@@ -101,6 +109,7 @@ export const AuthProvider = ({ children }) => {
         return () => {
             clearTimeout(inactivityTimerRef.current);
             clearTimeout(autoLogoutTimerRef.current);
+            clearInterval(countdownIntervalRef.current);
         }
     }, []);
 
