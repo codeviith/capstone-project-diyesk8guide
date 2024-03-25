@@ -34,6 +34,21 @@ const Home = () => {
       </div>
 
       <div className="component-description">
+        <h2>Guide</h2>
+        <p>
+          New to building electric skateboards? Our Quick Start Guide is the 
+          perfect place to begin your journey. This section provides you with 
+          detailed, step-by-step instructions to assemble your first electric 
+          skateboard. From selecting the right components to assembling them 
+          into a functional electric skateboard, our guide covers all the basics. 
+          It’s designed to help beginner builders understand the fundamentals, 
+          enabling you to customize your build to suit your specific needs later on. 
+          Start your build confidently with our Guide!
+        </p>
+        <Link to="/guide">Go to Guide</Link>
+      </div>
+
+      <div className="component-description">
         <h2>Generate</h2>
         <p>
           This feature allows users to create custom skateboard builds based on
