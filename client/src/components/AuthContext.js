@@ -67,7 +67,7 @@ export const AuthProvider = ({ children }) => {
     function resetInactivityTimer() {
         clearTimeout(inactivityTimerRef.current);
         // clearTimeout(autoLogoutTimerRef.current);
-        clearInterval(countdownIntervalRef.current);
+        // clearInterval(countdownIntervalRef.current);
 
         inactivityTimerRef.current = setTimeout(() => {
             if (isLoggedIn) {
