@@ -26,7 +26,7 @@ const Home = () => {
           for you.{"\n"}
         </span>
         <span id="special-font2" style={{ whiteSpace: "pre-wrap" }}>
-          So unleash your potential and build like a PRO!
+          So unleash your potential and start building today!
         </span>
         <div className="intro_collage">
           <img src={DIY_collage} alt="DIY_collage" className="collage" />
@@ -36,14 +36,14 @@ const Home = () => {
       <div className="component-description">
         <h2>Guide</h2>
         <p>
-          New to building electric skateboards? Our Quick Start Guide is the 
-          perfect place to begin your journey. This section provides you with 
-          detailed, step-by-step instructions to assemble your first electric 
-          skateboard. From selecting the right components to assembling them 
-          into a functional electric skateboard, our guide covers all the basics. 
-          It’s designed to help beginner builders understand the fundamentals, 
-          enabling you to customize your build to suit your specific needs later on. 
-          Start your build confidently with our Guide!
+          Are you stepping into the world of DIY electric skateboards for the first time? Our
+          Quick Start Guide is the ideal place to embark on this exciting journey. This
+          comprehensive section is designed to walk you through every phase of building your
+          first electric skateboard. From handpicking the components to piecing them together
+          into a fully operational skateboard, our guide lays down the groundwork in a
+          step-by-step, easy-to-follow fashion. It is designed to equip you with the fundamentals
+          of the build process, allowing you to tailor the build to your specific needs as you
+          progress. Start your journey with confidence—our guide is here to lead the way!
         </p>
         <Link to="/guide">Go to Guide</Link>
       </div>
@@ -51,9 +51,11 @@ const Home = () => {
       <div className="component-description">
         <h2>Generate</h2>
         <p>
-          This feature allows users to create custom skateboard builds based on
-          their preferences. Click below to start building your dream
-          skateboard!
+          Imagine having a tailored skateboard build that aligns perfectly with your
+          preferences and needs. With our Generate feature, that's exactly what you'll get.
+          It crafts a sample build for you, complete with detailed specs for each part.
+          This way, you get a solid understanding of what to look for in your own creation,
+          effectively minimizing time and money spent on trial and error.
         </p>
         <Link to="/generate">Go to Generate</Link>
       </div>
@@ -61,8 +63,12 @@ const Home = () => {
       <div className="component-description">
         <h2>Guru</h2>
         <p>
-          Have questions about electric skateboards? Our Esk8 Guru is here to
-          help. Ask any questions and get expert advice!
+          Ever wished you had an expert by your side to answer all your electric skateboard queries
+          instantly? Meet the Esk8 Guru, your AI-based companion that’s always ready to help. Unlike
+          traditional forums where you might wait days for a response, our Esk8 Guru gives you the
+          answers you need immediately. Specialized only in electric skateboards, Esk8 Guru ensures that
+          the advice you receive is accurate and reliable, allowing you to proceed with your build with
+          great confidence.
         </p>
         <Link to="/guru">Go to Guru</Link>
       </div>
@@ -70,9 +76,11 @@ const Home = () => {
       <div className="component-description">
         <h2>Gallery</h2>
         <p>
-          Got a board to share? Feel free to post it in the Gallery and inspire
-          other new builders in the community! Top 3 voted builds will be
-          displayed in the Hall of Fame!
+          Dive into a vibrant community where your builds can shine and inspire. Not only is the Gallery
+          a platform to share photos of your electric skateboard creations, but also a place where your
+          work can be recognized and potentially land a spot of honor in the Hall of Fame. Here, the top 3
+          liked photos will be displayed, providing you and new builders alike new ideas and perspectives
+          for further customization.
         </p>
         <Link to="/gallery">Go to Gallery</Link>
       </div>
