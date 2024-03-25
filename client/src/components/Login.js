@@ -135,6 +135,13 @@ const Login = () => {
         onClick={handleCreateAccount}
       >Sign Up
       </button>
+      <div className="footer-bottom">
+        <NavLink className="footer-bottom-link" to="/about">About</NavLink>
+        <NavLink className="footer-bottom-link" to="/contact-us">Contact Us</NavLink>
+        <NavLink className="footer-bottom-link" to="/donations">Donations</NavLink>
+        <NavLink className="footer-bottom-link" to="/disclaimers">Disclaimers</NavLink>
+        <NavLink className="footer-bottom-link" to="/rules-and-policies">Rules & Policies</NavLink>
+      </div>
     </div>
   );
 };
