@@ -7,12 +7,12 @@ export const AuthContext = createContext();
 
 const INACTIVITY_TIMEOUT_VALUE = 3 * 60 * 1000;
 const AUTO_LOGOUT_TIMEOUT_VALUE = 5 * 60 * 1000;
-const COUNTDOWN_START = (AUTO_LOGOUT_TIMEOUT_VALUE - INACTIVITY_TIMEOUT_VALUE) / 1000;
+const COUNTDOWN_TO_LOGOUT = (AUTO_LOGOUT_TIMEOUT_VALUE - INACTIVITY_TIMEOUT_VALUE) / 1000;
 
 export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [showInactivityModal, setShowInactivityModal] = useState(false);
-    const [countdownTime, setCountdownTime] = useState(COUNTDOWN_START);
+    const [countdownTime, setCountdownTime] = useState(COUNTDOWN_TO_LOGOUT);
 
     const history = useHistory();
     const inactivityTimerRef = useRef(null);  // code for useRef to hold timer reference for inactivity
@@ -47,6 +47,14 @@ export const AuthProvider = ({ children }) => {
             clearTimeout(autoLogoutTimerRef.current);  // code to clear autologout timer
             history.push('/login');  // code to redirect to login page
         }
+    };
+
+    const startCountdown = () => {
+        setCountdownTime(COUNTDOWN_TO_LOGOUT);
+        clearInterval(countdownIntervalRef.current);
+        countdownIntervalRef.current = setInterval(() => {
+            setCountdownTime(prevTime => prevTime - 1);
+        }, 1000);
     };
 
     function resetInactivityTimer() {
@@ -120,6 +128,7 @@ export const AuthProvider = ({ children }) => {
             {showInactivityModal && (
                 <div className="session-expiry-modal">
                     <p className="session-expiry-text">Your session is about to expire due to inactivity.</p>
+                    <p className="session-expiry-text">Logging out in {countdownTime} seconds...</p>
                     <div className='buttons-container'>
                         <button className='keep-session-alive-button'
                             onClick={keepSessionAlive}
