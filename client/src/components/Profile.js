@@ -3,7 +3,7 @@ import UnlikeIcon from './UnlikeIcon';
 import { responseStyle } from './CommonStyles';
 import { formatResponse } from './CommonFunctions';
 import { AuthContext } from './AuthContext';
-
+import { NavLink } from 'react-router-dom';
 
 function Profile() {
     const boardOptions = ["Evolve", "Lacroix", "KalyNYC", "Metroboard", "Trampa", "Mellow", "Boosted", "Exway", "Bajaboard", "Hoyt St.", "Acton", "Backfire", "Meepo", "_DIY_", "Other"];

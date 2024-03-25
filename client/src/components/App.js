@@ -19,7 +19,6 @@ import Disclaimers from './Disclaimers';
 import RulesAndPolicies from './RulesAndPolicies';
 // import Footer from './Footer';
 
-
 function App() {
   // const location = useLocation();
 

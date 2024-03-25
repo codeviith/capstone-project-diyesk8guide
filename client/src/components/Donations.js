@@ -1,7 +1,6 @@
 import React from "react";
 import { NavLink } from 'react-router-dom';
 
-
 function Donations() {
     return (
         <div className="donation">
