@@ -1991,8 +1991,9 @@ nav a.home-link:hover {
 .footer-bottom-link-donation,
 .footer-bottom-link-contactus {
   color: #ddd;
-  font-size: 13px;
-  padding: 5px 10px;
+  font-size: 15px;
+  padding: 7px 10px;
+  gap:25px;
   margin: 0 10px;
   text-decoration: none;
   transition: all 0.3s ease;
@@ -2010,7 +2011,7 @@ nav a.home-link:hover {
 .footer-bottom-link-contactus:hover,
 .footer-bottom-link-contactus:focus {
   color: #fff;
-  border-bottom: 3px solid #007bff;
+  border-bottom: 2px solid #007bff;
 }
 
 
