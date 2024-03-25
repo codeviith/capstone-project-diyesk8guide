@@ -33,11 +33,11 @@ function NavBar() {
         <nav>
             <div className="nav-links-left"> {/* Container for left-hand side links */}
                 <Header />
-                <NavLink to="/guide">Guide</NavLink>
-                <NavLink to="/generate">Generate</NavLink>
-                <NavLink to="/guru">Guru</NavLink>
+                {/* <NavLink to="/guide">Guide</NavLink> */}
+                {/* <NavLink to="/generate">Generate</NavLink> */}
+                {/* <NavLink to="/guru">Guru</NavLink> */}
                 {/* <NavLink to="/qna">Q&A</NavLink> */}
-                <NavLink to="/gallery">Gallery</NavLink>
+                {/* <NavLink to="/gallery">Gallery</NavLink> */}
             </div>
             <div className="nav-links-right"> {/* Container for right-hand side links */}
                 {/* Menu Item to toggle dropdown */}
@@ -48,11 +48,15 @@ function NavBar() {
                         <div className={`dropdown-menu ${showMenu ? 'show-dropdown' : ''}`}>
                             {isLoggedIn && <NavLink to="/profile">Profile</NavLink>}
                             <NavLink to="/">Home</NavLink>
-                            <NavLink to="/about">About</NavLink>
-                            <NavLink to="/donations">Donations</NavLink>
-                            <NavLink to="/disclaimers">Disclaimers</NavLink>
-                            <NavLink to="/rules-and-policies">Rules & Policies</NavLink>
-                            <NavLink to="/contact-us">Contact Us</NavLink>
+                            <NavLink to="/guide">Guide</NavLink>
+                            <NavLink to="/generate">Generate</NavLink>
+                            <NavLink to="/guru">Guru</NavLink>
+                            <NavLink to="/gallery">Gallery</NavLink>
+                            {/* <NavLink to="/about">About</NavLink> */}
+                            {/* <NavLink to="/donations">Donations</NavLink> */}
+                            {/* <NavLink to="/disclaimers">Disclaimers</NavLink> */}
+                            {/* <NavLink to="/rules-and-policies">Rules & Policies</NavLink> */}
+                            {/* <NavLink to="/contact-us">Contact Us</NavLink> */}
                         </div>
                     )}
                 </div>
