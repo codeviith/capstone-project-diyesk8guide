@@ -5,9 +5,9 @@ import { useHistory } from 'react-router-dom';
 
 export const AuthContext = createContext();
 
-const INACTIVITY_TIMEOUT_VALUE = 3 * 60 * 1000;
+const INACTIVITY_TIMEOUT_VALUE = 3 * 60 * 1000;  // inactivity timeout value in milliseconds
 // const AUTO_LOGOUT_TIMEOUT_VALUE = 5 * 60 * 1000;
-const COUNTDOWN_TO_LOGOUT = 2 * 60 * 1000;
+const COUNTDOWN_TO_LOGOUT = 120;  // countdown start value in seconds
 
 export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
 
     const history = useHistory();
     const inactivityTimerRef = useRef(null);  // code for useRef to hold timer reference for inactivity
-    const autoLogoutTimerRef = useRef(null);  // code for useRef to hold timer reference for autoLogout
+    // const autoLogoutTimerRef = useRef(null);  // code for useRef to hold timer reference for autoLogout
     const countdownIntervalRef = useRef(null);  // code for useRef to hold timer reference for countdown
 
     const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
             setShowInactivityModal(false);
             clearInterval(countdownIntervalRef.current);  // code to clear countdown
             clearTimeout(inactivityTimerRef.current);  // code to clear inactivity timer
-            clearTimeout(autoLogoutTimerRef.current);  // code to clear autologout timer
+            // clearTimeout(autoLogoutTimerRef.current);  // code to clear autologout timer
             history.push('/login');  // code to redirect to login page
         }
     };
@@ -66,7 +66,7 @@ export const AuthProvider = ({ children }) => {
 
     function resetInactivityTimer() {
         clearTimeout(inactivityTimerRef.current);
-        clearTimeout(autoLogoutTimerRef.current);
+        // clearTimeout(autoLogoutTimerRef.current);
         clearInterval(countdownIntervalRef.current);
 
         inactivityTimerRef.current = setTimeout(() => {
@@ -115,15 +115,15 @@ export const AuthProvider = ({ children }) => {
             window.removeEventListener('keypress', handleUserActivity);
             window.removeEventListener('scroll', handleUserActivity);
             clearTimeout(inactivityTimerRef.current);
-            clearTimeout(autoLogoutTimerRef.current);
-            clearInterval(countdownIntervalRef.current);
+            // clearTimeout(autoLogoutTimerRef.current);
+            // clearInterval(countdownIntervalRef.current);
         };
     }, [isLoggedIn]); // code for isLoggedIn dependency to add/remove event listeners based on login status
 
     useEffect(() => {  // code to ensure timer is cleared on component unmount
         return () => {
             clearTimeout(inactivityTimerRef.current);
-            clearTimeout(autoLogoutTimerRef.current);
+            // clearTimeout(autoLogoutTimerRef.current);
             clearInterval(countdownIntervalRef.current);
         }
     }, []);
