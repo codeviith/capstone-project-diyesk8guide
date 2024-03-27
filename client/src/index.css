@@ -403,10 +403,10 @@ nav {
   align-items: center;
   background-color: black;
   padding: 2px;
-  border: 2px solid #01641d;
+  border: 2px solid #f9f9f9;
   border-radius: 11px;
-  box-shadow: 0 0 15px rgba(37, 37, 37, 0.984);
-  transition: box-shadow 0.2s;
+  box-shadow: 0 0 15px rgba(214, 214, 214, 0.984);
+  transition: box-shadow 0.1s;
 }
 
 .nav-links-left, 
@@ -491,7 +491,7 @@ nav a.home-link:hover {
 .signup-link {
   color: white; 
   background-color: black; 
-  border: 3px solid lightgreen; 
+  border: 3px solid rgb(94, 244, 94); 
   padding: 5px 10px; 
   border-radius: 5px; 
   margin-left: 10px; 
@@ -1686,7 +1686,7 @@ nav a.home-link:hover {
 
 .featured-builds-container h2 {
   width: 100%;
-  color: black;
+  color: white;
   font-size: 32px;
   text-align: center;
   margin: 1px;

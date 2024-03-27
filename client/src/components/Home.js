@@ -62,13 +62,13 @@ const Home = () => {
             <div className="description-container">
               <p>
                 Are you stepping into the world of DIY electric skateboards for the first time? Our
-                Quick Start Guide is the ideal place to embark on this exciting journey. This
-                comprehensive section is designed to walk you through every phase of building your
-                first electric skateboard. From handpicking the components to piecing them together
-                into a fully operational skateboard, our guide lays down the groundwork in a
-                step-by-step, easy-to-follow fashion. It is designed to equip you with the fundamentals
-                of the build process, allowing you to tailor the build to your specific needs as you
-                progress. Start your journey with confidence—our guide is here to lead the way!
+                Quick Start Guide is the ideal place to embark on this exciting adventure. This
+                comprehensive section is designed to walk you through every phase of the build process. 
+                From handpicking the components to piecing them together into a fully functional product, 
+                our guide lays down the groundwork in a step-by-step, easy-to-follow fashion. It offers 
+                essential insights into building your first electric skateboard, empowering you to further 
+                customize your build to fit to your needs as you progress. So start with confidence—our guide 
+                is here to lead the way!
               </p>
               <Link to="/guide">Go to Guide</Link>
             </div>
@@ -93,8 +93,8 @@ const Home = () => {
                 Imagine having a tailored skateboard build that aligns perfectly with your
                 preferences and needs. With our Generate feature, that's exactly what you'll get.
                 It crafts a sample build for you, complete with detailed specs for each part.
-                This way, you get a solid understanding of what to look for in your own creation,
-                effectively minimizing time and money spent on trial and error.
+                This way, you get a solid understanding of what to look for in your own creation—
+                effectively minimizing time and money spent from needless trial and errors.
               </p>
               <Link to="/generate">Go to Generate</Link>
             </div>
@@ -119,9 +119,9 @@ const Home = () => {
                 Ever wished you had an expert by your side to answer all your electric skateboard queries
                 instantly? Meet the Esk8 Guru, your AI-based companion that’s always ready to help. Unlike
                 traditional forums where you might wait days for a response, our Esk8 Guru gives you the
-                answers you need immediately. Specialized only in electric skateboards, Esk8 Guru ensures that
-                the advice you receive is accurate and reliable, allowing you to proceed with your build with
-                great confidence.
+                answers you need immediately. Specialized only in electric skateboards, Esk8 Guru ensures that 
+                the advice you receive is accurate and reliable, allowing you to proceed with your build with 
+                confidence.
               </p>
               <Link to="/guru">Go to Guru</Link>
             </div>
@@ -144,10 +144,10 @@ const Home = () => {
             <div className="description-container">
               <p>
                 Dive into a vibrant community where your builds can shine and inspire. Not only is the Gallery
-                a platform to share photos of your electric skateboard creations, but also a place where your
+                a platform to share photos of your electric skateboards, but also a place where your
                 work can be recognized and potentially land a spot of honor in the Hall of Fame. Here, the top 3
                 liked photos will be displayed, providing you and new builders alike new ideas and perspectives
-                for further customization.
+                for innovative customization.
               </p>
               <Link to="/gallery">Go to Gallery</Link>
             </div>
