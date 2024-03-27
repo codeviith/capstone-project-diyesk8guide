@@ -71,9 +71,6 @@ const Home = () => {
       </div>
 
       <div className="component-section">
-        <div className="component-header">
-          <h3>Generate</h3>
-        </div>
         <div className="content-container">
           <div className="generate-component-image-container">
             <img className="component-image"
@@ -81,23 +78,25 @@ const Home = () => {
               alt="Generate Section Image"
             />
           </div>
-          <div className="description-container">
-            <p>
-              Imagine having a tailored skateboard build that aligns perfectly with your
-              preferences and needs. With our Generate feature, that's exactly what you'll get.
-              It crafts a sample build for you, complete with detailed specs for each part.
-              This way, you get a solid understanding of what to look for in your own creation,
-              effectively minimizing time and money spent on trial and error.
-            </p>
-            <Link to="/generate">Go to Generate</Link>
+          <div className="text-container">
+            <div className="component-header">
+              <h3>Generate</h3>
+            </div>
+            <div className="description-container">
+              <p>
+                Imagine having a tailored skateboard build that aligns perfectly with your
+                preferences and needs. With our Generate feature, that's exactly what you'll get.
+                It crafts a sample build for you, complete with detailed specs for each part.
+                This way, you get a solid understanding of what to look for in your own creation,
+                effectively minimizing time and money spent on trial and error.
+              </p>
+              <Link to="/generate">Go to Generate</Link>
+            </div>
           </div>
         </div>
       </div>
 
       <div className="component-section">
-        <div className="component-header">
-          <h3>Guru</h3>
-        </div>
         <div className="content-container">
           <div className="guru-component-image-container">
             <img className="component-image"
@@ -105,24 +104,26 @@ const Home = () => {
               alt="Guru Section Image"
             />
           </div>
-          <div className="description-container">
-            <p>
-              Ever wished you had an expert by your side to answer all your electric skateboard queries
-              instantly? Meet the Esk8 Guru, your AI-based companion that’s always ready to help. Unlike
-              traditional forums where you might wait days for a response, our Esk8 Guru gives you the
-              answers you need immediately. Specialized only in electric skateboards, Esk8 Guru ensures that
-              the advice you receive is accurate and reliable, allowing you to proceed with your build with
-              great confidence.
-            </p>
-            <Link to="/guru">Go to Guru</Link>
+          <div className="text-container">
+            <div className="component-header">
+              <h3>Guru</h3>
+            </div>
+            <div className="description-container">
+              <p>
+                Ever wished you had an expert by your side to answer all your electric skateboard queries
+                instantly? Meet the Esk8 Guru, your AI-based companion that’s always ready to help. Unlike
+                traditional forums where you might wait days for a response, our Esk8 Guru gives you the
+                answers you need immediately. Specialized only in electric skateboards, Esk8 Guru ensures that
+                the advice you receive is accurate and reliable, allowing you to proceed with your build with
+                great confidence.
+              </p>
+              <Link to="/guru">Go to Guru</Link>
+            </div>
           </div>
         </div>
       </div>
 
       <div className="component-section">
-        <div className="component-header">
-          <h3>Gallery</h3>
-        </div>
         <div className="content-container">
           <div className="gallery-component-image-container">
             <img className="component-image"
@@ -130,15 +131,20 @@ const Home = () => {
               alt="Gallery Section Image"
             />
           </div>
-          <div className="description-container">
-            <p>
-              Dive into a vibrant community where your builds can shine and inspire. Not only is the Gallery
-              a platform to share photos of your electric skateboard creations, but also a place where your
-              work can be recognized and potentially land a spot of honor in the Hall of Fame. Here, the top 3
-              liked photos will be displayed, providing you and new builders alike new ideas and perspectives
-              for further customization.
-            </p>
-            <Link to="/gallery">Go to Gallery</Link>
+          <div className="text-container">
+            <div className="component-header">
+              <h3>Gallery</h3>
+            </div>
+            <div className="description-container">
+              <p>
+                Dive into a vibrant community where your builds can shine and inspire. Not only is the Gallery
+                a platform to share photos of your electric skateboard creations, but also a place where your
+                work can be recognized and potentially land a spot of honor in the Hall of Fame. Here, the top 3
+                liked photos will be displayed, providing you and new builders alike new ideas and perspectives
+                for further customization.
+              </p>
+              <Link to="/gallery">Go to Gallery</Link>
+            </div>
           </div>
         </div>
       </div>
