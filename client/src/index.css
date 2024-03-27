@@ -182,6 +182,17 @@ body::before {
   padding: 0 15px;
 }
 
+/* Guide and Guru - Image on the left */
+.guide-component-image-container, 
+.guru-component-image-container {
+  order: 1;
+}
+
+/* Generate and Gallery - Image on the right */
+.generate-component-image-container, 
+.gallery-component-image-container {
+  order: 2;
+}
 
 
 
