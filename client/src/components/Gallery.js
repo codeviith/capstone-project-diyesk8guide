@@ -220,10 +220,9 @@ function Gallery() {
     };
 
     const modalMessage1 = `Please be aware that all images uploaded to our platform must adhere to the community standards. Inappropriate 
-    images or use of abusive language will not be tolerated. To ensure a welcoming and safe environment for 
-    everyone, all uploads undergo moderator review and any content found to be offensive or in violation of our rules and policies will 
-    be promptly removed. We encourage all users to familiarize themselves with our guidelines to help maintain the integrity and 
-    positivity of our community.`;
+    images or use of abusive language will not be tolerated. To ensure a safe and welcoming environment for everyone, all uploads will 
+    undergo moderator review and any content found to be offensive or in violation of our rules and policies will be promptly removed. 
+    We encourage all users to familiarize themselves with our guidelines to help maintain the integrity and positivity of our community.`;
 
     const modalMessage2 = `For detailed information on what constitutes appropriate content, please visit our Rules & Policies page.`;
 
