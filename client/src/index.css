@@ -151,7 +151,48 @@ body::before {
 
 
 /* Component Description  */
+
 .component-description {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 25px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.component-header h2 {
+  margin-bottom: 20px;
+}
+
+.content-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.component-image-container, .content-container > div {
+  flex: 1;
+  max-width: 48%; /* Limit max width to ensure side-by-side layout */
+  text-align: center;
+}
+
+.component-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Alternating image layout */
+.generate-component-image-container, .gallery-component-image-container {
+  order: 2;
+}
+
+/* .component-description {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -180,19 +221,19 @@ body::before {
 .component-description div {
   flex: 1;
   padding: 0 15px;
-}
+} */
 
 /* Guide and Guru - Image on the left */
-.guide-component-image-container, 
+/* .guide-component-image-container, 
 .guru-component-image-container {
   order: 1;
-}
+} */
 
 /* Generate and Gallery - Image on the right */
-.generate-component-image-container, 
+/* .generate-component-image-container, 
 .gallery-component-image-container {
   order: 2;
-}
+} */
 
 
 
@@ -250,12 +291,12 @@ body::before {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.home h2 {
+/* .home h2 {
   color: black;
   font-size: 32px;
   margin-top: 2px;
   margin-bottom: 20px;
-}
+} */
 
 
 
