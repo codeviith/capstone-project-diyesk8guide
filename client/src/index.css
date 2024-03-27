@@ -2060,7 +2060,7 @@ nav a.home-link:hover {
 .modal-button-cancel {
   padding: 10px 20px;
   width: auto;
-  /* min-width: 100px; */
+  min-width: 100px;
   text-align: center;
   cursor: pointer;
   border: none;
