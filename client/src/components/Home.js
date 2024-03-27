@@ -40,7 +40,7 @@ const Home = () => {
       <div className="component-description">
         <h2>Guide</h2>
         <div className="guide-component-image-container">
-          <img className="guide-component-image"
+          <img className="component-image"
             src={guideImage}
             alt="Guide Section Image"
           />
@@ -72,7 +72,7 @@ const Home = () => {
           </p>
         </div>
         <div className="generate-component-image-container">
-          <img className="generate-component-image"
+          <img className="component-image"
             src={generateImage}
             alt="Generate Section Image"
           />
@@ -83,7 +83,7 @@ const Home = () => {
       <div className="component-description">
         <h2>Guru</h2>
         <div className="guru-component-image-container">
-          <img className="guru-component-image"
+          <img className="component-image"
             src={guruImage}
             alt="Guru Section Image"
           />
@@ -113,7 +113,7 @@ const Home = () => {
           </p>
         </div>
         <div className="gallery-component-image-container">
-          <img className="gallery-component-image"
+          <img className="component-image"
             src={galleryImage}
             alt="Gallery Section Image"
           />

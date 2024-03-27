@@ -137,21 +137,56 @@ body::before {
   border-radius: 8px; 
 }
 
-.component-description {
-  margin-bottom: 25px;
-  margin-left: 250px;
-  margin-right: 250px;
-  padding: 10px;
-  border: 1px solid #ccc; 
-  border-radius: 8px; 
-}
-
 .home .intro h5 {
   color: black;
   font-size: 25px;
   margin-top: 2px;
   margin-bottom: 20px;
 }
+
+
+
+
+
+
+
+/* Component Description  */
+.component-description {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  margin-left: 250px;
+  margin-right: 250px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  gap: 20px;
+}
+
+.component-image-container {
+  flex: 1; 
+  max-width: 40%;
+  text-align: center;
+}
+
+.component-image {
+  max-width: 100%;
+  height: auto; 
+  border-radius: 8px;
+}
+
+.component-description div {
+  flex: 1;
+  padding: 0 15px;
+}
+
+
+
+
+
+
 
 .home .intro span, 
 .home .component-description p {
@@ -210,6 +245,26 @@ body::before {
   margin-top: 2px;
   margin-bottom: 20px;
 }
+
+
+
+/* .component-description {
+  margin-bottom: 25px;
+  margin-left: 250px;
+  margin-right: 250px;
+  padding: 10px;
+  border: 1px solid #ccc; 
+  border-radius: 8px; 
+}
+ */
+
+
+
+
+
+
+
+
 
 
 
