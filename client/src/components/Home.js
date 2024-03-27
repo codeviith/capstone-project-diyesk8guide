@@ -83,9 +83,9 @@ const Home = () => {
               This way, you get a solid understanding of what to look for in your own creation,
               effectively minimizing time and money spent on trial and error.
             </p>
+            <Link to="/generate">Go to Generate</Link>
           </div>
         </div>
-        <Link to="/generate">Go to Generate</Link>
       </div>
 
       <div className="component-description">
