@@ -1455,14 +1455,14 @@ nav a.home-link:hover {
 
 .login-prompt-container {
   max-width: 1300px;
-  /* margin: 0 auto; */
-  padding: 30px;
+  margin: 0 auto;
+  padding: 20px;
   text-align: center;
   background-color: gray;
   border-radius: 8px;
   font-size: 18px;
-  /* margin-top: 12px; */
-  /* margin-bottom: 20px; */
+  margin-top: 12px;
+  margin-bottom: 20px;
 }
 
 /* position: relative;
