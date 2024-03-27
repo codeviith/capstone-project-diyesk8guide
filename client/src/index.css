@@ -129,7 +129,8 @@ body::before {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.home .intro, .home {
+.home .intro, 
+.home {
   margin-bottom: 25px;
   padding: 10px;
   border: 1px solid #ccc; 
@@ -138,8 +139,8 @@ body::before {
 
 .component-description {
   margin-bottom: 25px;
-  margin-left: 300px;
-  margin-right: 300px;
+  margin-left: 250px;
+  margin-right: 250px;
   padding: 10px;
   border: 1px solid #ccc; 
   border-radius: 8px; 
@@ -152,7 +153,8 @@ body::before {
   margin-bottom: 20px;
 }
 
-.home .intro span, .home .component-description p {
+.home .intro span, 
+.home .component-description p {
   display: block;
   margin-bottom: 1px;
   font-size: 18px;
@@ -357,7 +359,8 @@ nav {
   transition: box-shadow 0.3s;
 }
 
-.nav-links-left, .nav-links-right {
+.nav-links-left, 
+.nav-links-right {
   display: flex;
   align-items: center;
 }
@@ -444,7 +447,8 @@ nav a.home-link:hover {
   margin-left: 10px; 
 }
 
-.login-link:hover, .signup-link:hover {
+.login-link:hover, 
+.signup-link:hover {
   background-color: #333; 
   color: white;
   border-color: gray; 
@@ -546,7 +550,8 @@ nav a.home-link:hover {
   border-color: #a90404;
 }
 
-.login-button, .signup-button {
+.login-button, 
+.signup-button {
   background-color: darkgreen;
   color: white;
   padding: 10px 20px;
@@ -556,7 +561,8 @@ nav a.home-link:hover {
   cursor: pointer;
 }
 
-.login-button, .signup-button:hover {
+.login-button:hover, 
+.signup-button:hover {
   background-color: rgb(3, 132, 3); 
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.5)
 }
@@ -639,7 +645,8 @@ nav a.home-link:hover {
   margin-top: 10px;
 }
 
-.password-criteria, .password-criteria span {
+.password-criteria, 
+.password-criteria span {
   /* margin-top: 5px; */
   text-align: left;
   font-size: 13px;
@@ -672,7 +679,8 @@ nav a.home-link:hover {
   border-radius: 5px;
 }
 
-.signup input:focus, .signup select:focus {
+.signup input:focus, 
+.signup select:focus {
   outline: none;
   border-color: #a90404;
 }
@@ -929,7 +937,8 @@ nav a.home-link:hover {
   align-items: center;
 }
 
-.edit-button, .save-button {
+.edit-button, 
+.save-button {
   display: inline-block;
   /* margin-top: 5px; */
   margin-left: 5px;
@@ -943,12 +952,14 @@ nav a.home-link:hover {
   width:auto
 }
 
-.edit-button:hover, .save-button:hover {
+.edit-button:hover, 
+.save-button:hover {
   background-color: #0056b3;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
 }
 
-.account-delete-confirm-button, .account-delete-cancel-button {
+.account-delete-confirm-button,
+.account-delete-cancel-button {
   display: inline-block;
   /* margin-top: 5px; */
   margin-left: 5px;
@@ -1094,7 +1105,8 @@ nav a.home-link:hover {
   color: rgb(96, 1, 1);
 }
 
-.question-strong, .answer-strong {
+.question-strong, 
+.answer-strong {
   font-weight: bolder;
   text-decoration: underline;
   font-size: 18px;
@@ -1780,7 +1792,9 @@ nav a.home-link:hover {
   border-radius: 4px;
 }
 
-.floating-form input:focus, .floating-form textarea:focus, .floating-form select:focus {
+.floating-form input:focus, 
+.floating-form textarea:focus, 
+.floating-form select:focus {
   outline: none; 
   border-color: #a90404;
 }
@@ -1816,7 +1830,8 @@ nav a.home-link:hover {
   box-shadow: 0 0 5px white;
 }
 
-.motor-size, .motor-kv, .motor-power {
+.motor-size, .motor-kv, 
+.motor-power {
   display: block; 
   margin-top: 1px; 
   font-size: 13px;
@@ -1895,9 +1910,6 @@ nav a.home-link:hover {
   background-image: url("https://wallpapercave.com/wp/wp7316402.jpg");
   /* background-image: url("https://w0.peakpx.com/wallpaper/949/433/HD-wallpaper-gold-metal-plate-golden-metal-plate-texture.jpg"); */
   /* background-image: url("https://wallpapercave.com/wp/wp2446110.jpg"); */
-  /* background-image: url("jpg"); */
-  /* background-image: url("jpg"); */
-  /* background-image: url("jpg"); */
   /* background-size: contain; */
   background-size: cover; 
   /* background-size: fill;  */
