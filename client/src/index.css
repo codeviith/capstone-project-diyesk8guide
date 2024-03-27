@@ -2041,13 +2041,13 @@ nav a.home-link:hover {
 
 .modal-actions {
   display: flex;
-  /* justify-content: space-between; */
+  justify-content: center;
   gap: 10px;
 }
 
 .modal-button-agree {
   padding: 10px 20px;
-  width: auto;
+  width: auto !important;
   /* min-width: 100px; */
   text-align: center;
   cursor: pointer;

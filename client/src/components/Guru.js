@@ -65,7 +65,7 @@ function Guru() {
                             type="text"
                             value={userInput}
                             onChange={(e) => setUserInput(e.target.value)}
-                            placeholder="Ask me anything about electric skateboards..."
+                            placeholder="Ask me anything about electric skateboards...(but please, one question at a time)"
                         />
                         {error && <div className='guru-error-message'>{error}</div>}
                         <button className='guru-button' type="guru-submit">Ask</button>
