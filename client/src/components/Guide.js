@@ -1,7 +1,10 @@
 import React from 'react';
 import { NavLink } from "react-router-dom";
+import { AuthContext } from './AuthContext';
 
 const Guide = () => {
+    const { isLoggedIn } = useContext(AuthContext); // Using useContext to access isLoggedIn
+    
     // Step headers
     const stepHeaders = [
         "Step 1: Create a Game Plan",
@@ -69,6 +72,14 @@ const Guide = () => {
         "/link-for-step-7",
         "/link-for-step-8"
     ];
+
+    if (!isLoggedIn) {
+        return (
+            <div className="login-prompt-container">
+                <p>Please <NavLink to="/login">log in</NavLink> to access the guide.</p>
+            </div>
+        );
+    }
 
     return (
         <div className="guide">
