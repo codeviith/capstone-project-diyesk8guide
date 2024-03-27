@@ -1,4 +1,17 @@
+/////////////// Use a modal pop up upon image submission and put this message in there: ////////////////////
+// Please be aware that all images uploaded to our platform must adhere to our community standards and respect all members. 
+// Inappropriate images or use of abusive language will not be tolerated. To ensure a welcoming and safe environment for everyone, 
+// all uploads undergo moderator review and any content found to be offensive or in violation of our rules and policies will be 
+// promptly removed. We encourage all users to familiarize themselves with our guidelines to help maintain the integrity and 
+// positivity of our community.
+
+// For detailed information on what constitutes appropriate content, please visit our Rules and Policies page.
+
+// Thank you for your understanding and cooperation in creating a respectful and enjoyable experience for all.
+
+
 import React, { useState, useEffect, useContext } from 'react';
+import Modal from './Modal';
 import HeartButton from './HeartButton';
 import ReportIcon1 from './ReportIcon1';
 // import ReportIcon2 from './ReportIcon2';
@@ -31,6 +44,7 @@ function Gallery() {
     const [reportErrors, setReportErrors] = useState({});
     const [reportSuccess, setReportSuccess] = useState({});
     const { isLoggedIn } = useContext(AuthContext);
+    const [showModal, setShowModal] = useState(false);  // This state controls modal visibility
 
     const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
 
@@ -151,6 +165,11 @@ function Gallery() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setShowModal(true); // code to show modal upon form submission so that nothing gets submitted after button press
+    };
+
+    const handleModalConfirm = async () => {
+        setShowModal(false); // code to close modal
 
         const submissionFields = {  // Code to add 'n/a' to other_features if input is blank
             ...formFields,
@@ -206,6 +225,21 @@ function Gallery() {
             setUploadError(error.message); // Code to pass error message from the backend to the uploadError state
         }
     };
+
+    const handleModalClose = () => {
+        setShowModal(false); // code to close modal
+        resetForm(); // code to reset the form
+    };
+
+    const modalMessage = `Please be aware that all images uploaded to our platform must adhere to our community standards and respect all members. 
+    Inappropriate images or use of abusive language will not be tolerated. To ensure a welcoming and safe environment for everyone, 
+    all uploads undergo moderator review and any content found to be offensive or in violation of our rules and policies will be 
+    promptly removed. We encourage all users to familiarize themselves with our guidelines to help maintain the integrity and 
+    positivity of our community.
+
+    For detailed information on what constitutes appropriate content, please visit our Rules and Policies page.
+
+    Thank you for your understanding and cooperation in creating a respectful and enjoyable experience for all.`;
 
     const updateHeartCount = (index, change) => {
         // console.log(`Updating heart count for index ${index} with change ${change}`);
@@ -554,6 +588,12 @@ function Gallery() {
                     <button type="submit">Submit</button>
                     {uploadError && <div className="upload-error">{uploadError}</div>}
                 </form>
+                <Modal
+                    isOpen={showModal}
+                    onClose={handleModalClose}
+                    onConfirm={handleModalConfirm}
+                    message={modalMessage}
+                />
             </div>
         </div>
     );
