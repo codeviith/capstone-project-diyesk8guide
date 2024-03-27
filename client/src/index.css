@@ -2063,12 +2063,15 @@ nav a.home-link:hover {
 
 .modal-actions {
   display: flex;
-  justify-content: space-between; 
+  /* justify-content: space-between; */
   gap: 10px;
 }
 
 .modal-button {
   padding: 10px 20px;
+  width: auto;
+  min-width: 100px;
+  text-align: center;
   cursor: pointer;
   border: none;
   border-radius: 5px;

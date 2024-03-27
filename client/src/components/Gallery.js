@@ -219,15 +219,15 @@ function Gallery() {
         resetForm(); // code to reset the form
     };
 
-    const modalMessage = `Please be aware that all images uploaded to our platform must adhere to our community standards and respect all members. 
-    Inappropriate images or use of abusive language will not be tolerated. To ensure a welcoming and safe environment for everyone, 
-    all uploads undergo moderator review and any content found to be offensive or in violation of our rules and policies will be 
-    promptly removed. We encourage all users to familiarize themselves with our guidelines to help maintain the integrity and 
-    positivity of our community.
+    const modalMessage1 = `Please be aware that all images uploaded to our platform must adhere to the community standards. Inappropriate 
+    images or use of abusive language will not be tolerated. To ensure a welcoming and safe environment for 
+    everyone, all uploads undergo moderator review and any content found to be offensive or in violation of our rules and policies will 
+    be promptly removed. We encourage all users to familiarize themselves with our guidelines to help maintain the integrity and 
+    positivity of our community.`;
 
-    For detailed information on what constitutes appropriate content, please visit our Rules and Policies page.
+    const modalMessage2 = `For detailed information on what constitutes appropriate content, please visit our Rules & Policies page.`;
 
-    Thank you for your understanding and cooperation in creating a respectful and enjoyable experience for all.`;
+    const modalMessage3 = `Thank you for your understanding and cooperation in creating a respectful and enjoyable environment.`;
 
     const updateHeartCount = (index, change) => {
         // console.log(`Updating heart count for index ${index} with change ${change}`);
@@ -580,7 +580,9 @@ function Gallery() {
                     isOpen={showModal}
                     onClose={handleModalClose}
                     onConfirm={handleModalConfirm}
-                    message={modalMessage}
+                    message1={modalMessage1}
+                    message2={modalMessage2}
+                    message3={modalMessage3}
                 />
             </div>
         </div>
