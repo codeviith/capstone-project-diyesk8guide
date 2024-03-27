@@ -59,9 +59,9 @@ const Home = () => {
               of the build process, allowing you to tailor the build to your specific needs as you
               progress. Start your journey with confidence—our guide is here to lead the way!
             </p>
+            <Link to="/guide">Go to Guide</Link>
           </div>
         </div>
-        <Link to="/guide">Go to Guide</Link>
       </div>
 
       <div className="component-description">
@@ -108,9 +108,9 @@ const Home = () => {
               the advice you receive is accurate and reliable, allowing you to proceed with your build with
               great confidence.
             </p>
+            <Link to="/guru">Go to Guru</Link>
           </div>
         </div>
-        <Link to="/guru">Go to Guru</Link>
       </div>
 
       <div className="component-description">
@@ -132,9 +132,9 @@ const Home = () => {
               liked photos will be displayed, providing you and new builders alike new ideas and perspectives
               for further customization.
             </p>
+            <Link to="/gallery">Go to Gallery</Link>
           </div>
         </div>
-        <Link to="/gallery">Go to Gallery</Link>
       </div>
       <div className="footer-bottom">
         <NavLink className="footer-bottom-link" to="/about">About</NavLink>

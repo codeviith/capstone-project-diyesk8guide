@@ -160,7 +160,7 @@ body::before {
   margin-left: auto;
   margin-right: auto;
   padding: 10px;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   border-radius: 8px;
 }
 
@@ -183,8 +183,10 @@ body::before {
   margin-bottom: 1px;
   font-size: 18px;
   line-height: 1.5;
+  padding: 15px;
   color: black;
-  border: 1px solid #ccc;
+  border: 1.5px solid #ccc;
+  border-radius: 20px;
 }
 
 .component-image-container, .content-container > div {
