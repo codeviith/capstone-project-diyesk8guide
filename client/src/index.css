@@ -2156,6 +2156,20 @@ nav a.home-link:hover {
 
 
 
+
+/* href links */
+
+.login-href {
+  color: rgb(100, 212, 249)
+}
+
+
+
+
+
+
+
+
 /* success and error messages */
 .success-message {
   color: rgb(0, 64, 0);

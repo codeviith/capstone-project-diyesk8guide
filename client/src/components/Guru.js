@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { NavLink } from "react-router-dom";
 import { responseStyle } from './CommonStyles'
 import { formatResponse } from './CommonFunctions'
 import { AuthContext } from './AuthContext';
@@ -84,7 +85,7 @@ function Guru() {
                     )}
                 </>
             ) : (
-                <p className='login-request'>Please log in to ask a question.</p>
+                <p className='login-request'>Please <NavLink className="login-href" to="/login">log in</NavLink> to ask a question.</p>
             )}
         </div>
     );

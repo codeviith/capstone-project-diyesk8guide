@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { NavLink } from "react-router-dom";
 import { AuthContext } from "./AuthContext";
 
 /////MAIN COMPONENT CODE:
@@ -390,7 +391,7 @@ function Generate() {
           {renderBoardSpecs()}
         </>
       ) : (
-        <p>Please log in to access the Generate feature.</p>
+        <p>Please <NavLink className="login-href" to="/login">log in</NavLink> to access the Generate feature.</p>
       )}
     </div>
   );

@@ -76,7 +76,7 @@ const Guide = () => {
     if (!isLoggedIn) {
         return (
             <div className="login-prompt-container">
-                <p>Please <NavLink to="/login">log in</NavLink> to access the guide.</p>
+                <p>Please <NavLink className="login-href" to="/login">log in</NavLink> to access the guide.</p>
             </div>
         );
     }
