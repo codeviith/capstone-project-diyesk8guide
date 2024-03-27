@@ -2018,7 +2018,7 @@ nav a.home-link:hover {
 
 /* modal (universal) */
 
-.modal-overlay {
+/* .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -2029,15 +2029,30 @@ nav a.home-link:hover {
   justify-content: center;
   align-items: center;
   z-index: 1000;
-}
+} */
 
-.modal-container {
+/* .modal-container {
   background-color: black;
   color: white;
   padding: 20px;
   border-radius: 5px;
   max-width: 500px;
   z-index: 1001;
+} */
+
+.modal-container {
+  position: fixed;
+  max-width: auto;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: black;
+  padding: 20px;
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 25px;
 }
 
 .modal-text {
