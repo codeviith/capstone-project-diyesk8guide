@@ -38,15 +38,15 @@ const Home = () => {
       </div>
 
       <div className="component-description">
-        <div className="component-header">
-          <h2>Guide</h2>
-        </div>
         <div className="content-container">
           <div className="guide-component-image-container">
             <img className="component-image"
               src={guideImage}
               alt="Guide Section Image"
             />
+          </div>
+          <div className="component-header">
+            <h2>Guide</h2>
           </div>
           <div className="description-container">
             <p>
