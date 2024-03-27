@@ -1456,11 +1456,11 @@ nav a.home-link:hover {
 .login-prompt-container {
   max-width: 1300px;
   margin: 0 auto;
-  padding: 18px;
+  padding: 19px;
   text-align: center;
   background-color: gray;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 17px;
   margin-bottom: 20px;
 }
 
