@@ -1434,6 +1434,38 @@ nav a.home-link:hover {
   border-radius: 8px;
 }
 
+
+
+
+
+
+
+
+.guide-step img {
+  max-width: 60%;
+  height: auto;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+
+.step-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.login-prompt-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+
+
+
+
+
+
 .guide-content {
   margin-top: 10px;
 }

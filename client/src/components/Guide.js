@@ -74,17 +74,17 @@ const Guide = () => {
     ];
 
     const stepImages = [
-        "/path-to-image-for-step-1.jpg",
-        "/path-to-image-for-step-2.jpg",
-        "/path-to-image-for-step-3.jpg",
-        "/path-to-image-for-step-4.jpg",
-        "/path-to-image-for-step-5.jpg",
-        "/path-to-image-for-step-6.jpg",
-        "/path-to-image-for-step-7.jpg",
-        "/path-to-image-for-step-8.jpg",
-        "/path-to-image-for-step-9.jpg"
+        ["./images/ID2.jpeg", "./images/ID1.jpg"],
+        ["./images/ID3.jpg"],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
     ]
-
+    client/src/components/images/ID3.jpg
     if (!isLoggedIn) {
         return (
             <div className="login-prompt-container">
@@ -100,8 +100,15 @@ const Guide = () => {
                 <div key={index} className="guide-step">
                     <h2>{header}</h2>
                     <div className="guide-content">
+                        <div className="step-images">
+                            {stepImages[index] && stepImages[index].map((image, imgIndex) => (
+                                <img className="step-image"
+                                    key={imgIndex}
+                                    src={image} alt={`Step ${index + 1} Image ${imgIndex + 1}`}
+                                />
+                            ))}
+                        </div>
                         {/* If index is 3, which is equivalent to step 4, then split and add <br /> after quote */}
-                        <img src={stepImages[index]} alt={`Step ${index + 1}`} className="guide-step-image" />
                         {index === 3 ? (
                             <p>
                                 {"'Man is a tool-using animal. Without tools he is nothing, with tools he is all.' ~Thomas Carlyle."}
