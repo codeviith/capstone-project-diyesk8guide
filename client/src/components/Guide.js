@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { NavLink } from "react-router-dom";
 import { AuthContext } from './AuthContext';
 
 const Guide = () => {
     const { isLoggedIn } = useContext(AuthContext); // Using useContext to access isLoggedIn
-    
+
     // Step headers
     const stepHeaders = [
         "Step 1: Create a Game Plan",
