@@ -2045,7 +2045,7 @@ nav a.home-link:hover {
   max-width: auto;
   top: 20%;
   left: 50%;
-  transform: translate(-50%, -30%);
+  transform: translate(-50%, -20%);
   background-color: black;
   padding: 20px;
   z-index: 1001;
@@ -2067,7 +2067,19 @@ nav a.home-link:hover {
   gap: 10px;
 }
 
-.modal-button {
+.modal-button-agree {
+  padding: 10px 20px;
+  width: auto;
+  /* min-width: 100px; */
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+}
+
+.modal-button-cancel {
   padding: 10px 20px;
   width: auto;
   min-width: 100px;

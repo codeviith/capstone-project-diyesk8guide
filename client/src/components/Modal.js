@@ -10,11 +10,11 @@ const Modal = ({ isOpen, onClose, onConfirm, message1, message2, message3 }) => 
                 <p className='modal-text'>{message2}</p>
                 <p className='modal-text'>{message3}</p>
                 <div className="modal-actions">
-                    <button className='modal-button'
+                    <button className='modal-button-agree'
                         onClick={onConfirm}
                     >Agree & Proceed
                     </button>
-                    <button className='modal-button'
+                    <button className='modal-button-cancel'
                         onClick={onClose}
                     >Cancel
                     </button>
