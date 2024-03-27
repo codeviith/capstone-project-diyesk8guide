@@ -74,8 +74,8 @@ const Guide = () => {
     ];
 
     const stepImages = [
-        ["./images/ID2.jpeg", "./images/ID1.jpg"],
-        ["./images/ID3.jpg"],
+        [require("./images/ID2.jpeg"), require("./images/ID1.jpg")],
+        [require("./images/ID3.jpg")],
         [],
         [],
         [],
