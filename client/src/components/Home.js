@@ -38,9 +38,6 @@ const Home = () => {
       </div>
 
       <div className="component-section">
-        <div className="component-header">
-          <h2>Guide</h2>
-        </div>
         <div className="content-container">
           <div className="guide-component-image-container">
             <img className="component-image"
@@ -48,18 +45,23 @@ const Home = () => {
               alt="Guide Section Image"
             />
           </div>
-          <div className="description-container">
-            <p>
-              Are you stepping into the world of DIY electric skateboards for the first time? Our
-              Quick Start Guide is the ideal place to embark on this exciting journey. This
-              comprehensive section is designed to walk you through every phase of building your
-              first electric skateboard. From handpicking the components to piecing them together
-              into a fully operational skateboard, our guide lays down the groundwork in a
-              step-by-step, easy-to-follow fashion. It is designed to equip you with the fundamentals
-              of the build process, allowing you to tailor the build to your specific needs as you
-              progress. Start your journey with confidence—our guide is here to lead the way!
-            </p>
-            <Link to="/guide">Go to Guide</Link>
+          <div className="text-container">
+            <div className="component-header">
+              <h2>Guide</h2>
+            </div>
+            <div className="description-container">
+              <p>
+                Are you stepping into the world of DIY electric skateboards for the first time? Our
+                Quick Start Guide is the ideal place to embark on this exciting journey. This
+                comprehensive section is designed to walk you through every phase of building your
+                first electric skateboard. From handpicking the components to piecing them together
+                into a fully operational skateboard, our guide lays down the groundwork in a
+                step-by-step, easy-to-follow fashion. It is designed to equip you with the fundamentals
+                of the build process, allowing you to tailor the build to your specific needs as you
+                progress. Start your journey with confidence—our guide is here to lead the way!
+              </p>
+              <Link to="/guide">Go to Guide</Link>
+            </div>
           </div>
         </div>
       </div>
