@@ -84,7 +84,7 @@ const Guide = () => {
         [],
         []
     ]
-    client/src/components/images/ID3.jpg
+
     if (!isLoggedIn) {
         return (
             <div className="login-prompt-container">
