@@ -133,7 +133,7 @@ body::before {
 .home {
   margin-bottom: 25px;
   padding: 10px;
-  /* border: 1px solid #ccc;  */
+  /* border: 2px solid #ccc;  */
   border-radius: 8px; 
 }
 
@@ -152,12 +152,6 @@ body::before {
   text-align: left;
 }
 
-
-
-
-
-/* Component Description  */
-
 .component-section {
   display: flex;
   flex-direction: column;
@@ -166,7 +160,7 @@ body::before {
   margin-left: auto;
   margin-right: auto;
   padding: 10px;
-  /* border: 1px solid #ccc; */
+  /* border: 2px solid #ccc; */
   border-radius: 8px;
 }
 
@@ -211,54 +205,6 @@ body::before {
 .generate-component-image-container, .gallery-component-image-container {
   order: 2;
 }
-
-/* .component-section {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 25px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  gap: 20px;
-}
-
-.component-image-container {
-  flex: 1; 
-  max-width: 40%;
-  text-align: center;
-}
-
-.component-image {
-  max-width: 100%;
-  height: auto; 
-  border-radius: 8px;
-}
-
-.component-section div {
-  flex: 1;
-  padding: 0 15px;
-} */
-
-/* Guide and Guru - Image on the left */
-/* .guide-component-image-container, 
-.guru-component-image-container {
-  order: 1;
-} */
-
-/* Generate and Gallery - Image on the right */
-/* .generate-component-image-container, 
-.gallery-component-image-container {
-  order: 2;
-} */
-
-
-
-
-
 
 .home .intro span, 
 .home .component-section p {
@@ -310,30 +256,6 @@ body::before {
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
-/* .home h2 {
-  color: black;
-  font-size: 32px;
-  margin-top: 2px;
-  margin-bottom: 20px;
-} */
-
-
-
-/* .component-section {
-  margin-bottom: 25px;
-  margin-left: 250px;
-  margin-right: 250px;
-  padding: 10px;
-  border: 1px solid #ccc; 
-  border-radius: 8px; 
-}
- */
-
-
-
-
-
 
 
 
@@ -481,8 +403,9 @@ nav {
   align-items: center;
   background-color: black;
   padding: 2px;
+  border: 2px solid #cbcbcb;
   border-radius: 11px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 15px rgba(254, 254, 254, 0.984);
   transition: box-shadow 0.3s;
 }
 
