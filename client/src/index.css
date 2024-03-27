@@ -1461,20 +1461,14 @@ nav a.home-link:hover {
   background-color: gray;
   border-radius: 8px;
   font-size: 18px;
-  margin-top: 12px;
+  /* margin-top: 12px; */
   margin-bottom: 20px;
 }
 
-/* position: relative;
-text-align: center;
-background-color: rgb(23, 23, 23);
-padding: 30px;
-margin-bottom: 20px;
-border-radius: 8px; 
-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
-color: white;
-font-size: 18px;
-margin-top: 12px; */
+
+
+
+
 
 
 
