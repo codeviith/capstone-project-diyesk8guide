@@ -48,7 +48,7 @@ const Home = () => {
               alt="Guide Section Image"
             />
           </div>
-          <div>
+          <div className="description-container">
             <p>
               Are you stepping into the world of DIY electric skateboards for the first time? Our
               Quick Start Guide is the ideal place to embark on this exciting journey. This
@@ -75,7 +75,7 @@ const Home = () => {
               alt="Generate Section Image"
             />
           </div>
-          <div>
+          <div className="description-container">
             <p>
               Imagine having a tailored skateboard build that aligns perfectly with your
               preferences and needs. With our Generate feature, that's exactly what you'll get.
@@ -99,7 +99,7 @@ const Home = () => {
               alt="Guru Section Image"
             />
           </div>
-          <div>
+          <div className="description-container">
             <p>
               Ever wished you had an expert by your side to answer all your electric skateboard queries
               instantly? Meet the Esk8 Guru, your AI-based companion that’s always ready to help. Unlike
@@ -124,7 +124,7 @@ const Home = () => {
               alt="Gallery Section Image"
             />
           </div>
-          <div>
+          <div className="description-container">
             <p>
               Dive into a vibrant community where your builds can shine and inspire. Not only is the Gallery
               a platform to share photos of your electric skateboard creations, but also a place where your

@@ -178,6 +178,15 @@ body::before {
   align-items: center;
 }
 
+.description-container {
+  display: block;
+  margin-bottom: 1px;
+  font-size: 18px;
+  line-height: 1.5;
+  color: black;
+  border: 1px solid #ccc;
+}
+
 .component-image-container, .content-container > div {
   flex: 1;
   max-width: 48%;
