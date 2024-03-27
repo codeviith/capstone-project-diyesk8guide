@@ -5,11 +5,17 @@ const Modal = ({ isOpen, onClose, onConfirm, message }) => {
 
     return (
         <div className="modal-overlay">
-            <div className="modal-content">
-                <p>{message}</p>
+            <div className="modal-container">
+                <p className='modal-text'>{message}</p>
                 <div className="modal-actions">
-                    <button onClick={onConfirm}>Agree & Proceed</button>
-                    <button onClick={onClose}>Cancel</button>
+                    <button className='modal-button'
+                        onClick={onConfirm}
+                    >Agree & Proceed
+                    </button>
+                    <button className='modal-button'
+                        onClick={onClose}
+                    >Cancel
+                    </button>
                 </div>
             </div>
         </div>

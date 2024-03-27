@@ -71,8 +71,9 @@ body::before {
 
 
 
+
 /* Session Modal Container */
-.session-expiry-modal {
+.session-expiry-modal-container {
   position: fixed;
   top: 20%;
   left: 50%;
@@ -2030,24 +2031,39 @@ nav a.home-link:hover {
   z-index: 1000;
 }
 
-.modal-content {
-  background-color: #fff;
+.modal-container {
+  background-color: black;
+  color: white;
   padding: 20px;
   border-radius: 5px;
   max-width: 500px;
   z-index: 1001;
 }
 
+.modal-text {
+  margin-bottom: 20px;
+  text-align: center;
+  color: white;
+}
+
 .modal-actions {
   display: flex;
-  justify-content: space-around;
-  margin-top: 20px;
+  justify-content: space-between; 
+  gap: 10px;
 }
 
-button {
+.modal-button {
+  padding: 10px 20px;
   cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
 }
 
+.modal-button:hover {
+  background-color: #0056b3;
+}
 
 
 

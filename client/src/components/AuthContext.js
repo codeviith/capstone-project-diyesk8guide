@@ -133,7 +133,7 @@ export const AuthProvider = ({ children }) => {
         <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
             {children}
             {showInactivityModal && (
-                <div className="session-expiry-modal">
+                <div className="session-expiry-modal-container">
                     <p className="session-expiry-text">Your session is about to expire due to inactivity.</p>
                     <p className="session-expiry-text">Logging out in {countdownTime} seconds...</p>
                     <div className='buttons-container'>
