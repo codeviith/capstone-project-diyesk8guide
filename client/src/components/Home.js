@@ -36,7 +36,10 @@ const Home = () => {
           So unleash your potential and start building today!
         </span>
         <div className="intro_image">
-          <img src={DIY_beach} alt="Intro Image"/>
+          {/* <img src={DIY_collage} alt="Intro Image" /> */}
+          {/* <img src={DIY_beach} alt="Intro Image" /> */}
+          <img src={DIY_snow_1} alt="Intro Image" />
+          {/* <img src={DIY_snow_2} alt="Intro Image" /> */}
         </div>
       </div>
 
