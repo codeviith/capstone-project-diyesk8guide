@@ -92,7 +92,7 @@ def before_request_func():
     if request.endpoint not in excluded_routes:
         if 'last_activity' in session:
             last_activity = isoparse(session['last_activity'])
-            if datetime.now(timezone.utc) - last_activity > timedelta(minutes=15):
+            if datetime.now(timezone.utc) - last_activity > timedelta(minutes=20):
                 session.clear()
                 return jsonify({'error': 'Session timed out. Please log in again.'}), 401
             else:
