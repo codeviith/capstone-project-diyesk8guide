@@ -391,7 +391,7 @@ function Generate() {
           {renderBoardSpecs()}
         </>
       ) : (
-        <p>Please <NavLink className="login-href" to="/login">log in</NavLink> to access the Generate feature.</p>
+        <p>Please <NavLink className="login-href" to="/login">log in</NavLink> to access Generate feature.</p>
       )}
     </div>
   );
