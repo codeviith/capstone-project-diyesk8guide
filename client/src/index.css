@@ -152,7 +152,7 @@ body::before {
 
 /* Component Description  */
 
-.component-description {
+.component-section {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -206,7 +206,7 @@ body::before {
   order: 2;
 }
 
-/* .component-description {
+/* .component-section {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -232,7 +232,7 @@ body::before {
   border-radius: 8px;
 }
 
-.component-description div {
+.component-section div {
   flex: 1;
   padding: 0 15px;
 } */
@@ -255,7 +255,7 @@ body::before {
 
 
 .home .intro span, 
-.home .component-description p {
+.home .component-section p {
   display: block;
   margin-bottom: 1px;
   font-size: 18px;
@@ -263,7 +263,7 @@ body::before {
   color: black;
 }
 
-.home .component-description a {
+.home .component-section a {
   display: inline-block;
   padding: 5px 10px;
   background-color: #007bff;
@@ -273,7 +273,7 @@ body::before {
   margin-bottom: 10px;
 }
 
-.home .component-description a:hover {
+.home .component-section a:hover {
   background-color: #0056b3;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
 }
@@ -314,7 +314,7 @@ body::before {
 
 
 
-/* .component-description {
+/* .component-section {
   margin-bottom: 25px;
   margin-left: 250px;
   margin-right: 250px;
