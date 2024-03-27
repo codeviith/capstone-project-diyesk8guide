@@ -219,9 +219,9 @@ function Gallery() {
         resetForm(); // code to reset the form
     };
 
-    const modalMessage1 = `Please be aware that all images uploaded to our platform must adhere to the community standards. Inappropriate 
+    const modalMessage1 = `Please be aware that all images uploaded to our platform must adhere to community standards. Inappropriate 
     images or use of abusive language will not be tolerated and subjected to removal. To ensure a safe and welcoming environment for 
-    everyone, we encourage all users to familiarize themselves with our guidelines to help maintain the integrity and positivity of our 
+    everyone, we encourage all users to familiarize themselves with our guidelines to help maintain the integrity and positivity of the 
     community.`;
 
     const modalMessage2 = `For detailed information on what constitutes appropriate content, please visit our Rules & Policies page.`;
