@@ -157,8 +157,8 @@ body::before {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 25px;
-  margin-left: 250px;
-  margin-right: 250px;
+  margin-left: auto;
+  margin-right: auto;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
