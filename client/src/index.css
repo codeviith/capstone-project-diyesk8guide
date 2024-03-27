@@ -299,12 +299,12 @@ body::before {
   color: darkred;
 }
 
-.home .intro_collage {
+.home .intro_image {
   margin-top: 20px;
   position: relative;
 }
 
-.home .intro_collage img {
+.home .intro_image img {
   max-width: 100%;
   height: auto;
   border-radius: 8px;

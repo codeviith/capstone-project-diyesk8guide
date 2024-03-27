@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 
-import DIY_collage from "./images/p5 project collage.jpg";
+import DIY_collage from "./images/p5_project_collage.jpg";
+import DIY_beach from "./images/p5_project_beach.jpg";
+import DIY_snow_1 from "./images/p5_project_snow_1.jpg";
+import DIY_snow_2 from "./images/p5_project_snow_2.jpg";
 import guideImage from "./images/guide_component_image.jpg";
 import generateImage from "./images/generate_component_image.jpeg";
 import guruImage from "./images/guru_component_image.jpg";
@@ -32,8 +35,8 @@ const Home = () => {
         <span id="special-font2" style={{ whiteSpace: "pre-wrap" }}>
           So unleash your potential and start building today!
         </span>
-        <div className="intro_collage">
-          <img src={DIY_collage} alt="DIY_collage" className="collage" />
+        <div className="intro_image">
+          <img src={DIY_beach} alt="Intro Image"/>
         </div>
       </div>
 
