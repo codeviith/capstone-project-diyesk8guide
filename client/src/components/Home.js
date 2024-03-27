@@ -12,9 +12,9 @@ const Home = () => {
   return (
     <div className="home">
       <div className="intro">
-        <h5>
+        <h1>
           Welcome to DIYesk8Guide
-        </h5>
+        </h1>
         <span style={{ whiteSpace: "pre-wrap" }}>
           Are you ready to elevate your skateboarding experience to a whole new
           level?{"\n"}
@@ -37,6 +37,10 @@ const Home = () => {
         </div>
       </div>
 
+      <div className="features">
+        <h2>Introducing...</h2>
+      </div>
+
       <div className="component-section">
         <div className="content-container">
           <div className="guide-component-image-container">
@@ -47,7 +51,7 @@ const Home = () => {
           </div>
           <div className="text-container">
             <div className="component-header">
-              <h2>Guide</h2>
+              <h3>Guide</h3>
             </div>
             <div className="description-container">
               <p>
@@ -68,7 +72,7 @@ const Home = () => {
 
       <div className="component-section">
         <div className="component-header">
-          <h2>Generate</h2>
+          <h3>Generate</h3>
         </div>
         <div className="content-container">
           <div className="generate-component-image-container">
@@ -92,7 +96,7 @@ const Home = () => {
 
       <div className="component-section">
         <div className="component-header">
-          <h2>Guru</h2>
+          <h3>Guru</h3>
         </div>
         <div className="content-container">
           <div className="guru-component-image-container">
@@ -117,7 +121,7 @@ const Home = () => {
 
       <div className="component-section">
         <div className="component-header">
-          <h2>Gallery</h2>
+          <h3>Gallery</h3>
         </div>
         <div className="content-container">
           <div className="gallery-component-image-container">
