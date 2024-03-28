@@ -98,6 +98,11 @@ def before_request_func():
             else:
                 session['last_activity'] = datetime.now(timezone.utc).isoformat()
 
+### ------------------ KEEP SERVER AWAKE ------------------ ###
+
+@app.route('/bump')
+def bump():
+    return jsonify({"message": "silence"}), 200
 
 ### ------------------ AWS S3 CLIENT ------------------ ###
 

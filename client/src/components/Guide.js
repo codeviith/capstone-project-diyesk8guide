@@ -187,7 +187,14 @@ const Guide = () => {
                             <img key={imgIndex} src={image} alt={`Step ${index + 1} Image ${imgIndex + 1}`} />
                         ))}
                     </div>
-                    {step.link && <NavLink to={step.link} target="_blank" rel="noopener noreferrer">Learn more</NavLink>}
+                    {step.link &&
+                        <NavLink className="guide-href-link"
+                            to={step.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`Learn more about ${step.header}`}
+                        >Learn more
+                        </NavLink>}
                 </div>
             ))}
             <div className="footer-bottom">

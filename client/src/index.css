@@ -1461,7 +1461,7 @@ nav a.home-link:hover {
   margin-top: 10px;
 }
 
-.href-link {
+.guide-href-link {
   display: inline-block;
   margin-top: 10px;
   padding: 5px 10px;
@@ -1471,7 +1471,7 @@ nav a.home-link:hover {
   text-decoration: none;
 }
 
-.href-link:hover {
+.guide-href-link:hover {
   background-color: #0056b3;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
 }
@@ -1487,8 +1487,14 @@ nav a.home-link:hover {
   margin-bottom: 20px;
 }
 
-
-
+@media (max-width: 768px) {
+  .guide-step img {
+    max-width: 100%; /* Makes images take full width on smaller screens */
+  }
+  .step-images {
+    flex-direction: column; /* Stacks images vertically on smaller screens */
+  }
+}
 
 
 
