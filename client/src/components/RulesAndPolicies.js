@@ -18,13 +18,13 @@ function RulesAndPolicies() {
             </strong>
             <span style={{ whiteSpace: 'pre-wrap' }}>
                 <ul>
-                    Respectful Interaction: Users are expected to interact with others respectfully. Harassment, bullying, and hate speech are
-                    strictly prohibited. We are a diverse community of builders and enthusiasts, and respect for each other is
-                    paramount.{'\n'}{'\n'}
-                    Accuracy of Information: While sharing advice or information, please ensure it is accurate and helpful. Misleading or false
-                    information is harmful to our community’s learning experience.{'\n'}{'\n'}
-                    Legal Compliance: Users must comply with all local, national, and international laws while using the site. This includes,
-                    but is not limited to, copyright and intellectual property rights laws.{'\n'}{'\n'}
+                    <li>Respectful Interaction: Users are expected to interact with others respectfully. Harassment, bullying, and hate speech are
+                        strictly prohibited. We are a diverse community of builders and enthusiasts, and respect for each other is
+                        paramount.</li>
+                    <li>Accuracy of Information: While sharing advice or information, please ensure it is accurate and helpful. Misleading or false
+                        information is harmful to our community’s learning experience.</li>
+                    <li>Legal Compliance: Users must comply with all local, national, and international laws while using the site. This includes,
+                        but is not limited to, copyright and intellectual property rights laws.</li>
                 </ul>
             </span>
             <strong>
@@ -35,7 +35,7 @@ function RulesAndPolicies() {
                 you follow these content guidelines:{'\n'}{'\n'}
             </span>
             <span style={{ whiteSpace: 'pre-wrap' }}>
-                Relevance: Only post content that is directly related to electric skateboard building. The Gallery is not a space for unrelated 
+                Relevance: Only post content that is directly related to electric skateboard building. The Gallery is not a space for unrelated
                 images or discussions.{'\n'}{'\n'}
                 Prohibited Content: The following types of content are strictly prohibited and will be removed:{'\n'}{'\n'}
             </span>
