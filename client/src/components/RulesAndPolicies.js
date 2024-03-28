@@ -16,7 +16,7 @@ function RulesAndPolicies() {
             <strong>
                 General Conduct
             </strong>
-            <span style={{ whiteSpace: 'pre-wrap' }}>
+            <span>
                 <ul>
                     <li>Respectful Interaction: Users are expected to interact with others respectfully. Harassment, bullying, and hate speech are
                         strictly prohibited. We are a diverse community of builders and enthusiasts, and respect for each other is
@@ -30,11 +30,11 @@ function RulesAndPolicies() {
             <strong>
                 Gallery Content Guidelines
             </strong>
-            <span style={{ whiteSpace: 'pre-wrap' }}>
+            <span>
                 The Gallery is a showcase for your electric skateboard projects. To maintain a supportive and inspiring environment, we ask that
                 you follow these content guidelines:
             </span>
-            <span style={{ whiteSpace: 'pre-wrap' }}>
+            <span>
                 <ul>
                     <li>
                         Relevance: Only post content that is directly related to electric skateboard building. The Gallery is not a space for unrelated

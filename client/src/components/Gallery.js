@@ -224,7 +224,7 @@ function Gallery() {
     everyone, we encourage all users to familiarize themselves with our guidelines to help maintain the integrity and positivity of the 
     community.`;
 
-    const modalMessage2 = `For detailed information on what constitutes appropriate content, please visit our Rules & Policies page.`;
+    const modalMessage2 = `For detailed information on what constitutes inappropriate content, please visit our Rules & Policies page.`;
 
     const modalMessage3 = `Thank you for your understanding and cooperation.`;
 

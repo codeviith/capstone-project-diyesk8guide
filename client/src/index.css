@@ -2146,7 +2146,8 @@ nav a.home-link:hover {
 /* Contactus href */
 
 .contactus-href {
-  color: rgb(100, 212, 249)
+  /* color: rgb(100, 212, 249) */
+  color: rgb(204, 96, 250)
 }
 
 
