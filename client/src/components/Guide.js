@@ -21,8 +21,19 @@ const Guide = () => {
             description: "This is one of the most crucial steps in your eboard building process. A top performing " +
                 "and reliable eboard depends on the material that it is built from. This is the step that requires the most time " +
                 "and researh on. Higher quality parts equates to less time spent on fixing breakdowns and more time riding. " +
-                "We always advice new builders to take this step seriously and purchase the parts from merchants you can trust." +
-                "Feel free to refer to the list of parts below: Deck, Wheels (urathane or pneumatics), Trucks (the wider the truck is, the stable the board is but the less turning radius, Motor Controller (aka. Electronic Speed Controller, or ESC), Battery (usually 10s or above), Remote Controller (2.4 Ghz is recommended), Motor and wheel pulleys, Timing belt, enclosure (carbon fiber for highest durability)",
+                "We always advice new builders to take this step seriously and purchase the parts from merchants you can trust.",
+            list: [
+                "Deck",
+                "Wheels (urathane or pneumatics)",
+                "Trucks (the wider the truck is, the more stable the board)",
+                "Motor Controller (aka. Electronic Speed Controller, or ESC)",
+                "Battery (usually 10s or above)",
+                "Remote Controller (2.4 Ghz is recommended)",
+                "Motor and wheel pulleys",
+                "Motor mount",
+                "Timing belt",
+                "Enclosure (carbon fiber for highest durability)"
+            ],
             images: [require("./images/ID3.jpg")],
             link: "/link-for-step-2"
         },
@@ -101,6 +112,13 @@ const Guide = () => {
                 <div key={index} className="guide-step">
                     <h2>{step.header}</h2>
                     <p>{step.description}</p>
+                    {step.list && (
+                        <ul>
+                            {step.list.map((item, itemIndex) => (
+                                <li key={itemIndex}>{item}</li>
+                            ))}
+                        </ul>
+                    )}
                     <div className="step-images">
                         {step.images && step.images.map((image, imgIndex) => (
                             <img key={imgIndex} src={image} alt={`Step ${index + 1} Image ${imgIndex + 1}`} />
@@ -111,7 +129,6 @@ const Guide = () => {
                             to={step.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            aria-label={`Learn more about ${step.header}`}
                         >Learn more
                         </NavLink>}
                 </div>

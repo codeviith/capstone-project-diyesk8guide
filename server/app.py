@@ -11,6 +11,7 @@ from io import BytesIO
 import boto3
 import logging
 from dateutil.parser import isoparse
+from functools import wraps
 
 
 ### Local imports
@@ -82,6 +83,46 @@ bcrypt.init_app(app)
 # if not app.debug:
 #     app.logger.setLevel(logging.INFO)
 
+
+
+
+
+
+### ------------ THROTTLE ACCESS/REQUEST RATES -------------- ###
+
+
+request_counts = {}
+REQUEST_LIMIT = 100
+WINDOW_SIZE = timedelta(minutes=10)
+
+def rate_limit(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        ip_address = request.remote_addr
+        current_time = datetime.now()
+
+        for ip, (timestamp, count) in list(request_counts.items()):  ### code to cleanup old entries
+            if current_time - timestamp > WINDOW_SIZE:
+                del request_counts[ip]
+        
+        if ip_address in request_counts:  ### code to check rate limit for the current IP
+            timestamp, count = request_counts[ip_address]
+            if current_time - timestamp <= WINDOW_SIZE and count >= REQUEST_LIMIT:
+                return jsonify({"error": "Too many requests"}), 429
+            elif current_time - timestamp <= WINDOW_SIZE:
+                request_counts[ip_address] = (timestamp, count + 1)
+            else:
+                request_counts[ip_address] = (current_time, 1)
+        else:
+            request_counts[ip_address] = (current_time, 1)
+        return func(*args, **kwargs)
+    return wrapper
+
+@app.before_request
+def before_request_func():
+    excluded_routes = ['login', 'signup', 'static', 'bump']  ### code to exclude specific endpoints from the rate limiter
+    if request.endpoint not in excluded_routes:
+        return rate_limit(lambda: None)()
 
 
 ### ------------------ SESSION ACTIVITY CHECK ------------------ ###
