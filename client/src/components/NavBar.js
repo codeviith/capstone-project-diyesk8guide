@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
 import Header from "./Header";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 // import MenuIcon from './MenuIcon';
 
 function NavBar() {
@@ -46,7 +48,7 @@ function NavBar() {
                     {/* Dropdown Menu */}
                     {showMenu && (
                         <div className={`dropdown-menu ${showMenu ? 'show-dropdown' : ''}`}>
-                            {isLoggedIn && <NavLink to="/profile">Profile</NavLink>}
+                            {/* {isLoggedIn && <NavLink to="/profile"><FontAwesomeIcon icon={faUser} /></NavLink>} */}
                             {/* <NavLink to="/">Home</NavLink> */}
                             <NavLink to="/guide">Guide</NavLink>
                             <NavLink to="/generate">Generate</NavLink>
@@ -62,6 +64,7 @@ function NavBar() {
                 </div>
                 {isLoggedIn ? (
                     <>
+                        <NavLink to="/profile"><FontAwesomeIcon icon={faUser} /></NavLink>
                         <NavLink to="/logout" className="logout-link">Logout</NavLink>
                     </>
                 ) : (

@@ -102,7 +102,7 @@ def before_request_func():
 
 @app.route('/bump')
 def bump():
-    return jsonify({"message": "silence"}), 200
+    return jsonify({"message": "blank"}), 200
 
 ### ------------------ AWS S3 CLIENT ------------------ ###
 
