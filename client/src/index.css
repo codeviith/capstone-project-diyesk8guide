@@ -1498,7 +1498,7 @@ nav a.home-link:hover {
 
 /*about component*/
 .about {
-  max-width: 700px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 10px;
   text-align: justify;
@@ -1562,7 +1562,7 @@ nav a.home-link:hover {
 
 /* Contact Us Component */
 .contactus {
-  max-width: 700px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 25px;
   text-align: center;
@@ -1636,7 +1636,7 @@ nav a.home-link:hover {
 /* Donations Component */
 
 .donation {
-  max-width: 700px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 10px;
   text-align: justify;
@@ -2059,7 +2059,7 @@ nav a.home-link:hover {
 /* Disclaimers Component */
 
 .disclaimers {
-  max-width: 1050px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 20px;
   text-align: justify;
