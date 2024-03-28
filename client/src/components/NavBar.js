@@ -43,7 +43,7 @@ function NavBar() {
             </div>
             <div className="nav-links-right"> {/* Container for right-hand side links */}
                 {/* Menu Item to toggle dropdown */}
-                <div className="menu-item" onClick={toggleMenu}>Menu ☰
+                <div className="menu-item" onClick={toggleMenu}>☰ Menu
                     {/* <MenuIcon /> */}
                     {/* Dropdown Menu */}
                     {showMenu && (
@@ -79,4 +79,3 @@ function NavBar() {
 }
 
 export default NavBar;
-
