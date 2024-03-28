@@ -32,7 +32,7 @@ function RulesAndPolicies() {
             </strong>
             <span style={{ whiteSpace: 'pre-wrap' }}>
                 The Gallery is a showcase for your electric skateboard projects. To maintain a supportive and inspiring environment, we ask that
-                you follow these content guidelines:{'\n'}{'\n'}
+                you follow these content guidelines:
             </span>
             <span style={{ whiteSpace: 'pre-wrap' }}>
                 <ul>
@@ -42,7 +42,7 @@ function RulesAndPolicies() {
                     </li>
                     <li>
                         Prohibited Content: The following types of content are strictly prohibited and will be removed:
-                        <ul>
+                        <ol>
                             <li>
                                 Unlawful Content: Any content that promotes illegal activities or violates laws.
                             </li>
@@ -61,7 +61,7 @@ function RulesAndPolicies() {
                                 Copyrighted Material: Only upload images that you own or have the right to use. By submitting content, you are
                                 responsible for ensuring that it does not infringe on the copyrights or rights of others.
                             </li>
-                        </ul>
+                        </ol>
                     </li>
                     <li>
                         Reporting Violations: If you encounter any content that violates these guidelines, please use the report function to alert
