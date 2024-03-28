@@ -28,16 +28,16 @@ function RulesAndPolicies() {
                 </ul>
             </span>
             <strong>
-                General Disclaimer
+                Gallery Content Guidelines
             </strong>
             <span style={{ whiteSpace: 'pre-wrap' }}>
-                Rules and Policies text here{'\n'}{'\n'}
+                The Gallery is a showcase for your electric skateboard projects. To maintain a supportive and inspiring environment, we ask that
+                you follow these content guidelines:{'\n'}{'\n'}
             </span>
-            <strong>
-                General Disclaimer
-            </strong>
             <span style={{ whiteSpace: 'pre-wrap' }}>
-                Rules and Policies text here{'\n'}{'\n'}
+                Relevance: Only post content that is directly related to electric skateboard building. The Gallery is not a space for unrelated 
+                images or discussions.{'\n'}{'\n'}
+                Prohibited Content: The following types of content are strictly prohibited and will be removed:{'\n'}{'\n'}
             </span>
             <strong>
                 General Disclaimer
