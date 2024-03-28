@@ -5,7 +5,7 @@ function Disclaimers() {
     return (
         <div className="disclaimers">
             <h1 className="disclaimers-title" style={{ whiteSpace: 'pre-wrap' }}>
-                Disclaimers {'\n'}{'\n'}{'\n'}
+                Disclaimers {'\n'}{'\n'}
             </h1>
             <strong>
                 General Disclaimer

@@ -5,110 +5,73 @@ function RulesAndPolicies() {
     return (
         <div className="rulesandpolicies">
             <h1 className="rulesandpolicies-title" style={{ whiteSpace: 'pre-wrap' }}>
-                Rules & Policies{'\n'}
+                Rules & Policies{'\n'}{'\n'}
             </h1>
             <span style={{ whiteSpace: 'pre-wrap' }}>
-                Rules and Policies text here{'\n'}{'\n'}
+                Welcome to DIYesk8Guide! Our platform is designed to empower and inspire builders of electric skateboards by providing resources,
+                tools, and a community for sharing experiences and creations. To ensure a positive and safe experience for all users, we have
+                established the following rules and policies. By accessing and using DIYesk8Guide, you agree to comply with these
+                guidelines.{'\n'}{'\n'}
             </span>
+            <strong>
+                General Conduct
+            </strong>
+            <span style={{ whiteSpace: 'pre-wrap' }}>
+                <ul>
+                    Respectful Interaction: Users are expected to interact with others respectfully. Harassment, bullying, and hate speech are
+                    strictly prohibited. We are a diverse community of builders and enthusiasts, and respect for each other is
+                    paramount.{'\n'}{'\n'}
+                    Accuracy of Information: While sharing advice or information, please ensure it is accurate and helpful. Misleading or false
+                    information is harmful to our community’s learning experience.{'\n'}{'\n'}
+                    Legal Compliance: Users must comply with all local, national, and international laws while using the site. This includes,
+                    but is not limited to, copyright and intellectual property rights laws.{'\n'}{'\n'}
+                </ul>
+            </span>
+            <strong>
+                General Disclaimer
+            </strong>
             <span style={{ whiteSpace: 'pre-wrap' }}>
                 Rules and Policies text here{'\n'}{'\n'}
             </span>
+            <strong>
+                General Disclaimer
+            </strong>
             <span style={{ whiteSpace: 'pre-wrap' }}>
                 Rules and Policies text here{'\n'}{'\n'}
             </span>
+            <strong>
+                General Disclaimer
+            </strong>
             <span style={{ whiteSpace: 'pre-wrap' }}>
                 Rules and Policies text here{'\n'}{'\n'}
             </span>
+            <strong>
+                General Disclaimer
+            </strong>
             <span style={{ whiteSpace: 'pre-wrap' }}>
                 Rules and Policies text here{'\n'}{'\n'}
             </span>
+            <strong>
+                General Disclaimer
+            </strong>
             <span style={{ whiteSpace: 'pre-wrap' }}>
                 Rules and Policies text here{'\n'}{'\n'}
             </span>
+            <strong>
+                General Disclaimer
+            </strong>
             <span style={{ whiteSpace: 'pre-wrap' }}>
                 Rules and Policies text here{'\n'}{'\n'}
             </span>
+            <strong>
+                General Disclaimer
+            </strong>
             <span style={{ whiteSpace: 'pre-wrap' }}>
                 Rules and Policies text here{'\n'}{'\n'}
             </span>
-            <span style={{ whiteSpace: 'pre-wrap' }}>
-                Rules and Policies text here{'\n'}{'\n'}
-            </span>
-            <span style={{ whiteSpace: 'pre-wrap' }}>
-                Rules and Policies text here{'\n'}{'\n'}
-            </span>
-            <span style={{ whiteSpace: 'pre-wrap' }}>
-                Rules and Policies text here{'\n'}{'\n'}
-            </span>
-            <span style={{ whiteSpace: 'pre-wrap' }}>
-                Rules and Policies text here{'\n'}{'\n'}
-            </span>
-            <span style={{ whiteSpace: 'pre-wrap' }}>
-                Rules and Policies text here{'\n'}{'\n'}
-            </span>
-            <span style={{ whiteSpace: 'pre-wrap' }}>
-                Rules and Policies text here{'\n'}{'\n'}
-            </span>
-            <span style={{ whiteSpace: 'pre-wrap' }}>
-                Rules and Policies text here{'\n'}{'\n'}
-            </span>
-            <span style={{ whiteSpace: 'pre-wrap' }}>
-                Rules and Policies text here{'\n'}{'\n'}
-            </span>
-            <span style={{ whiteSpace: 'pre-wrap' }}>
-                Rules and Policies text here{'\n'}{'\n'}
-            </span>
-            <span style={{ whiteSpace: 'pre-wrap' }}>
-                Rules and Policies text here{'\n'}{'\n'}
-            </span>
-            <span style={{ whiteSpace: 'pre-wrap' }}>
-                Rules and Policies text here{'\n'}{'\n'}
-            </span>
-            <span style={{ whiteSpace: 'pre-wrap' }}>
-                Rules and Policies text here{'\n'}{'\n'}
-            </span>
-            <span style={{ whiteSpace: 'pre-wrap' }}>
-                Rules and Policies text here{'\n'}{'\n'}
-            </span>
-            <span style={{ whiteSpace: 'pre-wrap' }}>
-                Rules and Policies text here{'\n'}{'\n'}
-            </span>
-            <span style={{ whiteSpace: 'pre-wrap' }}>
-                Rules and Policies text here{'\n'}{'\n'}
-            </span>
-            <span style={{ whiteSpace: 'pre-wrap' }}>
-                Rules and Policies text here{'\n'}{'\n'}
-            </span>
-            <span style={{ whiteSpace: 'pre-wrap' }}>
-                Rules and Policies text here{'\n'}{'\n'}
-            </span>
-            <span style={{ whiteSpace: 'pre-wrap' }}>
-                Rules and Policies text here{'\n'}{'\n'}
-            </span>
-            <span style={{ whiteSpace: 'pre-wrap' }}>
-                Rules and Policies text here{'\n'}{'\n'}
-            </span>
-            <span style={{ whiteSpace: 'pre-wrap' }}>
-                Rules and Policies text here{'\n'}{'\n'}
-            </span>
-            <span style={{ whiteSpace: 'pre-wrap' }}>
-                Rules and Policies text here{'\n'}{'\n'}
-            </span>
-            <span style={{ whiteSpace: 'pre-wrap' }}>
-                Rules and Policies text here{'\n'}{'\n'}
-            </span>
-            <span style={{ whiteSpace: 'pre-wrap' }}>
-                Rules and Policies text here{'\n'}{'\n'}
-            </span>
-            <span style={{ whiteSpace: 'pre-wrap' }}>
-                Rules and Policies text here{'\n'}{'\n'}
-            </span>
-            <span style={{ whiteSpace: 'pre-wrap' }}>
-                Rules and Policies text here{'\n'}{'\n'}
-            </span>
-            <span style={{ whiteSpace: 'pre-wrap' }}>
-                Rules and Policies text here{'\n'}{'\n'}
-            </span>
+            <strong>
+                General Disclaimer
+            </strong>
             <span style={{ whiteSpace: 'pre-wrap' }}>
                 Rules and Policies text here{'\n'}{'\n'}
             </span>
