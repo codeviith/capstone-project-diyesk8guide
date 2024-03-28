@@ -1434,8 +1434,6 @@ nav a.home-link:hover {
   border-radius: 8px;
 }
 
-
-
 .guide-step img {
   max-width: 45%;
   height: auto;
@@ -1454,8 +1452,6 @@ nav a.home-link:hover {
   text-align: center;
   margin-top: 20px;
 }
-
-
 
 .guide-content {
   margin-top: 10px;
@@ -2052,6 +2048,42 @@ nav a.home-link:hover {
   background-color: transparent; 
   border-radius: 1000px;
 }
+
+
+
+
+
+
+
+
+/* Disclaimers Component */
+
+.disclaimers {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: justify;
+  background-color: gray;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.disclaimers-title {
+  color: black;
+  font-size: 32px;
+  text-align: center;
+  margin-top: 2px;
+  margin-bottom: 20px;
+}
+
+.disclaimers span {
+  display: block;
+  margin-bottom: 1px;
+  font-size: 18px;
+  line-height: 1.5;
+  color: black;
+}
+
 
 
 
