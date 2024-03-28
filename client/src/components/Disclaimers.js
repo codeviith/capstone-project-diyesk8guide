@@ -102,7 +102,7 @@ function Disclaimers() {
                 Contact Us{'\n'}{'\n'}
             </span>
             <span style={{ whiteSpace: 'pre-wrap' }}>
-                If you have any questions about these disclaimers, please contact us <NavLink to="/contact-us">here</NavLink>.{'\n'}{'\n'}.
+                If you have any questions about these disclaimers, please contact us <NavLink to="/contact-us">here</NavLink>.{'\n'}{'\n'}
             </span>
             <div className="footer-bottom">
                 <NavLink className="footer-bottom-link" to="/about">About</NavLink>
