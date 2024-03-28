@@ -1,5 +1,5 @@
 ### Remote library imports
-from flask import Flask, jsonify, make_response, request, session, redirect
+from flask import Flask, jsonify, make_response, request, session, redirect, send_from_directory
 from flask_migrate import Migrate
 from flask_cors import CORS
 from dotenv import load_dotenv
@@ -868,6 +868,12 @@ def handle_exception(e):
     response = {"error": "A server error occurred", "details": str(e)}
 
     return jsonify(response), 500
+
+### -------- ROBOTS.TXT FOR WEB CRAWLERS LIKE GOOGLE, BING -------- ###
+
+@app.route('/robots.txt')
+def static_from_root():
+    return send_from_directory(app.static_folder, 'robots.txt')
 
 
 if __name__ == '__main__':   ### not needed for production build on render, but doesn't hurt to keep for development server
