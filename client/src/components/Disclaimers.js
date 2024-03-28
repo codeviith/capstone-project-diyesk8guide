@@ -7,9 +7,9 @@ function Disclaimers() {
             <h1 className="disclaimers-title" style={{ whiteSpace: 'pre-wrap' }}>
                 Disclaimers {'\n'}
             </h1>
-            <span style={{ whiteSpace: 'pre-wrap' }}>
-                General Disclaimer{'\n'}{'\n'}
-            </span>
+            <strong>
+                General Disclaimer
+            </strong>
             <span style={{ whiteSpace: 'pre-wrap' }}>
                 The information provided by DIYesk8Guide ("we," "us," or "our") on [diyesk8guide.com] (the "Site") is for general informational and
                 educational purposes only. All information on the Site is provided in good faith, however, we make no representation or warranty of
