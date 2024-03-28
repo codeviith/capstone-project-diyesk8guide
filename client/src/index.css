@@ -121,7 +121,7 @@ body::before {
 /* Home component */
 
 .home {
-  max-width: 1300px;
+  max-width: 75%;
   margin: 0 auto;
   padding: 10px;
   text-align: center;
@@ -1498,7 +1498,7 @@ nav a.home-link:hover {
 
 /*about component*/
 .about {
-  max-width: 900px;
+  max-width: 40%;
   margin: 0 auto;
   padding: 10px;
   text-align: justify;
@@ -1562,7 +1562,7 @@ nav a.home-link:hover {
 
 /* Contact Us Component */
 .contactus {
-  max-width: 900px;
+  max-width: 35%;
   margin: 0 auto;
   padding: 25px;
   text-align: center;
@@ -1636,7 +1636,7 @@ nav a.home-link:hover {
 /* Donations Component */
 
 .donation {
-  max-width: 900px;
+  max-width: 45%;
   margin: 0 auto;
   padding: 10px;
   text-align: justify;
@@ -2059,7 +2059,7 @@ nav a.home-link:hover {
 /* Disclaimers Component */
 
 .disclaimers {
-  max-width: 900px;
+  max-width: 50%;
   margin: 0 auto;
   padding: 20px;
   text-align: justify;
