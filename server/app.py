@@ -32,7 +32,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'   ### uncomment to test code on development server
 # app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')   ### uncomment for production build on render
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['BASE_URL'] = os.environ.get('BASE_URL', 'http://127.0.0.1:5555')  
+app.config['BASE_URL'] = os.environ.get('BASE_URL', 'http://127.0.0.1:5000')  
 ###### IMPORTANT!!! make sure to configure the 'BASE_URL' environment variable on Render as either Render backend URL or my custom domain: www.diyesk8guide.com #####
 
 app.json.compact = False
