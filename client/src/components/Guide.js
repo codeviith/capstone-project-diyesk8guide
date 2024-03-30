@@ -3,17 +3,17 @@ import { NavLink } from "react-router-dom";
 import { AuthContext } from './AuthContext';
 
 const Guide = () => {
-    const { isLoggedIn } = useContext(AuthContext); // Using useContext to access isLoggedIn
+    // const { isLoggedIn } = useContext(AuthContext); // Using useContext to access isLoggedIn
 
     const guideSteps = [
         {
             header: "Step 1: Create a Game Plan",
-            description: "So you've been wanting to make an electric skateboard for quite some time now but you don't know where to start. " +
-                "Well, the first thing to do is to make a game plan that documents the expected process of your build. " +
-                "This means designing and drawing out sketches, jotting down any ideas that pop into mind, and doing research " +
-                "on electric skateboards. This is a must in your e-board building journey and we cannot stress " +
-                "how important it is. Once you have a game plan and a design in mind, you can then move on to researching for parts. ",
-            images: [require("./images/ID2.jpeg"), require("./images/ID1.jpg")],
+            description: "Ready to start building your electric skateboard but not sure where to begin? Well, the first step is to make a game plan. " +
+                "This step involves outlining your design, capturing any ideas that spring to mind, and conducting extensive research on electric " +
+                "skateboards. View this phase as a golden opportunity to design a board that not only performs well but also mirrors your personal style " +
+                "and ethos. Having this blueprint is vital—it not only navigates you through the building process but also helps ensure your goals and " +
+                "expectations are achievable.With a clear plan and design ready, you’ll be well- prepared to proceed with the build and select the right " +
+                "parts you need. Starting to feel the excitement? I know I am! Let's get started!",
             link: "/link-for-step-1"
         },
         {
@@ -34,7 +34,6 @@ const Guide = () => {
                 "Timing belt",
                 "Enclosure (carbon fiber for highest durability)"
             ],
-            images: [require("./images/ID3.jpg")],
             link: "/link-for-step-2"
         },
         {
@@ -44,15 +43,14 @@ const Guide = () => {
                 "board. Generally, a large tabletop complemented with a rolling stool and quick access to tools and/or machineries would " +
                 "be sufficient. As a word of caution, please make sure the workshop is well ventilated as you will be working with wood/metal " +
                 "dust and solder fumes throughout the build. Please remember that safety should always be your number one priority.",
-            images: [],
             link: "/link-for-step-3"
         },
         {
             header: "Step 4: Gather Materials & Tools",
-            description: "'Man is a tool-using animal. Without tools he is nothing, with tools he is all.' ~Thomas Carlyle." +
-                "This is yet another important step in the eboard journey. Having the right tools and materials is what sets " +
-                "apart a successful project versus an unsuccessful one. Here are a few of the recommended tools for starters: ",
-            images: [],
+            description: `"Man is a tool-using animal. Without tools he is nothing, with tools he is all."\n~Thomas Carlyle.\n\n` +
+                `This is yet another important step in the eboard journey. Having the right tools and materials is what sets ` +
+                `apart a successful project versus an unsuccessful one. Here are a few of the recommended tools for starters: `,
+            list: [],
             link: "/link-for-step-4"
         },
         {
@@ -63,7 +61,6 @@ const Guide = () => {
                 "Because the board is subjected to vibrations of the road, it is always best practice to use machine screws or nuts and bolts. For parts that needs " +
                 "extra security, it is best to apply some locktite to the threads, or use a nylon nut. Applying these extra measures of security to make sure " +
                 "the parts stay attached to your board will reduce the chances of breakdowns during the ride.",
-            images: [],
             link: "/link-for-step-5"
         },
         {
@@ -73,64 +70,78 @@ const Guide = () => {
                 "advise on taking pre-cautionary measures to prevent damage to the battery upon riding. This include making sure that " +
                 "the battery is securely sesated inside a hardened and durable enclosure, e.g carbon fiber. This will help prevent damage to the battery should the " +
                 "board encounter rough terrains. ", // prob need to shorten this and clarify some more stuff.
-            images: [],
             link: "/link-for-step-6"
         },
         {
             header: "Step 7: Establish the wiring connections",
             description: "Description for Step 7...",
-            images: [],
             link: "/link-for-step-7"
         },
         {
             header: "Step 8: Configure the Electronics",
             description: "Description for Step 8...",
-            images: [],
             link: "/link-for-step-8"
         },
         {
             header: "Step 9: Test Run and Fine Tuning",
             description: "Description for Step 9...",
-            images: [],
             link: "/link-for-step-9"
         }
     ];
 
-    if (!isLoggedIn) {
-        return (
-            <div className="login-prompt-container">
-                <p>Please <NavLink className="login-href" to="/login">log in</NavLink> to access Guide.</p>
-            </div>
-        );
-    }
+    const guideImages = [
+        [require("./images/ID2.jpeg")],
+        [require("./images/ID3.jpg")],
+        [require("./images/ID1.jpg")],
+        [require("./images/ID4.jpeg")],
+        [require("./images/ID7.jpg")],
+        [require("./images/ID5.jpeg")],
+        [require("./images/ID6.jpeg")],
+        [require("./images/ID8.jpeg")],
+        [require("./images/ID9.jpg")]
+    ];
+
+    // if (!isLoggedIn) {
+    //     return (
+    //         <div className="login-prompt-container">
+    //             <p>Please <NavLink className="login-href" to="/login">log in</NavLink> to access Guide.</p>
+    //         </div>
+    //     );
+    // }
 
 
     return (
         <div className="guide">
             <h1>Quick Start Guide</h1>
             {guideSteps.map((step, index) => (
-                <div key={index} className="guide-step">
-                    <h2>{step.header}</h2>
-                    <p>{step.description}</p>
-                    {step.list && (
-                        <ul>
-                            {step.list.map((item, itemIndex) => (
-                                <li key={itemIndex}>{item}</li>
-                            ))}
-                        </ul>
-                    )}
+                <div key={index} className="guide-step-container">
                     <div className="step-images">
-                        {step.images && step.images.map((image, imgIndex) => (
+                        {guideImages[index].map((image, imgIndex) => (
                             <img key={imgIndex} src={image} alt={`Step ${index + 1} Image ${imgIndex + 1}`} />
                         ))}
                     </div>
-                    {step.link &&
-                        <NavLink className="guide-href-link"
-                            to={step.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >Learn more
-                        </NavLink>}
+                    <div className="guide-step">
+                        <h2>{step.header}</h2>
+                        <p>{step.description.split('\n').map((line, index) => (
+                            <React.Fragment key={index}>
+                                {line}<br />
+                            </React.Fragment>
+                        ))}</p>
+                        {step.list && (
+                            <ul>
+                                {step.list.map((item, itemIndex) => (
+                                    <li key={itemIndex}>{item}</li>
+                                ))}
+                            </ul>
+                        )}
+                        {step.link &&
+                            <NavLink className="guide-href-link"
+                                to={step.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >Learn more
+                            </NavLink>}
+                    </div>
                 </div>
             ))}
             <div className="footer-bottom">
@@ -146,3 +157,72 @@ const Guide = () => {
 
 export default Guide;
 
+
+
+
+
+
+
+
+
+//////////////////////// code for alternating image and description position ///////////////////
+
+/*
+
+<div key={index} className={`guide-step-container ${index % 2 !== 0 ? 'reverse-order' : ''}`}>
+{index % 2 === 0 ? (
+    <>
+        <div className="guide-step">
+            <h2>{step.header}</h2>
+            <p>{step.description}</p>
+            {step.list && (
+                <ul>
+                    {step.list.map((item, itemIndex) => (
+                        <li key={itemIndex}>{item}</li>
+                    ))}
+                </ul>
+            )}
+            {step.link &&
+                <NavLink className="guide-href-link"
+                    to={step.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >Learn more
+                </NavLink>}
+        </div>
+        <div className="step-images">
+            {guideImages[index].map((image, imgIndex) => (
+                <img key={imgIndex} src={image} alt={`Step ${index + 1} Image ${imgIndex + 1}`} />
+            ))}
+        </div>
+    </>
+) : (
+    <>
+        <div className="step-images">
+            {guideImages[index].map((image, imgIndex) => (
+                <img key={imgIndex} src={image} alt={`Step ${index + 1} Image ${imgIndex + 1}`} />
+            ))}
+        </div>
+        <div className="guide-step">
+            <h2>{step.header}</h2>
+            <p>{step.description}</p>
+            {step.list && (
+                <ul>
+                    {step.list.map((item, itemIndex) => (
+                        <li key={itemIndex}>{item}</li>
+                    ))}
+                </ul>
+            )}
+            {step.link &&
+                <NavLink className="guide-href-link"
+                    to={step.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >Learn more
+                </NavLink>}
+        </div>
+    </>
+)}
+</div>
+
+*/

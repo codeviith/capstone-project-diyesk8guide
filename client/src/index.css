@@ -1410,6 +1410,7 @@ nav a.home-link:hover {
 
 
 /* guide component */
+
 .guide {
   max-width: 85%;
   margin: 0 auto;
@@ -1427,17 +1428,37 @@ nav a.home-link:hover {
   margin-bottom: 20px;
 }
 
+.guide-step-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  background-color: gray;
+}
+
+.guide-step, .step-images {
+  flex: 1;
+  margin: 0 10px;
+}
+
+.guide-step h2 {
+  text-align: center;
+}
+
 .guide-step {
   padding: 10px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
+  text-align: left;
 }
 
-.guide-step img {
-  max-width: 45%;
+.step-images img {
+  max-width: 100%;
   height: auto;
-  margin: 10px 0;
+  margin-bottom: 10px;
   border-radius: 5px;
 }
 
@@ -1465,6 +1486,8 @@ nav a.home-link:hover {
   color: white;
   border-radius: 5px;
   text-decoration: none;
+  justify-content: center;
+  text-align: center;
 }
 
 .guide-href-link:hover {
@@ -2120,22 +2143,23 @@ nav a.home-link:hover {
   margin-bottom: 20px;
 }
 
-.rulesandpolicies strong {
-  display: block;
-  margin-bottom: 1px;
-  font-size: 20px;
-  line-height: 1.5;
-  color: black;
-}
 
-.rulesandpolicies span {
-  display: block;
+.rulesandpolicies span, .rulesandpolicies strong {
+  display: inline;
   margin-bottom: 1px;
   font-size: 18px;
   line-height: 1.5;
   color: black;
 }
 
+.section-title {
+  display: block;
+  margin-bottom: 1px;
+  font-size: 20px;
+  font-weight: bolder;
+  line-height: 1.5;
+  color: black;
+}
 
 
 
