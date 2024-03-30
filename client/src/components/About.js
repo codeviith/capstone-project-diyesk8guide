@@ -5,7 +5,7 @@ function About() {
   return (
     <div className="about">
       <h1 className="about-title" style={{ whiteSpace: 'pre-wrap' }}>
-        About DIYesk8Guide {'\n'}
+        Our Mission {'\n'}
       </h1>
       <span style={{ whiteSpace: 'pre-wrap' }}>
         Crafted with passion by skateboard enthusiasts, DIYesk8Guide is designed to provide beginners with the essential knowledge and skills needed to construct their own electric skateboard from the ground up. Our foundation is a deep-seated love for e-boarding, coupled with a strong desire to empower others to experience the thrill and satisfaction of crafting their own electric ride.{'\n'}{'\n'}
