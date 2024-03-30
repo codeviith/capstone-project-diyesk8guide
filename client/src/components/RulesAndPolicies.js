@@ -11,87 +11,87 @@ function RulesAndPolicies() {
                 Welcome to DIYesk8Guide! Our platform is designed to empower and inspire builders of electric skateboards by providing resources,
                 tools, and a community for sharing experiences and creations. To ensure a positive and safe experience for all users, we have
                 established the following rules and policies. By accessing and using DIYesk8Guide, you agree to comply with these
-                guidelines.{'\n'}{'\n'}
+                guidelines.{'\n'}
             </span>
-            <strong>
+            <p className="section-title">
                 General Conduct
-            </strong>
-            <span>
+            </p>
+            <span style={{ whiteSpace: 'pre-wrap' }}>
                 <ul>
-                    <li>Respectful Interaction: Users are expected to interact with others respectfully. Harassment, bullying, and hate speech are
+                    <li><span style={{ textDecoration: 'underline' }}>Respectful Interaction:</span> Users are expected to interact with others respectfully. Harassment, bullying, and hate speech are
                         strictly prohibited. We are a diverse community of builders and enthusiasts, and respect for each other is
                         paramount.</li>
-                    <li>Accuracy of Information: While sharing advice or information, please ensure it is accurate and helpful. Misleading or false
+                    <li><span style={{ textDecoration: 'underline' }}>Accuracy of Information:</span> While sharing advice or information, please ensure it is accurate and helpful. Misleading or false
                         information is harmful to our community’s learning experience.</li>
-                    <li>Legal Compliance: Users must comply with all local, national, and international laws while using the site. This includes,
-                        but is not limited to, copyright and intellectual property rights laws.</li>
+                    <li><span style={{ textDecoration: 'underline' }}>Legal Compliance:</span> Users must comply with all local, national, and international laws while using the site. This includes,
+                        but is not limited to, copyright and intellectual property rights laws.{'\n'}</li>
                 </ul>
             </span>
-            <strong>
+            <p className="section-title">
                 Gallery Content Guidelines
-            </strong>
+            </p>
             <span>
                 The Gallery is a showcase for your electric skateboard projects. To maintain a supportive and inspiring environment, we ask that
                 you follow these content guidelines:
             </span>
-            <span>
+            <span style={{ whiteSpace: 'pre-wrap' }}>
                 <ul>
                     <li>
-                        Relevance: Only post content that is directly related to electric skateboard building. The Gallery is not a space for unrelated
+                    <span style={{ textDecoration: 'underline' }}>Relevance:</span> Only post content that is directly related to electric skateboard building. The Gallery is not a space for unrelated
                         images or discussions.
                     </li>
                     <li>
-                        Prohibited Content: The following types of content are strictly prohibited and will be removed:
+                    <span style={{ textDecoration: 'underline' }}>Prohibited Content:</span> The following types of content are strictly prohibited and will be removed:
                         <ol>
                             <li>
-                                Unlawful Content: Any content that promotes illegal activities or violates laws.
+                                <strong>Unlawful Content:</strong> Any content that promotes illegal activities or violates laws.
                             </li>
                             <li>
-                                Explicit Content: Pornography, graphic violence, or any other adult content.
+                                <strong>Explicit Content:</strong> Pornography, graphic violence, or any other adult content.
                             </li>
                             <li>
-                                Hateful Content: Anything promoting hate speech, discrimination, or violence against individuals or groups based on
+                                <strong>Hateful Content:</strong> Anything promoting hate speech, discrimination, or violence against individuals or groups based on
                                 race, ethnicity, religion, gender, sexual orientation, disability, or any other characteristics.
                             </li>
                             <li>
-                                Personal Information: Do not share personal information, either yours or someone else’s. This includes, but is not
+                                <strong>Personal Information:</strong> Do not share personal information, either yours or someone else’s. This includes, but is not
                                 limited to, addresses, phone numbers, and email addresses.
                             </li>
                             <li>
-                                Copyrighted Material: Only upload images that you own or have the right to use. By submitting content, you are
+                                <strong>Copyrighted Material:</strong> Only upload images that you own or have the right to use. By submitting content, you are
                                 responsible for ensuring that it does not infringe on the copyrights or rights of others.
                             </li>
                         </ol>
                     </li>
                     <li>
-                        Reporting Violations: If you encounter any content that violates these guidelines, please use the report function to alert
-                        our moderators. We are committed to taking appropriate actions, which may include removing content or suspending user accounts.
+                    <span style={{ textDecoration: 'underline' }}>Reporting Violations:</span> If you encounter any content that violates these guidelines, please use the report function to alert
+                        our moderators. We are committed to taking appropriate actions, which may include removing content or suspending user accounts.{'\n'}
                     </li>
                 </ul>
             </span>
-            <strong>
+            <p className="section-title">
                 Privacy Guidelines
-            </strong>
+            </p>
             <span style={{ whiteSpace: 'pre-wrap' }}>
                 Protecting your privacy and the privacy of others is essential. Please refrain from posting private information in any public areas
                 of the site, including the Gallery. Be mindful of the information you share and consider the potential risks involved in disclosing
-                personal details.{'\n'}{'\n'}
+                personal details.{'\n'}
             </span>
-            <strong>
+            <p className="section-title">
                 Policy Enforcement
-            </strong>
+            </p>
             <span style={{ whiteSpace: 'pre-wrap' }}>
                 Violation of these rules and policies may result in content removal, account suspension, or other actions deemed necessary to ensure
                 the safety and integrity of our community. We reserve the right to enforce these policies at our discretion and to modify them at
-                any time.{'\n'}{'\n'}
+                any time.{'\n'}
             </span>
-            <strong>
+            <p className="section-title">
                 Contact Us
-            </strong>
+            </p>
             <span style={{ whiteSpace: 'pre-wrap' }}>
                 If you have questions about these rules and policies or need to report a violation, please contact
                 us <NavLink className="contactus-href" to="/contact-us">here</NavLink>. Your feedback is important to us as we
-                strive to create a welcoming and safe environment for all users.{'\n'}{'\n'}
+                strive to create a welcoming and safe environment for all users.{'\n'}
             </span>
             <div className="footer-bottom">
                 <NavLink className="footer-bottom-link" to="/about">About</NavLink>
