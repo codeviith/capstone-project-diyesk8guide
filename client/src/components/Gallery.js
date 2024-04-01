@@ -313,68 +313,6 @@ function Gallery() {
 
     return (
         <div className="gallery-container">
-            {/* Hall of Fame */}
-            <div className="hall-of-fame">
-                <h1>Hall of Fame</h1>
-                <div className="top-gallery-items">
-                    {topHeartedImages.map((item, index) => (
-                        <div key={index} className="top-gallery-item">
-                            <img src={item.image_url} alt={item.image_filename} />
-                            <div className="item-details">
-                                <p><strong className='item-details-strong'>Deck Type:</strong> {item.deck_brand} {item.deck_size} in.</p>
-                                <p><strong className='item-details-strong'>Battery Type:</strong> {item.battery_series}s {item.battery_parallel}p</p>
-                                <p><strong className='item-details-strong'>Motor Type:</strong> {item.motor_size} {item.motor_kv}Kv {item.motor_power}Watts</p>
-                                <p><strong className='item-details-strong'>Wheel Type:</strong> {item.wheel_size} {item.wheel_type}</p>
-                                <p><strong className='item-details-strong'>Max Speed & Range:</strong> {item.max_speed} MPH, {item.max_range} Miles</p>
-                                <p><strong className='item-details-strong'>Other Features:</strong><p className='item-details-other-features'>{item.other_features}</p></p>
-                                <p className='rating'><strong className='item-details-strong'>Rating:</strong> {item.hearts} likes</p>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-
-            {/* Gallery items */}
-            <div className="gallery-items">
-                <div className='featured-builds-container-divider'></div>
-                <div className='featured-builds-container'>
-                    <h2>Featured Builds</h2>
-                </div>
-                {galleryItems.map((item, index) => (
-                    <div key={index} className="gallery-item">
-                        <img src={item.image_url} alt={item.image_filename} />
-                        <div className="item-details">
-                            <p><strong className='item-details-strong'>Deck Type:</strong> {item.deck_brand} {item.deck_size} in.</p>
-                            <p><strong className='item-details-strong'>Battery Type:</strong> {item.battery_series}s {item.battery_parallel}p</p>
-                            <p><strong className='item-details-strong'>Motor Type:</strong> {item.motor_size} {item.motor_kv}Kv {item.motor_power}Watts</p>
-                            <p><strong className='item-details-strong'>Wheel Type:</strong> {item.wheel_size} {item.wheel_type}</p>
-                            <p><strong className='item-details-strong'>Max Speed & Range:</strong> {item.max_speed} MPH, {item.max_range} Miles</p>
-                            <p><strong className='item-details-strong'>Other Features:</strong><p className='item-details-other-features'>{item.other_features}</p></p>
-                            <div className="item-actions">
-                                <HeartButton
-                                    imageId={item.id}
-                                    onHearted={(hearts) => updateHeartCount(index, hearts)}
-                                    initiallyHearted={item.isHearted}
-                                    refreshTopImages={fetchTopHeartedImages}
-                                />
-                                {isLoggedIn && (
-                                    <div className="report-button"
-                                        onClick={() => reportImage(item.id)}
-                                        title="Report"
-                                        style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
-                                    >
-                                        <ReportIcon1 />
-                                    </div>
-                                )}
-                            </div>
-                            {heartSuccess[item.id] && <div className="heart-success-message">{heartSuccess[item.id]}</div>}
-                            {reportSuccess[item.id] && <div className="report-success-message">{reportSuccess[item.id]}</div>}
-                            {reportErrors[item.id] && <div className="report-error-message">{reportErrors[item.id]}</div>}
-                        </div>
-                    </div>
-                ))}
-            </div>
-
             {/* Floating form */}
             <div className="floating-form">
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -432,9 +370,6 @@ function Gallery() {
                         <option value="48">48 inches</option>
                     </select>
 
-
-
-
                     <strong className='form-label'>Battery Series</strong>
                     <select name="battery_series" value={formFields.battery_series} onChange={handleFormFieldChange}>
                         <option value="">Select Battery Series</option>
@@ -453,7 +388,6 @@ function Gallery() {
                         <option value="22">22s</option>
                         <option value="23">23s</option>
                     </select>
-
 
                     <strong className='form-label'>Battery Parallel</strong>
                     <select name="battery_parallel" value={formFields.battery_parallel} onChange={handleFormFieldChange}>
@@ -584,6 +518,69 @@ function Gallery() {
                     message3={modalMessage3}
                 />
             </div>
+
+            {/* Hall of Fame */}
+            <div className="hall-of-fame">
+                <h1>Hall of Fame</h1>
+                <div className="top-gallery-items">
+                    {topHeartedImages.map((item, index) => (
+                        <div key={index} className="top-gallery-item">
+                            <img src={item.image_url} alt={item.image_filename} />
+                            <div className="item-details">
+                                <p><strong className='item-details-strong'>Deck Type:</strong> {item.deck_brand} {item.deck_size} in.</p>
+                                <p><strong className='item-details-strong'>Battery Type:</strong> {item.battery_series}s {item.battery_parallel}p</p>
+                                <p><strong className='item-details-strong'>Motor Type:</strong> {item.motor_size} {item.motor_kv}Kv {item.motor_power}Watts</p>
+                                <p><strong className='item-details-strong'>Wheel Type:</strong> {item.wheel_size} {item.wheel_type}</p>
+                                <p><strong className='item-details-strong'>Max Speed & Range:</strong> {item.max_speed} MPH, {item.max_range} Miles</p>
+                                <p><strong className='item-details-strong'>Other Features:</strong><p className='item-details-other-features'>{item.other_features}</p></p>
+                                <p className='rating'><strong className='item-details-strong'>Rating:</strong> {item.hearts} likes</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* Gallery items */}
+            <div className="gallery-items">
+                <div className='featured-builds-container-divider'></div>
+                <div className='featured-builds-container'>
+                    <h2>Featured Builds</h2>
+                </div>
+                {galleryItems.map((item, index) => (
+                    <div key={index} className="gallery-item">
+                        <img src={item.image_url} alt={item.image_filename} />
+                        <div className="item-details">
+                            <p><strong className='item-details-strong'>Deck Type:</strong> {item.deck_brand} {item.deck_size} in.</p>
+                            <p><strong className='item-details-strong'>Battery Type:</strong> {item.battery_series}s {item.battery_parallel}p</p>
+                            <p><strong className='item-details-strong'>Motor Type:</strong> {item.motor_size} {item.motor_kv}Kv {item.motor_power}Watts</p>
+                            <p><strong className='item-details-strong'>Wheel Type:</strong> {item.wheel_size} {item.wheel_type}</p>
+                            <p><strong className='item-details-strong'>Max Speed & Range:</strong> {item.max_speed} MPH, {item.max_range} Miles</p>
+                            <p><strong className='item-details-strong'>Other Features:</strong><p className='item-details-other-features'>{item.other_features}</p></p>
+                            <div className="item-actions">
+                                <HeartButton
+                                    imageId={item.id}
+                                    onHearted={(hearts) => updateHeartCount(index, hearts)}
+                                    initiallyHearted={item.isHearted}
+                                    refreshTopImages={fetchTopHeartedImages}
+                                />
+                                {isLoggedIn && (
+                                    <div className="report-button"
+                                        onClick={() => reportImage(item.id)}
+                                        title="Report"
+                                        style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+                                    >
+                                        <ReportIcon1 />
+                                    </div>
+                                )}
+                            </div>
+                            {heartSuccess[item.id] && <div className="heart-success-message">{heartSuccess[item.id]}</div>}
+                            {reportSuccess[item.id] && <div className="report-success-message">{reportSuccess[item.id]}</div>}
+                            {reportErrors[item.id] && <div className="report-error-message">{reportErrors[item.id]}</div>}
+                        </div>
+                    </div>
+                ))}
+            </div>
+
         </div>
     );
 }

@@ -2453,7 +2453,7 @@ nav a.home-link:hover {
     position: relative;
     top: auto;
     right: auto;
-    width: 95%;
+    width: 90%;
     margin: 20px auto;
     max-height: 70vh;
     overflow-y: auto;
@@ -2463,7 +2463,7 @@ nav a.home-link:hover {
   .floating-form input,
   .floating-form textarea,
   .floating-form button {
-    width: 100%;
+    width: 85%;
   }
 
   .floating-form button {
