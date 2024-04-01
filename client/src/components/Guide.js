@@ -126,7 +126,8 @@ const Guide = () => {
                             <React.Fragment key={index}>
                                 {line}<br />
                             </React.Fragment>
-                        ))}</p>
+                        ))}
+                        </p>
                         {step.list && (
                             <ul>
                                 {step.list.map((item, itemIndex) => (
@@ -140,7 +141,8 @@ const Guide = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >Learn more
-                            </NavLink>}
+                            </NavLink>
+                        }
                     </div>
                 </div>
             ))}
