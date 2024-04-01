@@ -65,7 +65,10 @@ function NavBar() {
                 {isLoggedIn ? (
                     <>
                         <NavLink to="/profile"><FontAwesomeIcon icon={faUser} /></NavLink>
-                        <NavLink to="/logout" className="logout-link">Logout</NavLink>
+                        <NavLink to="/logout" className="logout-link"
+                            title="Profile">
+                            Logout
+                        </NavLink>
                     </>
                 ) : (
                     <>

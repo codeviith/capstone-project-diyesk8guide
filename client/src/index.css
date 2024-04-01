@@ -543,6 +543,49 @@ nav a.home-link:hover {
   background-color: #ddd; 
 }
 
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .nav-links-left, 
+  .nav-links-right {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-links-left {
+    margin-bottom: 10px;
+  }
+
+  .menu-item {
+    margin-right: 0;
+    padding: 10px 0;
+  }
+
+  .dropdown-menu {
+    right: auto;
+    left: 0;
+    width: 100%;
+  }
+
+  .login-link, .signup-link {
+    padding: 10px 15px;
+    font-size: 16px;
+    margin: 5px 0;
+    width: calc(100% - 20px);
+    text-align: center;
+  }
+}
+
+
+
+
+
+
+
 
 
 /* login component */
