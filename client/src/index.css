@@ -1825,7 +1825,7 @@ nav a.home-link:hover {
 
 
 
-/* Contact Us Component */
+/* ContactUs Component */
 .contactus {
   max-width: 50%;
   margin: 0 auto;
@@ -1933,7 +1933,7 @@ nav a.home-link:hover {
     font-size: 16px;
   }
 
-  .footer-bottom-contactus .footer-bottom-link-contactus {
+.footer-bottom-link-contactus {
     display: block;
     margin: 5px auto;
     font-size: 16px;
@@ -2689,7 +2689,7 @@ nav a.home-link:hover {
 
 
 
-/* footer */
+/* footer (general) */
 
 .footer-bottom {
   display: flex;
@@ -2789,11 +2789,11 @@ nav a.home-link:hover {
   .footer-bottom-link-about,
   .footer-bottom-link-donation,
   .footer-bottom-link-contactus {
-    font-size: 15px;
-    padding: 8px 0;
+    display: block;
     margin: 5px auto;
+    font-size: 16px;
+    padding: 5px;
     text-align: center;
-    width: auto;
   }
 }
 
