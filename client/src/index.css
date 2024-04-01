@@ -1673,7 +1673,8 @@ nav a.home-link:hover {
     padding: 10px;
   }
 
-  .guide-step, .step-images {
+  .guide-step,
+  .step-images {
     margin: 0;
     padding: 0;
   }
@@ -1690,11 +1691,14 @@ nav a.home-link:hover {
     margin-bottom: 15px;
     padding: 10px;
     text-align: justify;
+    align-items: center;
   }
 
   .guide-href-link {
     padding: 8px 10px;
     font-size: 16px;
+    text-align: center;
+    margin: 10px 0;
   }
 
   .login-prompt-container {
@@ -1919,7 +1923,7 @@ nav a.home-link:hover {
   .contactus input[type="text"],
   .contactus input[type="email"],
   .contactus textarea {
-    width: 100%;
+    width: 90%;
     padding: 8px;
     font-size: 14px;
   }
