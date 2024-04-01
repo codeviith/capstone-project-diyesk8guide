@@ -2768,11 +2768,11 @@ nav a.home-link:hover {
   }
 
   .footer-bottom-link {
-    font-size: 15px;
-    padding: 10px 5px;
-    margin: 5px 0;
+    display: block;
+    margin: 5px auto;
+    font-size: 16px;
+    padding: 5px;
     text-align: center;
-    width: 100%;
   }
 
   .footer-bottom-login,
@@ -2789,11 +2789,11 @@ nav a.home-link:hover {
   .footer-bottom-link-about,
   .footer-bottom-link-donation,
   .footer-bottom-link-contactus {
-    display: block;
+    font-size: 15px;
+    padding: 8px 0;
     margin: 5px auto;
-    font-size: 16px;
-    padding: 5px;
     text-align: center;
+    width: auto;
   }
 }
 
