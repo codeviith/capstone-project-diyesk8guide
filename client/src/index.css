@@ -14,12 +14,16 @@ code {
 
 
 
+
+
 /* Code to make title bar look like floating*/
 main {
   flex: 1;
   padding: 10px;
   box-sizing: border-box;
 }
+
+
 
 
 
@@ -47,6 +51,9 @@ body::before {
   background-size: cover;
   opacity: 0.95;
 }
+
+
+
 
 
 /* header component */
@@ -112,6 +119,38 @@ body::before {
 .session-logout-button:hover {
   background-color: #0056b3;
 }
+
+/* For mobile devices */
+@media (max-width: 768px) {
+  .session-expiry-modal-container {
+    width: 90%;
+    top: 10%;
+    transform: translate(-50%, -10%);
+    padding: 15px;
+    border-radius: 15px;
+  }
+
+  .session-expiry-text {
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+
+  .buttons-container {
+    flex-direction: column;
+    width: 100%;
+    gap: 5px;
+  }
+
+  .keep-session-alive-button,
+  .session-logout-button {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 16px;
+  }
+}
+
+
+
 
 
 
@@ -263,7 +302,7 @@ body::before {
   .home {
     max-width: 100%;
     padding: 5px;
-    /* border-radius: 0; */
+    border-radius: 5px;
   }
 
   .home .intro, .home {
@@ -1621,7 +1660,7 @@ nav a.home-link:hover {
   .guide {
     max-width: 100%;
     padding: 10px;
-    border-radius: 0;
+    border-radius: 5px;
   }
 
   .guide h1 {
@@ -1737,7 +1776,7 @@ nav a.home-link:hover {
   .about {
     max-width: 100%;
     padding: 10px;
-    border-radius: 0;
+    border-radius: 5px;
   }
 
   .about-title {
@@ -1860,7 +1899,7 @@ nav a.home-link:hover {
   .contactus {
     max-width: 100%;
     padding: 15px;
-    border-radius: 0;
+    border-radius: 5px;
   }
 
   .contactus h2 {
@@ -1978,8 +2017,8 @@ nav a.home-link:hover {
   .donation {
     max-width: 100%;
     padding: 10px;
-    border-radius: 0;
-    background-color: #f0f0f0;
+    border-radius: 5px;
+    background-color: gray;
   }
 
   .donation-title {
@@ -2420,7 +2459,7 @@ nav a.home-link:hover {
   .disclaimers {
     max-width: 100%;
     padding: 15px;
-    border-radius: 0;
+    border-radius: 5px;
   }
 
   .disclaimers-title {
@@ -2501,7 +2540,7 @@ nav a.home-link:hover {
   .rulesandpolicies {
     max-width: 100%;
     padding: 15px;
-    border-radius: 0;
+    border-radius: 5px;
   }
 
   .rulesandpolicies-title {
@@ -2614,6 +2653,36 @@ nav a.home-link:hover {
   background-color: #0056b3;
 }
 
+/* For mobile devices */
+@media (max-width: 768px) {
+  .modal-container {
+    width: 90%;
+    top: 10%;
+    transform: translate(-50%, -10%);
+    padding: 15px;
+    border-radius: 15px;
+  }
+
+  .modal-text {
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .modal-button-agree,
+  .modal-button-cancel {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 16px;
+  }
+}
+
+
+
 
 
 
@@ -2647,7 +2716,6 @@ nav a.home-link:hover {
   color: #fff;
   border-bottom: 3px solid #007bff;
 }
-
 
 .footer-bottom-login,
 .footer-bottom-signup,
