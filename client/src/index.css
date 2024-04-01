@@ -258,7 +258,7 @@ body::before {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Media query for mobile devices */
+/* For mobile devices */
 @media (max-width: 768px) {
   .home {
     max-width: 100%;
@@ -602,7 +602,7 @@ nav a.home-link:hover {
   background-color: #ddd; 
 }
 
-/* Media query for mobile devices */
+/* For mobile devices */
 @media (max-width: 768px) {
   nav {
     display: flex;
@@ -1616,14 +1616,54 @@ nav a.home-link:hover {
   margin-bottom: 20px;
 }
 
+/* For mobile devices */
 @media (max-width: 768px) {
-  .guide-step img {
-    max-width: 100%; /* Makes images take full width on smaller screens */
+  .guide {
+    max-width: 100%;
+    padding: 10px;
+    border-radius: 0;
   }
+
+  .guide h1 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+
+  .guide-step-container {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .guide-step, .step-images {
+    margin: 0;
+    padding: 0;
+  }
+
+  .step-images img {
+    margin-bottom: 5px;
+  }
+
   .step-images {
-    flex-direction: column; /* Stacks images vertically on smaller screens */
+    gap: 5px;
+  }
+
+  .guide-step {
+    margin-bottom: 15px;
+    padding: 10px;
+    text-align: justify;
+  }
+
+  .guide-href-link {
+    padding: 8px 10px;
+    font-size: 16px;
+  }
+
+  .login-prompt-container {
+    padding: 10px;
+    font-size: 16px;
   }
 }
+
 
 
 
@@ -1691,6 +1731,59 @@ nav a.home-link:hover {
   background-color: #0056b3;
   box-shadow: 0 0 10px white
 }
+
+/* For mobile devices */
+@media (max-width: 768px) {
+  .about {
+    max-width: 100%;
+    padding: 10px;
+    border-radius: 0;
+  }
+
+  .about-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+
+  .about span {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+
+  .contact-us {
+    padding: 10px;
+    margin-top: 20px;
+  }
+
+  .contact-us h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .contact-us p {
+    font-size: 16px;
+  }
+
+  .navlink-button {
+    padding: 8px 10px;
+    font-size: 16px;
+  }
+
+  .footer-bottom-about,
+  .footer-bottom-link-about {
+    font-size: 15px;
+    padding: 5px;
+    margin: 5px 0;
+    display: block;
+    text-align: center;
+  }
+}
+
+
+
+
+
+
 
 
 /* Contact Us Component */
@@ -1762,6 +1855,56 @@ nav a.home-link:hover {
   box-shadow: 0 0 10px white
 }
 
+/* For mobile devices */
+@media (max-width: 768px) {
+  .contactus {
+    max-width: 100%;
+    padding: 15px;
+    border-radius: 0;
+  }
+
+  .contactus h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .contactus form {
+    gap: 5px;
+  }
+
+  .contactus label {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+
+  .contactus input[type="text"],
+  .contactus input[type="email"],
+  .contactus textarea {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .contactus textarea {
+    height: 200px;
+  }
+
+  .contactus button {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+
+  .footer-bottom-contactus .footer-bottom-link-contactus {
+    display: block;
+    margin: 5px auto;
+    font-size: 16px;
+    padding: 5px;
+    text-align: center;
+  }
+}
+
+
+
 
 
 
@@ -1830,6 +1973,53 @@ nav a.home-link:hover {
   box-shadow: 0 0 10px white
 }
 
+/* For mobile devices */
+@media (max-width: 768px) {
+  .donation {
+    max-width: 100%;
+    padding: 10px;
+    border-radius: 0;
+    background-color: #f0f0f0;
+  }
+
+  .donation-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+
+  .donation span {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .donation-button-container {
+    padding: 10px;
+    margin-top: 20px;
+  }
+
+  .donation-button-container h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+
+  .donation-button-container p {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .donation-button {
+    padding: 10px 15px;
+    font-size: 18px;
+  }
+
+  .footer-bottom-donation .footer-bottom-link-donation {
+    display: block;
+    margin: 5px auto;
+    font-size: 16px;
+    padding: 5px;
+    text-align: center;
+  }
+}
 
 
 
@@ -2121,7 +2311,7 @@ nav a.home-link:hover {
   margin-bottom: 20px; 
   padding: 10px; 
   /* background-image: url("https://wallpapercave.com/wp/wp4581227.jpg"); */
-  background-image: url("https://wallpaperaccess.com/full/2024271.jpg");
+  /* background-image: url("https://wallpaperaccess.com/full/2024271.jpg"); */
   /* background-image: url("https://wallpapers.com/images/hd/electric-background-aukjsvm4da5furms.jpg"); */
   /* background-image: url("https://i2.wp.com/files.123freevectors.com/wp-content/original/123992-shiny-bright-orange-metallic-texture.jpg"); */
   /* background-image: url("https://static.vecteezy.com/system/resources/previews/001/987/938/original/abstract-orange-light-metallic-hexagon-mesh-pattern-on-black-design-modern-futuristic-background-illustration-vector.jpg"); */
@@ -2225,6 +2415,41 @@ nav a.home-link:hover {
   color: black;
 }
 
+/* For mobile devices */
+@media (max-width: 768px) {
+  .disclaimers {
+    max-width: 100%;
+    padding: 15px;
+    border-radius: 0;
+  }
+
+  .disclaimers-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+
+  .disclaimers strong,
+  .disclaimers span {
+    font-size: 16px;
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+
+  .disclaimers strong {
+    font-size: 18px;
+  }
+
+  .footer-bottom {
+    padding: 10px;
+  }
+
+  .footer-bottom-link {
+    font-size: 16px;
+    margin: 5px;
+    padding: 5px;
+  }
+}
+
 
 
 
@@ -2270,6 +2495,48 @@ nav a.home-link:hover {
   line-height: 1.5;
   color: black;
 }
+
+/* For mobile devices */
+@media (max-width: 768px) {
+  .rulesandpolicies {
+    max-width: 100%;
+    padding: 15px;
+    border-radius: 0;
+  }
+
+  .rulesandpolicies-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+
+  .rulesandpolicies span, .rulesandpolicies strong {
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  .section-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .rulesandpolicies ul li {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+
+  .footer-bottom {
+    padding: 10px;
+  }
+
+  .footer-bottom-link {
+    font-size: 16px;
+    margin: 5px 0;
+    display: block;
+    text-align: center;
+  }
+}
+
+
 
 
 
@@ -2425,6 +2692,7 @@ nav a.home-link:hover {
   border-bottom: 2px solid #007bff;
 }
 
+/* For mobile devices */
 @media (max-width: 768px) {
   .footer-bottom {
     flex-direction: column;
