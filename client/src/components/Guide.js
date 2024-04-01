@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { AuthContext } from './AuthContext';
 
 const Guide = () => {
-    // const { isLoggedIn } = useContext(AuthContext); // Using useContext to access isLoggedIn
+    const { isLoggedIn } = useContext(AuthContext); // Using useContext to access isLoggedIn
 
     const guideSteps = [
         {
@@ -101,13 +101,13 @@ const Guide = () => {
         [require("./images/ID9.jpg")]
     ];
 
-    // if (!isLoggedIn) {
-    //     return (
-    //         <div className="login-prompt-container">
-    //             <p>Please <NavLink className="login-href" to="/login">log in</NavLink> to access Guide.</p>
-    //         </div>
-    //     );
-    // }
+    if (!isLoggedIn) {
+        return (
+            <div className="login-prompt-container">
+                <p>Please <NavLink className="login-href" to="/login">log in</NavLink> to access Guide.</p>
+            </div>
+        );
+    }
 
 
     return (
