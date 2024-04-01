@@ -1808,14 +1808,14 @@ nav a.home-link:hover {
     font-size: 16px;
   }
 
-  .footer-bottom-about,
+  /* .footer-bottom-about,
   .footer-bottom-link-about {
     font-size: 15px;
     padding: 5px;
     margin: 5px 0;
     display: block;
     text-align: center;
-  }
+  } */
 }
 
 
@@ -2051,13 +2051,13 @@ nav a.home-link:hover {
     font-size: 18px;
   }
 
-  .footer-bottom-donation .footer-bottom-link-donation {
+  /* .footer-bottom-donation .footer-bottom-link-donation {
     display: block;
     margin: 5px auto;
     font-size: 16px;
     padding: 5px;
     text-align: center;
-  }
+  } */
 }
 
 
@@ -2478,7 +2478,7 @@ nav a.home-link:hover {
     font-size: 18px;
   }
 
-  .footer-bottom {
+  /* .footer-bottom {
     padding: 10px;
   }
 
@@ -2486,7 +2486,7 @@ nav a.home-link:hover {
     font-size: 16px;
     margin: 5px;
     padding: 5px;
-  }
+  } */
 }
 
 
@@ -2563,7 +2563,7 @@ nav a.home-link:hover {
     margin-bottom: 5px;
   }
 
-  .footer-bottom {
+  /* .footer-bottom {
     padding: 10px;
   }
 
@@ -2572,7 +2572,7 @@ nav a.home-link:hover {
     margin: 5px 0;
     display: block;
     text-align: center;
-  }
+  } */
 }
 
 
