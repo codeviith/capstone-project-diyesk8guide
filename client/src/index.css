@@ -2448,12 +2448,15 @@ nav a.home-link:hover {
     font-size: 14px;
   }
 
+  /* code to make floating-form fixed and scroll with page for mobile devices */
   .floating-form {
-    top: 10px;
-    right: 10px;
-    width: auto;
-    max-width: 95%;
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 95%;
+    margin: 20px auto;
     max-height: 70vh;
+    overflow-y: auto;
   }
 
   .floating-form select,
@@ -2467,12 +2470,6 @@ nav a.home-link:hover {
     margin-top: 5px;
   }
 }
-
-/* @media (max-height: 600px) {
-  .floating-form {
-    max-height: 70vh; 
-  }
-} */
 
 
 
