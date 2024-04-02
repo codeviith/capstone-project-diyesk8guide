@@ -1177,7 +1177,6 @@ nav a.home-link:hover {
   font-weight: bold;
 }
 
-
 .input-and-buttons {
   display: flex;
   align-items: center;
@@ -1374,7 +1373,6 @@ nav a.home-link:hover {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
 }
 
-
 .profile img {
   max-width: 80%;
   height: auto;
@@ -1382,11 +1380,6 @@ nav a.home-link:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-@media screen and (max-width: 600px) {
-  .profile img {
-    max-width: 80%;
-  }
-}
 
 /* uploaded images */
 .uploaded-image-container {
@@ -1439,11 +1432,6 @@ nav a.home-link:hover {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5)
 }
 
-@media (max-width: 768px) {
-  .uploaded-image-container {
-    grid-template-columns: 1fr;
-  }
-}
 
 /* shared */
 .image-details p {
@@ -1501,6 +1489,108 @@ nav a.home-link:hover {
   background-color: transparent;
   border-radius: 70px;  
 }
+
+/* For mobile devices */
+@media (max-width: 768px) {
+  .profile {
+    max-width: 100%;
+    margin: 10px auto;
+    padding: 15px;
+    border-radius: 5px;
+  }
+
+  .profile h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+
+  .user-data-container {
+    width: 90%;
+  }
+
+  .user-data-field,
+  .password-container,
+  .checkbox-container,
+  .user-data-select,
+  .user-data-input,
+  .password-user-data-input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .input-and-buttons,
+  .password-label,
+  .profile-password-criteria {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .edit-button, 
+  .save-button,
+  .account-delete-confirm-button,
+  .account-delete-cancel-button,
+  .delete-board-button,
+  .delete-question-button,
+  .delete-uploaded-image-button {
+    width: auto;
+    margin-top: 10px;
+  }
+
+  .profile-boards-container,
+  .uploaded-image-container,
+  .liked-image-container {
+    flex-direction: column;
+  }
+
+  .profile-board-div,
+  .uploaded-images,
+  .liked-images {
+    max-width: 100%;
+    margin: 10px 0;
+  }
+
+  .uploaded-images img,
+  .liked-images img {
+    width: 100%;
+  }
+
+  .image-details,
+  .questions-asked,
+  .questions-asked-container,
+  .profile-board-spec {
+    width: 100%;
+  }
+
+  .unlike-button {
+    margin-top: 10px;
+  }
+
+  .password-user-data-input,
+  .account-deletion-confirmation-input {
+    width: 100%;
+  }
+}
+
+
+
+/* @media (max-width: 768px) {
+  .uploaded-image-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .profile img {
+    max-width: 80%;
+  }
+} */
+
+
+
+
+
+
+
 
 
 /* generate component */
@@ -1562,9 +1652,6 @@ nav a.home-link:hover {
   list-style: none;
   padding: 0;
 }
-
-
-
 
 /* Generate board specs */
 .generate-board-div {
@@ -1657,6 +1744,7 @@ nav a.home-link:hover {
     max-width: 100%; 
   }
 }
+
 
 
 
