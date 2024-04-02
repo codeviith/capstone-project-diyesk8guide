@@ -2416,11 +2416,6 @@ nav a.home-link:hover {
     margin-left: 0;
   }
 
-  .gallery-items {
-    justify-content: center;
-    padding: 5px;
-  }
-
   .featured-builds-container h2 {
     font-size: 24px;
   }
@@ -2430,6 +2425,30 @@ nav a.home-link:hover {
     width: 95%;
     margin-top: 20px;
     height: auto;
+  }
+
+  .top-gallery-items {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .top-gallery-item {
+    flex-basis: 100%;
+    width: 90%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  .top-gallery-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+  }
+
+  .gallery-items {
+    justify-content: center;
+    padding: 5px;
   }
 
   .gallery-item {
@@ -2463,7 +2482,7 @@ nav a.home-link:hover {
   .floating-form input,
   .floating-form textarea,
   .floating-form button {
-    width: 85%;
+    width: 97%;
   }
 
   .floating-form button {
