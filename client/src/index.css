@@ -1634,8 +1634,16 @@ nav a.home-link:hover {
   }
 
   /* Mobile generate board specs section */
+  .render-board-specs {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+  }
+
   .generate-board-div {
     max-width: 90%;
+    margin: 10px 0;
     padding: 15px;
     border-radius: 10px;
     font-size: 14px;
