@@ -420,12 +420,6 @@ body::before {
   border-radius: 5px;
 }
 
-@media screen and (max-width: 899px) {
-  .guru-form input {
-    width: 85%; 
-  }
-}
-
 .guru-form input:focus {
   outline: none; 
   border-color: #a90404;
@@ -489,6 +483,58 @@ body::before {
   font-size: 18px;
   margin-top: 12px;
 }
+
+/* For mobile devices */
+@media (max-width: 768px) {
+  .guru-form {
+    margin: 10px auto;
+    padding: 15px;
+  }
+
+  .guru-form::before {
+    border-radius: 15px;
+  }
+
+  .guru-form strong,
+  .guru-note {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+
+  .guru-form input {
+    padding: 8px;
+    margin: 8px 0;
+    font-size: 16px;
+    width: calc(100% - 16px);
+    /* width: 85%;  */
+  }
+
+  .guru-button {
+    padding: 12px 20px;
+    font-size: 20px;
+  }
+
+  .loading-container,
+  .response-container {
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 15px;
+    width: auto;
+    max-width: 95%;
+  }
+
+  .login-request {
+    padding: 20px;
+    margin-top: 15px;
+    font-size: 16px;
+  }
+}
+
+
+
+
+
 
 
 
@@ -1555,6 +1601,58 @@ nav a.home-link:hover {
   padding:1px;
 }
 
+/* For mobile devices */
+@media (max-width: 768px) {
+  .generate {
+    max-width: 100%;
+    margin: 10px auto;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+
+  .generate h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .generate label {
+    margin: 10px 0;
+  }
+
+  .generate select {
+    padding: 10px;
+    font-size: 14px;
+    width: calc(100% - 20px);
+  }
+
+  .generate button {
+    padding: 12px 20px;
+    font-size: 18px;
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  /* Mobile generate board specs section */
+  .generate-board-div {
+    max-width: 90%;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 14px;
+  }
+
+  .generate-board-strong {
+    font-size: 18px;
+  }
+
+  .board-list-div {
+    max-width: 100%; 
+  }
+}
+
+
+
+
 
 
 
@@ -2482,7 +2580,7 @@ nav a.home-link:hover {
   .floating-form input,
   .floating-form textarea,
   .floating-form button {
-    width: 97%;
+    width: 99%;
   }
 
   .floating-form button {
