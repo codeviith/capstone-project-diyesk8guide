@@ -878,7 +878,7 @@ nav a.home-link:hover {
 
 @media (max-width: 768px) {
   .login input {
-    width: 97%;
+    width: 93%;
   }
 }
 
@@ -1025,6 +1025,10 @@ nav a.home-link:hover {
   .signup select[name="riderStance"] {
     width: 60%;
   }
+
+  .password-visibility-toggle {
+    transform: translateY(-52%);
+  }
 }
 
 /* .input-container input {
@@ -1138,7 +1142,8 @@ nav a.home-link:hover {
   margin-left:50px;
 }
 
-.profile-password-criteria, .profile-password-criteria span {
+.profile-password-criteria,
+.profile-password-criteria span {
   /* margin-top: 5px; */
   text-align: left;
   font-size: 13px;
@@ -1157,7 +1162,8 @@ nav a.home-link:hover {
   width: 375px;
 }
 
-.user-data-input:focus, .password-user-data-input:focus {
+.user-data-input:focus,
+.password-user-data-input:focus {
   outline: none; 
   border-color: #a90404;
 }
@@ -1674,6 +1680,18 @@ nav a.home-link:hover {
     justify-content: center;
     width: 100%;
     margin-top: 5px;
+  }
+
+  .current-password-toggle-button {
+    transform: translateX(-5%);
+  }
+  
+  .new-password-toggle-button {
+    transform: translateX(-5%);
+  }
+  
+  .confirm-new-password-toggle-button {
+    transform: translateX(-5%);
   }
 }
 
