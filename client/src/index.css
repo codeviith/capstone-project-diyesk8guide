@@ -1027,7 +1027,8 @@ nav a.home-link:hover {
   }
 
   .password-visibility-toggle {
-    transform: translateY(-52%);
+    transform: translateY(-50%);
+    transform: translateX(1%)
   }
 }
 
@@ -1683,21 +1684,20 @@ nav a.home-link:hover {
   }
 
   .current-password-toggle-button {
-    transform: translateX(-5%);
+    /* transform: translateX(2%); */
+    transform: translateY(-95%);
   }
   
   .new-password-toggle-button {
-    transform: translateX(-5%);
+    /* transform: translateX(2%); */
+    transform: translateY(-145%);
   }
   
   .confirm-new-password-toggle-button {
-    transform: translateX(-5%);
+    /* transform: translateX(2%); */
+    transform: translateY(-95%);
   }
 }
-
-
-
-
 
 
 /* @media (max-width: 768px) {
