@@ -1508,88 +1508,55 @@ nav a.home-link:hover {
     width: 90%;
   }
 
-  .password-user-data-input,
-  .account-deletion-confirmation-input {
-    width: 100%;
-    box-sizing: border-box;
-    margin-bottom: 10px;
-  }
-
-  .user-data-select,
-  .user-data-input {
-    width: calc(100% - 90px);
-  }
-
   .input-and-buttons {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-  }
-
-  .edit-button, 
-  .save-button {
-    width: auto;
-    margin-right: 10px;
-  }
-
-  .password-label,
-  .profile-password-criteria {
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
   }
 
-  .account-delete-confirm-button,
-  .account-delete-cancel-button,
-  .delete-board-button,
-  .delete-question-button,
-  .delete-uploaded-image-button {
-    width: auto;
+  .edit-button,
+  .save-button {
+    order: 2;
+    width: 48%;
     margin-top: 10px;
   }
 
-  .profile-boards-container,
-  .uploaded-image-container,
-  .liked-image-container,
-  .questions-asked,
-  .questions-asked-container {
-    flex-direction: column;
+  .edit-button {
+    margin-right: 4%;
+  }
+
+  .save-button {
+    margin-right: 0;
+  }
+
+  .password-container,
+  .checkbox-container {
     width: 100%;
+    margin-bottom: 20px;
   }
 
-  .profile-board-div,
-  .uploaded-images,
-  .liked-images {
-    max-width: 100%;
-    margin: 10px 0;
-  }
-
-  .uploaded-images img,
-  .liked-images img {
+  .user-data-input,
+  .password-user-data-input,
+  .user-data-select {
     width: 100%;
-  }
-
-  .image-details,
-  .profile-board-spec {
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .unlike-button,
-  .profile-password-criteria,
-  .password-container input,
-  .checkbox-container,
-  .user-data-checkbox[type="checkbox"] {
-    width: auto;
-    max-width: 100%;
   }
 
   .checkbox-container {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .user-data-checkbox[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin: 10px 0;
   }
 }
+
+
+
 
 
 
