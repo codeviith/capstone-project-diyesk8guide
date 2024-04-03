@@ -204,7 +204,7 @@ function Signup() {
         <br />
 
         <label>Rider Stance:
-          <select
+          <select className='ride_stance_select'
             name="riderStance"
             value={signupData.riderStance}
             onChange={handleInputChange}

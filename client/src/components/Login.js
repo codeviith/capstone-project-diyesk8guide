@@ -97,7 +97,7 @@ const Login = () => {
           </div>
         )}
         <label>Email:
-          <input
+          <input className='email-input-box'
             type="email"
             value={loginData.email}
             onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
