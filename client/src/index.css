@@ -1510,9 +1510,6 @@ nav a.home-link:hover {
 
   .user-data-value {
     width: auto;
-    display: block;
-    text-align: left;
-    justify-content: center;
   }
 
   .user-data-field,
@@ -1590,39 +1587,65 @@ nav a.home-link:hover {
     flex-direction: column;
     align-items: center;
     max-width: 100%;
-    margin: 10px 0;
+    margin-bottom: 20px;
   }
 
   .image-src {
     width: 100%;
+    margin-bottom: 10px;
   }
 
   .image-details {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  /* .image-details {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
-  }
+  } */
 
   .rating {
-    order: 1;
+    align-self: center;
     width: 100%;
+    margin-bottom: 10px;
   }
 
+  /* .rating {
+    order: 1;
+    width: 100%;
+  } */
+
   .delete-uploaded-image-button,
+  .unlike-button {
+    align-self: center;
+    width: auto;
+  }
+
+  /* .delete-uploaded-image-button,
   .unlike-button {
     order: 2;
     width: auto;
     align-self: center;
     margin-top: 10px;
-  }
+  } */
 
-  .liked-images,
+  /* .liked-images,
   .uploaded-images {
     position: relative;
+  } */
+
+  .delete-uploaded-image-button-container,
+  .unlike-button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 5px;
   }
 
-  .delete-uploaded-image-button-container {
+  /* .delete-uploaded-image-button-container {
     order: 3;
     display: flex;
     justify-content: center;
@@ -1635,7 +1658,7 @@ nav a.home-link:hover {
     position: absolute;
     right: 0;
     top: 0;
-  }
+  } */
 }
 
 
