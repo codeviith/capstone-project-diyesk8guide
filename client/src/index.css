@@ -52,19 +52,19 @@ body::before {
   opacity: 0.95;
 }
 
-.background-holder {
-  position: fixed; /* Fixed relative to the viewport */
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: url('https://www.innerloc.com/wp-content/uploads/2017/03/bigstock-Black-Carbon-Fiber-Hexagon-Pat-176134867.jpg') center center;
-  background-size: cover;
-  z-index: -1; /* Keep it behind all other content */
-  opacity: 0.95;
+@media (max-width: 768px) {
+  .background-holder {
+    position: fixed; /* Fixed relative to the viewport */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: url('https://www.innerloc.com/wp-content/uploads/2017/03/bigstock-Black-Carbon-Fiber-Hexagon-Pat-176134867.jpg') center center;
+    background-size: cover;
+    z-index: -1; /* Keep it behind all other content */
+    opacity: 0.95;
+  }
 }
-
-
 
 
 
