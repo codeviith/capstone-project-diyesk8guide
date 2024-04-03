@@ -171,7 +171,9 @@ function Signup() {
             <button className="password-visibility-toggle"
               type="button"
               onMouseDown={toggleConfirmPasswordVisibility}
-              onMouseUp={toggleConfirmPasswordVisibility}>
+              onMouseUp={toggleConfirmPasswordVisibility}
+              onTouchStart={toggleConfirmPasswordVisibility}
+              onTouchEnd={toggleConfirmPasswordVisibility}>
               👁️
             </button>
             <span className='password-criteria'>
