@@ -1511,8 +1511,6 @@ nav a.home-link:hover {
   .user-data-field,
   .password-container,
   .checkbox-container,
-  .user-data-select,
-  .user-data-input,
   .password-user-data-input,
   .account-deletion-confirmation-input {
     width: 100%;
@@ -1520,7 +1518,25 @@ nav a.home-link:hover {
     margin-bottom: 10px;
   }
 
-  .input-and-buttons,
+  .user-data-select,
+  .user-data-input {
+    width: calc(100% - 90px);
+  }
+
+  .input-and-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .edit-button, 
+  .save-button {
+    width: 80px;
+    margin-right: 10px;
+  }
+
   .password-label,
   .profile-password-criteria {
     flex-direction: column;
@@ -1528,8 +1544,6 @@ nav a.home-link:hover {
     width: 100%;
   }
 
-  .edit-button, 
-  .save-button,
   .account-delete-confirm-button,
   .account-delete-cancel-button,
   .delete-board-button,
