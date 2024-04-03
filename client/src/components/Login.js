@@ -118,6 +118,8 @@ const Login = () => {
               onMouseDown={handleMouseDownPassword}
               onMouseUp={handleMouseUpPassword}
               onMouseLeave={handleMouseUpPassword}  // Code for extra security to make sure password remains hidden
+              onTouchStart={handleMouseDownPassword}  // code for mobile devices
+              onTouchEnd={handleMouseUpPassword}  // code for mobile devices
             >👁️
             </button>
           </div>

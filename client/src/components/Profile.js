@@ -569,7 +569,9 @@ function Profile() {
                                                         <button className="current-password-toggle-button"
                                                             type="button"
                                                             onMouseDown={toggleCurrentPasswordVisibility}
-                                                            onMouseUp={toggleCurrentPasswordVisibility}>
+                                                            onMouseUp={toggleCurrentPasswordVisibility}
+                                                            onTouchStart={toggleCurrentPasswordVisibility}
+                                                            onTouchEnd={toggleCurrentPasswordVisibility}>
                                                             👁️
                                                         </button>
                                                         <div className='profile-password-criteria'>
@@ -592,7 +594,9 @@ function Profile() {
                                                         <button className="new-password-toggle-button"
                                                             type="button"
                                                             onMouseDown={toggleNewPasswordVisibility}
-                                                            onMouseUp={toggleNewPasswordVisibility}>
+                                                            onMouseUp={toggleNewPasswordVisibility}
+                                                            onTouchStart={toggleNewPasswordVisibility}
+                                                            onTouchEnd={toggleNewPasswordVisibility}>
                                                             👁️
                                                         </button>
                                                         <div className='profile-password-criteria'>Have at least:
@@ -627,7 +631,9 @@ function Profile() {
                                                         <button className="confirm-new-password-toggle-button"
                                                             type="button"
                                                             onMouseDown={toggleConfirmNewPasswordVisibility}
-                                                            onMouseUp={toggleConfirmNewPasswordVisibility}>
+                                                            onMouseUp={toggleConfirmNewPasswordVisibility}
+                                                            onTouchStart={toggleConfirmNewPasswordVisibility}
+                                                            onTouchEnd={toggleConfirmNewPasswordVisibility}>
                                                             👁️
                                                         </button>
                                                         <div className="profile-password-criteria">
