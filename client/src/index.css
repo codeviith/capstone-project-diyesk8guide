@@ -1068,7 +1068,7 @@ nav a.home-link:hover {
 
 /* user data */
 .user-data-container {
-  width: 40%;
+  width: 80%;
   margin: auto;
   /* padding: 15px; */
 }
@@ -1160,7 +1160,7 @@ nav a.home-link:hover {
   padding: 6px;
   border: 2px solid #ccc;
   border-radius: 6px;
-  width: 375px;
+  width: 100%;
 }
 
 .user-data-input:focus,
