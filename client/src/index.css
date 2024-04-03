@@ -100,7 +100,7 @@ body::before {
   transform: translate(-50%, -50%);
   background-color: black;
   padding: 20px;
-  z-index: 100;
+  z-index: 1001;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -137,6 +137,7 @@ body::before {
 @media (max-width: 768px) {
   .session-expiry-modal-container {
     width: 85%;
+    max-width: 100%;
     top: 10%;
     padding: 10px;
     transform: translate(-50%, -10%);
@@ -1027,6 +1028,10 @@ nav a.home-link:hover {
 /* .input-container input {
   padding-right: 30px;
 } */
+
+
+
+
 
 
 
@@ -2523,7 +2528,7 @@ nav a.home-link:hover {
   padding: 20px; 
   border-radius: 8px; 
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
-  z-index: 900; 
+  z-index: 900;
   overflow-y: auto; 
   max-height: 80vh; 
 }
@@ -3032,7 +3037,8 @@ nav a.home-link:hover {
 /* For mobile devices */
 @media (max-width: 768px) {
   .modal-container {
-    width: 90%;
+    width: 85%;
+    max-width: 100%;
     top: 10%;
     transform: translate(-50%, -10%);
     padding: 15px;
