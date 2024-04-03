@@ -1509,8 +1509,12 @@ nav a.home-link:hover {
   }
 
   .user-data-value {
+    display: block;
     width: auto;
-  }
+    max-width: 90%;
+    margin: 0 auto;
+    text-align: center;
+}
 
   .user-data-field,
   .password-container,
@@ -1596,16 +1600,14 @@ nav a.home-link:hover {
   }
 
   .image-details {
-    width: 100%;
+    display: block;
+    width: 90%;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    margin: 0 auto;
     margin-bottom: 10px;
   }
-
-  /* .image-details {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-  } */
 
   .rating {
     align-self: center;
@@ -1613,29 +1615,11 @@ nav a.home-link:hover {
     margin-bottom: 10px;
   }
 
-  /* .rating {
-    order: 1;
-    width: 100%;
-  } */
-
   .delete-uploaded-image-button,
   .unlike-button {
     align-self: center;
     width: auto;
   }
-
-  /* .delete-uploaded-image-button,
-  .unlike-button {
-    order: 2;
-    width: auto;
-    align-self: center;
-    margin-top: 10px;
-  } */
-
-  /* .liked-images,
-  .uploaded-images {
-    position: relative;
-  } */
 
   .delete-uploaded-image-button-container,
   .unlike-button-container {
@@ -1644,21 +1628,6 @@ nav a.home-link:hover {
     width: 100%;
     margin-top: 5px;
   }
-
-  /* .delete-uploaded-image-button-container {
-    order: 3;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-top: 5px;
-  }
-
-  .unlike-button,
-  .delete-uploaded-image-button-container {
-    position: absolute;
-    right: 0;
-    top: 0;
-  } */
 }
 
 
