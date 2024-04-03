@@ -1510,6 +1510,9 @@ nav a.home-link:hover {
 
   .user-data-value {
     width: auto;
+    display: block;
+    text-align: left;
+    justify-content: center;
   }
 
   .user-data-field,
@@ -1620,7 +1623,7 @@ nav a.home-link:hover {
   }
 
   .delete-uploaded-image-button-container {
-    order: 2;
+    order: 3;
     display: flex;
     justify-content: center;
     width: 100%;
