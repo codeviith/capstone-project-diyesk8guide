@@ -1508,17 +1508,6 @@ nav a.home-link:hover {
     width: 90%;
   }
 
-  .user-data-field,
-  .password-container,
-  .checkbox-container {
-    box-sizing: border-box;
-  }
-
-  .password-container,
-  .checkbox-container {
-    position: relative;
-  }
-
   .password-user-data-input,
   .account-deletion-confirmation-input {
     width: 100%;
@@ -1531,38 +1520,18 @@ nav a.home-link:hover {
     width: calc(100% - 90px);
   }
 
-  /* .input-and-buttons {
+  .input-and-buttons {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
     width: 100%;
-  } */
-
-  .input-and-buttons {
-    flex-direction: column;
-    align-items: stretch;
   }
 
-  .edit-button, .save-button {
-    position: absolute;
-    bottom: -40px;
-    width: 48%;
-    margin: 0;
-  }
-
-  /* .edit-button, 
+  .edit-button, 
   .save-button {
     width: auto;
     margin-right: 10px;
-  } */
-
-  .edit-button {
-    left: 0;
-  }
-
-  .save-button {
-    right: 0;
   }
 
   .password-label,
@@ -1622,12 +1591,6 @@ nav a.home-link:hover {
   }
 }
 
-.password-user-data-input,
-.account-deletion-confirmation-input,
-.user-data-checkbox[type="checkbox"] {
-  width: 100%;
-  margin-bottom: 20px;
-}
 
 
 /* @media (max-width: 768px) {
