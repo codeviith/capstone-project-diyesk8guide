@@ -1520,55 +1520,31 @@ nav a.home-link:hover {
 
   .user-data-select,
   .user-data-input {
-    width: 100%;
+    width: 70%;
   }
 
-  .input-and-buttons {
-    display: flex;
+  .input-and-buttons,
+  .password-label,
+  .profile-password-criteria {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
-  }
-
-  .edit-button {
-    align-self: center;
-    margin-bottom: 10px;
-  }
-
-  .save-button, 
-  .account-delete-confirm-button, 
-  .delete-board-button, 
-  .delete-question-button, 
-  .delete-uploaded-image-button {
-    width: 48%;
-    margin-top: 10px;
   }
 
   .edit-button,
   .save-button {
-    order: 3;
+    width: auto;
+    align-self: center;
+    margin-top: 10px;
   }
 
-  .user-data-input,
-  .user-data-select,
-  .password-user-data-input {
-    order: 2;
-  }
-
-  .user-data-label {
-    order: 1;
-  }
-
-  .save-button {
-    margin-right: 4%;
-  }
-
+  .account-delete-confirm-button,
   .account-delete-cancel-button,
+  .delete-board-button,
   .delete-question-button,
   .delete-uploaded-image-button {
-    width: 48%;
+    width: auto;
     margin-top: 10px;
-    margin-left: 4%;
   }
 
   .profile-boards-container,
@@ -1611,7 +1587,6 @@ nav a.home-link:hover {
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   }
 }
-
 
 
 
