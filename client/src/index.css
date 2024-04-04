@@ -1733,8 +1733,11 @@ nav a.home-link:hover {
     margin-bottom: 20px;
   }
 
-  .image-src {
-    width: 100%;
+  .uploaded-images img,
+  .liked-images img {
+    width: 95%;
+    max-width: 100%;
+    margin-top: 10px;;
     margin-bottom: 10px;
   }
 
