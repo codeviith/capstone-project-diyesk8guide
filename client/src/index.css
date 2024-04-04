@@ -876,6 +876,7 @@ nav a.home-link:hover {
   color: inherit;
 }
 
+/* For mobile devices */
 @media (max-width: 768px) {
   .login input {
     width: 93%;
@@ -1024,8 +1025,7 @@ nav a.home-link:hover {
   cursor: pointer;
 }
 
-
-
+/* For mobile devices */
 @media (max-width: 768px) {
   .signup {
     max-width: 100%;
@@ -1089,26 +1089,6 @@ nav a.home-link:hover {
   }
 }
 
-
-
-
-/* @media (max-width: 768px) {
-  .signup select[name="riderStance"] {
-    width: 60%;
-  }
-
-  .password-visibility-toggle {
-    transform: translateY(-50%);
-    transform: translateX(1%)
-  }
-} */
-
-
-
-
-/* .input-container input {
-  padding-right: 30px;
-} */
 
 
 
@@ -1550,12 +1530,12 @@ nav a.home-link:hover {
 }
 
 .uploaded-images img {
-  width: calc(60% - 5px);
+  /* width: calc(60% - 5px); */
+  width: 45%;
   height: auto;
   object-fit: contain;
   background-color: transparent;
   border-radius: 15px;
-  border-radius: 25px;
 }
 
 .delete-uploaded-image-button-container {
@@ -1631,11 +1611,12 @@ nav a.home-link:hover {
 }
 
 .liked-images img {
-  width: 65%;
+  width: 55%;
   height: auto;
+  margin: 5px;
   object-fit: contain;
   background-color: transparent;
-  border-radius: 70px;  
+  border-radius: 15px; 
 }
 
 /* For mobile devices */
@@ -1938,7 +1919,6 @@ nav a.home-link:hover {
     width: 100%;
   }
 
-  /* Mobile generate board specs section */
   .render-board-specs {
     display: block;
     width: 100%;
@@ -2225,15 +2205,6 @@ nav a.home-link:hover {
     padding: 8px 10px;
     font-size: 16px;
   }
-
-  /* .footer-bottom-about,
-  .footer-bottom-link-about {
-    font-size: 15px;
-    padding: 5px;
-    margin: 5px 0;
-    display: block;
-    text-align: center;
-  } */
 }
 
 
