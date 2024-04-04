@@ -1036,17 +1036,59 @@ nav a.home-link:hover {
     font-size: 24px;
   }
 
-  .signup input, .signup select, .signup .ride_stance_select {
+  .signup input,
+  .signup select {
     width: 94%;
     margin: 0 auto;
     display: block;
   }
 
+  .signup .ride_stance_select {
+    width: auto;
+    margin: 0 auto;
+    display: block;
+  }
+
+
+
+
+
   .signup .checkbox-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px auto;
+  }
+
+  .signup .checkbox-container label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    gap: 5px;
+  }
+
+
+
+
+
+  /* .signup .checkbox-container {
+    display: grid;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     justify-items: center;
     gap: 10px;
   }
+
+  .signup .checkbox-container label {
+    flex-direction: row;
+    justify-content: center;
+    gap: 5px;
+  } */
+
+
+
 
   .input-container {
     width: 100%;
@@ -1057,14 +1099,8 @@ nav a.home-link:hover {
     right: 10px;
   }
 
-  .signup .checkbox-container label {
-    flex-direction: row;
-    justify-content: center;
-    gap: 5px;
-  }
-
   .submit-button {
-    width: 94%;
+    width: auto;
     margin: 20px auto;
   }
 
