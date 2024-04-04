@@ -4,6 +4,7 @@ import { responseStyle } from './CommonStyles';
 import { formatResponse } from './CommonFunctions';
 import { AuthContext } from './AuthContext';
 import { NavLink } from 'react-router-dom';
+import { debounce } from 'lodash';
 
 function Profile() {
     const boardOptions = ["Evolve", "Lacroix", "KalyNYC", "Metroboard", "Trampa", "Mellow", "Boosted", "Exway", "Bajaboard", "Hoyt St.", "Acton", "Backfire", "Meepo", "DIY", "Other"];
@@ -72,6 +73,8 @@ function Profile() {
         setShowConfirmNewPassword(false);
     };
 
+    const debouncedCheckPassword = debounce(checkCurrentPassword, 2500);
+
     const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
 
 
@@ -110,14 +113,11 @@ function Profile() {
 
     useEffect(() => {
         if (passwordFields.currentPassword.trim() !== '') {  //  this code checks to see if the currentPassword input field is NOT empty
-            checkCurrentPassword(passwordFields.currentPassword);  //  code to call on existing checkCurrentPassword func to check if 
-                                                                   //  password match with db
+            debouncedCheckPassword(passwordFields.currentPassword);  //  code to call on debouncedCheckPassword to execute the check on a debounced delay
         } else {
-            setPasswordCriteria(prev => ({ ...prev, currentPasswordMatches: false }));  //  code to set currentPasswordMatches to false if 
-                                                                                        //  input field is empty
+            setPasswordCriteria(prev => ({ ...prev, currentPasswordMatches: false }));  //  code to set currentPasswordMatches to false if input field is empty
         }
-    }, [passwordFields.currentPassword]); //  code to include passwordFields.currentPassword in the dependency array so that the check is 
-                                          //  executed upon changes to the input field
+    }, [passwordFields.currentPassword]); //  code to include passwordFields.currentPassword in the dependency so that the check is executed upon changes to the input field
 
     const fetchUserData = async () => {
         try {
