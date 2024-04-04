@@ -6,7 +6,7 @@ import { AuthContext } from './AuthContext';
 
 
 function Profile() {
-    const boardOptions = ["Evolve", "Lacroix", "KalyNYC", "Metroboard", "Trampa", "Mellow", "Boosted", "Exway", "Bajaboard", "Hoyt St.", "Acton", "Backfire", "Meepo", "_DIY_", "Other"];
+    const boardOptions = ["Evolve", "Lacroix", "KalyNYC", "Metroboard", "Trampa", "Mellow", "Boosted", "Exway", "Bajaboard", "Hoyt St.", "Acton", "Backfire", "Meepo", "DIY", "Other"];
 
     const { isLoggedIn } = useContext(AuthContext);
     const [userData, setUserData] = useState(null);
@@ -49,9 +49,25 @@ function Profile() {
     const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
     const [timerId, setTimerId] = useState(null);
 
-    const toggleCurrentPasswordVisibility = () => setShowCurrentPassword(!showCurrentPassword);
-    const toggleNewPasswordVisibility = () => setShowNewPassword(!showNewPassword);
-    const toggleConfirmNewPasswordVisibility = () => setShowConfirmNewPassword(!showConfirmNewPassword);
+    const toggleCurrentPasswordVisibility = () => {
+        setShowCurrentPassword(!showCurrentPassword);
+    };
+    const toggleNewPasswordVisibility = () => {
+        setShowNewPassword(!showNewPassword);
+    };
+    const toggleConfirmNewPasswordVisibility = () => {
+        setShowConfirmNewPassword(!showConfirmNewPassword);
+    };
+    const hideCurrentPassword = () => {
+        setShowCurrentPassword(false);
+    };
+    const hideNewPassword = () => {
+        setShowNewPassword(false);
+    };
+    const hideConfirmNewPassword = () => {
+        setShowConfirmNewPassword(false);
+    };
+
 
     useEffect(() => {
         if (isLoggedIn) {
@@ -392,17 +408,19 @@ function Profile() {
                                             <span className="user-data-value">{userData.fname}</span>
                                         )}
                                         {/* Edit Button */}
-                                        {editMode.fname && <button className="save-button" onClick={() => saveData('fname')}>Save</button>}
-                                        <button className="edit-button"
-                                            onClick={() => {
-                                                setEditMode({ ...editMode, fname: !editMode.fname });
-                                                if (editMode.fname) {
-                                                    resetEditValues();
-                                                }
-                                            }}
-                                        >
-                                            {editMode.fname ? 'Cancel' : 'Edit'}
-                                        </button>
+                                        <div className='buttons-container'>
+                                            {editMode.fname && <button className="save-button" onClick={() => saveData('fname')}>Save</button>}
+                                            <button className="edit-button"
+                                                onClick={() => {
+                                                    setEditMode({ ...editMode, fname: !editMode.fname });
+                                                    if (editMode.fname) {
+                                                        resetEditValues();
+                                                    }
+                                                }}
+                                            >
+                                                {editMode.fname ? 'Cancel' : 'Edit'}
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -419,17 +437,19 @@ function Profile() {
                                             <span className="user-data-value">{userData.lname}</span>
                                         )}
                                         {/* Edit Button */}
-                                        {editMode.lname && <button className="save-button" onClick={() => saveData('lname')}>Save</button>}
-                                        <button className="edit-button"
-                                            onClick={() => {
-                                                setEditMode({ ...editMode, lname: !editMode.lname });
-                                                if (editMode.lname) {
-                                                    resetEditValues();
-                                                }
-                                            }}
-                                        >
-                                            {editMode.lname ? 'Cancel' : 'Edit'}
-                                        </button>
+                                        <div className='buttons-container'>
+                                            {editMode.lname && <button className="save-button" onClick={() => saveData('lname')}>Save</button>}
+                                            <button className="edit-button"
+                                                onClick={() => {
+                                                    setEditMode({ ...editMode, lname: !editMode.lname });
+                                                    if (editMode.lname) {
+                                                        resetEditValues();
+                                                    }
+                                                }}
+                                            >
+                                                {editMode.lname ? 'Cancel' : 'Edit'}
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -446,17 +466,19 @@ function Profile() {
                                             <span className="user-data-value">{userData.email}</span>
                                         )}
                                         {/* Edit Button */}
-                                        {editMode.email && <button className="save-button" onClick={() => saveData('email')}>Save</button>}
-                                        <button className="edit-button"
-                                            onClick={() => {
-                                                setEditMode({ ...editMode, email: !editMode.email });
-                                                if (editMode.email) {
-                                                    resetEditValues();
-                                                }
-                                            }}
-                                        >
-                                            {editMode.email ? 'Cancel' : 'Edit'}
-                                        </button>
+                                        <div className='buttons-container'>
+                                            {editMode.email && <button className="save-button" onClick={() => saveData('email')}>Save</button>}
+                                            <button className="edit-button"
+                                                onClick={() => {
+                                                    setEditMode({ ...editMode, email: !editMode.email });
+                                                    if (editMode.email) {
+                                                        resetEditValues();
+                                                    }
+                                                }}
+                                            >
+                                                {editMode.email ? 'Cancel' : 'Edit'}
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -481,7 +503,8 @@ function Profile() {
                                                         <button className="current-password-toggle-button"
                                                             type="button"
                                                             onMouseDown={toggleCurrentPasswordVisibility}
-                                                            onMouseUp={toggleCurrentPasswordVisibility}>
+                                                            onMouseUp={toggleCurrentPasswordVisibility}
+                                                            onMouseLeave={hideCurrentPassword}> {/* extra security measure to hide the password */}
                                                             👁️
                                                         </button>
                                                         <div className='profile-password-criteria'>
@@ -504,7 +527,8 @@ function Profile() {
                                                         <button className="new-password-toggle-button"
                                                             type="button"
                                                             onMouseDown={toggleNewPasswordVisibility}
-                                                            onMouseUp={toggleNewPasswordVisibility}>
+                                                            onMouseUp={toggleNewPasswordVisibility}
+                                                            onMouseLeave={hideNewPassword}> {/* extra security measure to hide the password */}
                                                             👁️
                                                         </button>
                                                         <div className='profile-password-criteria'>Have at least:
@@ -539,7 +563,8 @@ function Profile() {
                                                         <button className="confirm-new-password-toggle-button"
                                                             type="button"
                                                             onMouseDown={toggleConfirmNewPasswordVisibility}
-                                                            onMouseUp={toggleConfirmNewPasswordVisibility}>
+                                                            onMouseUp={toggleConfirmNewPasswordVisibility}
+                                                            onMouseLeave={hideConfirmNewPassword}> {/* extra security measure to hide the password */}
                                                             👁️
                                                         </button>
                                                         <div className="profile-password-criteria">
@@ -555,7 +580,9 @@ function Profile() {
                                             // The *'s are only there as a placeholder for password
                                             // It is NEVER a good practice to display the actual password on frontend.
                                         )}
-                                        {/* Edit Button */}
+                                    </div>
+                                    {/* Edit Button */}
+                                    <div className="buttons-container">
                                         {editMode.password && <button className="save-button" onClick={validateAndSavePassword}>Save</button>}
                                         <button className="edit-button" onClick={() => {
                                             setEditMode({ ...editMode, password: !editMode.password });
@@ -583,17 +610,19 @@ function Profile() {
                                             <span className="user-data-value">{userData.rider_stance}</span>
                                         )}
                                         {/* Edit Button */}
-                                        {editMode.rider_stance && <button className="save-button" onClick={() => saveData('rider_stance')}>Save</button>}
-                                        <button className="edit-button"
-                                            onClick={() => {
-                                                setEditMode({ ...editMode, rider_stance: !editMode.rider_stance });
-                                                if (editMode.rider_stance) {
-                                                    resetEditValues();
-                                                }
-                                            }}
-                                        >
-                                            {editMode.rider_stance ? 'Cancel' : 'Edit'}
-                                        </button>
+                                        <div className='buttons-container'>
+                                            {editMode.rider_stance && <button className="save-button" onClick={() => saveData('rider_stance')}>Save</button>}
+                                            <button className="edit-button"
+                                                onClick={() => {
+                                                    setEditMode({ ...editMode, rider_stance: !editMode.rider_stance });
+                                                    if (editMode.rider_stance) {
+                                                        resetEditValues();
+                                                    }
+                                                }}
+                                            >
+                                                {editMode.rider_stance ? 'Cancel' : 'Edit'}
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -632,17 +661,19 @@ function Profile() {
                                             </span>
                                         )}
                                         {/* Edit Button */}
-                                        {editMode.boards_owned && <button className="save-button" onClick={() => saveData('boards_owned')}>Save</button>}
-                                        <button className="edit-button"
-                                            onClick={() => {
-                                                setEditMode({ ...editMode, boards_owned: !editMode.boards_owned });
-                                                if (editMode.boards_owned) {
-                                                    resetEditValues();
-                                                }
-                                            }}
-                                        >
-                                            {editMode.boards_owned ? 'Cancel' : 'Edit'}
-                                        </button>
+                                        <div className='buttons-container'>
+                                            {editMode.boards_owned && <button className="save-button" onClick={() => saveData('boards_owned')}>Save</button>}
+                                            <button className="edit-button"
+                                                onClick={() => {
+                                                    setEditMode({ ...editMode, boards_owned: !editMode.boards_owned });
+                                                    if (editMode.boards_owned) {
+                                                        resetEditValues();
+                                                    }
+                                                }}
+                                            >
+                                                {editMode.boards_owned ? 'Cancel' : 'Edit'}
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -651,129 +682,138 @@ function Profile() {
                     </section>
 
                     {/* Boards Generated Section */}
-                    {boards.length > 0 && (
-                        <section>
-                            <h2>Boards Generated</h2>
-                            <div className="profile-boards-container">
-                                {boards.map((board, index) => (
-                                    <div className='profile-board-div' key={index} style={responseStyle}>
-                                        <strong className='profile-board-number'> Board {index + 1}</strong>
-                                        <ul className='profile-board-spec'>
-                                            <strong className='profile-board-strong'> Deck </strong>
-                                            <li>Deck Type: {board.deck_type}</li>
-                                            <li>Deck Length: {board.deck_length}</li>
-                                            <li>Deck Material: {board.deck_material}</li>
-                                            <strong className='profile-board-strong'> Truck </strong>
-                                            <li>Truck Type: {board.truck_type}</li>
-                                            <li>Truck Width: {board.truck_width}</li>
-                                            <strong className='profile-board-strong'> Controller </strong>
-                                            <li>Controller Feature: {board.controller_feature}</li>
-                                            <li>Controller Type: {board.controller_type}</li>
-                                            <strong className='profile-board-strong'> Remote </strong>
-                                            <li>Remote Feature: {board.remote_feature}</li>
-                                            <li>Remote Type: {board.remote_type}</li>
-                                            <strong className='profile-board-strong'> Motor </strong>
-                                            <li>Motor Size: {board.motor_size}</li>
-                                            <li>Motor Kv: {board.motor_kv}</li>
-                                            <strong className='profile-board-strong'> Wheel </strong>
-                                            <li>Wheel Size: {board.wheel_size}</li>
-                                            <li>Wheel Type: {board.wheel_type}</li>
-                                            <strong className='profile-board-strong'> Battery </strong>
-                                            <li>Battery Voltage: {board.battery_voltage}</li>
-                                            <li>Battery Type: {board.battery_type}</li>
-                                            <li>Battery Capacity: {board.battery_capacity}</li>
-                                            <li>Battery Configuration: {board.battery_configuration}</li>
-                                            <strong className='profile-board-strong'> Range </strong>
-                                            <li>Range: {board.range_mileage}</li>
-                                        </ul>
-                                        {/* Delete Button */}
-                                        <button className="delete-board-button" onClick={() => deleteBoard(board.id)}>
-                                            Delete
-                                        </button>
-                                    </div>
-                                ))}
-                            </div>
-                        </section>
-                    )}
+                    {
+                        boards.length > 0 && (
+                            <section>
+                                <h2>Boards Generated</h2>
+                                <div className="profile-boards-container">
+                                    {boards.map((board, index) => (
+                                        <div className='profile-board-div' key={index} style={responseStyle}>
+                                            <strong className='profile-board-number'> Board {index + 1}</strong>
+                                            <ul className='profile-board-spec'>
+                                                <strong className='profile-board-strong'> Deck </strong>
+                                                <li>Deck Type: {board.deck_type}</li>
+                                                <li>Deck Length: {board.deck_length}</li>
+                                                <li>Deck Material: {board.deck_material}</li>
+                                                <strong className='profile-board-strong'> Truck </strong>
+                                                <li>Truck Type: {board.truck_type}</li>
+                                                <li>Truck Width: {board.truck_width}</li>
+                                                <strong className='profile-board-strong'> Controller </strong>
+                                                <li>Controller Feature: {board.controller_feature}</li>
+                                                <li>Controller Type: {board.controller_type}</li>
+                                                <strong className='profile-board-strong'> Remote </strong>
+                                                <li>Remote Feature: {board.remote_feature}</li>
+                                                <li>Remote Type: {board.remote_type}</li>
+                                                <strong className='profile-board-strong'> Motor </strong>
+                                                <li>Motor Size: {board.motor_size}</li>
+                                                <li>Motor Kv: {board.motor_kv}</li>
+                                                <strong className='profile-board-strong'> Wheel </strong>
+                                                <li>Wheel Size: {board.wheel_size}</li>
+                                                <li>Wheel Type: {board.wheel_type}</li>
+                                                <strong className='profile-board-strong'> Battery </strong>
+                                                <li>Battery Voltage: {board.battery_voltage}</li>
+                                                <li>Battery Type: {board.battery_type}</li>
+                                                <li>Battery Capacity: {board.battery_capacity}</li>
+                                                <li>Battery Configuration: {board.battery_configuration}</li>
+                                                <strong className='profile-board-strong'> Range </strong>
+                                                <li>Range: {board.range_mileage}</li>
+                                            </ul>
+                                            {/* Delete Button */}
+                                            <button className="delete-board-button" onClick={() => deleteBoard(board.id)}>
+                                                Delete
+                                            </button>
+                                        </div>
+                                    ))}
+                                </div>
+                            </section>
+                        )
+                    }
 
                     {/* Questions Asked Section */}
-                    {questions.length > 0 && (
-                        <section>
-                            <h2>Questions Asked</h2>
-                            <div className='questions-asked-container'>
-                                {questions.map((question, index) => (
-                                    <div className='questions-asked' key={index} style={responseStyle}>
-                                        <div className='question-container'>
-                                            <div className='question-div'><strong className='question-strong'>Question:</strong> {question.user_input}</div>
-                                            <div className='answer-div'><strong className='answer-strong'>Answer:</strong> {formatResponse(question.answer)}</div>
-                                            <div className='delete-question-button-container'>
-                                                <button className='delete-question-button' onClick={() => deleteQuestion(question.id)}>Delete</button>
+                    {
+                        questions.length > 0 && (
+                            <section>
+                                <h2>Questions Asked</h2>
+                                <div className='questions-asked-container'>
+                                    {questions.map((question, index) => (
+                                        <div className='questions-asked' key={index} style={responseStyle}>
+                                            <div className='question-container'>
+                                                <div className='question-div'><strong className='question-strong'>Question:</strong> {question.user_input}</div>
+                                                <div className='answer-div'><strong className='answer-strong'>Answer:</strong> {formatResponse(question.answer)}</div>
+                                                <div className='delete-question-button-container'>
+                                                    <button className='delete-question-button' onClick={() => deleteQuestion(question.id)}>Delete</button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </section>
-                    )}
+                                    ))}
+                                </div>
+                            </section>
+                        )
+                    }
 
                     {/* Uploaded Images Section */}
-                    {uploadedImages.length > 0 && (
-                        <section>
-                            <h2>Uploaded Images</h2>
-                            <div className='uploaded-image-container'>
-                                {uploadedImages.map((image, index) => (
-                                    <div className='uploaded-images' key={index}>
-                                        <img className='image-src' src={image.image_url} alt="Uploaded" />
-                                        <div className="image-details">
-                                            <p><strong className='image-details-strong'>Deck Type:</strong> {image.deck_brand} {image.deck_size} in.</p>
-                                            <p><strong className='image-details-strong'>Battery Type:</strong> {image.battery_series}s {image.battery_parallel}p</p>
-                                            <p><strong className='image-details-strong'>Motor Type:</strong> {image.motor_size} {image.motor_kv}Kv {image.motor_power}Watts</p>
-                                            <p><strong className='image-details-strong'>Wheel Type:</strong> {image.wheel_size} {image.wheel_type}</p>
-                                            <p><strong className='image-details-strong'>Max Speed & Range:</strong> {image.max_speed} MPH, {image.max_range} Miles</p>
-                                            <p><strong className='image-details-strong'>Other Features:</strong><p className='image-details-other-features'>{image.other_features}</p></p>
-                                            <p className='rating'><strong className='image-details-strong'>Rating:</strong> {image.hearts}</p>
-                                            <p className='delete-uploaded-image-button-container'><button className="delete-uploaded-image-button" onClick={() => deleteUploadedImage(image.id)}>Delete</button></p>
+                    {
+                        uploadedImages.length > 0 && (
+                            <section>
+                                <h2>Uploaded Images</h2>
+                                <div className='uploaded-image-container'>
+                                    {uploadedImages.map((image, index) => (
+                                        <div className='uploaded-images' key={index}>
+                                            <img className='image-src' src={image.image_url} alt="Uploaded" />
+                                            <div className="image-details">
+                                                <p><strong className='image-details-strong'>Deck Type:</strong> {image.deck_brand} {image.deck_size} in.</p>
+                                                <p><strong className='image-details-strong'>Battery Type:</strong> {image.battery_series}s {image.battery_parallel}p</p>
+                                                <p><strong className='image-details-strong'>Motor Type:</strong> {image.motor_size} {image.motor_kv}Kv {image.motor_power}Watts</p>
+                                                <p><strong className='image-details-strong'>Wheel Type:</strong> {image.wheel_size} {image.wheel_type}</p>
+                                                <p><strong className='image-details-strong'>Max Speed & Range:</strong> {image.max_speed} MPH, {image.max_range} Miles</p>
+                                                <p><strong className='image-details-strong'>Other Features:</strong><p className='image-details-other-features'>{image.other_features}</p></p>
+                                                <p className='rating'><strong className='image-details-strong'>Rating:</strong> {image.hearts}</p>
+                                                <p className='delete-uploaded-image-button-container'><button className="delete-uploaded-image-button" onClick={() => deleteUploadedImage(image.id)}>Delete</button></p>
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </section>
-                    )}
+                                    ))}
+                                </div>
+                            </section>
+                        )
+                    }
 
                     {/* Liked Images Section */}
-                    {likedImages.length > 0 && (
-                        <section>
-                            <h2>Liked Images</h2>
-                            <div className='liked-image-container'>
-                                {likedImages.map((image, index) => (
-                                    <div className='liked-images' key={index}>
-                                        <img className='image-src' src={image.image_url} alt="Liked" />
-                                        <div className="image-details">
-                                            <p><strong className='image-details-strong'>Deck Type:</strong> {image.deck_brand} {image.deck_size} in.</p>
-                                            <p><strong className='image-details-strong'>Battery Type:</strong> {image.battery_series}s {image.battery_parallel}p</p>
-                                            <p><strong className='image-details-strong'>Motor Type:</strong> {image.motor_size} {image.motor_kv}Kv {image.motor_power}Watts</p>
-                                            <p><strong className='image-details-strong'>Wheel Type:</strong> {image.wheel_size} {image.wheel_type}</p>
-                                            <p><strong className='image-details-strong'>Max Speed & Range:</strong> {image.max_speed} MPH, {image.max_range} Miles</p>
-                                            <p><strong className='image-details-strong'>Other Features:</strong><p className='image-details-other-features'>{image.other_features}</p></p>
-                                            <p className='rating'><strong className='image-details-strong'>Rating:</strong> {image.hearts}</p>
+                    {
+                        likedImages.length > 0 && (
+                            <section>
+                                <h2>Liked Images</h2>
+                                <div className='liked-image-container'>
+                                    {likedImages.map((image, index) => (
+                                        <div className='liked-images' key={index}>
+                                            <img className='image-src' src={image.image_url} alt="Liked" />
+                                            <div className="image-details">
+                                                <p><strong className='image-details-strong'>Deck Type:</strong> {image.deck_brand} {image.deck_size} in.</p>
+                                                <p><strong className='image-details-strong'>Battery Type:</strong> {image.battery_series}s {image.battery_parallel}p</p>
+                                                <p><strong className='image-details-strong'>Motor Type:</strong> {image.motor_size} {image.motor_kv}Kv {image.motor_power}Watts</p>
+                                                <p><strong className='image-details-strong'>Wheel Type:</strong> {image.wheel_size} {image.wheel_type}</p>
+                                                <p><strong className='image-details-strong'>Max Speed & Range:</strong> {image.max_speed} MPH, {image.max_range} Miles</p>
+                                                <p><strong className='image-details-strong'>Other Features:</strong><p className='image-details-other-features'>{image.other_features}</p></p>
+                                                <p className='rating'><strong className='image-details-strong'>Rating:</strong> {image.hearts}</p>
+                                            </div>
+                                            <div className='unlike-button'
+                                                onClick={() => unlikeImage(image.id)}
+                                                title="Unlike"
+                                                style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+                                            >
+                                                <UnlikeIcon />
+                                            </div>
                                         </div>
-                                        <div className='unlike-button'
-                                            onClick={() => unlikeImage(image.id)}
-                                            title="Unlike"
-                                            style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
-                                        >
-                                            <UnlikeIcon />
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </section>
-                    )}
-                </div>
+                                    ))}
+                                </div>
+                            </section>
+                        )
+                    }
+                </div >
             ) : (
                 <p>Please log in to view your profile.</p>
-            )}
-        </div>
+            )
+            }
+        </div >
     );
 };
 
