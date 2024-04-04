@@ -1044,9 +1044,9 @@ nav a.home-link:hover {
   }
 
   .signup .ride_stance_select {
-    width: auto;
-    margin: 0 auto;
     display: block;
+    width: 95%;
+    margin: 0 auto;
   }
 
 
@@ -1054,16 +1054,15 @@ nav a.home-link:hover {
 
 
   .signup .checkbox-container {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
     justify-content: center;
     gap: 10px;
     margin: 10px auto;
   }
 
   .signup .checkbox-container label {
-    display: flex;
-    flex-direction: row;
+    display:flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: auto;
