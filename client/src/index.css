@@ -1531,7 +1531,7 @@ nav a.home-link:hover {
 
 .uploaded-images img {
   /* width: calc(60% - 5px); */
-  width: 45%;
+  width: 90%;
   height: auto;
   object-fit: contain;
   background-color: transparent;
@@ -1611,7 +1611,7 @@ nav a.home-link:hover {
 }
 
 .liked-images img {
-  width: 55%;
+  width: 85%;
   height: auto;
   margin: 5px;
   object-fit: contain;
