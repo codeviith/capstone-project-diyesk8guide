@@ -108,6 +108,16 @@ function Profile() {
         };
     }, []);
 
+    useEffect(() => {
+        if (passwordFields.currentPassword.trim() !== '') {  //  this code checks to see if the currentPassword input field is NOT empty
+            checkCurrentPassword(passwordFields.currentPassword);  //  code to call on existing checkCurrentPassword func to check if 
+                                                                   //  password match with db
+        } else {
+            setPasswordCriteria(prev => ({ ...prev, currentPasswordMatches: false }));  //  code to set currentPasswordMatches to false if 
+                                                                                        //  input field is empty
+        }
+    }, [passwordFields.currentPassword]); //  code to include passwordFields.currentPassword in the dependency array so that the check is 
+                                          //  executed upon changes to the input field
 
     const fetchUserData = async () => {
         try {
@@ -296,7 +306,7 @@ function Profile() {
 
     const handlePasswordChange = (e) => {
         const { name, value } = e.target;
-        setPasswordFields({ ...passwordFields, [name]: value });
+        setPasswordFields(prev => ({ ...prev, [name]: value }));
 
         if (name === 'newPassword' || name === 'confirmNewPassword') {
             const updatedPassword = name === 'newPassword' ? value : passwordFields.newPassword;
@@ -929,7 +939,7 @@ function Profile() {
                     )}
                 </div>
             ) : (
-                <p>Please log in to view your profile.</p>
+                <p>Please <NavLink className="login-href" to="/login">log in</NavLink> to view your profile.</p>
             )}
             <div className="footer-bottom">
                 <NavLink className="footer-bottom-link" to="/about">About</NavLink>
