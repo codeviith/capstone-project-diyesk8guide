@@ -334,7 +334,7 @@ function Gallery() {
                             <input
                                 type="text"
                                 name="deck_brand"
-                                placeholder="E.g. Sector9, Omni CF, etc."
+                                placeholder="E.g. Sector9, Omni CF, NeverSummer, etc."
                                 value={formFields.deck_brand}
                                 onChange={handleFormFieldChange}
                             />
@@ -427,7 +427,7 @@ function Gallery() {
                             <input
                                 type="number"
                                 name="motor_kv"
-                                placeholder="E.g. 170kv, 190kv, etc."
+                                placeholder="E.g. 170, 190, etc."
                                 value={formFields.motor_kv}
                                 onChange={handleFormFieldChange}
                             />
