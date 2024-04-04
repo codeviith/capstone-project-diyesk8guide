@@ -985,7 +985,7 @@ nav a.home-link:hover {
 
 .signup .checkbox-container {
   display: flex;
-  width: 100%;
+  width: 97%;
   flex-wrap: wrap;
   margin-top: 10px;
   margin-left: 2px;
@@ -993,7 +993,8 @@ nav a.home-link:hover {
   justify-content: left; 
 }
 
-.signup .checkbox-container .checkbox {
+.signup .checkbox-container .checkbox + label {
+  display: block;
   transform: scale(1.5);
   margin-right: 1px;
   margin-left: 0px;
@@ -2483,7 +2484,7 @@ nav a.home-link:hover {
 }
 
 .gallery-item img {
-  width: 80%;
+  width: 90%;
   margin-top: 3vh;
   height: auto; 
   object-fit: contain; 
@@ -3058,7 +3059,7 @@ nav a.home-link:hover {
   color: white;
 }
 
-.modal-actions button {
+.modal-actions {
   display: flex;
   justify-content: center;
   gap: 10px;
@@ -3111,7 +3112,7 @@ nav a.home-link:hover {
   .modal-actions {
     display: flex;
     justify-content: center;
-    flex-direction: column;
+    /* flex-direction: column; */
     gap: 5px;
   }
 
