@@ -2779,6 +2779,7 @@ nav a.home-link:hover {
   }
 
   .top-gallery-item img {
+    margin-top: 25px;
     width: 90%;
     height: auto;
     border-radius: 35px;
@@ -2797,6 +2798,7 @@ nav a.home-link:hover {
   }
 
   .gallery-item img {
+    margin-top: 25px;
     width: 85%;
     height: auto;
     border-radius: 35px;
@@ -2810,22 +2812,25 @@ nav a.home-link:hover {
   .floating-form {
     position: relative;
     top: auto;
-    right: auto;
+    /* right: auto; */
     width: 90%;
     margin: 20px auto;
     max-height: 70vh;
     overflow-y: auto;
   }
 
-  .floating-form select,
-  .floating-form input,
-  .floating-form textarea,
-  .floating-form button {
+  .floating-form select {
     width: 99%;
+  }
+
+  .floating-form input,
+  .floating-form textarea {
+    width: 105%;
   }
 
   .floating-form button {
     margin-top: 5px;
+    width: 70%;
   }
 }
 
