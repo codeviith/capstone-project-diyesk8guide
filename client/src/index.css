@@ -1704,18 +1704,15 @@ nav a.home-link:hover {
   }
 
   .current-password-toggle-button {
-    /* transform: translateX(2%); */
-    transform: translateY(-95%);
+    transform: translateY(-90%);
   }
   
   .new-password-toggle-button {
-    /* transform: translateX(2%); */
-    transform: translateY(-140%);
+    transform: translateY(-135%);
   }
   
   .confirm-new-password-toggle-button {
-    /* transform: translateX(2%); */
-    transform: translateY(-95%);
+    transform: translateY(-90%);
   }
 }
 
