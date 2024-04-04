@@ -76,7 +76,7 @@ function Profile() {
 
     const debouncedCheckPassword = debounce((currentPassword) => {
         checkCurrentPassword(currentPassword);
-    }, 500);
+    }, 1500);
 
 
     useEffect(() => {
@@ -498,7 +498,7 @@ function Profile() {
 
 
     return (
-        <div className="profile"> {/* Apply 'profile' class name */}
+        <div className="profile">
             {isLoggedIn ? (
                 <div>
 

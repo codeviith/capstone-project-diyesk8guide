@@ -1605,7 +1605,7 @@ nav a.home-link:hover {
     width: 70%;
   }
 
-  /* .input-and-buttons, */
+  .input-and-buttons,
   .password-label,
   .profile-password-criteria {
     flex-direction: column;
@@ -1625,7 +1625,7 @@ nav a.home-link:hover {
 
 
 
-  /* .buttons-container {
+  .buttons-container {
     display: flex;
     width: 100%;
     gap: 5px;
@@ -1638,22 +1638,22 @@ nav a.home-link:hover {
     display: inline-block;
     margin-top: 5px;
     margin-left: 5px;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 8px;
+    /* padding: 8px 12px; */
+    /* border: none; */
+    /* border-radius: 8px; */
     cursor: pointer;
     background-color: #007bff;
     color: white;
-    font-size: 16px;
+    font-size: 14px;
     width:auto;
     align-self: center;
-  } */
+  }
 
 
 
 
 
-  
+
   .account-delete-confirm-button,
   .account-delete-cancel-button,
   .delete-board-button,
