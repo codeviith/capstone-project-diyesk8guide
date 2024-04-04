@@ -1614,7 +1614,7 @@ nav a.home-link:hover {
   }
 
   .buttons-container {
-    margin-top: 5px;
+    margin-top: 2px;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -1624,7 +1624,7 @@ nav a.home-link:hover {
   .edit-button,
   .save-button {
     width: auto;
-    margin-top: 5px;
+    /* margin-top: 2px; */
     padding: 8px 12px;
     font-size: 16px;
     align-self: center;
@@ -2486,7 +2486,7 @@ nav a.home-link:hover {
   height: 320px; 
   object-fit: contain; 
   background-color: transparent; 
-  border-radius: 65px;
+  border-radius: 220px;
 }
 
 .item-details p {
@@ -2744,7 +2744,7 @@ nav a.home-link:hover {
   height: 320px; 
   object-fit: contain; 
   background-color: transparent; 
-  border-radius: 1000px;
+  border-radius: 220px;
 }
 
 /* For mobile devices */
@@ -2779,9 +2779,9 @@ nav a.home-link:hover {
   }
 
   .top-gallery-item img {
-    width: 100%;
+    width: 90%;
     height: auto;
-    border-radius: 15px;
+    border-radius: 35px;
   }
 
   .gallery-items {
@@ -2797,8 +2797,9 @@ nav a.home-link:hover {
   }
 
   .gallery-item img {
+    width: 85%;
     height: auto;
-    border-radius: 15px;
+    border-radius: 35px;
   }
 
   .item-details {
