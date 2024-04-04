@@ -4,7 +4,6 @@ import { responseStyle } from './CommonStyles';
 import { formatResponse } from './CommonFunctions';
 import { AuthContext } from './AuthContext';
 import { NavLink } from 'react-router-dom';
-import { debounce } from 'lodash';
 
 function Profile() {
     const boardOptions = ["Evolve", "Lacroix", "KalyNYC", "Metroboard", "Trampa", "Mellow", "Boosted", "Exway", "Bajaboard", "Hoyt St.", "Acton", "Backfire", "Meepo", "DIY", "Other"];
@@ -73,9 +72,11 @@ function Profile() {
         setShowConfirmNewPassword(false);
     };
 
-    const debouncedCheckPassword = debounce(checkCurrentPassword, 2500);
-
     const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
+
+    const debouncedCheckPassword = debounce((currentPassword) => {
+        checkCurrentPassword(currentPassword);
+    }, 500);
 
 
     useEffect(() => {
@@ -479,6 +480,21 @@ function Profile() {
         setDeleteAccountConfirmation('');
         setAccountDeletionError(''); // Optionally clear any error message
     };
+
+    function debounce(func, wait) {
+        let timeout;
+    
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+    
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+    
 
 
     return (

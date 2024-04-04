@@ -1605,7 +1605,7 @@ nav a.home-link:hover {
     width: 70%;
   }
 
-  .input-and-buttons,
+  /* .input-and-buttons, */
   .password-label,
   .profile-password-criteria {
     flex-direction: column;
@@ -1613,13 +1613,47 @@ nav a.home-link:hover {
     width: 100%;
   }
 
-  .edit-button,
+  /* .edit-button,
   .save-button {
     width: auto;
     align-self: center;
     margin-top: 5px;
-  }
+  } */
 
+
+
+
+
+
+  /* .buttons-container {
+    display: flex;
+    width: 100%;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .edit-button, 
+  .save-button {
+    display: inline-block;
+    margin-top: 5px;
+    margin-left: 5px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    width:auto;
+    align-self: center;
+  } */
+
+
+
+
+
+  
   .account-delete-confirm-button,
   .account-delete-cancel-button,
   .delete-board-button,
@@ -1717,17 +1751,7 @@ nav a.home-link:hover {
 }
 
 
-/* @media (max-width: 768px) {
-  .uploaded-image-container {
-    grid-template-columns: 1fr;
-  }
-}
 
-@media screen and (max-width: 600px) {
-  .profile img {
-    max-width: 80%;
-  }
-} */
 
 
 
