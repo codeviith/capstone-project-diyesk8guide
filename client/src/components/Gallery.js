@@ -506,7 +506,9 @@ function Gallery() {
                         </div>
                     </div>
 
-                    <button type="submit">Submit</button>
+                    <div className='floating-form-button-container'>
+                        <button type="submit">Submit</button>
+                    </div>
                     {uploadError && <div className="upload-error">{uploadError}</div>}
                 </form>
                 <Modal

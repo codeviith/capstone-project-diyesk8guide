@@ -2482,11 +2482,11 @@ nav a.home-link:hover {
 }
 
 .gallery-item img {
-  width: calc(100% - 5px); 
-  height: 320px; 
+  width: 80%; 
+  height: auto; 
   object-fit: contain; 
   background-color: transparent; 
-  border-radius: 220px;
+  border-radius: 55px;
 }
 
 .item-details p {
@@ -2570,18 +2570,10 @@ nav a.home-link:hover {
   max-height: 80vh; 
 }
 
-.floating-form select,
-.floating-form button {
-  width: 90%; 
-}
-
-.floating-form button {
-  margin-top: 10px;
-}
-
 .floating-form input,
 .floating-form textarea {
-  max-width: 93%; 
+  width:95%;
+  max-width: 100%; 
   margin-bottom: 1px; 
   padding: 3px;
   border: 2px solid #ccc;
@@ -2596,7 +2588,7 @@ nav a.home-link:hover {
 }
 
 .floating-form select {
-  width: 100%; 
+  width: 90%;
   padding: 2px 0px; 
   font-size: 14px; 
   border: 2px solid #ccc;
@@ -2604,8 +2596,15 @@ nav a.home-link:hover {
   margin-bottom: 1px; 
 }
 
+.floating-form-button-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+
 /* Style adjustments for submit button */
 .floating-form button {
+  width: 90%; 
   cursor: pointer;
   background-color: #007bff;
   color: white;
@@ -2613,6 +2612,7 @@ nav a.home-link:hover {
   text-align: center;
   border-radius: 6px;
   padding: 10px 0;
+  margin-top: 10px;
 }
 
 .floating-form button:hover {
@@ -2740,12 +2740,13 @@ nav a.home-link:hover {
 }
 
 .top-gallery-item img {
-  width: calc(100% - 20px);
+  width: 90%;
   height: 320px; 
   object-fit: contain; 
   background-color: transparent; 
-  border-radius: 220px;
+  border-radius: 45px;
 }
+
 
 /* For mobile devices */
 @media (max-width: 768px) {
@@ -2822,17 +2823,23 @@ nav a.home-link:hover {
   }
 
   .floating-form select {
-    width: 95%;
+    width: 97%;
   }
 
   .floating-form input,
   .floating-form textarea {
-    width: 98%;
+    width: 100%;
+  }
+
+  .floating-form-button-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
   }
 
   .floating-form button {
     margin-top: 5px;
-    width: 70%;
+    width: 55%;
   }
 }
 
