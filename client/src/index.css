@@ -2483,11 +2483,11 @@ nav a.home-link:hover {
 
 .gallery-item img {
   width: 80%;
-  margin-top: 25vh;
+  margin-top: 2.5vh;
   height: auto; 
   object-fit: contain; 
   background-color: transparent; 
-  border-radius: 55px;
+  border-radius: 35px;
 }
 
 .item-details p {
@@ -2589,7 +2589,8 @@ nav a.home-link:hover {
 }
 
 .floating-form select {
-  width: 95%;
+  width: 99%;
+  max-width: 100%; 
   padding: 2px 0px; 
   font-size: 14px; 
   border: 2px solid #ccc;
@@ -2743,11 +2744,11 @@ nav a.home-link:hover {
 
 .top-gallery-item img {
   width: 90%;
-  margin-top: 25vh;
+  margin-top: 2.5vh;
   height: auto; 
   object-fit: contain; 
   background-color: transparent; 
-  border-radius: 45px;
+  border-radius: 35px;
 }
 
 
@@ -2787,7 +2788,7 @@ nav a.home-link:hover {
     margin-top: 25px;
     width: 90%;
     height: auto;
-    border-radius: 35px;
+    border-radius: 20px;
   }
 
   .gallery-items {
@@ -2807,7 +2808,7 @@ nav a.home-link:hover {
     margin-top: 25px;
     width: 85%;
     height: auto;
-    border-radius: 35px;
+    border-radius: 20px;
   }
 
   .item-details {
@@ -2831,7 +2832,7 @@ nav a.home-link:hover {
 
   .floating-form input,
   .floating-form textarea {
-    width: 100%;
+    width: 98%;
   }
 
   .floating-form-button-container {
@@ -3106,6 +3107,8 @@ nav a.home-link:hover {
   }
 
   .modal-actions {
+    display: flex;
+    justify-content: center;
     flex-direction: column;
     gap: 5px;
   }
