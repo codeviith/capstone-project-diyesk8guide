@@ -985,6 +985,7 @@ nav a.home-link:hover {
 
 .signup .checkbox-container {
   display: flex;
+  width: 100%;
   flex-wrap: wrap;
   margin-top: 10px;
   margin-left: 2px;
@@ -2483,7 +2484,7 @@ nav a.home-link:hover {
 
 .gallery-item img {
   width: 80%;
-  margin-top: 2.5vh;
+  margin-top: 3vh;
   height: auto; 
   object-fit: contain; 
   background-color: transparent; 
@@ -2642,6 +2643,7 @@ nav a.home-link:hover {
   color: rgb(147, 3, 3);
   font-size: 14px;
   font-weight: bold;
+  text-align: center;
 }
 
 
@@ -2744,7 +2746,7 @@ nav a.home-link:hover {
 
 .top-gallery-item img {
   width: 90%;
-  margin-top: 2.5vh;
+  margin-top: 2vh;
   height: auto; 
   object-fit: contain; 
   background-color: transparent; 
@@ -2827,7 +2829,7 @@ nav a.home-link:hover {
   }
 
   .floating-form select {
-    width: 97%;
+    width: 99%;
   }
 
   .floating-form input,
@@ -3056,7 +3058,7 @@ nav a.home-link:hover {
   color: white;
 }
 
-.modal-actions {
+.modal-actions button {
   display: flex;
   justify-content: center;
   gap: 10px;
