@@ -1960,6 +1960,7 @@ nav a.home-link:hover {
   }
 
   .board-list-div {
+    width: 95%;
     max-width: 100%; 
   }
 }
