@@ -133,7 +133,7 @@ body::before {
   background-color: #0056b3;
 }
 
-/* csss for backdrop overlay */
+/* backdrop overlay for session timeout */
 .backdrop-overlay {
   position: fixed;
   top: 0;
@@ -2670,7 +2670,7 @@ nav a.home-link:hover {
   padding: 5px 0;
 }
 
-/* Style adjustments for submit button */
+/* submit button */
 .floating-form button {
   width: 80%; 
   cursor: pointer;
@@ -3101,7 +3101,20 @@ nav a.home-link:hover {
 
 
 
-/* modal (universal) */
+/* modal (gallery but can be universal) */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
 
 .modal-container {
   position: fixed;
@@ -3157,6 +3170,7 @@ nav a.home-link:hover {
 .modal-button:hover {
   background-color: #0056b3;
 }
+
 
 /* For mobile devices */
 @media (max-width: 768px) {
