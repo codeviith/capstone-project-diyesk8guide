@@ -27,7 +27,6 @@ export const AuthProvider = ({ children }) => {
         });
         if (response.ok) {
             setShowInactivityModal(false);
-            document.getElementById('main-content').classList.remove('content-disabled'); // code to re-enable page interactions after modal clears
             clearInterval(countdownIntervalRef.current);
             resetInactivityTimer();
         }
@@ -41,7 +40,6 @@ export const AuthProvider = ({ children }) => {
         if (response.ok) {
             setIsLoggedIn(false);
             setShowInactivityModal(false);
-            document.getElementById('main-content').classList.remove('content-disabled'); // again, code to re-enable page interactions after modal clears
             clearInterval(countdownIntervalRef.current);  // code to clear countdown
             clearTimeout(inactivityTimerRef.current);  // code to clear inactivity timer
             // clearTimeout(autoLogoutTimerRef.current);  // code to clear autologout timer
@@ -52,34 +50,17 @@ export const AuthProvider = ({ children }) => {
     const startCountdown = () => {
         setCountdownTime(COUNTDOWN_TO_LOGOUT);
         clearInterval(countdownIntervalRef.current);
-    
         countdownIntervalRef.current = setInterval(() => {
-            setCountdownTime((prevTime) => {
-                const newTime = prevTime - 1;
-                if (newTime <= 0) {
+            setCountdownTime(prevTime => {
+                if (prevTime <= 1) {
                     clearInterval(countdownIntervalRef.current);
                     logMeOut(); // code to automatically log the user out once countdown reaches 0
                     return 0;
                 }
-                return newTime;
+                return prevTime - 1;
             });
         }, 1000);
     };
-
-    // const startCountdown = () => {
-    //     setCountdownTime(COUNTDOWN_TO_LOGOUT);
-    //     clearInterval(countdownIntervalRef.current);
-    //     countdownIntervalRef.current = setInterval(() => {
-    //         setCountdownTime(prevTime => {
-    //             if (prevTime <= 1) {
-    //                 clearInterval(countdownIntervalRef.current);
-    //                 logMeOut(); // code to automatically log the user out once countdown reaches 0
-    //                 return 0;
-    //             }
-    //             return prevTime - 1;
-    //         });
-    //     }, 1000);
-    // };
 
     function resetInactivityTimer() {
         clearTimeout(inactivityTimerRef.current);
@@ -89,7 +70,6 @@ export const AuthProvider = ({ children }) => {
         inactivityTimerRef.current = setTimeout(() => {
             if (isLoggedIn) {
                 setShowInactivityModal(true);
-                document.getElementById('main-content').classList.add('content-disabled'); // code to disable page interactions once modal appears
                 startCountdown();  // code to start the countdown once modal has been shown to user
             }
         }, INACTIVITY_TIMEOUT_VALUE);
@@ -151,25 +131,22 @@ export const AuthProvider = ({ children }) => {
         <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
             {children}
             {showInactivityModal && (
-                <>
-                    <div className="backdrop-overlay"></div>
-                    <div className="session-expiry-modal-container">
-                        <p className="session-expiry-text">Your session is about to expire due to inactivity.</p>
-                        <p className="session-expiry-text">Logging out in {countdownTime} seconds...</p>
-                        <div className='buttons-container'>
-                            <button className='keep-session-alive-button'
-                                onClick={keepSessionAlive}
-                            >
-                                Keep Me Logged In
-                            </button>
-                            <button className='session-logout-button'
-                                onClick={logMeOut}
-                            >
-                                Log Me Out
-                            </button>
-                        </div>
+                <div className="session-expiry-modal-container">
+                    <p className="session-expiry-text">Your session is about to expire due to inactivity.</p>
+                    <p className="session-expiry-text">Logging out in {countdownTime} seconds...</p>
+                    <div className='buttons-container'>
+                        <button className='keep-session-alive-button'
+                            onClick={keepSessionAlive}
+                        >
+                            Keep Me Logged In
+                        </button>
+                        <button className='session-logout-button'
+                            onClick={logMeOut}
+                        >
+                            Log Me Out
+                        </button>
                     </div>
-                </>
+                </div>
             )}
         </AuthContext.Provider>
     );
