@@ -126,25 +126,35 @@ export const AuthProvider = ({ children }) => {
         }
     }, []);
 
+    useEffect(() => {
+        if (showInactivityModal) {
+            document.body.classList.add("no-scroll");
+        } else {
+            document.body.classList.remove("no-scroll");
+        }
+    }, [showInactivityModal]);
+    
 
     return (
         <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
             {children}
             {showInactivityModal && (
-                <div className="session-expiry-modal-container">
-                    <p className="session-expiry-text">Your session is about to expire due to inactivity.</p>
-                    <p className="session-expiry-text">Logging out in {countdownTime} seconds...</p>
-                    <div className='buttons-container'>
-                        <button className='keep-session-alive-button'
-                            onClick={keepSessionAlive}
-                        >
-                            Keep Me Logged In
-                        </button>
-                        <button className='session-logout-button'
-                            onClick={logMeOut}
-                        >
-                            Log Me Out
-                        </button>
+                <div className="modal-backdrop">
+                    <div className="session-expiry-modal-container">
+                        <p className="session-expiry-text">Your session is about to expire due to inactivity.</p>
+                        <p className="session-expiry-text">Logging out in {countdownTime} seconds...</p>
+                        <div className='buttons-container'>
+                            <button className='keep-session-alive-button'
+                                onClick={keepSessionAlive}
+                            >
+                                Keep Me Logged In
+                            </button>
+                            <button className='session-logout-button'
+                                onClick={logMeOut}
+                            >
+                                Log Me Out
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}
