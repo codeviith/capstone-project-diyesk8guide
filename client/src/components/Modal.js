@@ -1,12 +1,19 @@
 import React, { useEffect, useRef } from 'react';
 
 const Modal = ({ isOpen, onClose, onConfirm, message1, message2, message3 }) => {
-    const firstActionButtonRef = useRef(null);
+    const onlyActionRefButton = useRef(null);
 
     useEffect(() => {
         if (isOpen) {  // code to focus on the first actionable button when the modal is active
-            firstActionButtonRef.current.focus();
+            onlyActionRefButton.current.focus();
+            document.body.style.overflow = 'hidden';  // code to disable scrolling when modal is active
+        } else {
+            document.body.style.overflow = '';  // code to re-enable scrolling when modal is inactive
         }
+
+        return () => {
+            document.body.style.overflow = '';  // code to cleanup and re-enable scrolling when modal is inactive or unmounts
+        };
     }, [isOpen]); // here, the dependency array includes isOpen so as to trigger the effect on isOpen change
 
     if (!isOpen) return null;
@@ -21,7 +28,7 @@ const Modal = ({ isOpen, onClose, onConfirm, message1, message2, message3 }) => 
                 <div className="modal-actions">
                     {/* This is where useRef is applied to the "Agree & Proceed" button */}
                     <button className='modal-button-agree'
-                        ref={firstActionButtonRef}
+                        ref={onlyActionRefButton}
                         onClick={onConfirm}
                     >Agree & Proceed
                     </button>

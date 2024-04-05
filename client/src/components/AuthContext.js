@@ -1,5 +1,3 @@
-/////////// WORKING NOW!!! updated user inactivity and timer reset w/o useCallback /////////////
-
 import React, { createContext, useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 
@@ -54,17 +52,34 @@ export const AuthProvider = ({ children }) => {
     const startCountdown = () => {
         setCountdownTime(COUNTDOWN_TO_LOGOUT);
         clearInterval(countdownIntervalRef.current);
+    
         countdownIntervalRef.current = setInterval(() => {
-            setCountdownTime(prevTime => {
-                if (prevTime <= 1) {
+            setCountdownTime((prevTime) => {
+                const newTime = prevTime - 1;
+                if (newTime <= 0) {
                     clearInterval(countdownIntervalRef.current);
                     logMeOut(); // code to automatically log the user out once countdown reaches 0
                     return 0;
                 }
-                return prevTime - 1;
+                return newTime;
             });
         }, 1000);
     };
+
+    // const startCountdown = () => {
+    //     setCountdownTime(COUNTDOWN_TO_LOGOUT);
+    //     clearInterval(countdownIntervalRef.current);
+    //     countdownIntervalRef.current = setInterval(() => {
+    //         setCountdownTime(prevTime => {
+    //             if (prevTime <= 1) {
+    //                 clearInterval(countdownIntervalRef.current);
+    //                 logMeOut(); // code to automatically log the user out once countdown reaches 0
+    //                 return 0;
+    //             }
+    //             return prevTime - 1;
+    //         });
+    //     }, 1000);
+    // };
 
     function resetInactivityTimer() {
         clearTimeout(inactivityTimerRef.current);
