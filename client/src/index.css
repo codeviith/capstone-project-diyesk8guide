@@ -1921,7 +1921,7 @@ nav a.home-link:hover {
   }
 
   .generate label {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
   }
 
   .generate select {
@@ -1930,7 +1930,7 @@ nav a.home-link:hover {
   }
 
   .generate button {
-    width: 100%;
+    width: 65%;
     margin-top: 20px;
   }
 
