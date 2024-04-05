@@ -1727,8 +1727,10 @@ nav a.home-link:hover {
 
   .profile-board-spec {
     width: 100%;
+    text-align: left;
+    text-justify: inter-word;
     box-sizing: border-box;
-    margin-right: 10px;
+    margin-right: 15px;
   }
 
   .unlike-button,
@@ -1949,7 +1951,8 @@ nav a.home-link:hover {
 
   .generate-board-div {
     max-width: 90%;
-    margin: 10px auto;
+    margin-left: auto;
+    margin-right: auto;
     padding: 15px;
     border-radius: 10px;
     font-size: 14px;
