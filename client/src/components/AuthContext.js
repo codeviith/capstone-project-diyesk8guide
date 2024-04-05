@@ -3,9 +3,9 @@ import { useHistory } from 'react-router-dom';
 
 export const AuthContext = createContext();
 
-const INACTIVITY_TIMEOUT_VALUE = 1 * 60 * 1000;  // inactivity timeout value in milliseconds (production value = 15 * 60 * 1000)
+const INACTIVITY_TIMEOUT_VALUE = 15 * 60 * 1000;  // inactivity timeout value in milliseconds (production value = 15 * 60 * 1000)
 // const AUTO_LOGOUT_TIMEOUT_VALUE = 15 * 60 * 1000;
-const COUNTDOWN_TO_LOGOUT = 60;  // countdown start value in seconds (production value = 120)
+const COUNTDOWN_TO_LOGOUT = 120;  // countdown start value in seconds (production value = 120)
 
 export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
