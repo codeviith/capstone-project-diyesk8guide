@@ -1445,6 +1445,7 @@ nav a.home-link:hover {
   text-align: left;
   text-justify: inter-word;
   margin-left: 55px;
+  margin-right: 10px;
   padding: 10px;
   color: black;
 }
@@ -1727,6 +1728,7 @@ nav a.home-link:hover {
   .profile-board-spec {
     width: 100%;
     box-sizing: border-box;
+    margin-right: 10px;
   }
 
   .unlike-button,
@@ -1801,8 +1803,6 @@ nav a.home-link:hover {
     transform: translateY(-90%);
   }
 }
-
-
 
 
 
@@ -1949,7 +1949,7 @@ nav a.home-link:hover {
 
   .generate-board-div {
     max-width: 90%;
-    margin: 10px 0;
+    margin: 10px auto;
     padding: 15px;
     border-radius: 10px;
     font-size: 14px;
@@ -1960,7 +1960,6 @@ nav a.home-link:hover {
   }
 
   .board-list-div {
-    width: 95%;
     max-width: 100%; 
   }
 }
