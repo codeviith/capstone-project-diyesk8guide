@@ -31,6 +31,7 @@ function Guru() {
 
         try {
             setLoading(true);
+            setError('');
 
             const response = await fetch(`${backendUrl}/guru_assistant`, {
                 method: 'POST',
@@ -41,13 +42,24 @@ function Guru() {
                 body: JSON.stringify({ user_input: userInput }),
             });
 
-            const data = await response.json();
-            const fullResponse = `Question: ${userInput}\n\nAnswer: ${data.content}`;
+            if (response.ok) {
+                const data = await response.json();
 
-            setResponse(fullResponse);
-            setUserInput(''); // Code to reset the user input after submission
+                if (data.content !== undefined) {
+                    const fullResponse = `Question: ${userInput}\n\nAnswer: ${data.content}`;
+                    setResponse(fullResponse);
+                    setUserInput(''); // Code to reset the user input after submission
+                } else {
+                    setError('An unexpected error occurred. Please try again.');
+                }
+            } else if (response.status === 408) {
+                setError('Response timed out, this could be due to an unstable internet connection or an invalid question. Please try asking your question again.');
+            } else {
+                setError('An error occurred. Please try again.');
+            }
         } catch (error) {
             console.error('Error fetching data from server:', error);
+            setError('Failed to connect to the server. Please check your internet connection and try again.');
         } finally {
             setLoading(false);
         }
