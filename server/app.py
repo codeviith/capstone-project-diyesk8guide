@@ -193,7 +193,9 @@ def guru_assistant():
             completion = client.chat.completions.create(
                 model="gpt-4-0125-preview",
                 messages=messages,
-                max_tokens=1500
+                max_tokens=1500,
+                temperature=0.35,
+                top_p=0.75
             )
             if not completion_event.is_set():
                 results['response'] = completion.choices[0].message.content
