@@ -8,6 +8,8 @@ from datetime import timedelta, datetime, timezone
 from werkzeug.utils import secure_filename
 from PIL import Image
 from io import BytesIO
+from threading import Thread
+import time
 import boto3
 import logging
 from dateutil.parser import isoparse
@@ -161,7 +163,27 @@ S3_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME')
 def is_authenticated():
     return 'user_id' in session
 
-### ------------------ OPENAI API REQUESTS ------------------ ###
+### ------------------ OPENAI API CALL WITH TIMEOUT ------------------ ###
+
+def openai_call_with_timeout(user_input, completion_event, results):
+    try:
+        messages = [
+            {"role": "system", "content": "You are an expert in electric skateboards..."},
+            {"role": "user", "content": user_input}
+        ]
+        response = client.chat.completions.create(
+            model="gpt-4-0125-preview",
+            messages=messages,
+            max_tokens=1000
+        )
+        if not completion_event.is_set():
+            results['response'] = response.choices[0].message.content
+            completion_event.set()
+    except Exception as e:
+        results['error'] = str(e)
+        completion_event.set()
+
+### ------------------ OPENAI API REQUEST ------------------ ###
 
 guru_instructions = "You are an expert in electric skateboards(aka. eboards, e-boards, or esk8), please answer questions from builders while adhering to the following instructions: 1. You will come up with the most appropriate response that suits best for the builder's question. If you are unable to provide an appropriate response to the builder, then please provide an appropriate reason. 2.Please refrain from engaing in any other conversation that isn't related to the field of electric skateboards, and in the case that the builder asks a question that is unrelated to and/or outside the scope of electric skateboards, please respond with: 'I apologize but I can only answer questions that are related to electric skateboards.' and end with an appropriate response."
 
@@ -175,37 +197,23 @@ def guru_assistant():
     user_input = data.get('user_input')
 
     if not user_input:
-        return make_response(
-            jsonify({"error": "User input cannot be empty."}), 400
-        )
+        return make_response(jsonify({"error": "User input cannot be empty."}), 400)
     
-    try:
-        messages = [
-            {"role": "system", "content": guru_instructions},
-            {"role": "user", "content": f'I have a question about: {user_input}.'}
-            ]
-        completion = client.chat.completions.create(
-            model="gpt-4-1106-preview",
-            messages=messages,
-            max_tokens=1000
-        )
+    completion_event = Thread.Event()
+    results = {}
 
-        answer = completion.choices[0].message.content
+    thread = Thread(target=openai_call_with_timeout, args=(user_input, completion_event, results))
+    thread.start()
 
-        ### Saves generated response into database for a specific user
-        guru_entry = Guru(user_input=user_input, answer=answer, user_id=user_id)
-        db.session.add(guru_entry)
-        db.session.commit()
-
-        return make_response(
-            jsonify({"content": answer}), 200
-        )
-    except Exception as e:
-        print(e)
-        
-        return make_response(
-            jsonify({"error": "Cannot formulate a response."}), 500
-        )
+    thread.join(timeout=5)
+    completion_event.set()
+    
+    if 'response' in results:
+        return jsonify({"content": results['response']}), 200
+    elif 'error' in results:
+        return jsonify({"error": results['error']}), 500
+    else:
+        return jsonify({"error": "Response timed out, this could be due to an unstable internet connection or an invalid question. Please try asking your question again."}), 408
 
 ### ------------------ ROOT/HOME ------------------ ###
 

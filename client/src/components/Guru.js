@@ -92,4 +92,3 @@ function Guru() {
 };
 
 export default Guru;
-
