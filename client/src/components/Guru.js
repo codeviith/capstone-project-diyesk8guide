@@ -31,7 +31,8 @@ function Guru() {
 
         try {
             setLoading(true);
-            setError('');
+            setError('');  // code to ensure error message is cleared
+            setResponse('');  // code to ensure previous response is cleared to prevent it from being shown along with an error message
 
             const response = await fetch(`${backendUrl}/guru_assistant`, {
                 method: 'POST',
