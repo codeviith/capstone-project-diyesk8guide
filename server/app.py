@@ -166,27 +166,9 @@ def is_authenticated():
 
 ### ------------------ OPENAI API CALL WITH TIMEOUT ------------------ ###
 
-# def openai_call_with_timeout(user_input, completion_event, results):
-#     try:
-#         messages = [
-#             {"role": "system", "content": guru_instructions},
-#             {"role": "user", "content": f'I have a question about: {user_input}.'}
-#             ]
-#         completion = client.chat.completions.create(
-#             model="gpt-4-0125-preview",
-#             messages=messages,
-#             max_tokens=1000
-#         )
-#         if not completion_event.is_set():
-#             results['response'] = completion.choices[0].message.content
-#             completion_event.set()
-#     except Exception as e:
-#         results['error'] = str(e)
-#         completion_event.set()
-
-### ------------------ OPENAI API REQUEST ------------------ ###
-
 guru_instructions = "You are an expert in electric skateboards(aka. eboards, e-boards, or esk8), please answer questions from builders while adhering to the following instructions: 1. You will come up with the most appropriate response that suits best for the builder's question. If you are unable to provide an appropriate response to the builder, then please provide an appropriate reason. 2.Please refrain from engaing in any other conversation that isn't related to the field of electric skateboards, and in the case that the builder asks a question that is unrelated to and/or outside the scope of electric skateboards, please respond with: 'I apologize but I can only answer questions that are related to electric skateboards.' and end with an appropriate response."
+
+openai_timeout_value = 60
 
 @app.post('/guru_assistant')
 def guru_assistant():
@@ -224,7 +206,7 @@ def guru_assistant():
     api_thread = Thread(target=openai_call_with_timeout)
     api_thread.start()
 
-    completion_event.wait(timeout=5)
+    completion_event.wait(timeout=openai_timeout_value)
 
     if 'response' in results:
         try:
