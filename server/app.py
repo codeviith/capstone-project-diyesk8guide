@@ -12,6 +12,7 @@ from threading import Thread, Event
 import time
 import boto3
 import logging
+import traceback
 from dateutil.parser import isoparse
 from functools import wraps
 
@@ -165,23 +166,23 @@ def is_authenticated():
 
 ### ------------------ OPENAI API CALL WITH TIMEOUT ------------------ ###
 
-def openai_call_with_timeout(user_input, completion_event, results):
-    try:
-        messages = [
-            {"role": "system", "content": guru_instructions},
-            {"role": "user", "content": f'I have a question about: {user_input}.'}
-            ]
-        completion = client.chat.completions.create(
-            model="gpt-4-0125-preview",
-            messages=messages,
-            max_tokens=1000
-        )
-        if not completion_event.is_set():
-            results['response'] = completion.choices[0].message.content
-            completion_event.set()
-    except Exception as e:
-        results['error'] = str(e)
-        completion_event.set()
+# def openai_call_with_timeout(user_input, completion_event, results):
+#     try:
+#         messages = [
+#             {"role": "system", "content": guru_instructions},
+#             {"role": "user", "content": f'I have a question about: {user_input}.'}
+#             ]
+#         completion = client.chat.completions.create(
+#             model="gpt-4-0125-preview",
+#             messages=messages,
+#             max_tokens=1000
+#         )
+#         if not completion_event.is_set():
+#             results['response'] = completion.choices[0].message.content
+#             completion_event.set()
+#     except Exception as e:
+#         results['error'] = str(e)
+#         completion_event.set()
 
 ### ------------------ OPENAI API REQUEST ------------------ ###
 
@@ -192,37 +193,53 @@ def guru_assistant():
     if 'user_id' not in session:
         return jsonify({'error': 'Authentication required'}), 401
 
-    # user_id = session['user_id']
     data = request.get_json()
     user_input = data.get('user_input')
 
     if not user_input:
-        return make_response(jsonify({"error": "User input cannot be empty."}), 400)
+        return jsonify({"error": "User input cannot be empty"}), 400
     
-    completion_event = Thread.Event()
+    completion_event = Event()
     results = {}
 
-    api_thread = Thread(target=openai_call_with_timeout, args=(user_input, completion_event, results))
+    def openai_call_with_timeout():
+        try:
+            messages = [
+                {"role": "system", "content": guru_instructions},
+                {"role": "user", "content": f'I have a question about: {user_input}.'}
+            ]
+            completion = client.chat.completions.create(
+                model="gpt-4-0125-preview",
+                messages=messages,
+                max_tokens=1000
+            )
+            if not completion_event.is_set():
+                results['response'] = completion.choices[0].message.content
+                completion_event.set()
+        except Exception as e:
+            app.logger.error(f"OpenAI call failed: {traceback.format_exc()}")
+            results['error'] = str(e)
+            completion_event.set()
+
+    api_thread = Thread(target=openai_call_with_timeout)
     api_thread.start()
 
     completion_event.wait(timeout=5)
 
-    if completion_event.is_set() and "response" in results:
-        user_id = session['user_id']
-
+    if 'response' in results:
         try:
-            guru_entry = Guru(user_input=user_input, answer=results["response"], user_id=user_id)
+            guru_entry = Guru(user_input=user_input, answer=results["response"], user_id=session['user_id'])
             db.session.add(guru_entry)
             db.session.commit()
             return jsonify({"content": results["response"]}), 200
         except Exception as e:
-            print(e)
+            app.logger.error(f"Database operation failed: {traceback.format_exc()}")
             return jsonify({"error": "Failed to save the response."}), 500
-    elif "error" in results:
+    elif 'error' in results:
         return jsonify({"error": results["error"]}), 500
     else:
         return jsonify({"error": "Response timed out, this could be due to an unstable internet connection or an invalid question. Please try asking your question again."}), 408
-
+    
 ### ------------------ ROOT/HOME ------------------ ###
 
 @app.route('/')
