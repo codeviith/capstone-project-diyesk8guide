@@ -166,9 +166,9 @@ def is_authenticated():
 
 ### ------------------ OPENAI API CALL WITH TIMEOUT ------------------ ###
 
-guru_instructions = "You are an expert in electric skateboards(aka. eboards, e-boards, or esk8), please answer questions from builders while adhering to the following instructions: 1. You will come up with the most appropriate response that suits best for the builder's question. If you are unable to provide an appropriate response to the builder, then please provide an appropriate reason. 2.Please refrain from engaing in any other conversation that isn't related to the field of electric skateboards, and in the case that the builder asks a question that is unrelated to and/or outside the scope of electric skateboards, please respond with: 'I apologize but I can only answer questions that are related to electric skateboards.' and end with an appropriate response."
+guru_instructions = "You are an expert in electric skateboards, specifically focusing on the technical components such as batteries, motors, pulleys, belts, and controllers. Provide in-depth technical advice on topics like battery management systems (BMS), DC/brushless motors, wheel (urethane or pneumatic) specifications, motor and wheel pulleys, timing belts, electronic speed controllers (ESC), LED setups, and radio-controlled (RC) receivers and controllers. Use technical language appropriate for an audience familiar with electrical engineering and mechanical design. Explain concepts in detail but ensure the explanations are concise and focused on practical application. If a question is outside this scope, politely redirect to topics within the expertise area."
 
-openai_timeout_value = 60
+openai_timeout_value = 120
 
 @app.post('/guru_assistant')
 def guru_assistant():
@@ -193,7 +193,7 @@ def guru_assistant():
             completion = client.chat.completions.create(
                 model="gpt-4-0125-preview",
                 messages=messages,
-                max_tokens=1000
+                max_tokens=1500
             )
             if not completion_event.is_set():
                 results['response'] = completion.choices[0].message.content
