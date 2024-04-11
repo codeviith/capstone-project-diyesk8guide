@@ -217,7 +217,7 @@ def guru_assistant():
                 results['response'] = completion.choices[0].message.content
                 completion_event.set()
         except Exception as e:
-            app.logger.error(f"OpenAI call failed: {traceback.format_exc()}")
+            # app.logger.error(f"OpenAI call failed: {traceback.format_exc()}")
             results['error'] = str(e)
             completion_event.set()
 
@@ -233,12 +233,12 @@ def guru_assistant():
             db.session.commit()
             return jsonify({"content": results["response"]}), 200
         except Exception as e:
-            app.logger.error(f"Database operation failed: {traceback.format_exc()}")
+            # app.logger.error(f"Database operation failed: {traceback.format_exc()}")
             return jsonify({"error": "Failed to save the response."}), 500
     elif 'error' in results:
         return jsonify({"error": results["error"]}), 500
     else:
-        return jsonify({"error": "Response timed out, this could be due to an unstable internet connection or an invalid question. Please try asking your question again."}), 408
+        return jsonify({"error": "Response timed out."}), 408
     
 ### ------------------ ROOT/HOME ------------------ ###
 

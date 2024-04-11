@@ -79,7 +79,7 @@ function Guru() {
                             type="text"
                             value={userInput}
                             onChange={(e) => setUserInput(e.target.value)}
-                            placeholder="Ask me anything about electric skateboards...(but please, one question at a time)"
+                            placeholder="Ask me anything about electric skateboards..."
                         />
                         {error && <div className='guru-error-message'>{error}</div>}
                         <button className='guru-button' type="guru-submit">Ask</button>
@@ -87,7 +87,7 @@ function Guru() {
 
                     {/* Display loading or response */}
                     {loading ? (
-                        <div className="loading-container">Thinking... This may take a while, please be patient.</div>
+                        <div className="loading-container">Thinking... This will take time, please be patient.</div>
                     ) : (
                         response && (
                             <div className="response-container" style={responseStyle}>
