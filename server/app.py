@@ -8,7 +8,7 @@ from datetime import timedelta, datetime, timezone
 from werkzeug.utils import secure_filename
 from PIL import Image
 from io import BytesIO
-from threading import Thread
+from threading import Thread, Event
 import time
 import boto3
 import logging
@@ -168,16 +168,16 @@ def is_authenticated():
 def openai_call_with_timeout(user_input, completion_event, results):
     try:
         messages = [
-            {"role": "system", "content": "You are an expert in electric skateboards..."},
-            {"role": "user", "content": user_input}
-        ]
-        response = client.chat.completions.create(
+            {"role": "system", "content": guru_instructions},
+            {"role": "user", "content": f'I have a question about: {user_input}.'}
+            ]
+        completion = client.chat.completions.create(
             model="gpt-4-0125-preview",
             messages=messages,
             max_tokens=1000
         )
         if not completion_event.is_set():
-            results['response'] = response.choices[0].message.content
+            results['response'] = completion.choices[0].message.content
             completion_event.set()
     except Exception as e:
         results['error'] = str(e)
@@ -192,7 +192,7 @@ def guru_assistant():
     if 'user_id' not in session:
         return jsonify({'error': 'Authentication required'}), 401
 
-    user_id = session['user_id']
+    # user_id = session['user_id']
     data = request.get_json()
     user_input = data.get('user_input')
 
@@ -202,16 +202,24 @@ def guru_assistant():
     completion_event = Thread.Event()
     results = {}
 
-    thread = Thread(target=openai_call_with_timeout, args=(user_input, completion_event, results))
-    thread.start()
+    api_thread = Thread(target=openai_call_with_timeout, args=(user_input, completion_event, results))
+    api_thread.start()
 
-    thread.join(timeout=5)
-    completion_event.set()
-    
-    if 'response' in results:
-        return jsonify({"content": results['response']}), 200
-    elif 'error' in results:
-        return jsonify({"error": results['error']}), 500
+    completion_event.wait(timeout=5)
+
+    if completion_event.is_set() and "response" in results:
+        user_id = session['user_id']
+
+        try:
+            guru_entry = Guru(user_input=user_input, answer=results["response"], user_id=user_id)
+            db.session.add(guru_entry)
+            db.session.commit()
+            return jsonify({"content": results["response"]}), 200
+        except Exception as e:
+            print(e)
+            return jsonify({"error": "Failed to save the response."}), 500
+    elif "error" in results:
+        return jsonify({"error": results["error"]}), 500
     else:
         return jsonify({"error": "Response timed out, this could be due to an unstable internet connection or an invalid question. Please try asking your question again."}), 408
 
