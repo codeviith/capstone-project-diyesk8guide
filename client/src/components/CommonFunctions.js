@@ -3,34 +3,30 @@ import { InlineMath, BlockMath } from 'react-katex';
 
 
 export const formatResponse = (response) => {
-    const parseLatex = (text) => {
-        const regexpr = /\\(\[|\()([^\\]+?)\\(\]|\))/g;   // code to math both inline and block formula expressions
-        const parts = [];
-        let lastIndex = 0;
+    const regex = /\\\[(.*?)\\\]|\\\((.*?)\\\)/g;
+    const elements = [];
 
-        text.replace(regexpr, (match, startDelimiter, math, endDelimiter, offset) => {
-            if (offset > lastIndex) {   // code to add the previous text
-                parts.push(<span key={lastIndex}>{text.slice(lastIndex, offset)}</span>);
-            }
+    let lastEnd = 0;
 
-            if (startDelimiter === '[' && endDelimiter === ']') {   // code to add the LaTex expression
-                parts.push(<BlockMath key={offset}>{math}</BlockMath>);
-            } else if (startDelimiter === '(' && endDelimiter === ')') {
-                parts.push(<InlineMath key={offset}>{math}</InlineMath>);
-            }
-            lastIndex = offset + match.length;
-        });
-
-        if (lastIndex < text.length) {   // code to add the remaining text after LaTex expression
-            parts.push(<span key={lastIndex}>{text.slice(lastIndex)}</span>);
+    response.replace(regex, (match, blockLatex, inlineLatex, offset) => {
+        if (offset > lastEnd) {
+            elements.push(<span key={lastEnd}>{response.substring(lastEnd, offset)}</span>);
         }
 
-        return parts;
-    };
+        if (blockLatex !== undefined) {
+            elements.push(<BlockMath key={offset}>{blockLatex}</BlockMath>);
+        } else if (inlineLatex !== undefined) {
+            elements.push(<InlineMath key={offset}>{inlineLatex}</InlineMath>);
+        }
 
-    return response.split('\n').map((line, index) => {   // returns the response in the appropriately styled format
-        return <p key={index}>{parseLatex(line)}</p>;
+        lastEnd = offset + match.length;
     });
+
+    if (lastEnd < response.length) {
+        elements.push(<span key={lastEnd}>{response.substring(lastEnd)}</span>);
+    }
+
+    return elements;
 }
 
 
