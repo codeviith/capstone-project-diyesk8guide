@@ -1,28 +1,29 @@
 import React from 'react';
 import { InlineMath, BlockMath } from 'react-katex';
 
+
 export const formatResponse = (response) => {
     const regex = /\\\[(.*?)\\\]|\\\((.*?)\\\)/g;
     const elements = [];
     let lastEnd = 0;
 
-    const renderText = (text, key) => {   // code to handle text and potential lists
-        const lines = text.split('\n').map((line, index) => {
-            if (line.match(/^(\*|-|\+)\s/)) {   // code to check for unorganized list markers, i.e. -, *, bullet points, etc.
-                return <li key={`ul-${key}-${index}`}>{line.replace(/^(\*|-|\+)\s/, '')}</li>;
-            }
-            return <span key={`span-${key}-${index}`}>{line}<br/></span>;
-        });
 
-        if (lines.some(line => line.type === 'li')) {   // code to wrap the items in an unordered list if the line is a list item.
-            return <ul key={`list-${key}`}>{lines}</ul>;
-        }
-        return lines;
+    const renderText = (text, key) => {   // code to handle text and potential lists
+        return text.split('\n').map((line, index) => {
+            if (line.match(/^(\*|-|\+)\s/)) {   // code to check for unorganized list markers, i.e. -, *, bullet points, etc.
+                return <li key={`li-${key}-${index}`}>{line.replace(/^(\*|-|\+)\s/, '')}</li>;
+            }
+            // code for line processing with line breaks
+            return <React.Fragment key={`line-${key}-${index}`}>
+                {line}
+                <br />
+            </React.Fragment>;
+        });
     };
 
     response.replace(regex, (match, blockLatex, inlineLatex, offset) => {   // code to handle formula expressions
         if (offset > lastEnd) {   // code to handle regular text
-            elements.push(renderText(response.substring(lastEnd, offset), lastEnd));
+            elements.push(...renderText(response.substring(lastEnd, offset), lastEnd));
         }
 
         if (blockLatex !== undefined) {   // code to handle block formulas
@@ -35,11 +36,67 @@ export const formatResponse = (response) => {
     });
 
     if (lastEnd < response.length) {   // code to handle any remaining texts if there are still any
-        elements.push(renderText(response.substring(lastEnd), lastEnd));
+        elements.push(...renderText(response.substring(lastEnd), lastEnd));
     }
 
     return <div>{elements}</div>;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//////////works with formulas block and inline, but lists still getting messed up///////////
+// export const formatResponse = (response) => {
+//     const regex = /\\\[(.*?)\\\]|\\\((.*?)\\\)/g;
+//     const elements = [];
+//     let lastEnd = 0;
+
+//     const renderText = (text, key) => {   // code to handle text and potential lists
+//         const lines = text.split('\n').map((line, index) => {
+//             if (line.match(/^(\*|-|\+)\s/)) {   // code to check for unorganized list markers, i.e. -, *, bullet points, etc.
+//                 return <li key={`ul-${key}-${index}`}>{line.replace(/^(\*|-|\+)\s/, '')}</li>;
+//             }
+//             return <span key={`span-${key}-${index}`}>{line}<br/></span>;
+//         });
+
+//         if (lines.some(line => line.type === 'li')) {   // code to wrap the items in an unordered list if the line is a list item.
+//             return <ul key={`list-${key}`}>{lines}</ul>;
+//         }
+//         return lines;
+//     };
+
+//     response.replace(regex, (match, blockLatex, inlineLatex, offset) => {   // code to handle formula expressions
+//         if (offset > lastEnd) {   // code to handle regular text
+//             elements.push(renderText(response.substring(lastEnd, offset), lastEnd));
+//         }
+
+//         if (blockLatex !== undefined) {   // code to handle block formulas
+//             elements.push(<BlockMath key={`block-${offset}`}>{blockLatex}</BlockMath>);
+//         } else if (inlineLatex !== undefined) {   // code to handle inline formulas
+//             elements.push(<InlineMath key={`inline-${offset}`}>{inlineLatex}</InlineMath>);
+//         }
+
+//         lastEnd = offset + match.length;
+//     });
+
+//     if (lastEnd < response.length) {   // code to handle any remaining texts if there are still any
+//         elements.push(renderText(response.substring(lastEnd), lastEnd));
+//     }
+
+//     return <div>{elements}</div>;
+// }
 
 
 
@@ -145,12 +202,12 @@ export const formatResponse = (response) => {
 
 ///////original
 // export const formatResponse = (response) => {
-//     const lines = response.split('\n');
+    // const lines = response.split('\n');
 
-//     return lines.map((line, index) => (
-//         <React.Fragment key={index}>
-//             {line}
-//             <br />
-//         </React.Fragment>
-//     ));
+    // return lines.map((line, index) => (
+    //     <React.Fragment key={index}>
+    //         {line}
+    //         <br />
+    //     </React.Fragment>
+    // ));
 // }
