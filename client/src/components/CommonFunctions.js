@@ -3,36 +3,45 @@ import { InlineMath, BlockMath } from 'react-katex';
 
 
 export const formatResponse = (response) => {
-    const processLine = (line, key) => {
-        const regex = /\\(\[|\()([^\\]+?)\\(\]|\))/g;
-        
-        let parts = [];
-        let lastIdx = 0;
+    const regex = /\\\[(.*?)\\\]|\\\((.*?)\\\)/g;
+    const elements = [];
+    let lastEnd = 0;
 
-        line.replace(regex, (match, startDelim, mathContent, endDelim, idx) => {
-            if (idx > lastIdx) {
-                parts.push(<span key={`${key}-text-${lastIdx}`}>{line.substring(lastIdx, idx)}</span>);
+    const renderText = (text, key) => {   // code to handle text and potential lists
+        const lines = text.split('\n').map((line, index) => {
+            if (line.match(/^\d+\.\s/)) {
+                return <li key={`ol-${key}-${index}`}>{line.replace(/^\d+\.\s/, '')}</li>;
+            } else if (line.match(/^-\s/)) {
+                return <li key={`ul-${key}-${index}`}>{line.replace(/^-+\s/, '')}</li>;
             }
-
-            if (startDelim === '[' && endDelim === ']') {
-                parts.push(<BlockMath key={`${key}-math-${idx}`}>{mathContent}</BlockMath>);
-            } else if (startDelim === '(' && endDelim === ')') {
-                parts.push(<InlineMath key={`${key}-math-${idx}`}>{mathContent}</InlineMath>);
-            }
-            lastIdx = idx + match.length;
+            return <span key={`span-${key}-${index}`}>{line}<br/></span>;
         });
 
-        if (lastIdx < line.length) {
-            parts.push(<span key={`${key}-text-${lastIdx}`}>{line.substring(lastIdx)}</span>);
+        if (lines.some(line => line.type === 'li')) {
+            return <ul key={`list-${key}`}>{lines}</ul>;
         }
-        return parts;
+        return lines;
     };
 
-    return response.split('\n').map((line, index) => (
-        <div key={`line-${index}`}>
-            {processLine(line, index)}
-        </div>
-    ));
+    response.replace(regex, (match, blockLatex, inlineLatex, offset) => {   // code to handle formula expressions
+        if (offset > lastEnd) {
+            elements.push(renderText(response.substring(lastEnd, offset), lastEnd));
+        }
+
+        if (blockLatex !== undefined) {
+            elements.push(<BlockMath key={`block-${offset}`}>{blockLatex}</BlockMath>);
+        } else if (inlineLatex !== undefined) {
+            elements.push(<InlineMath key={`inline-${offset}`}>{inlineLatex}</InlineMath>);
+        }
+
+        lastEnd = offset + match.length;
+    });
+
+    if (lastEnd < response.length) {
+        elements.push(renderText(response.substring(lastEnd), lastEnd));
+    }
+
+    return <div>{elements}</div>;
 }
 
 
@@ -66,6 +75,8 @@ export const formatResponse = (response) => {
 
 //     return elements;
 // }
+
+
 
 
 
