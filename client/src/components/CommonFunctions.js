@@ -1,7 +1,6 @@
 import React from 'react';
 import { InlineMath, BlockMath } from 'react-katex';
 
-
 export const formatResponse = (response) => {
     const regex = /\\\[(.*?)\\\]|\\\((.*?)\\\)/g;
     const elements = [];
@@ -9,40 +8,86 @@ export const formatResponse = (response) => {
 
     const renderText = (text, key) => {   // code to handle text and potential lists
         const lines = text.split('\n').map((line, index) => {
-            if (line.match(/^\d+\.\s/)) {
-                return <li key={`ol-${key}-${index}`}>{line.replace(/^\d+\.\s/, '')}</li>;
-            } else if (line.match(/^-\s/)) {
-                return <li key={`ul-${key}-${index}`}>{line.replace(/^-+\s/, '')}</li>;
+            if (line.match(/^(\*|-|\+)\s/)) {   // code to check for unorganized list markers, i.e. -, *, bullet points, etc.
+                return <li key={`ul-${key}-${index}`}>{line.replace(/^(\*|-|\+)\s/, '')}</li>;
             }
             return <span key={`span-${key}-${index}`}>{line}<br/></span>;
         });
 
-        if (lines.some(line => line.type === 'li')) {
+        if (lines.some(line => line.type === 'li')) {   // code to wrap the items in an unordered list if the line is a list item.
             return <ul key={`list-${key}`}>{lines}</ul>;
         }
         return lines;
     };
 
     response.replace(regex, (match, blockLatex, inlineLatex, offset) => {   // code to handle formula expressions
-        if (offset > lastEnd) {
+        if (offset > lastEnd) {   // code to handle regular text
             elements.push(renderText(response.substring(lastEnd, offset), lastEnd));
         }
 
-        if (blockLatex !== undefined) {
+        if (blockLatex !== undefined) {   // code to handle block formulas
             elements.push(<BlockMath key={`block-${offset}`}>{blockLatex}</BlockMath>);
-        } else if (inlineLatex !== undefined) {
+        } else if (inlineLatex !== undefined) {   // code to handle inline formulas
             elements.push(<InlineMath key={`inline-${offset}`}>{inlineLatex}</InlineMath>);
         }
 
         lastEnd = offset + match.length;
     });
 
-    if (lastEnd < response.length) {
+    if (lastEnd < response.length) {   // code to handle any remaining texts if there are still any
         elements.push(renderText(response.substring(lastEnd), lastEnd));
     }
 
     return <div>{elements}</div>;
 }
+
+
+
+
+
+
+/////////works now for both formula block and inline formula, but list detection is all over the place//////////
+// export const formatResponse = (response) => {
+//     const regex = /\\\[(.*?)\\\]|\\\((.*?)\\\)/g;
+//     const elements = [];
+//     let lastEnd = 0;
+
+//     const renderText = (text, key) => {   // code to handle text and potential lists
+//         const lines = text.split('\n').map((line, index) => {
+//             if (line.match(/^\d+\.\s/)) {
+//                 return <li key={`ol-${key}-${index}`}>{line.replace(/^\d+\.\s/, '')}</li>;
+//             } else if (line.match(/^-\s/)) {
+//                 return <li key={`ul-${key}-${index}`}>{line.replace(/^-+\s/, '')}</li>;
+//             }
+//             return <span key={`span-${key}-${index}`}>{line}<br/></span>;
+//         });
+
+//         if (lines.some(line => line.type === 'li')) {
+//             return <ul key={`list-${key}`}>{lines}</ul>;
+//         }
+//         return lines;
+//     };
+
+//     response.replace(regex, (match, blockLatex, inlineLatex, offset) => {   // code to handle formula expressions
+//         if (offset > lastEnd) {
+//             elements.push(renderText(response.substring(lastEnd, offset), lastEnd));
+//         }
+
+//         if (blockLatex !== undefined) {
+//             elements.push(<BlockMath key={`block-${offset}`}>{blockLatex}</BlockMath>);
+//         } else if (inlineLatex !== undefined) {
+//             elements.push(<InlineMath key={`inline-${offset}`}>{inlineLatex}</InlineMath>);
+//         }
+
+//         lastEnd = offset + match.length;
+//     });
+
+//     if (lastEnd < response.length) {
+//         elements.push(renderText(response.substring(lastEnd), lastEnd));
+//     }
+
+//     return <div>{elements}</div>;
+// }
 
 
 
