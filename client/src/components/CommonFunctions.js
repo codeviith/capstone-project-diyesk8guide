@@ -10,9 +10,9 @@ export const formatResponse = (response) => {
 
     const renderText = (text, key) => {   // code to handle text and potential lists
         return text.split('\n').map((line, index) => {
-            if (line.match(/^(\*|-|\+)\s/)) {   // code to check for unorganized list markers, i.e. -, *, bullet points, etc.
-                return <li key={`li-${key}-${index}`}>{line.replace(/^(\*|-|\+)\s/, '')}</li>;
-            }
+            // if (line.match(/^(\*|-|\+)\s/)) {   // code to check for unorganized list markers, i.e. -, *, bullet points, etc.
+            //     return <li key={`li-${key}-${index}`}>{line.replace(/^(\*|-|\+)\s/, '')}</li>;
+            // }
             // code for line processing with line breaks
             return <React.Fragment key={`line-${key}-${index}`}>
                 {line}
