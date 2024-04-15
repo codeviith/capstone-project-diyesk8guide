@@ -8,18 +8,28 @@ export const formatResponse = (response) => {
     let lastEnd = 0;
 
 
+    // const renderText = (text, key) => {   // code to handle text and potential lists
+    //     return text.split('\n').map((line, index) => (   // code for line processing with line breaks
+    //         <React.Fragment key={`line-${key}-${index}`}>
+    //             {line}
+    //             {(index < text.split('\n').length - 1) ? <br /> : ''}
+    //         </React.Fragment>
+    //     ));
+    // };
+
+////////////alternative function to detect for lists and add bullet points to it///////////////
     const renderText = (text, key) => {   // code to handle text and potential lists
-        return text.split('\n').map((line, index) => (
-            // if (line.match(/^(\*|-|\+)\s/)) {   // code to check for unorganized list markers, i.e. -, *, bullet points, etc.
-            //     return <li key={`li-${key}-${index}`}>{line.replace(/^(\*|-|\+)\s/, '')}</li>;
-            // }
+        return text.split('\n').map((line, index) => {
+            if (line.match(/^(\*|-|\+)\s/)) {   // code to check for unorganized list markers, i.e. -, *, bullet points, etc.
+                return <li key={`li-${key}-${index}`}>{line.replace(/^(\*|-|\+)\s/, '')}</li>;
+            }
 
             // code for line processing with line breaks
-            <React.Fragment key={`line-${key}-${index}`}>
+            return (<React.Fragment key={`line-${key}-${index}`}>
                 {line}
                 {(index < text.split('\n').length - 1) ? <br /> : ''}
-            </React.Fragment>
-        ));
+            </React.Fragment>)
+        });
     };
 
     response.replace(regex, (match, blockLatex, inlineLatex, offset) => {   // code to handle formula expressions
