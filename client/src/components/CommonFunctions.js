@@ -15,10 +15,10 @@ export const formatResponse = (response) => {
             // }
 
             // code for line processing with line breaks
-            return <React.Fragment key={`line-${key}-${index}`}>
+            <React.Fragment key={`line-${key}-${index}`}>
                 {line}
-                <br />
-            </React.Fragment>;
+                {(index < text.split('\n').length - 1) ? <br /> : ''}
+            </React.Fragment>
         });
     };
 
@@ -203,12 +203,12 @@ export const formatResponse = (response) => {
 
 ///////original
 // export const formatResponse = (response) => {
-    // const lines = response.split('\n');
+// const lines = response.split('\n');
 
-    // return lines.map((line, index) => (
-    //     <React.Fragment key={index}>
-    //         {line}
-    //         <br />
-    //     </React.Fragment>
-    // ));
+// return lines.map((line, index) => (
+//     <React.Fragment key={index}>
+//         {line}
+//         <br />
+//     </React.Fragment>
+// ));
 // }
