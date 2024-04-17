@@ -89,16 +89,19 @@ const Guide = () => {
         }
     ];
 
+
+
+
     const guideImages = [
-        [require("./images/ID2.jpeg")],
-        [require("./images/ID3.jpg")],
-        [require("./images/ID1.jpg")],
-        [require("./images/ID4.jpeg")],
-        [require("./images/ID7.jpg")],
-        [require("./images/ID5.jpeg")],
-        [require("./images/ID6.jpeg")],
-        [require("./images/ID8.jpeg")],
-        [require("./images/ID9.jpg")]
+        [require("./images/Step_1_Create_Game_Plan.jpg")],
+        [require("./images/Step_2_Research_Parts.jpg")],
+        // [require("./images/ID1.jpg")],
+        // [require("./images/ID4.jpeg")],
+        // [require("./images/ID7.jpg")],
+        // [require("./images/ID5.jpeg")],
+        // [require("./images/ID6.jpeg")],
+        // [require("./images/ID8.jpeg")],
+        // [require("./images/ID9.jpg")]
     ];
 
     if (!isLoggedIn) {
