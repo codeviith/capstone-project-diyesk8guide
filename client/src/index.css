@@ -147,7 +147,6 @@ body::before {
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden; 
 }
 
 .no-scroll {
@@ -157,14 +156,14 @@ body::before {
 
 /* For mobile devices */
 @media (max-width: 768px) {
-  /* .session-expiry-modal-container {
-    width: 80%;
-    max-width: 90%;
-    top: 10%;
+  .session-expiry-modal-container {
+    width: 85%;
+    max-width: 100%;
+    top: 15%;
     padding: 10px;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -10%);
     border-radius: 15px;
-  } */
+  }
 
   .session-expiry-text {
     font-size: 14px;
@@ -1645,10 +1644,12 @@ nav a.home-link:hover {
 /* For mobile devices */
 @media (max-width: 768px) {
   .profile {
+    width: 100%;
     max-width: 100%;
     margin: 10px auto;
     padding: 15px;
     border-radius: 5px;
+    box-sizing: border-box;
   }
 
   .profile h2 {
