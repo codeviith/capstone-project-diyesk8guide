@@ -3,10 +3,7 @@ import { useHistory, NavLink, useLocation } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
 
 const Login = () => {
-  const [loginData, setLoginData] = useState({
-    email: '',
-    password: '',
-  });
+  const [loginData, setLoginData] = useState({ email: '', password: '' });
   const [message, setMessage] = useState({ content: '', type: '' });
   const [errors, setErrors] = useState({});
   const { setIsLoggedIn } = useContext(AuthContext);
@@ -18,6 +15,13 @@ const Login = () => {
   // Code to initialize useHistory and useLocation hook for navigation
   const history = useHistory();
   const location = useLocation();
+
+  useEffect(() => {
+    return (() => {
+      resetStates();
+    });
+  }, []);
+
 
   useEffect(() => {
     const body = document.body;
@@ -76,6 +80,16 @@ const Login = () => {
       });
   };
 
+  const resetStates = () => {
+    setMessage({ content: '', type: '' });
+    setShowModal(false);
+    setErrors({});
+  };
+
+  const closeModal = () => {
+    resetStates();
+  };
+
   const handleCreateAccount = () => {
     history.push('/signup');
   };
@@ -115,7 +129,7 @@ const Login = () => {
           <div className="session-expiry-modal-container">
             <p className="session-expiry-text">{message.content}</p>
             <button className='close-modal-button'
-              onClick={() => setShowModal(false)}
+              onClick={closeModal}
             >Close
             </button>
           </div>
