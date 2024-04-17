@@ -15,9 +15,21 @@ const Login = () => {
 
   const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
 
-  // Code to initialize useHistory hook for navigation
+  // Code to initialize useHistory and useLocation hook for navigation
   const history = useHistory();
-  const location = useLocation();  // code to access the navigation state
+  const location = useLocation();
+
+  useEffect(() => {
+    const body = document.body;
+
+    if (showModal) {
+      const originalStyle = body.style.overflow;
+      body.style.overflow = 'hidden';  // code to hide disable scrolling when modal is active
+
+      return () => body.style.overflow = originalStyle;  // code to revert scrolling on overflow when modal becomes inactive again
+    }
+  }, [showModal]);
+
 
   useEffect(() => {
     if (location.state?.loggedOutDueToInactivity) {

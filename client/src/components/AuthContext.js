@@ -169,7 +169,7 @@ export const AuthProvider = ({ children }) => {
                             <button className='keep-session-alive-button'
                                 onClick={keepSessionAlive}
                             >
-                                Keep Me Logged In
+                                Stay Logged In
                             </button>
                             <button className='session-logout-button'
                                 onClick={logMeOut}
