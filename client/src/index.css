@@ -119,7 +119,8 @@ body::before {
 }
 
 .keep-session-alive-button,
-.session-logout-button {
+.session-logout-button,
+.close-modal-button {
   padding: 10px 20px;
   cursor: pointer;
   border: none;
@@ -129,7 +130,8 @@ body::before {
 }
 
 .keep-session-alive-button:hover,
-.session-logout-button:hover {
+.session-logout-button:hover,
+.close-modal-button:hover {
   background-color: #0056b3;
 }
 

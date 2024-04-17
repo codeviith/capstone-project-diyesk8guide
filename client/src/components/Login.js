@@ -102,7 +102,10 @@ const Login = () => {
         <div className="modal-backdrop">
           <div className="session-expiry-modal-container">
             <p className="session-expiry-text">{message.content}</p>
-            <button onClick={() => setShowModal(false)}>Close</button>
+            <button className='close-modal-button'
+              onClick={() => setShowModal(false)}
+            >Close
+            </button>
           </div>
         </div>
       )}

@@ -4,8 +4,8 @@ import { useHistory } from 'react-router-dom';
 export const AuthContext = createContext();
 
 const INACTIVITY_TIMEOUT_VALUE = 1 * 60 * 1000;  // inactivity timeout value in milliseconds (production value = 15 * 60 * 1000)
-const AUTO_LOGOUT_TIMEOUT_VALUE = 5 * 60 * 1000;  // autologout timeout value in milliseconds (production value = 15 * 60 * 1000)
-const COUNTDOWN_TO_LOGOUT = 120;  // countdown start value in seconds (production value = 120)
+const AUTO_LOGOUT_TIMEOUT_VALUE = 3 * 60 * 1000;  // autologout timeout value in milliseconds (production value = 15 * 60 * 1000)
+const COUNTDOWN_TO_LOGOUT = 60;  // countdown start value in seconds (production value = 60)
 
 export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -75,7 +75,7 @@ export const AuthProvider = ({ children }) => {
                 setShowInactivityModal(true);
                 startCountdown();  // code to start the countdown once modal has been shown to user
             }
-        }, INACTIVITY_TIMEOUT_VALUE);  // value in milliseconds (production = INACTIVITY_TIMEOUT_VALUE - 120000)
+        }, INACTIVITY_TIMEOUT_VALUE);  // value in milliseconds (production = INACTIVITY_TIMEOUT_VALUE - 60000)
 
         autoLogoutTimerRef.current = setTimeout(() => {  // code to set up automatic logout after x minutes of inactivity
             if (isLoggedIn) {
