@@ -43,7 +43,10 @@ export const AuthProvider = ({ children }) => {
             clearInterval(countdownIntervalRef.current);  // code to clear countdown
             clearTimeout(inactivityTimerRef.current);  // code to clear inactivity timer
             clearTimeout(autoLogoutTimerRef.current);  // code to clear autologout timer
-            history.push('/login');  // code to redirect to login page
+            history.push({  // code to redirect to login page
+                pathname: '/login',
+                state: { loggedOutDueToInactivity: true }
+            });
         }
     };
 

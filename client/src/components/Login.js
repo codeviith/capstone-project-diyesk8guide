@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react';
-import { useHistory, NavLink } from 'react-router-dom';
+import React, { useState, useContext, useEffect } from 'react';
+import { useHistory, NavLink, useLocation } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
 
 const Login = () => {
@@ -11,11 +11,23 @@ const Login = () => {
   const [errors, setErrors] = useState({});
   const { setIsLoggedIn } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
 
   // Code to initialize useHistory hook for navigation
   const history = useHistory();
+  const location = useLocation();  // code to access the navigation state
+
+  useEffect(() => {
+    if (location.state?.loggedOutDueToInactivity) {
+      setShowModal(true);
+      setMessage({
+        content: 'You have been logged out due to inactivity.',
+        type: 'info'
+      })
+    }
+  }, [location])
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
@@ -86,6 +98,14 @@ const Login = () => {
   return (
     <div className='login'>
       <h2>Please Sign In to Continue...</h2>
+      {showModal && (
+        <div className="modal-backdrop">
+          <div className="session-expiry-modal-container">
+            <p className="session-expiry-text">{message.content}</p>
+            <button onClick={() => setShowModal(false)}>Close</button>
+          </div>
+        </div>
+      )}
 
       {/* Login Form */}
       <form onSubmit={handleLoginSubmit}>
