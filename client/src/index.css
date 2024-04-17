@@ -147,6 +147,7 @@ body::before {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;/* code to ensure on scrolling within the backdrop */
 }
 
 .no-scroll {
