@@ -1643,9 +1643,16 @@ nav a.home-link:hover {
 
 /* For mobile devices */
 @media (max-width: 768px) {
-  .profile {
+  html, body {
     width: 100%;
+    overflow-x: hidden;
+  }
+
+  .profile {
+    width: 90%;
     max-width: 100%;
+    left:auto;
+    right: auto;
     margin: 10px auto;
     padding: 15px;
     border-radius: 5px;
