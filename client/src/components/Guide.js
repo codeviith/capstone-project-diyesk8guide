@@ -91,7 +91,6 @@ const Guide = () => {
 
 
 
-
     const guideImages = [
         [require("./images/Step_1_Create_Game_Plan.jpg")],
         [require("./images/Step_2_Research_Parts.jpg")],
