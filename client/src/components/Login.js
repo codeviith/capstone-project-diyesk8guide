@@ -17,29 +17,6 @@ const Login = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const storedMessage = localStorage.getItem('logoutMessage');
-
-    if (storedMessage) {  // code to check if there is stored message and show it if so
-      setMessage({ content: storedMessage, type: 'info' });
-      setShowModal(true);
-      localStorage.removeItem('logoutMessage');  // code to clear the message from storage
-    }
-  }, []);
-
-  useEffect(() => {
-    if (location.state?.loggedOutDueToInactivity) {
-      const messageContent = 'You have been logged out due to inactivity.';
-      
-      setShowModal(true);
-      setMessage({
-        content: messageContent,
-        type: 'info'
-      });
-      localStorage.setItem('logoutMessage', messageContent);  // code to store logout message in local storage
-    }
-  }, [location]);
-  
-  useEffect(() => {
     const body = document.body;
 
     if (showModal) {
@@ -49,15 +26,26 @@ const Login = () => {
       return () => body.style.overflow = originalStyle;  // code to revert scrolling on overflow when modal becomes inactive again
     }
   }, [showModal]);
-  
+
+
+  useEffect(() => {
+    if (location.state?.loggedOutDueToInactivity) {
+      setShowModal(true);
+      setMessage({
+        content: 'You have been logged out due to inactivity.',
+        type: 'info'
+      })
+    }
+  }, [location])
+
   const handleLoginSubmit = (e) => {
     e.preventDefault();
     setMessage({ content: '', type: '' });
-    
+
     if (!validateForm()) {  // Code to validate the form before attempting to log in.
       return;  //  The empty return here is to stop the submission if the validation fails.
     }
-    
+
     fetch(`${backendUrl}/login`, {
       method: 'POST',
       credentials: 'include', //*******code to include cookies********
@@ -66,7 +54,7 @@ const Login = () => {
       },
       body: JSON.stringify(loginData),
     })
-    .then(response => response.json())
+      .then(response => response.json())
       .then(data => {
         if (data.success) {
           setIsLoggedIn(true);
@@ -83,10 +71,6 @@ const Login = () => {
         console.error('Error during login:', error);
         setMessage({ content: 'An error occurred during login.', type: 'error' });
       });
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
   };
 
   const handleCreateAccount = () => {
@@ -118,6 +102,10 @@ const Login = () => {
   const handleMouseUpPassword = () => {
     setShowPassword(false);
   }
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
 
   return (
