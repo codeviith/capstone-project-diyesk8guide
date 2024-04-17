@@ -156,14 +156,14 @@ body::before {
 
 /* For mobile devices */
 @media (max-width: 768px) {
-  .session-expiry-modal-container {
+  /* .session-expiry-modal-container {
     width: 80%;
     max-width: 90%;
     top: 10%;
     padding: 10px;
     transform: translate(-50%, -50%);
     border-radius: 15px;
-  }
+  } */
 
   .session-expiry-text {
     font-size: 14px;
