@@ -132,11 +132,11 @@ def before_request_func():
 
 @app.before_request
 def before_request_func():
-    excluded_routes = ['login', 'signup', 'static']  ### code to exclude the endpoints from activity check
+    excluded_routes = ['login', 'signup', 'static', 'bump', 'keep_session_alive']  ### code to exclude the endpoints from activity check
     if request.endpoint not in excluded_routes:
         if 'last_activity' in session:
             last_activity = isoparse(session['last_activity'])
-            if datetime.now(timezone.utc) - last_activity > timedelta(minutes=20):
+            if datetime.now(timezone.utc) - last_activity > timedelta(minutes=18):
                 session.clear()
                 return jsonify({'error': 'Session timed out. Please log in again.'}), 401
             else:
