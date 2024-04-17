@@ -3,8 +3,8 @@ import { useHistory } from 'react-router-dom';
 
 export const AuthContext = createContext();
 
-const INACTIVITY_TIMEOUT_VALUE = 15 * 60 * 1000;  // inactivity timeout value in milliseconds (production value = 15 * 60 * 1000)
-// const AUTO_LOGOUT_TIMEOUT_VALUE = 15 * 60 * 1000;
+const INACTIVITY_TIMEOUT_VALUE = 1 * 60 * 1000;  // inactivity timeout value in milliseconds (production value = 15 * 60 * 1000)
+const AUTO_LOGOUT_TIMEOUT_VALUE = 5 * 60 * 1000;  // autologout timeout value in milliseconds (production value = 15 * 60 * 1000)
 const COUNTDOWN_TO_LOGOUT = 120;  // countdown start value in seconds (production value = 120)
 
 export const AuthProvider = ({ children }) => {
@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
     const history = useHistory();
     const inactivityTimerRef = useRef(null);  // code for useRef to hold timer reference for inactivity
     const countdownIntervalRef = useRef(null);  // code for useRef to hold timer reference for countdown
-    // const autoLogoutTimerRef = useRef(null);  // code for useRef to hold timer reference for autoLogout
+    const autoLogoutTimerRef = useRef(null);  // code for useRef to hold timer reference for autoLogout
 
     const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://127.0.0.1:5555';
 
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
             setShowInactivityModal(false);
             clearInterval(countdownIntervalRef.current);  // code to clear countdown
             clearTimeout(inactivityTimerRef.current);  // code to clear inactivity timer
-            // clearTimeout(autoLogoutTimerRef.current);  // code to clear autologout timer
+            clearTimeout(autoLogoutTimerRef.current);  // code to clear autologout timer
             history.push('/login');  // code to redirect to login page
         }
     };
@@ -64,7 +64,7 @@ export const AuthProvider = ({ children }) => {
 
     function resetInactivityTimer() {
         clearTimeout(inactivityTimerRef.current);
-        // clearTimeout(autoLogoutTimerRef.current);
+        clearTimeout(autoLogoutTimerRef.current);
         // clearInterval(countdownIntervalRef.current);
 
         inactivityTimerRef.current = setTimeout(() => {
@@ -72,13 +72,13 @@ export const AuthProvider = ({ children }) => {
                 setShowInactivityModal(true);
                 startCountdown();  // code to start the countdown once modal has been shown to user
             }
-        }, INACTIVITY_TIMEOUT_VALUE);
+        }, INACTIVITY_TIMEOUT_VALUE);  // value in milliseconds (production = INACTIVITY_TIMEOUT_VALUE - 120000)
 
-        // autoLogoutTimerRef.current = setTimeout(() => {  // code to set up automatic logout after x minutes of inactivity
-        //     if (isLoggedIn) {
-        //         logMeOut();  // code to call on the logout function to log the user out
-        //     }
-        // }, AUTO_LOGOUT_TIMEOUT_VALUE);
+        autoLogoutTimerRef.current = setTimeout(() => {  // code to set up automatic logout after x minutes of inactivity
+            if (isLoggedIn) {
+                logMeOut();  // code to call on the logout function to log the user out
+            }
+        }, AUTO_LOGOUT_TIMEOUT_VALUE);   // value in milliseconds
     }
 
     useEffect(() => {
@@ -132,7 +132,7 @@ export const AuthProvider = ({ children }) => {
             window.removeEventListener('keypress', handleUserActivity);
             window.removeEventListener('scroll', handleUserActivity);
             clearTimeout(inactivityTimerRef.current);
-            // clearTimeout(autoLogoutTimerRef.current);
+            clearTimeout(autoLogoutTimerRef.current);
             // clearInterval(countdownIntervalRef.current);
         };
     }, [isLoggedIn]); // code for isLoggedIn dependency to add/remove event listeners based on login status
@@ -140,7 +140,7 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {  // code to ensure timer is cleared on component unmount
         return () => {
             clearTimeout(inactivityTimerRef.current);
-            // clearTimeout(autoLogoutTimerRef.current);
+            clearTimeout(autoLogoutTimerRef.current);
             clearInterval(countdownIntervalRef.current);
         }
     }, []);
