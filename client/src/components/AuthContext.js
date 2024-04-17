@@ -149,12 +149,44 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     useEffect(() => {
-        if (showInactivityModal) {
-            document.body.classList.add("no-scroll");
-        } else {
-            document.body.classList.remove("no-scroll");
+        const body = document.body;
+        
+        function disableBackgroundInteraction(e) {
+            if (showInactivityModal && !document.querySelector('.session-expiry-modal-container').contains(e.target)) {  // code to check if the scroll event is outside of modal container
+                e.preventDefault();
+            }
         }
+    
+        if (showInactivityModal) {  // code to prevent any touch or scrolling
+            body.classList.add('no-scroll');
+            document.addEventListener('touchmove', disableBackgroundInteraction, { passive: false });
+            document.addEventListener('touchstart', disableBackgroundInteraction, { passive: false });
+            document.addEventListener('wheel', disableBackgroundInteraction, { passive: false });
+        } else {  // code to re-enable touch or scrolling
+            body.classList.remove('no-scroll');
+            document.removeEventListener('touchmove', disableBackgroundInteraction);
+            document.removeEventListener('touchstart', disableBackgroundInteraction);
+            document.removeEventListener('wheel', disableBackgroundInteraction);
+        }
+    
+        return () => {  // code to cleanup and remove all event listeners and classes
+            body.classList.remove('no-scroll');
+            document.removeEventListener('touchmove', disableBackgroundInteraction);
+            document.removeEventListener('touchstart', disableBackgroundInteraction);
+            document.removeEventListener('wheel', disableBackgroundInteraction);
+        };
     }, [showInactivityModal]);
+
+
+////////// old code //////////
+    // useEffect(() => {
+    //     if (showInactivityModal) {
+    //         document.body.classList.add("no-scroll");
+    //     } else {
+    //         document.body.classList.remove("no-scroll");
+    //     }
+    // }, [showInactivityModal]);
+
 
 
     return (
