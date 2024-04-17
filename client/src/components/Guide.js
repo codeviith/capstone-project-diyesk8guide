@@ -89,11 +89,6 @@ const Guide = () => {
         }
     ];
 
-    client/src/components/images/Step_3_Workspace.jpg
-    client/src/components/images/Step_4_Mats_&_Tools.jpg
-    client/src/components/images/Step_5_Assembly.jpg
-    client/src/components/images/Step_6_Batt_&_Electronics.jpg
-    client/src/components/images/Step_7_Wiring.jpg
 
     const guideImages = [
         [require("./images/Step_1_Create_Game_Plan.jpg")],
