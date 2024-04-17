@@ -94,6 +94,7 @@ body::before {
 
 /* Session Modal Container */
 .session-expiry-modal-container {
+  max-width: 90%; /* code to ensure that the width does not touch the screen edges */
   position: fixed;
   top: 20%;
   left: 50%;
@@ -156,11 +157,11 @@ body::before {
 /* For mobile devices */
 @media (max-width: 768px) {
   .session-expiry-modal-container {
-    width: 85%;
-    max-width: 100%;
+    width: 80%;
+    max-width: 90%;
     top: 10%;
     padding: 10px;
-    transform: translate(-50%, -10%);
+    transform: translate(-50%, -50%);
     border-radius: 15px;
   }
 
