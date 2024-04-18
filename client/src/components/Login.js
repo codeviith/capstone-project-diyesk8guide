@@ -16,16 +16,44 @@ const Login = () => {
   const history = useHistory();
   const location = useLocation();
 
+
   useEffect(() => {
     const body = document.body;
 
-    if (showModal) {
-      const originalStyle = body.style.overflow;
-      body.style.overflow = 'hidden';  // code to hide disable scrolling when modal is active
-
-      return () => body.style.overflow = originalStyle;  // code to revert scrolling on overflow when modal becomes inactive again
+    function disableBackgroundInteraction(e) {  // code to prevent touchmove and scrolling when modal is active
+        if (showModal) {
+            e.preventDefault();
+        }
     }
-  }, [showModal]);
+
+    if (showModal) {  // code to add event listeners for scroll and touch events when modal is active
+        body.classList.add('no-scroll');
+        document.addEventListener('touchmove', disableBackgroundInteraction, { passive: false });
+        document.addEventListener('wheel', disableBackgroundInteraction, { passive: false });
+    } else {  // code to remove event listeners when the modal becomes inactive
+        body.classList.remove('no-scroll');
+        document.removeEventListener('touchmove', disableBackgroundInteraction);
+        document.removeEventListener('wheel', disableBackgroundInteraction);
+    }
+
+    return () => {  // code to cleanup and remove event listeners to prevent memory leak
+        body.classList.remove('no-scroll');
+        document.removeEventListener('touchmove', disableBackgroundInteraction);
+        document.removeEventListener('wheel', disableBackgroundInteraction);
+    };
+}, [showModal]);
+
+
+  // useEffect(() => {
+  //   const body = document.body;
+
+  //   if (showModal) {
+  //     const originalStyle = body.style.overflow;
+  //     body.style.overflow = 'hidden';  // code to hide disable scrolling when modal is active
+
+  //     return () => body.style.overflow = originalStyle;  // code to revert scrolling on overflow when modal becomes inactive again
+  //   }
+  // }, [showModal]);
 
 
   useEffect(() => {
