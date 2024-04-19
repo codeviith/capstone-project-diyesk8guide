@@ -779,13 +779,13 @@ nav a.home-link:hover {
     padding: 10px 0;
   }
 
-  .dropdown-menu {
+  /* .dropdown-menu {
     position: absolute;
     top: 100%;
     left: 0;
     width: 100%;
     z-index: 1050;
-  }
+  } */
 
   .login-link,
   .signup-link {
@@ -2201,7 +2201,6 @@ nav a.home-link:hover {
   .login-prompt-container {
     padding: 10px;
     font-size: 16px;
-    z-index: 500;
   }
 }
 
