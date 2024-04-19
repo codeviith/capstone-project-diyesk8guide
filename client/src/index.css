@@ -730,7 +730,7 @@ nav a.home-link:hover {
   background-color: black; 
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   border-radius: 12px;
-  z-index: 900;
+  z-index: 1050;
   min-width: 150px;
 }
 
