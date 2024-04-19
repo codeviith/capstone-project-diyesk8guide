@@ -750,6 +750,19 @@ nav a.home-link:hover {
   background-color: #ddd; 
 }
 
+/* Ensures that desktop devices do not show the close button */
+.mobile-only {
+  display: none;
+}
+
+@media (min-width: 769px) {
+  .mobile-only {
+    display: none;
+  }
+}
+/* Ensures that desktop devices do not show the close button */
+
+
 /* For mobile devices */
 @media (max-width: 768px) {
   nav {
@@ -807,8 +820,12 @@ nav a.home-link:hover {
     display: flex;
   }
 
+  .mobile-only {
+    display: block;
+  }
+
   .close-menu-button {
-    position: fixed;
+    position: absolute;
     bottom: 20px;
     width: 100%;
     text-align: center;

@@ -12,17 +12,18 @@ function NavBar() {
 
     const menuRef = useRef(null);
     const toggleMenu = () => setShowMenu(prev => !prev)
+    const closeMenu = () => setShowMenu(false);
 
     useEffect(() => {
-        const closeMenu = (e) => {
+        const handleOutsideClick = (e) => {
             if (menuRef.current && !menuRef.current.contains(e.target)) {
-                setShowMenu(false);
+                closeMenu();
             }
         };
 
-        document.addEventListener('mousedown', closeMenu);
+        document.addEventListener('mousedown', handleOutsideClick);
         return () => {
-            document.removeEventListener('mousedown', closeMenu);
+            document.removeEventListener('mousedown', handleOutsideClick);
         };
     }, []);
 
@@ -44,36 +45,20 @@ function NavBar() {
                     {/* Dropdown Menu */}
                     {showMenu && (
                         <div className={`dropdown-menu ${showMenu ? 'show-dropdown' : ''}`} ref={menuRef}>
-                            {/* {isLoggedIn && <NavLink to="/profile"><FontAwesomeIcon icon={faUser} /></NavLink>} */}
-                            {/* <NavLink to="/">Home</NavLink> */}
-                            <NavLink to="/guide"
-                                onClick={() => setShowMenu(false)}
-                            >Guide</NavLink>
-                            <NavLink to="/generate"
-                                onClick={() => setShowMenu(false)}
-                            >Generate</NavLink>
-                            <NavLink to="/guru"
-                                onClick={() => setShowMenu(false)}
-                            >Guru</NavLink>
-                            <NavLink to="/gallery"
-                                onClick={() => setShowMenu(false)}
-                            >Gallery</NavLink>
-                            {/* <NavLink to="/about"
-                                onClick={() => setShowMenu(false)}
-                            >About</NavLink> */}
-                            {/* <NavLink to="/donations"
-                                onClick={() => setShowMenu(false)}
-                            >Donations</NavLink> */}
-                            {/* <NavLink to="/disclaimers"
-                                onClick={() => setShowMenu(false)}
-                            >Disclaimers</NavLink> */}
-                            {/* <NavLink to="/rules-and-policies"
-                                onClick={() => setShowMenu(false)}
-                            >Rules & Policies</NavLink> */}
-                            {/* <NavLink to="/contact-us"
-                                onClick={() => setShowMenu(false)}
-                            >Contact Us</NavLink> */}
-                            <button className="close-menu-button" onClick={() => setShowMenu(false)}>Close</button>
+                            {isLoggedIn && <NavLink to="/profile" onClick={closeMenu}><FontAwesomeIcon icon={faUser} /></NavLink>}
+                            <NavLink to="/" onClick={closeMenu}>Home</NavLink>
+                            <NavLink to="/guide" onClick={closeMenu}>Guide</NavLink>
+                            <NavLink to="/generate" onClick={closeMenu}>Generate</NavLink>
+                            <NavLink to="/guru" onClick={closeMenu}>Guru</NavLink>
+                            <NavLink to="/gallery" onClick={closeMenu}>Gallery</NavLink>
+                            <NavLink to="/about" onClick={closeMenu}>About</NavLink>
+                            <NavLink to="/donations" onClick={closeMenu}>Donations</NavLink>
+                            <NavLink to="/disclaimers" onClick={closeMenu}>Disclaimers</NavLink>
+                            <NavLink to="/rules-and-policies" onClick={closeMenu}>Rules & Policies</NavLink>
+                            <NavLink to="/contact-us" onClick={closeMenu}>Contact Us</NavLink>
+                            <div className='mobile-only'>
+                                <button className="close-menu-button" onClick={closeMenu}>Close</button>
+                            </div>
                         </div>
                     )}
                 </div>
