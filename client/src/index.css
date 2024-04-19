@@ -811,9 +811,9 @@ nav a.home-link:hover {
     font-size: 18px;
     padding: 15px;
     text-align: center;
-    margin: 5px;
+    margin: 5px 0;
     width: 100%; /* dropdown-menu's width */
-    border-bottom: 1px solid grey; /* separator between items */
+    border-bottom: 1.5px solid grey; /* separator between items */
   }
 
   .show-dropdown {
@@ -822,18 +822,17 @@ nav a.home-link:hover {
 
   .mobile-only {
     display: flex;
+    width: 100%;
   }
 
   .close-menu-button {
-    position: relative;
-    bottom: 20px;
-    width: 100%;
-    text-align: center;
+    padding: 15px;
     font-size: 18px;
-    padding: 10px;
     background-color: #444;
     color: white;
+    text-align: center;
     cursor: pointer;
+    border-top: 1px solid grey;
   }
 
   .login-link,
