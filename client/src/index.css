@@ -821,11 +821,11 @@ nav a.home-link:hover {
   }
 
   .mobile-only {
-    display: block;
+    display: flex;
   }
 
   .close-menu-button {
-    position: absolute;
+    position: relative;
     bottom: 20px;
     width: 100%;
     text-align: center;

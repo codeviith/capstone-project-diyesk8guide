@@ -11,11 +11,11 @@ function NavBar() {
     const [showMenu, setShowMenu] = useState(false); // State to handle dropdown visibility
 
     const menuRef = useRef(null);
-    const toggleMenu = () => setShowMenu(prev => !prev)
-    const closeMenu = () => setShowMenu(false);
+    const toggleMenu = () => setShowMenu(prev => !prev)  // func to toggle state of menu visibility
+    const closeMenu = () => setShowMenu(false);  // func to close the menu
 
     useEffect(() => {
-        const handleOutsideClick = (e) => {
+        const handleOutsideClick = (e) => {  // code to close the menu if clicked outside of the menu
             if (menuRef.current && !menuRef.current.contains(e.target)) {
                 closeMenu();
             }
@@ -45,7 +45,6 @@ function NavBar() {
                     {/* Dropdown Menu */}
                     {showMenu && (
                         <div className={`dropdown-menu ${showMenu ? 'show-dropdown' : ''}`} ref={menuRef}>
-                            {isLoggedIn && <NavLink to="/profile" onClick={closeMenu}><FontAwesomeIcon icon={faUser} /></NavLink>}
                             <NavLink to="/" onClick={closeMenu}>Home</NavLink>
                             <NavLink to="/guide" onClick={closeMenu}>Guide</NavLink>
                             <NavLink to="/generate" onClick={closeMenu}>Generate</NavLink>
