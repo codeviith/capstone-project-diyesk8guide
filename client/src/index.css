@@ -786,7 +786,7 @@ nav a.home-link:hover {
     width: 100vw; /* Full-screen width */
     height: 100vh; /* Full-screen height */
     background-color: rgba(0,0,0,0.9);
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -808,13 +808,14 @@ nav a.home-link:hover {
   }
 
   .close-menu-button {
-    position: absolute;
-    top: 20px; /* near the top */
-    right: 20px; /* near the right edge */
-    background: transparent;
-    border: none;
+    position: fixed;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    padding: 10px;
+    background-color: #444;
     color: white;
-    font-size: 24px;
     cursor: pointer;
   }
 

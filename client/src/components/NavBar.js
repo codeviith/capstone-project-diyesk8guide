@@ -11,26 +11,20 @@ function NavBar() {
     const [showMenu, setShowMenu] = useState(false); // State to handle dropdown visibility
 
     const menuRef = useRef(null);
-    const toggleMenu = () => {
-        setShowMenu(!showMenu);  // code to toggle menu visibility state
-        // console.log("Menu toggled", !showMenu);
-    };
+    const toggleMenu = () => setShowMenu(prev => !prev)
 
     useEffect(() => {
         const closeMenu = (e) => {
-            if (!menuRef.current.contains(e.target)) {
+            if (menuRef.current && !menuRef.current.contains(e.target)) {
                 setShowMenu(false);
             }
         };
 
-        if (showMenu) {
-            document.addEventListener('click', closeMenu);
-        }
-
+        document.addEventListener('mousedown', closeMenu);
         return () => {
-            document.removeEventListener('click', closeMenu);
+            document.removeEventListener('mousedown', closeMenu);
         };
-    }, [showMenu]);
+    }, []);
 
 
     return (
@@ -50,36 +44,36 @@ function NavBar() {
                     {/* Dropdown Menu */}
                     {showMenu && (
                         <div className={`dropdown-menu ${showMenu ? 'show-dropdown' : ''}`} ref={menuRef}>
-                            <button className="close-menu-button" onClick={() => setShowMenu(false)}>×</button>
                             {/* {isLoggedIn && <NavLink to="/profile"><FontAwesomeIcon icon={faUser} /></NavLink>} */}
                             {/* <NavLink to="/">Home</NavLink> */}
                             <NavLink to="/guide"
-                                onClick={toggleMenu}
+                                onClick={() => setShowMenu(false)}
                             >Guide</NavLink>
                             <NavLink to="/generate"
-                                onClick={toggleMenu}
+                                onClick={() => setShowMenu(false)}
                             >Generate</NavLink>
                             <NavLink to="/guru"
-                                onClick={toggleMenu}
+                                onClick={() => setShowMenu(false)}
                             >Guru</NavLink>
                             <NavLink to="/gallery"
-                                onClick={toggleMenu}
+                                onClick={() => setShowMenu(false)}
                             >Gallery</NavLink>
                             {/* <NavLink to="/about"
-                                onClick={toggleMenu}
+                                onClick={() => setShowMenu(false)}
                             >About</NavLink> */}
                             {/* <NavLink to="/donations"
-                                onClick={toggleMenu}
+                                onClick={() => setShowMenu(false)}
                             >Donations</NavLink> */}
                             {/* <NavLink to="/disclaimers"
-                                onClick={toggleMenu}
+                                onClick={() => setShowMenu(false)}
                             >Disclaimers</NavLink> */}
                             {/* <NavLink to="/rules-and-policies"
-                                onClick={toggleMenu}
+                                onClick={() => setShowMenu(false)}
                             >Rules & Policies</NavLink> */}
                             {/* <NavLink to="/contact-us"
-                                onClick={toggleMenu}
+                                onClick={() => setShowMenu(false)}
                             >Contact Us</NavLink> */}
+                            <button className="close-menu-button" onClick={() => setShowMenu(false)}>Close</button>
                         </div>
                     )}
                 </div>
