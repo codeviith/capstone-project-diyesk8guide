@@ -784,7 +784,8 @@ nav a.home-link:hover {
     top: 100%;
     left: 0;
     width: 100%;
-    z-index: 2050;
+    background-color: black;
+    z-index: 1050;
   }
 
   .login-link,
