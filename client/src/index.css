@@ -2201,6 +2201,7 @@ nav a.home-link:hover {
   .login-prompt-container {
     padding: 10px;
     font-size: 16px;
+    z-index: 500;
   }
 }
 
@@ -3416,6 +3417,7 @@ nav a.home-link:hover {
   color: rgb(0, 85, 255);
   text-decoration: underline;
   font-weight: bold;
+  z-index: 500;
 }
 
 
