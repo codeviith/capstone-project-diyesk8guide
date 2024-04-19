@@ -13,17 +13,21 @@ function NavBar() {
 
     useEffect(() => {
         const closeMenu = (e) => {
-            if (!e.target.closest('.menu-item')) {
+            if (!e.target.closest('.menu-item') && !e.target.closest('.dropdown-menu')) {
                 setShowMenu(false);
             }
         };
 
         if (showMenu) {
+            document.body.style.overflow = 'hidden';  // code to disable scrolling when the dropdown menu is open
             document.addEventListener('click', closeMenu);
+        } else {
+            document.body.style.overflow = '';  // code to re-enable scrolling when the dropdown menu is closed
         }
 
         return () => {
             document.removeEventListener('click', closeMenu);
+            document.body.style.overflow = '';  // code to clean up to prevent memory leak
         };
     }, [showMenu]);
 
