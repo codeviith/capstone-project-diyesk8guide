@@ -755,6 +755,10 @@ nav a.home-link:hover {
   display: none;
 }
 
+.body-no-scroll {
+  overflow: hidden;
+}
+
 @media (min-width: 769px) {
   .mobile-only {
     display: none;
@@ -798,7 +802,7 @@ nav a.home-link:hover {
     left: 0;
     width: 100vw; /* Full-screen width */
     height: 100vh; /* Full-screen height */
-    background-color: rgba(0,0,0,0.9);
+    background-color: rgba(0,0,0,0.75);
     display: flex;
     flex-direction: column;
     align-items: center;
