@@ -10,9 +10,15 @@ function NavBar() {
     const { isLoggedIn } = useContext(AuthContext);
     const [showMenu, setShowMenu] = useState(false); // State to handle dropdown visibility
 
+    const menuRef = useRef(null);
+    const toggleMenu = () => {
+        setShowMenu(!showMenu);  // code to toggle menu visibility state
+        // console.log("Menu toggled", !showMenu);
+    };
+
     useEffect(() => {
         const closeMenu = (e) => {
-            if (!e.target.closest('.menu-item')) {
+            if (!menuRef.current.contains(e.target)) {
                 setShowMenu(false);
             }
         };
@@ -26,10 +32,6 @@ function NavBar() {
         };
     }, [showMenu]);
 
-    const toggleMenu = () => {
-        setShowMenu(!showMenu);
-        // console.log("Menu toggled", !showMenu);
-    };
 
     return (
         <nav>
@@ -47,18 +49,37 @@ function NavBar() {
                     {/* <MenuIcon /> */}
                     {/* Dropdown Menu */}
                     {showMenu && (
-                        <div className={`dropdown-menu ${showMenu ? 'show-dropdown' : ''}`}>
+                        <div className={`dropdown-menu ${showMenu ? 'show-dropdown' : ''}`} ref={menuRef}>
+                            <button className="close-menu-button" onClick={() => setShowMenu(false)}>×</button>
                             {/* {isLoggedIn && <NavLink to="/profile"><FontAwesomeIcon icon={faUser} /></NavLink>} */}
                             {/* <NavLink to="/">Home</NavLink> */}
-                            <NavLink to="/guide">Guide</NavLink>
-                            <NavLink to="/generate">Generate</NavLink>
-                            <NavLink to="/guru">Guru</NavLink>
-                            <NavLink to="/gallery">Gallery</NavLink>
-                            {/* <NavLink to="/about">About</NavLink> */}
-                            {/* <NavLink to="/donations">Donations</NavLink> */}
-                            {/* <NavLink to="/disclaimers">Disclaimers</NavLink> */}
-                            {/* <NavLink to="/rules-and-policies">Rules & Policies</NavLink> */}
-                            {/* <NavLink to="/contact-us">Contact Us</NavLink> */}
+                            <NavLink to="/guide"
+                                onClick={toggleMenu}
+                            >Guide</NavLink>
+                            <NavLink to="/generate"
+                                onClick={toggleMenu}
+                            >Generate</NavLink>
+                            <NavLink to="/guru"
+                                onClick={toggleMenu}
+                            >Guru</NavLink>
+                            <NavLink to="/gallery"
+                                onClick={toggleMenu}
+                            >Gallery</NavLink>
+                            {/* <NavLink to="/about"
+                                onClick={toggleMenu}
+                            >About</NavLink> */}
+                            {/* <NavLink to="/donations"
+                                onClick={toggleMenu}
+                            >Donations</NavLink> */}
+                            {/* <NavLink to="/disclaimers"
+                                onClick={toggleMenu}
+                            >Disclaimers</NavLink> */}
+                            {/* <NavLink to="/rules-and-policies"
+                                onClick={toggleMenu}
+                            >Rules & Policies</NavLink> */}
+                            {/* <NavLink to="/contact-us"
+                                onClick={toggleMenu}
+                            >Contact Us</NavLink> */}
                         </div>
                     )}
                 </div>
