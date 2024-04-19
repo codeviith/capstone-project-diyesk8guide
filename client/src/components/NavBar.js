@@ -1,32 +1,36 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
 import Header from "./Header";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faL, faUser } from '@fortawesome/free-solid-svg-icons';
 // import MenuIcon from './MenuIcon';
 
 function NavBar() {
     const { isLoggedIn } = useContext(AuthContext);
     const [showMenu, setShowMenu] = useState(false); // State to handle dropdown visibility
-
-    const menuRef = useRef(null);
-    const toggleMenu = () => setShowMenu(prev => !prev)  // func to toggle state of menu visibility
-    const closeMenu = () => setShowMenu(false);  // func to close the menu
+    const closeMenuButton = () => setShowMenu(false);
 
     useEffect(() => {
-        const handleOutsideClick = (e) => {  // code to close the menu if clicked outside of the menu
-            if (menuRef.current && !menuRef.current.contains(e.target)) {
-                closeMenu();
+        const closeMenu = (e) => {
+            if (!e.target.closest('.menu-item')) {
+                setShowMenu(false);
             }
         };
 
-        document.addEventListener('mousedown', handleOutsideClick);
-        return () => {
-            document.removeEventListener('mousedown', handleOutsideClick);
-        };
-    }, []);
+        if (showMenu) {
+            document.addEventListener('click', closeMenu);
+        }
 
+        return () => {
+            document.removeEventListener('click', closeMenu);
+        };
+    }, [showMenu]);
+
+    const toggleMenu = () => {
+        setShowMenu(!showMenu);
+        // console.log("Menu toggled", !showMenu);
+    };
 
     return (
         <nav>
@@ -44,19 +48,19 @@ function NavBar() {
                     {/* <MenuIcon /> */}
                     {/* Dropdown Menu */}
                     {showMenu && (
-                        <div className={`dropdown-menu ${showMenu ? 'show-dropdown' : ''}`} ref={menuRef}>
-                            <NavLink to="/" onClick={closeMenu}>Home</NavLink>
-                            <NavLink to="/guide" onClick={closeMenu}>Guide</NavLink>
-                            <NavLink to="/generate" onClick={closeMenu}>Generate</NavLink>
-                            <NavLink to="/guru" onClick={closeMenu}>Guru</NavLink>
-                            <NavLink to="/gallery" onClick={closeMenu}>Gallery</NavLink>
-                            <NavLink to="/about" onClick={closeMenu}>About</NavLink>
-                            <NavLink to="/donations" onClick={closeMenu}>Donations</NavLink>
-                            <NavLink to="/disclaimers" onClick={closeMenu}>Disclaimers</NavLink>
-                            <NavLink to="/rules-and-policies" onClick={closeMenu}>Rules & Policies</NavLink>
-                            <NavLink to="/contact-us" onClick={closeMenu}>Contact Us</NavLink>
+                        <div className={`dropdown-menu ${showMenu ? 'show-dropdown' : ''}`}>
+                            <NavLink to="/">Home</NavLink>
+                            <NavLink to="/guide">Guide</NavLink>
+                            <NavLink to="/generate">Generate</NavLink>
+                            <NavLink to="/guru">Guru</NavLink>
+                            <NavLink to="/gallery">Gallery</NavLink>
+                            <NavLink to="/about">About</NavLink>
+                            <NavLink to="/donations">Donations</NavLink>
+                            <NavLink to="/disclaimers">Disclaimers</NavLink>
+                            <NavLink to="/rules-and-policies">Rules & Policies</NavLink>
+                            <NavLink to="/contact-us">Contact Us</NavLink>
                             <div className='mobile-only'>
-                                <button className="close-menu-button" onClick={closeMenu}>Close</button>
+                                <button className="close-menu-button" onClick={closeMenuButton}>Close</button>
                             </div>
                         </div>
                     )}
