@@ -762,7 +762,7 @@ nav a.home-link:hover {
   border-bottom: 2px solid grey;
 }
 
-/* START-Ensures that desktop devices do not show the close button */
+/* START-Ensures that desktop devices do not show the close button-START */
 .mobile-only {
   display: none;
 }
@@ -772,7 +772,7 @@ nav a.home-link:hover {
     display: none;
   }
 }
-/* END-Ensures that desktop devices do not show the close button */
+/* END-Ensures that desktop devices do not show the close button-END */
 
 
 /* For mobile devices */
@@ -810,7 +810,7 @@ nav a.home-link:hover {
     left: 0;
     width: 90vw; /* Full-screen width */
     height: 90vh; /* Full-screen height */
-    background-color: rgba(0,0,0,0.75);
+    background-color: rgba(0,0,0,0.8);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -849,8 +849,8 @@ nav a.home-link:hover {
     color: white;
     text-align: center;
     cursor: pointer;
-    border-top: 1px solid grey;
-    border-radius: 15px;
+    border-radius: 1px;
+    border-bottom: 2px solid grey;
   }
 
   .login-link,
@@ -861,9 +861,6 @@ nav a.home-link:hover {
     margin-bottom: 0;
   }
 }
-
-
-
 
 
 

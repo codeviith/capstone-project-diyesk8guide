@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faL, faUser } from '@fortawesome/free-solid-svg-icons';
 // import MenuIcon from './MenuIcon';
 
+
 function NavBar() {
     const { isLoggedIn } = useContext(AuthContext);
     const [showMenu, setShowMenu] = useState(false); // State to handle dropdown visibility
@@ -18,15 +19,23 @@ function NavBar() {
             }
         };
 
+        const disableTouchScroll = (e) => {
+            if (showMenu) {
+                e.preventDefault();
+            }
+        };
+
         if (showMenu) {
             // document.body.style.overflow = 'hidden';  // code to disable scrolling when the dropdown menu is open
             document.addEventListener('click', closeMenu);
-        } else {
+            document.addEventListener('touchmove', disableTouchScroll, { passive: false });  // code to prevent touch scrolling
+        // } else {
             // document.body.style.overflow = '';  // code to re-enable scrolling when the dropdown menu is closed
         }
 
         return () => {
             document.removeEventListener('click', closeMenu);
+            document.removeEventListener('touchmove', disableTouchScroll, { passive: false });  // code to remove disable touch scrolling
             // document.body.style.overflow = '';  // code to clean up to prevent memory leak
         };
     }, [showMenu]);
@@ -35,6 +44,7 @@ function NavBar() {
         setShowMenu(!showMenu);
         // console.log("Menu toggled", !showMenu);
     };
+
 
     return (
         <nav>
@@ -48,7 +58,7 @@ function NavBar() {
             </div>
             <div className="nav-links-right"> {/* Container for right-hand side links */}
                 {/* Menu Item to toggle dropdown */}
-                <div className="menu-item" onClick={toggleMenu}>☰ Menu
+                <div className="menu-item" onClick={toggleMenu}> ☰ Menu
                     {/* <MenuIcon /> */}
                     {/* Dropdown Menu */}
                     {showMenu && (
