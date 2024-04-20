@@ -819,7 +819,7 @@ nav a.home-link:hover {
     height: 100vh; /* Full-screen height */
     background-color: rgba(0,0,0,0.85);
     z-index: 900;
-    border-right: 2px solid grey; /* border outline to delineate menu from page content */
+    border-right: 2px solid rgb(0, 93, 253); /* border outline to delineate menu from page content */
     border-radius: 0 15px 15px 0;
     padding: 0;
     overflow-y: auto;
@@ -838,8 +838,8 @@ nav a.home-link:hover {
 
   .mobile-dropdown-menu a {
     color: white;
-    font-size: 18px;
-    padding: 15px;
+    font-size: 20px;
+    padding: 18px;
     text-align: center;
     /* margin: 5px 0; */
     width: 100%; /* dropdown-menu's width */
