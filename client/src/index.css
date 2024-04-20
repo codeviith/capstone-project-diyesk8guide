@@ -814,6 +814,7 @@ nav a.home-link:hover {
   .mobile-dropdown-menu {
     position: fixed;
     top: 0;
+    bottom: 0;
     left: 0;
     width: 33.33%; /* Full-screen width */
     height: 100vh; /* Full-screen height */
