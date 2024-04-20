@@ -64,14 +64,14 @@ function NavBar() {
                     {showMenu && (
                         <div className={`dropdown-menu ${showMenu ? 'show-dropdown' : ''}`}>
                             <NavLink to="/">Home</NavLink>
-                            <NavLink to="/guide">Guide</NavLink>
-                            <NavLink to="/generate">Generate</NavLink>
-                            <NavLink to="/guru">Guru</NavLink>
-                            <NavLink to="/gallery">Gallery</NavLink>
                             <NavLink to="/about">About</NavLink>
+                            <NavLink to="/guide">Guide</NavLink>
                             <NavLink to="/donations">Donations</NavLink>
-                            <NavLink to="/disclaimers">Disclaimers</NavLink>
+                            <NavLink to="/generate">Generate</NavLink>
                             <NavLink to="/rules-and-policies">Rules & Policies</NavLink>
+                            <NavLink to="/guru">Guru</NavLink>
+                            <NavLink to="/disclaimers">Disclaimers</NavLink>
+                            <NavLink to="/gallery">Gallery</NavLink>
                             <NavLink to="/contact-us">Contact Us</NavLink>
                             <div className='mobile-only'>
                                 <button className="close-menu-button" onClick={closeMenuButton}>Close</button>
