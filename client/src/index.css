@@ -815,8 +815,8 @@ nav a.home-link:hover {
     position: fixed;
     top: 0;
     left: 0;
-    width: 50vh; /* Full-screen width */
-    height: 50vh; /* Full-screen height */
+    width: 33.33%; /* Full-screen width */
+    height: 100vh; /* Full-screen height */
     background-color: rgba(0,0,0,0.85);
     display: flex;
     flex-direction: column;
@@ -824,6 +824,8 @@ nav a.home-link:hover {
     justify-content: center;
     overflow-y: auto; /* this code allows scrolling within the menu */
     z-index: 900;
+    border-right: 2px solid grey; /* border outline to delineate menu from page content */
+    border-radius: 0 15px 15px 0;
   }
 
   .mobile-dropdown-menu a {
@@ -832,7 +834,7 @@ nav a.home-link:hover {
     padding: 15px;
     text-align: center;
     margin: 5px 0;
-    width: 50%; /* dropdown-menu's width */
+    width: 100%; /* dropdown-menu's width */
     border-radius: 1px;
     border-bottom: 2px solid grey;
   }
@@ -843,11 +845,11 @@ nav a.home-link:hover {
 
   .mobile-only {
     display: flex;
-    width: 50%;
+    width: 100%;
   }
 
   .close-menu-button {
-    width: 35%;
+    width: 90%;
     /* max-width: 95%; */
     margin-left: auto;
     margin-right: auto;
@@ -857,7 +859,7 @@ nav a.home-link:hover {
     color: white;
     text-align: center;
     /* cursor: pointer; */
-    border-radius: 15px;
+    border-radius: 18px;
   }
 
   .login-link,
