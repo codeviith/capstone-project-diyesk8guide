@@ -9,36 +9,31 @@ import { faL, faUser } from '@fortawesome/free-solid-svg-icons';
 function NavBar() {
     const { isLoggedIn } = useContext(AuthContext);
     const [showMenu, setShowMenu] = useState(false); // State to handle dropdown visibility
-    // const closeMenuButton = () => setShowMenu(false);
+    const closeMenuButton = () => setShowMenu(false);
 
     useEffect(() => {
         const closeMenu = (e) => {
-            if (!e.target.closest('.menu-item')) {
+            if (!e.target.closest('.menu-item') && !e.target.closest('.dropdown-menu')) {
                 setShowMenu(false);
             }
         };
 
-        const handleBodyScroll = () => {
-            document.body.classList.toggle('body-no-scroll', showMenu);
-        };
-
         if (showMenu) {
+            // document.body.style.overflow = 'hidden';  // code to disable scrolling when the dropdown menu is open
             document.addEventListener('click', closeMenu);
-            handleBodyScroll();
+        } else {
+            // document.body.style.overflow = '';  // code to re-enable scrolling when the dropdown menu is closed
         }
 
         return () => {
             document.removeEventListener('click', closeMenu);
-            document.body.classList.remove('body-no-scroll');
+            // document.body.style.overflow = '';  // code to clean up to prevent memory leak
         };
     }, [showMenu]);
 
     const toggleMenu = () => {
         setShowMenu(!showMenu);
-    };
-
-    const closeMenuButton = () => {
-        setShowMenu(false);
+        // console.log("Menu toggled", !showMenu);
     };
 
     return (
@@ -57,7 +52,7 @@ function NavBar() {
                     {/* <MenuIcon /> */}
                     {/* Dropdown Menu */}
                     {showMenu && (
-                        <div className={`dropdown-menu ${showMenu ? 'show-dropdown' : ''}`} onTouchMove={e => e.preventDefault()}>
+                        <div className={`dropdown-menu ${showMenu ? 'show-dropdown' : ''}`}>
                             <NavLink to="/">Home</NavLink>
                             <NavLink to="/guide">Guide</NavLink>
                             <NavLink to="/generate">Generate</NavLink>

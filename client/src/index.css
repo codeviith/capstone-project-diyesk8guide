@@ -727,6 +727,7 @@ nav a.home-link:hover {
   position: absolute;
   top: 100%;
   right: 0;  
+  padding: 15px;
   background-color: black; 
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   border-radius: 12px;
@@ -744,19 +745,26 @@ nav a.home-link:hover {
   text-decoration: none;
   color: white;
   white-space: nowrap;
+  font-size: 16px;
+  padding: 10px;
+  text-align: center;
+  border-radius: 2px;
+  border-bottom: 1.5px solid grey;
+}
+
+.dropdown-menu {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* two columns */
+  grid-gap: 5px;
 }
 
 .dropdown-menu a:hover {
   background-color: #ddd; 
 }
 
-/* Ensures that desktop devices do not show the close button */
+/* START-Ensures that desktop devices do not show the close button */
 .mobile-only {
   display: none;
-}
-
-.body-no-scroll {
-  overflow: hidden;
 }
 
 @media (min-width: 769px) {
@@ -764,7 +772,7 @@ nav a.home-link:hover {
     display: none;
   }
 }
-/* Ensures that desktop devices do not show the close button */
+/* END-Ensures that desktop devices do not show the close button */
 
 
 /* For mobile devices */
@@ -797,32 +805,43 @@ nav a.home-link:hover {
   }
 
   .dropdown-menu {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* two columns */
+    grid-gap: 10px;
+  }
+
+  .dropdown-menu {
     position: fixed;
-    top: 0;
+    bottom: 0;
     left: 0;
-    width: 100vw; /* Full-screen width */
-    height: 100vh; /* Full-screen height */
+    width: 100vw;
+    height: 50vh;
     background-color: rgba(0,0,0,0.75);
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
     align-items: center;
     justify-content: center;
-    overflow-y: auto; /* this code allows scrolling within the menu */
+    overflow-y: auto;
     z-index: 900;
   }
 
   .dropdown-menu a {
+    display: block; 
     color: white;
-    font-size: 18px;
-    padding: 15px;
+    font-size: 16px;
+    padding: 10px 15px;
+    text-decoration: none;
     text-align: center;
-    margin: 5px 0;
-    width: 100%; /* dropdown-menu's width */
-    border-bottom: 1.5px solid grey; /* separator between items */
+    white-space: nowrap;
+    margin: 2px;
+    width: auto;
+    border-radius: 2px;
+    border-bottom: 1.5px solid grey;
   }
 
   .show-dropdown {
-    display: flex;
+    display: grid;
   }
 
   .mobile-only {
@@ -831,6 +850,7 @@ nav a.home-link:hover {
   }
 
   .close-menu-button {
+    grid-column: span 2; /* Span across */
     width: 80%;
     max-width: 100%;
     padding: 15px;
