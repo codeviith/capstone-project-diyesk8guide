@@ -650,7 +650,7 @@ nav h1 {
 
 /* Code to bold text on hover w/o any other effects */
 nav a:hover {
-  font-weight: bold;
+  /* font-weight: bold; */
   background-color: gray; 
   color: white; 
   box-shadow: none; 
@@ -668,7 +668,7 @@ nav a[href="/login"]:hover,
 nav a:not(.home-link):hover {
   font-weight: bold;
   background-color: initial; 
-  color: gray; 
+  color: gray;
   box-shadow: none; 
 }
 
@@ -748,8 +748,6 @@ nav a.home-link:hover {
   font-size: 16px;
   padding: 10px;
   text-align: center;
-  border-radius: 2px;
-  border-bottom: 1.5px solid grey;
 }
 
 .dropdown-menu {
@@ -759,7 +757,9 @@ nav a.home-link:hover {
 }
 
 .dropdown-menu a:hover {
-  background-color: #ddd; 
+  /* background-color: #ddd; */
+  border-radius: 1px;
+  border-bottom: 2px solid grey;
 }
 
 /* START-Ensures that desktop devices do not show the close button */
@@ -805,43 +805,32 @@ nav a.home-link:hover {
   }
 
   .dropdown-menu {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* two columns */
-    grid-gap: 10px;
-  }
-
-  .dropdown-menu {
     position: fixed;
-    bottom: 0;
+    top: 0;
     left: 0;
-    width: 100vw;
-    height: 50vh;
+    width: 100vw; /* Full-screen width */
+    height: 100vh; /* Full-screen height */
     background-color: rgba(0,0,0,0.75);
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 10px;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    overflow-y: auto;
+    overflow-y: auto; /* this code allows scrolling within the menu */
     z-index: 900;
   }
 
   .dropdown-menu a {
-    display: block; 
     color: white;
-    font-size: 16px;
-    padding: 10px 15px;
-    text-decoration: none;
+    font-size: 18px;
+    padding: 15px;
     text-align: center;
-    white-space: nowrap;
-    margin: 2px;
-    width: auto;
-    border-radius: 2px;
-    border-bottom: 1.5px solid grey;
+    margin: 5px 0;
+    width: 100%; /* dropdown-menu's width */
+    border-bottom: 1.5px solid grey; /* separator between items */
   }
 
   .show-dropdown {
-    display: grid;
+    display: flex;
   }
 
   .mobile-only {
@@ -850,17 +839,18 @@ nav a.home-link:hover {
   }
 
   .close-menu-button {
-    grid-column: span 2; /* Span across */
     width: 80%;
     max-width: 100%;
-    padding: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 12px;
     font-size: 20px;
     background-color: #444;
     color: white;
     text-align: center;
     cursor: pointer;
     border-top: 1px solid grey;
-    border-radius: 25px;
+    border-radius: 15px;
   }
 
   .login-link,
@@ -871,7 +861,6 @@ nav a.home-link:hover {
     margin-bottom: 0;
   }
 }
-
 
 
 
