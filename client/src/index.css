@@ -814,7 +814,6 @@ nav a.home-link:hover {
   .mobile-dropdown-menu {
     position: fixed;
     top: 0;
-    bottom: 20px;
     left: 0;
     width: 33.33%; /* Full-screen width */
     height: 100vh; /* Full-screen height */
@@ -822,11 +821,18 @@ nav a.home-link:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     overflow-y: auto; /* this code allows scrolling within the menu */
     z-index: 900;
+    padding-top: 0;
     border-right: 2px solid grey; /* border outline to delineate menu from page content */
     border-radius: 0 15px 15px 0;
+  }
+
+  .mobile-navlinks {
+    width: 100%;
+    padding: 0;
+    margin: 0;
   }
 
   .mobile-dropdown-menu a {
@@ -835,9 +841,14 @@ nav a.home-link:hover {
     padding: 15px;
     text-align: center;
     margin: 5px 0;
+    margin-top: 0;
     width: 100%; /* dropdown-menu's width */
     border-radius: 1px;
     border-bottom: 2px solid grey;
+  }
+
+  .mobile-dropdown-menu a:first-child {
+    margin-top: 0; /* this code ensures that no margin is at the top of the first navlink */
   }
 
   .mobile-show-dropdown {
@@ -851,7 +862,6 @@ nav a.home-link:hover {
 
   .close-menu-button {
     width: 90%;
-    /* max-width: 95%; */
     margin-left: auto;
     margin-right: auto;
     padding: 12px;
@@ -859,8 +869,9 @@ nav a.home-link:hover {
     background-color: #444;
     color: white;
     text-align: center;
-    /* cursor: pointer; */
+    cursor: pointer;
     border-radius: 18px;
+    margin-top: auto;
   }
 
   .login-link,
