@@ -24,6 +24,7 @@ gunicorn = "*"
 flask-session = "*"
 cors = "*"
 python-dateutil = "*"
+flask-mail = "*"
 
 [requires]
 python_full_version = "3.8.13"
