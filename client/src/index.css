@@ -821,16 +821,19 @@ nav a.home-link:hover {
     z-index: 900;
     border-right: 2px solid grey; /* border outline to delineate menu from page content */
     border-radius: 0 15px 15px 0;
+    padding: 0;
+    overflow-y: auto;
   }
 
   .mobile-navlinks {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow-y: auto; /* this code allows scrolling within the menu */
     width: 100%;
-    margin-top: 0;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-y: auto; /* this code allows scrolling within the menu */
   }
 
   .mobile-dropdown-menu a {
@@ -838,7 +841,7 @@ nav a.home-link:hover {
     font-size: 18px;
     padding: 15px;
     text-align: center;
-    margin: 5px 0;
+    /* margin: 5px 0; */
     width: 100%; /* dropdown-menu's width */
     border-radius: 1px;
     border-bottom: 2px solid grey;
@@ -863,8 +866,9 @@ nav a.home-link:hover {
     background-color: #444;
     color: white;
     text-align: center;
-    /* cursor: pointer; */
+    cursor: pointer;
     border-radius: 18px;
+    margin-top: auto;
   }
 
   .login-link,
