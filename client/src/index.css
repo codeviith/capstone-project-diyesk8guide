@@ -819,7 +819,7 @@ nav a.home-link:hover {
     height: 100vh; /* Full-screen height */
     background-color: rgba(0,0,0,0.85);
     z-index: 900;
-    border-right: 2px solid rgb(3, 121, 52); /* border outline to delineate menu from page content */
+    border-right: 2px solid rgb(242, 255, 0); /* border outline to delineate menu from page content */
     border-radius: 0;
     padding: 0;
     overflow-y: auto;
@@ -863,7 +863,7 @@ nav a.home-link:hover {
     margin-right: auto;
     padding: 12px;
     font-size: 20px;
-    background-color: #7d0202;
+    background-color: #610000;
     color: white;
     text-align: center;
     cursor: pointer;
