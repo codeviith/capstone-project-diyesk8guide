@@ -25,6 +25,7 @@ flask-session = "*"
 cors = "*"
 python-dateutil = "*"
 flask-mail = "*"
+psycopg2-binary = "*"
 
 [requires]
 python_full_version = "3.8.13"
