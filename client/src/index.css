@@ -826,7 +826,8 @@ nav a.home-link:hover {
     text-align: center;
     margin: 5px 0;
     width: 90%; /* dropdown-menu's width */
-    border-bottom: 1.5px solid grey; /* separator between items */
+    border-radius: 1px;
+    border-bottom: 2px solid grey;
   }
 
   .show-dropdown {
@@ -849,8 +850,7 @@ nav a.home-link:hover {
     color: white;
     text-align: center;
     cursor: pointer;
-    border-radius: 1px;
-    border-bottom: 2px solid grey;
+    border-radius: 15px;
   }
 
   .login-link,
