@@ -29,7 +29,7 @@ function NavBar() {
             // document.body.style.overflow = 'hidden';  // code to disable scrolling when the dropdown menu is open
             document.addEventListener('click', closeMenu);
             document.addEventListener('touchmove', disableTouchScroll, { passive: false });  // code to prevent touch scrolling
-        // } else {
+            // } else {
             // document.body.style.overflow = '';  // code to re-enable scrolling when the dropdown menu is closed
         }
 
@@ -72,6 +72,20 @@ function NavBar() {
                             <NavLink to="/guru">Guru</NavLink>
                             <NavLink to="/disclaimers">Disclaimers</NavLink>
                             <NavLink to="/gallery">Gallery</NavLink>
+                            <NavLink to="/contact-us">Contact Us</NavLink>
+                        </div>
+                    )}
+                    {showMenu && (
+                        <div className={`mobile-dropdown-menu ${showMenu ? 'mobile-show-dropdown' : ''}`}>
+                            <NavLink to="/">Home</NavLink>
+                            <NavLink to="/guide">Guide</NavLink>
+                            <NavLink to="/generate">Generate</NavLink>
+                            <NavLink to="/guru">Guru</NavLink>
+                            <NavLink to="/gallery">Gallery</NavLink>
+                            <NavLink to="/about">About</NavLink>
+                            <NavLink to="/donations">Donations</NavLink>
+                            <NavLink to="/disclaimers">Disclaimers</NavLink>
+                            <NavLink to="/rules-and-policies">Rules & Policies</NavLink>
                             <NavLink to="/contact-us">Contact Us</NavLink>
                             <div className='mobile-only'>
                                 <button className="close-menu-button" onClick={closeMenuButton}>Close</button>

@@ -762,8 +762,7 @@ nav a.home-link:hover {
   border-bottom: 2px solid grey;
 }
 
-/* START-Ensures that desktop devices do not show the close button-START */
-.mobile-only {
+.mobile-only {  /* code to ensure that desktop devices do not show the close button */
   display: none;
 }
 
@@ -771,8 +770,12 @@ nav a.home-link:hover {
   .mobile-only {
     display: none;
   }
+
+  .mobile-dropdown-menu {
+    display: none;  /* code to hide mobile menu on desktop devices */
+  }
 }
-/* END-Ensures that desktop devices do not show the close button-END */
+
 
 
 /* For mobile devices */
@@ -805,11 +808,15 @@ nav a.home-link:hover {
   }
 
   .dropdown-menu {
+    display: none;
+  }
+
+  .mobile-dropdown-menu {
     position: fixed;
     top: 0;
     left: 0;
-    width: 90.5vw; /* Full-screen width */
-    height: 90.5vh; /* Full-screen height */
+    width: 95vw; /* Full-screen width */
+    height: 90vh; /* Full-screen height */
     background-color: rgba(0,0,0,0.85);
     display: flex;
     flex-direction: column;
@@ -819,29 +826,29 @@ nav a.home-link:hover {
     z-index: 900;
   }
 
-  .dropdown-menu a {
+  .mobile-dropdown-menu a {
     color: white;
     font-size: 18px;
     padding: 15px;
     text-align: center;
     margin: 5px 0;
-    width: 90.5%; /* dropdown-menu's width */
+    width: 95%; /* dropdown-menu's width */
     border-radius: 1px;
     border-bottom: 2px solid grey;
   }
 
-  .show-dropdown {
+  .mobile-show-dropdown {
     display: flex;
   }
 
   .mobile-only {
     display: flex;
-    width: 90.5%;
+    width: 90%;
   }
 
   .close-menu-button {
     width: 80%;
-    max-width: 90.5%;
+    max-width: 90%;
     margin-left: auto;
     margin-right: auto;
     padding: 12px;
