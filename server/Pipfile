@@ -25,6 +25,7 @@ flask-session = "*"
 cors = "*"
 python-dateutil = "*"
 flask-mail = "*"
+requests = "*"
 
 [requires]
 python_full_version = "3.8.13"
