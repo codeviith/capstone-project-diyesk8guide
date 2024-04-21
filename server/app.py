@@ -102,6 +102,11 @@ if not app.debug:
 
 
 
+mail_logger = logging.getLogger('flask_mail')
+mail_logger.setLevel(logging.DEBUG)
+mail_logger.addHandler(logging.StreamHandler())
+
+
 
 ### ------------ THROTTLE ACCESS/REQUEST RATES -------------- ###
 
@@ -333,7 +338,7 @@ def signup():
             msg = Message("Welcome to DIYeSk8Guide!",
                         sender="admin@diyesk8guide.com",
                         recipients=[email])
-            msg.body = f"Hi {fname}, welcome to DIYeSk8Guide! We are excited to have you on board."
+            msg.body = f"Hi {fname}, welcome to DIYeSk8Guide! We are excited to have you on board." ### need to add more to this!!
             msg.html =  f"""
                 <html>
                     <head>
@@ -370,8 +375,9 @@ def signup():
             mail.send(msg)
             return jsonify({'message': 'Account created successfully and welcome email sent'}), 201
         except Exception as e:
+            db.session.rollback() 
             app.logger.error("Failed to send email: %s", str(e))
-        return jsonify({'message': 'Account created successfully, but the welcome email could not be sent.'}), 201
+            return jsonify({'error': 'Failed to send email', 'message':str(e)}), 500
     except Exception as e:
         db.session.rollback() 
         app.logger.error("Signup failed: %s", str(e))
