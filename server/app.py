@@ -316,10 +316,6 @@ def logout():
 
 
 
-
-
-
-@app.route('/signup', methods=['POST'])
 def send_welcome_email(email, fname):
     msg = Message("Welcome to DIYeSk8Guide!",
                 sender=os.environ.get('FLASK_MAIL_NAME'),
@@ -365,6 +361,8 @@ def send_welcome_email(email, fname):
         app.logger.error("Failed to send email: %s", str(e))
         return jsonify({'error': 'Failed to send email', 'message':str(e)}), 500
 
+
+@app.route('/signup', methods=['POST'])
 def signup():
     try:
         data = request.get_json()
@@ -393,10 +391,6 @@ def signup():
         db.session.rollback()
         app.logger.error("Signup failed: %s", str(e))
         return jsonify({'error': 'Failed to create account', 'message': str(e)}), 500
-
-
-
-
 
 
 
