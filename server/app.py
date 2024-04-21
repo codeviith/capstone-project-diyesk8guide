@@ -2,6 +2,7 @@
 from flask import Flask, jsonify, make_response, request, session, redirect, send_from_directory
 from flask_migrate import Migrate
 from flask_cors import CORS
+from flask_mail import Mail, Message
 from dotenv import load_dotenv
 from sqlalchemy import desc, func
 from datetime import timedelta, datetime, timezone
@@ -9,19 +10,18 @@ from werkzeug.utils import secure_filename
 from PIL import Image
 from io import BytesIO
 from threading import Thread, Event
-from dateutil.parser import isoparse
-from functools import wraps
-from flask_mail import Mail, Message
 import time
 import boto3
 import logging
 import traceback
+from dateutil.parser import isoparse
+from functools import wraps
+import os
 
 
 ### Local imports
 from models import Board, Guru, User, ContactUs, Gallery, Heart, Report
 from config import db, bcrypt
-import os
 
 ### API imports
 from openai import OpenAI
@@ -36,10 +36,23 @@ app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'   ### uncomment to test code on development server
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')   ### uncomment for production build on render
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY')
 app.config['BASE_URL'] = os.environ.get('BASE_URL', 'http://127.0.0.1:5555')  
 ###### IMPORTANT!!! make sure to configure the 'BASE_URL' environment variable on Render as either Render backend URL or my custom domain: www.diyesk8guide.com #####
 
 app.json.compact = False
+
+# Flask-Mail configuration
+app.config['MAIL_SERVER'] = 'smtp.office365.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+app.config['MAIL_USERNAME'] = os.environ.get('FLASK_MAIL_NAME')
+app.config['MAIL_PASSWORD'] = os.environ.get('FLASK_MAIL_KEY')
+
+# Initialize Flask-Mail
+mail = Mail(app)
+
 
 ### Instantiate db
 db.init_app(app)
@@ -48,7 +61,6 @@ migrate = Migrate(app, db)
 
 ### API Secret Keys
 openai_api_key = os.environ.get('OPENAI_API_KEY')  ### or os.getenv('OPENAI_API_KEY')
-app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY')
 client = OpenAI(api_key=openai_api_key)
 
 ### Instantiate CORS
@@ -82,14 +94,6 @@ app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=20)
 
 ### Initialize Bcrypt
 bcrypt.init_app(app)
-
-app.config['MAIL_SERVER'] = 'smtp.office365.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USE_SSL'] = False
-app.config['MAIL_USERNAME'] = os.environ.get('FLASK_MAIL_NAME')
-app.config['MAIL_PASSWORD'] = os.environ.get('FLASK_MAIL_KEY')
-mail = Mail(app)
 
 
 ### configure logging
@@ -343,7 +347,7 @@ def signup():
                 <body>
                     <h1>Hi {fname},</h1>
                     <p>Welcome to <strong>DIYeSk8Guide</strong>, your ultimate resource for building and customizing electric skateboards.</p>
-                    <p>Whether you're crafting your first board or looking to refine your skills, here's what you can find on our platform:</p>
+                    <p>We are excited to have you join our community. Whether you're crafting your first board or looking to refine your skills, here's what you can find on our platform:</p>
                     <ul>
                         <li><strong>Guides:</strong> Immerse yourself in our in-depth Quick Start Guide and specialized tutorials. Each step is crafted to provide you with comprehensive insights, ensuring you have the know-how to assemble your dream board.</li>
                         <li><strong>Generate:</strong> Utilize our Generate feature to automatically craft a custom skateboard build, tailored to your preferences. Save time and ensure you get the best possible results with our intelligent recommendations.</li>
@@ -366,14 +370,6 @@ def signup():
         return jsonify({'message': 'Account created successfully'}), 201
     except Exception as e:
         return jsonify({'error': 'Failed to send welcome email', 'mesasge':str(e)}), 500
-
-
-
-
-
-
-        # f"<h1>Welcome to DIYeSk8Guide, {fname}!</h1><p>We are excited to have you join our community. Start building today!</p>"
-
 
 
 ### ------------------ USER ------------------ ###
