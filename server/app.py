@@ -44,7 +44,7 @@ app.json.compact = False
 
 # Flask-Mail configuration
 app.config['MAIL_SERVER'] = 'smtpout.secureserver.net'
-app.config['MAIL_PORT'] = 587
+app.config['MAIL_PORT'] = 465   ### original: 587, alternative: 465, forum suggested: 80
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
 app.config['MAIL_USERNAME'] = os.environ.get('FLASK_MAIL_NAME')
