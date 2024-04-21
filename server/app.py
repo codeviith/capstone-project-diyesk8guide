@@ -319,7 +319,7 @@ def logout():
 
 
 
-
+@app.route('/signup', methods=['POST'])
 def send_welcome_email(email, fname):
     msg = Message("Welcome to DIYeSk8Guide!",
                 sender=os.environ.get('FLASK_MAIL_NAME'),
@@ -360,10 +360,11 @@ def send_welcome_email(email, fname):
         """
     try:
         mail.send(msg)
+        return jsonify({'message': 'Welcome email sent successfully'}), 201
     except Exception as e:
         app.logger.error("Failed to send email: %s", str(e))
+        return jsonify({'error': 'Failed to send email', 'message':str(e)}), 500
 
-@app.route('/signup', methods=['POST'])
 def signup():
     try:
         data = request.get_json()
@@ -382,8 +383,8 @@ def signup():
         new_user = User(email=email, fname=fname, lname=lname, rider_stance=rider_stance, boards_owned=boards_owned)
         new_user.password_hash = password  ### Sets the password hash
 
-        # db.session.add(new_user)      ##### Temporarily commented out for welcome email debugging
-        # db.session.commit()           ##### Temporarily commented out for welcome email debugging
+        db.session.add(new_user)      ##### Temporarily commented out for welcome email debugging
+        db.session.commit()           ##### Temporarily commented out for welcome email debugging
 
         send_welcome_email(email, fname)  # Send welcome email after committing the user data
         return jsonify({'message': 'Account created successfully'}), 201
