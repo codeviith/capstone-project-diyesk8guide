@@ -312,6 +312,57 @@ def logout():
 
 ### ------------------ SIGN UP ------------------ ###
 
+
+
+
+
+
+
+
+
+def send_welcome_email(email, fname):
+    msg = Message("Welcome to DIYeSk8Guide!",
+                sender=os.environ.get('FLASK_MAIL_NAME'),
+                recipients=[email])
+    msg.body = f"Hi {fname}, welcome to DIYeSk8Guide! We are excited to have you on board." ### need to add more to this!!
+    msg.html =  f"""
+        <html>
+            <head>
+                <style>
+                    body {{ font-family: Arial, sans-serif; }}
+                    h1 {{ color: #333; }}
+                    ul {{ list-style-type: none; }}
+                    li {{ margin-bottom: 10px; }}
+                    a {{ color: #1a0dab; }}
+                </style>
+            </head>
+            <body>
+                <h1>Hi {fname},</h1>
+                <p>Welcome to <strong>DIYeSk8Guide</strong>, your ultimate resource for building and customizing electric skateboards.</p>
+                <p>We are excited to have you join our community. Whether you're crafting your first board or looking to refine your skills, here's what you can find on our platform:</p>
+                <ul>
+                    <li><strong>Guides:</strong> Immerse yourself in our in-depth Quick Start Guide and specialized tutorials. Each step is crafted to provide you with comprehensive insights, ensuring you have the know-how to assemble your dream board.</li>
+                    <li><strong>Generate:</strong> Utilize our Generate feature to automatically craft a custom skateboard build, tailored to your preferences. Save time and ensure you get the best possible results with our intelligent recommendations.</li>
+                    <li><strong>Guru:</strong> Have questions? Our Esk8 Guru is here to provide instant, reliable advice on everything from component choice to troubleshooting.</li>
+                    <li><strong>Gallery:</strong> Join our vibrant community in the Gallery where you can share your completed projects, gain inspiration, and maybe even be featured in our Hall of Fame!</li>
+                    <li><strong>(Coming Soon!) Video Tutorials:</strong> Watch our expert builders put together different types of boards and explain the intricacies of each part.</li>
+                    <li><strong>(Coming Soon!) Community Insights:</strong> Join discussions with other enthusiasts to share tips, tricks, and board mods.</li>
+                </ul>
+                <p>Ready to start? Visit our <a href='https://www.diyesk8guide.com'>website</a> today and explore all that DIYeSk8Guide has to offer.</p>
+                
+                <p>We're thrilled to have you on board — let's gear up and skate through the DIY journey together!</p>
+
+                <p>Happy building!</p>
+                <p>Warm regards,</p>
+                <p><strong>The DIYeSk8Guide Team</strong></p>
+            </body>
+        </html>
+        """
+    try:
+        mail.send(msg)
+    except Exception as e:
+        app.logger.error("Failed to send email: %s", str(e))
+
 @app.route('/signup', methods=['POST'])
 def signup():
     try:
@@ -331,56 +382,24 @@ def signup():
         new_user = User(email=email, fname=fname, lname=lname, rider_stance=rider_stance, boards_owned=boards_owned)
         new_user.password_hash = password  ### Sets the password hash
 
-        # db.session.add(new_user)
-        # db.session.commit()
+        # db.session.add(new_user)      ##### Temporarily commented out for welcome email debugging
+        # db.session.commit()           ##### Temporarily commented out for welcome email debugging
 
-        try:
-            msg = Message("Welcome to DIYeSk8Guide!",
-                        sender="admin@diyesk8guide.com",
-                        recipients=[email])
-            msg.body = f"Hi {fname}, welcome to DIYeSk8Guide! We are excited to have you on board." ### need to add more to this!!
-            msg.html =  f"""
-                <html>
-                    <head>
-                        <style>
-                            body {{ font-family: Arial, sans-serif; }}
-                            h1 {{ color: #333; }}
-                            ul {{ list-style-type: none; }}
-                            li {{ margin-bottom: 10px; }}
-                            a {{ color: #1a0dab; }}
-                        </style>
-                    </head>
-                    <body>
-                        <h1>Hi {fname},</h1>
-                        <p>Welcome to <strong>DIYeSk8Guide</strong>, your ultimate resource for building and customizing electric skateboards.</p>
-                        <p>We are excited to have you join our community. Whether you're crafting your first board or looking to refine your skills, here's what you can find on our platform:</p>
-                        <ul>
-                            <li><strong>Guides:</strong> Immerse yourself in our in-depth Quick Start Guide and specialized tutorials. Each step is crafted to provide you with comprehensive insights, ensuring you have the know-how to assemble your dream board.</li>
-                            <li><strong>Generate:</strong> Utilize our Generate feature to automatically craft a custom skateboard build, tailored to your preferences. Save time and ensure you get the best possible results with our intelligent recommendations.</li>
-                            <li><strong>Guru:</strong> Have questions? Our Esk8 Guru is here to provide instant, reliable advice on everything from component choice to troubleshooting.</li>
-                            <li><strong>Gallery:</strong> Join our vibrant community in the Gallery where you can share your completed projects, gain inspiration, and maybe even be featured in our Hall of Fame!</li>
-                            <li><strong>(Coming Soon!) Video Tutorials:</strong> Watch our expert builders put together different types of boards and explain the intricacies of each part.</li>
-                            <li><strong>(Coming Soon!) Community Insights:</strong> Join discussions with other enthusiasts to share tips, tricks, and board mods.</li>
-                        </ul>
-                        <p>Ready to start? Visit our <a href='https://www.diyesk8guide.com'>website</a> today and explore all that DIYeSk8Guide has to offer.</p>
-                        
-                        <p>We're thrilled to have you on board — let's gear up and skate through the DIY journey together!</p>
+        send_welcome_email(email, fname)  # Send welcome email after committing the user data
+        return jsonify({'message': 'Account created successfully'}), 201
 
-                        <p>Happy building!</p>
-                        <p>Warm regards,</p>
-                        <p><strong>The DIYeSk8Guide Team</strong></p>
-                    </body>
-                </html>
-                """
-            mail.send(msg)
-
-            return jsonify({'message': 'Account created successfully and welcome email sent'}), 201
-        except Exception as e:
-            app.logger.error("Failed to send email: %s", str(e))
-            return jsonify({'error': 'Failed to send email', 'message':str(e)}), 500
     except Exception as e:
+        db.session.rollback()
         app.logger.error("Signup failed: %s", str(e))
-        return jsonify({'error': 'Failed to create account', 'message':str(e)}), 500
+        return jsonify({'error': 'Failed to create account', 'message': str(e)}), 500
+
+
+
+
+
+
+
+
 
 
 ### ------------------ USER ------------------ ###
