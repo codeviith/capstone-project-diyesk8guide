@@ -331,8 +331,8 @@ def signup():
         new_user = User(email=email, fname=fname, lname=lname, rider_stance=rider_stance, boards_owned=boards_owned)
         new_user.password_hash = password  ### Sets the password hash
 
-        db.session.add(new_user)
-        db.session.commit()
+        # db.session.add(new_user)
+        # db.session.commit()
 
         try:
             msg = Message("Welcome to DIYeSk8Guide!",
@@ -373,13 +373,12 @@ def signup():
                 </html>
                 """
             mail.send(msg)
+
             return jsonify({'message': 'Account created successfully and welcome email sent'}), 201
         except Exception as e:
-            db.session.rollback() 
             app.logger.error("Failed to send email: %s", str(e))
             return jsonify({'error': 'Failed to send email', 'message':str(e)}), 500
     except Exception as e:
-        db.session.rollback() 
         app.logger.error("Signup failed: %s", str(e))
         return jsonify({'error': 'Failed to create account', 'message':str(e)}), 500
 
