@@ -8,10 +8,10 @@ function Donations() {
                 Support the Future of E-Board Building: Contribute Today {'\n'}
             </h1>
             <span style={{ whiteSpace: 'pre-wrap' }}>
-                Join us today in shaping the future of the DIY electric skateboard community! Your support is crucial in nurturing a sustainable and vibrant community where creativity soars and knowledge flows freely. Every contribution you make fuels our mission, directly impacting our ability to educate, inspire, and empower. Your donations drive the enhancement and longevity of our platform, facilitating future upgrades of sophisticated AI-powered tools, improved dynamic builders' gallery, and more advanced build generator. These improvements are designed to enrich the user experience and expand access to valuable knowledge.{'\n'}{'\n'}
+                Our community thrives on collaboration and innovation, and your support plays a vital role in sustaining this spirit. By contributing, you help us maintain and expand the resources and tools essential for the DIY electric skateboard enthusiasts. Your donations ensure that everyone, from beginners to experienced builders, has access to the best possible information and a dynamic platform for sharing their passion and creations.{'\n'}{'\n'}
             </span>
             <span style={{ whiteSpace: 'pre-wrap' }}>
-                By supporting our cause, you do more than contribute to a website; you play a pivotal role in fostering a culture of innovation and mutual growth within the DIY e-boarding world. Together, we are broadening the horizons for electric skateboard building, making it more accessible and enjoyable for everyone. Your support ensures that the spirit of DIY and creativity not only survives but thrives.{'\n'}{'\n'}
+                More than just maintaining the site, your contributions help push the boundaries of what we can offer. They enable us to innovate and enhance our platform, ensuring that the art of DIY e-boarding reaches its full potential and enriching our community with invaluable skills and knowledge.{'\n'}{'\n'}
             </span>
             <div className="donation-button-container">
                 <h2>Thank You for Your Support</h2>

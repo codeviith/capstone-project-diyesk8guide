@@ -335,6 +335,8 @@ def send_welcome_email(email, fname):
 
         Warm regards,
         The DIYeSk8Guide Team
+        
+        P.S. If you find the content and resources on DIYesk8Guide helpful, please consider supporting us with a donation at https://pay.diyesk8guide.com. Your support helps us enhance the platform and continue to deliver valuable content. Thank you for being a vital part of our community!
         """
     msg.html =  f"""
         <html>
@@ -367,6 +369,8 @@ def send_welcome_email(email, fname):
                 <br>
                 <p>Warm regards,</p>
                 <p><strong>The DIYeSk8Guide Team</strong></p>
+                <br>
+                <p>P.S. If you find the content and resources on DIYesk8Guide helpful, please consider supporting us with a <a href='https://pay.diyesk8guide.com'>donation</a>. Your support helps us enhance the platform and continue to deliver valuable content. Thank you for being a vital part of our community!</p>
             </body>
         </html>
         """
