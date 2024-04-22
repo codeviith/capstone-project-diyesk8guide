@@ -43,8 +43,8 @@ app.config['BASE_URL'] = os.environ.get('BASE_URL', 'http://127.0.0.1:5555')
 app.json.compact = False
 
 # Flask-Mail configuration
-app.config['MAIL_SERVER'] = 'smtp.office365.com'
-app.config['MAIL_PORT'] = 587   ### original: 587, alternative: 465, forum suggested: 80
+app.config['MAIL_SERVER'] = 'smtp.office365.com'  ### HAVE to use the SMTP server from Office365 and NOT from GoDaddy! Makes sense because it is Office365 Outlook that is sending out the email.
+app.config['MAIL_PORT'] = 587   ### TLS authentication: 587, SSL authentication: 465, no TLS or SSL authentication: 80
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
 app.config['MAIL_USERNAME'] = os.environ.get('FLASK_MAIL_NAME')
@@ -312,10 +312,6 @@ def logout():
 
 ### ------------------ SIGN UP ------------------ ###
 
-
-
-
-
 def send_welcome_email(email, fname):
     msg = Message("Welcome to DIYeSk8Guide!",
                 sender=os.environ.get('FLASK_MAIL_NAME'),
@@ -345,10 +341,10 @@ def send_welcome_email(email, fname):
                     <li><strong>(Coming Soon!) Community Insights:</strong> Join discussions with other enthusiasts to share tips, tricks, and board mods.</li>
                 </ul>
                 <p>Ready to start? Visit our <a href='https://www.diyesk8guide.com'>website</a> today and explore all that DIYeSk8Guide has to offer.</p>
-                
                 <p>We're thrilled to have you on board — let's gear up and skate through the DIY journey together!</p>
-
                 <p>Happy building!</p>
+                <br>
+                <br>
                 <p>Warm regards,</p>
                 <p><strong>The DIYeSk8Guide Team</strong></p>
             </body>
@@ -361,7 +357,6 @@ def send_welcome_email(email, fname):
         app.logger.error("An error occurred while sending email: %s", str(e))
         print("Error details:", str(e))
         return jsonify({'error': 'Failed to send email', 'message':str(e)}), 500
-
 
 @app.route('/signup', methods=['POST'])
 def signup():
@@ -392,11 +387,6 @@ def signup():
         db.session.rollback()
         app.logger.error("Signup failed: %s", str(e))
         return jsonify({'error': 'Failed to create account', 'message': str(e)}), 500
-
-
-
-
-
 
 ### ------------------ USER ------------------ ###
 

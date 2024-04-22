@@ -100,25 +100,6 @@ export const AuthProvider = ({ children }) => {
         checkLoginStatus();
     }, [backendUrl]);
 
-    // useEffect(() => {
-    //     const heartbeat = setInterval(async () => {
-    //         try {
-    //             const response = await fetch(`${backendUrl}/check_session`, {
-    //                 credentials: 'include'
-    //             });
-    //             const data = await response.json();
-    //             if (!data.logged_in) {
-    //                 setIsLoggedIn(false);
-    //                 history.push('/login');
-    //             }
-    //         } catch (error) {
-    //             console.error('Heartbeat check failed:', error);
-    //         }
-    //     }, 2 * 60 * 1000); // value in milliseconds (production = 2 * 60 * 1000)
-
-    //     return () => clearInterval(heartbeat);
-    // }, [backendUrl, history]);
-
     useEffect(() => {
         const handleUserActivity = () => resetInactivityTimer();
 
@@ -176,17 +157,6 @@ export const AuthProvider = ({ children }) => {
             document.removeEventListener('wheel', disableBackgroundInteraction);
         };
     }, [showInactivityModal]);
-
-
-////////// old code //////////
-    // useEffect(() => {
-    //     if (showInactivityModal) {
-    //         document.body.classList.add("no-scroll");
-    //     } else {
-    //         document.body.classList.remove("no-scroll");
-    //     }
-    // }, [showInactivityModal]);
-
 
 
     return (
