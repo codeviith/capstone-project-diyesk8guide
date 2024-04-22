@@ -102,11 +102,6 @@ function Signup() {
   return (
     <div className='signup'>
       <h2>Create an Account</h2>
-      {message.content && (
-        <p className={message.type === 'success' ? "success-message" : "error-message"}>
-          {message.content}
-        </p>
-      )}
 
       {/* Signup Form */}
       <form onSubmit={handleSubmit}>
@@ -239,10 +234,14 @@ function Signup() {
           </div>
         </label>
         <br />
-
         <button className='submit-button'
           type="submit">Create Account
         </button>
+        {message.content && (
+          <p className={message.type === 'success' ? "success-message" : "error-message"}>
+            {message.content}
+          </p>
+        )}
       </form>
       <div className="footer-bottom-signup">
         <NavLink className="footer-bottom-link-signup" to="/about">About</NavLink>

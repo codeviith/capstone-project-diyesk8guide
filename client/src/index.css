@@ -3051,7 +3051,7 @@ nav a.home-link:hover {
     right: auto;
     width: 90%;
     margin: 20px auto;
-    max-height: 50vh;  /* changed from 70vh to 50vh so that users can see there's content below it */
+    max-height: 60vh;  /* changed from 70vh to 50vh so that users can see there's content below it */
     overflow-y: auto;
   }
 

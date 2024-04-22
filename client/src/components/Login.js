@@ -21,27 +21,27 @@ const Login = () => {
     const body = document.body;
 
     function disableBackgroundInteraction(e) {  // code to prevent touchmove and scrolling when modal is active
-        if (showModal) {
-            e.preventDefault();
-        }
+      if (showModal) {
+        e.preventDefault();
+      }
     }
 
     if (showModal) {  // code to add event listeners for scroll and touch events when modal is active
-        body.classList.add('no-scroll');
-        document.addEventListener('touchmove', disableBackgroundInteraction, { passive: false });
-        document.addEventListener('wheel', disableBackgroundInteraction, { passive: false });
+      body.classList.add('no-scroll');
+      document.addEventListener('touchmove', disableBackgroundInteraction, { passive: false });
+      document.addEventListener('wheel', disableBackgroundInteraction, { passive: false });
     } else {  // code to remove event listeners when the modal becomes inactive
-        body.classList.remove('no-scroll');
-        document.removeEventListener('touchmove', disableBackgroundInteraction);
-        document.removeEventListener('wheel', disableBackgroundInteraction);
+      body.classList.remove('no-scroll');
+      document.removeEventListener('touchmove', disableBackgroundInteraction);
+      document.removeEventListener('wheel', disableBackgroundInteraction);
     }
 
     return () => {  // code to cleanup and remove event listeners to prevent memory leak
-        body.classList.remove('no-scroll');
-        document.removeEventListener('touchmove', disableBackgroundInteraction);
-        document.removeEventListener('wheel', disableBackgroundInteraction);
+      body.classList.remove('no-scroll');
+      document.removeEventListener('touchmove', disableBackgroundInteraction);
+      document.removeEventListener('wheel', disableBackgroundInteraction);
     };
-}, [showModal]);
+  }, [showModal]);
 
 
   // useEffect(() => {
@@ -155,11 +155,6 @@ const Login = () => {
       <form onSubmit={handleLoginSubmit}>
         <h3>Returning Builders</h3>
         {/* Display message */}
-        {message.content && (
-          <div className={`login-message ${message.type === 'success' ? 'success-message' : 'error-message'}`}>
-            {message.content}
-          </div>
-        )}
         <label>Email:
           <input className='email-input-box'
             type="email"
@@ -194,6 +189,11 @@ const Login = () => {
           type="submit"
         >Login
         </button>
+        {message.content && (
+          <div className={`login-message ${message.type === 'success' ? 'success-message' : 'error-message'}`}>
+            {message.content}
+          </div>
+        )}
       </form>
 
       <h4> New Builders </h4>
