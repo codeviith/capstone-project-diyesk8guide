@@ -43,8 +43,8 @@ app.config['BASE_URL'] = os.environ.get('BASE_URL', 'http://127.0.0.1:5555')
 app.json.compact = False
 
 # Flask-Mail configuration
-app.config['MAIL_SERVER'] = 'smtpout.secureserver.net'
-app.config['MAIL_PORT'] = 80   ### original: 587, alternative: 465, forum suggested: 80
+app.config['MAIL_SERVER'] = 'smtp.office365.com'
+app.config['MAIL_PORT'] = 587   ### original: 587, alternative: 465, forum suggested: 80
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
 app.config['MAIL_USERNAME'] = os.environ.get('FLASK_MAIL_NAME')
@@ -358,7 +358,8 @@ def send_welcome_email(email, fname):
         mail.send(msg)
         return jsonify({'message': 'Welcome email sent successfully'}), 201
     except Exception as e:
-        app.logger.error("Failed to send email: %s", str(e))
+        app.logger.error("An error occurred while sending email: %s", str(e))
+        print("Error details:", str(e))
         return jsonify({'error': 'Failed to send email', 'message':str(e)}), 500
 
 
@@ -381,8 +382,8 @@ def signup():
         new_user = User(email=email, fname=fname, lname=lname, rider_stance=rider_stance, boards_owned=boards_owned)
         new_user.password_hash = password  ### Sets the password hash
 
-        db.session.add(new_user)      ##### Temporarily commented out for welcome email debugging
-        db.session.commit()           ##### Temporarily commented out for welcome email debugging
+        # db.session.add(new_user)      ##### Temporarily commented out for welcome email debugging
+        # db.session.commit()           ##### Temporarily commented out for welcome email debugging
 
         send_welcome_email(email, fname)  # Send welcome email after committing the user data
         return jsonify({'message': 'Account created successfully'}), 201
