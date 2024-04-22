@@ -15,7 +15,7 @@ function Donations() {
             </span>
             <div className="donation-button-container">
                 <h2>Thank You for Your Support</h2>
-                <p>Please click the button below. You will be redirected to a secured external site.</p>
+                <p>Please click the link below. You will be redirected to a secured external site.</p>
                 <a href="https://pay.diyesk8guide.com/" className="donation-button" target="_blank" rel="noopener noreferrer">Make a Donation</a>
                 <div className="footer-bottom-donation">
                     <NavLink className="footer-bottom-link-donation" to="/about">About</NavLink>

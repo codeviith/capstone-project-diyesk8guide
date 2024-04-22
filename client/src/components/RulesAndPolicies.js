@@ -89,9 +89,9 @@ function RulesAndPolicies() {
                 Contact Us
             </p>
             <span style={{ whiteSpace: 'pre-wrap' }}>
-                If you have questions about these rules and policies or need to report a violation, please contact
-                us <NavLink className="contactus-href" to="/contact-us">here</NavLink>. Your feedback is important to us as we
-                strive to create a welcoming and safe environment for all users.{'\n'}
+                If you have questions about these rules and policies or need to report a violation, please feel free to email us at 
+                support@diyesk8guide.com or contact us <NavLink className="contactus-href" to="/contact-us">here</NavLink>. Your feedback is 
+                important to us as we strive to create a welcoming and safe environment for all users.{'\n'}
             </span>
             <div className="footer-bottom">
                 <NavLink className="footer-bottom-link" to="/about">About</NavLink>

@@ -97,10 +97,6 @@ function ContactUs() {
         <div className="contactus">
             <h2>Contact Us</h2>
             <form onSubmit={handleSubmit}>
-                {/* Display success or error message(s) if any */}
-                {successMessage && <div className="success-message">{successMessage}</div>}
-                {errorMessage && <div className="error-message">{errorMessage}</div>}
-
                 <label>
                     First Name:
                     <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} />
@@ -130,6 +126,9 @@ function ContactUs() {
                     </div>
                 </label>
                 <button type="submit">Submit</button>
+                {/* Display success or error message(s) if any */}
+                {successMessage && <div className="success-message">{successMessage}</div>}
+                {errorMessage && <div className="error-message">{errorMessage}</div>}
             </form>
             <div className="footer-bottom-contactus">
                 <NavLink className="footer-bottom-link-contactus" to="/about">About</NavLink>

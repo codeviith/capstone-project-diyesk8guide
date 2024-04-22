@@ -363,7 +363,7 @@ def send_welcome_email(email, fname):
                     <li><strong>(Coming Soon!) Community Insights:</strong> Join discussions with other enthusiasts to share tips, tricks, and board mods.</li>
                 </ul>
                 <p>Ready to start? Visit <a href='https://www.diyesk8guide.com'>DIYesk8Guide</a> today and explore all that it has to offer.</p>
-                <p>We're thrilled to have you on board — let's gear up and skate through the DIY journey together!</p>
+                <p>We're thrilled to have you on board — let's gear up and skate through the DIY journey together!🛹</p>
                 <p>Happy building!</p>
                 <br>
                 <br>
