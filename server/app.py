@@ -316,7 +316,26 @@ def send_welcome_email(email, fname):
     msg = Message("Welcome to DIYeSk8Guide!",
                 sender=os.environ.get('FLASK_MAIL_NAME'),
                 recipients=[email])
-    msg.body = f"Hi {fname}, welcome to DIYeSk8Guide! We are excited to have you on board." ### need to add more to this!!
+    msg.body = f"""
+        Hi {fname},
+
+        Welcome to DIYeSk8Guide, your ultimate resource for building and customizing electric skateboards. We are excited to have you join our community. Whether you're crafting your first board or looking to refine your skills, here's what you can find on our platform:
+
+        - Guides: Immerse yourself in our in-depth Quick Start Guide and specialized tutorials. Each step is crafted to provide you with comprehensive insights, ensuring you have the know-how to assemble your dream board.
+        - Generate: Utilize our Generate feature to automatically craft a custom skateboard build, tailored to your preferences. Save time and ensure you get the best possible results with our intelligent recommendations.
+        - Guru: Have questions? Our Esk8 Guru is here to provide instant, reliable advice on everything from component choice to troubleshooting.
+        - Gallery: Join our vibrant community in the Gallery where you can share your completed projects, gain inspiration, and maybe even be featured in our Hall of Fame!
+        - (Coming Soon!) Video Tutorials: Watch our expert builders put together different types of boards and explain the intricacies of each part.
+        - (Coming Soon!) Community Insights: Join discussions with other enthusiasts to share tips, tricks, and board mods.
+
+        Ready to start? Visit DIYesk8Guide today and explore all that it has to offer. We're thrilled to have you on board — let's gear up and skate through the DIY journey together!
+
+        Happy building!
+
+
+        Warm regards,
+        The DIYeSk8Guide Team
+        """
     msg.html =  f"""
         <html>
             <head>
@@ -329,7 +348,8 @@ def send_welcome_email(email, fname):
                 </style>
             </head>
             <body>
-                <h1>Hi {fname},</h1>
+                <p>Hi {fname},</p>
+                <br>
                 <p>Welcome to <strong>DIYeSk8Guide</strong>, your ultimate resource for building and customizing electric skateboards.</p>
                 <p>We are excited to have you join our community. Whether you're crafting your first board or looking to refine your skills, here's what you can find on our platform:</p>
                 <ul>
@@ -340,7 +360,7 @@ def send_welcome_email(email, fname):
                     <li><strong>(Coming Soon!) Video Tutorials:</strong> Watch our expert builders put together different types of boards and explain the intricacies of each part.</li>
                     <li><strong>(Coming Soon!) Community Insights:</strong> Join discussions with other enthusiasts to share tips, tricks, and board mods.</li>
                 </ul>
-                <p>Ready to start? Visit our <a href='https://www.diyesk8guide.com'>website</a> today and explore all that DIYeSk8Guide has to offer.</p>
+                <p>Ready to start? Visit <a href='https://www.diyesk8guide.com'>DIYesk8Guide</a> today and explore all that it has to offer.</p>
                 <p>We're thrilled to have you on board — let's gear up and skate through the DIY journey together!</p>
                 <p>Happy building!</p>
                 <br>
