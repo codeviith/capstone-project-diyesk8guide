@@ -731,7 +731,7 @@ nav a.home-link:hover {
   background-color: black; 
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   border-radius: 12px;
-  z-index: 900;
+  z-index: 950;
   min-width: 150px;
 }
 
@@ -2232,6 +2232,64 @@ nav a.home-link:hover {
   margin-bottom: 20px;
 }
 
+
+/* CSS for new feature with navigation bar */
+
+.guide-menubar {
+  display: flex;
+  position: sticky;
+  top: 0;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #333;
+  color: white;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0 0 15px 15px;
+  z-index: 900;
+}
+
+.guide-menubar a {
+  color: white;
+  text-decoration: none;
+  padding: 8px 10px;
+  border-radius: 15px;
+  transition: background-color 0.3s;
+}
+
+.guide-menubar a:hover {
+  background-color: #555;
+  text-decoration: none;
+}
+
+.guide-content {
+  margin-top: 50px; /* extra code as insurance to ensure content starts below the menubar */
+}
+
+.guide-dropdown-menu {
+  position:absolute;
+  background-color: #333;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 900;
+}
+
+.guide-dropdown-menu a {
+  color: black;
+  padding: 10px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.guide-dropdown-menu a:hover {
+  background-color: #555;
+}
+
+
+
+
 /* For mobile devices */
 @media (max-width: 768px) {
   .guide {
@@ -2280,6 +2338,18 @@ nav a.home-link:hover {
 
   .login-prompt-container {
     padding: 10px;
+    font-size: 16px;
+  }
+
+
+/* Mobile CSS for new feature with navigation bar */
+
+  .guide-menubar {
+    padding: 10px 5px;
+  }
+
+  .guide-menubar a {
+    padding: 10px 8px;
     font-size: 16px;
   }
 }
