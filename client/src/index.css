@@ -101,11 +101,11 @@ body::before {
   transform: translate(-50%, -50%);
   background-color: black;
   padding: 20px;
-  z-index: 1200;
   display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 25px;
+  z-index: 1200;
 }
 
 .session-expiry-text {
@@ -143,11 +143,11 @@ body::before {
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;/* code to ensure on scrolling within the backdrop */
+  z-index: 1000;
 }
 
 .no-scroll {
@@ -724,6 +724,7 @@ nav a.home-link:hover {
 
 .dropdown-menu {
   display: none;
+  min-width: 150px;
   position: absolute;
   top: 100%;
   right: 0;  
@@ -732,7 +733,6 @@ nav a.home-link:hover {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   border-radius: 12px;
   z-index: 950;
-  min-width: 150px;
 }
 
 .show-dropdown {
@@ -759,7 +759,7 @@ nav a.home-link:hover {
 .dropdown-menu a:hover {
   /* background-color: #ddd; */
   border-radius: 1px;
-  border-bottom: 2px solid grey;
+  border-bottom: 2px solid rgb(220, 220, 2);
 }
 
 .mobile-only {  /* code to ensure that desktop devices do not show the close button */
@@ -818,11 +818,11 @@ nav a.home-link:hover {
     width: 33.33%; /* Full-screen width */
     height: 100vh; /* Full-screen height */
     background-color: rgba(0,0,0,0.85);
-    z-index: 900;
     border-right: 2px solid rgb(242, 255, 0); /* border outline to delineate menu from page content */
     border-radius: 0;
     padding: 0;
     overflow-y: auto;
+    z-index: 950;
   }
 
   .mobile-navlinks {
@@ -2135,7 +2135,7 @@ nav a.home-link:hover {
 
 /* guide component */
 
-.guide {
+.quick-start-guide {
   max-width: 85%;
   margin: 0 auto;
   padding: 20px;
@@ -2145,7 +2145,7 @@ nav a.home-link:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.guide h1 {
+.quick-start-guide h1 {
   color: black;
   font-size: 32px;
   margin-top: 2px;
@@ -2243,8 +2243,8 @@ nav a.home-link:hover {
   align-items: center;
   background-color: #333;
   color: white;
-  padding: 10px 15px;
-  margin-bottom: 15px;
+  padding: 10px 10px;
+  /* margin-bottom: 15px; */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   border-radius: 0 0 15px 15px;
   z-index: 900;
@@ -2253,18 +2253,17 @@ nav a.home-link:hover {
 .guide-menubar a {
   color: white;
   text-decoration: none;
-  padding: 8px 10px;
-  border-radius: 15px;
-  transition: background-color 0.3s;
+  padding: 2px 12px;
+  text-align: center;
+  font-size: 17px;
+  /* border-radius: 15px; */
+  /* transition: background-color 0.3s; */
 }
 
 .guide-menubar a:hover {
-  background-color: #555;
-  text-decoration: none;
-}
-
-.guide-content {
-  margin-top: 50px; /* extra code as insurance to ensure content starts below the menubar */
+  background-color: transparent;
+  /* text-decoration: underline; */
+  border-bottom: 2px solid rgb(220, 220, 2);
 }
 
 .guide-dropdown-menu {
@@ -2289,16 +2288,15 @@ nav a.home-link:hover {
 
 
 
-
 /* For mobile devices */
 @media (max-width: 768px) {
-  .guide {
+  .quick-start-guide {
     max-width: 100%;
     padding: 10px;
     border-radius: 5px;
   }
 
-  .guide h1 {
+  .quick-start-guide h1 {
     font-size: 24px;
     margin-bottom: 15px;
   }
@@ -2345,7 +2343,14 @@ nav a.home-link:hover {
 /* Mobile CSS for new feature with navigation bar */
 
   .guide-menubar {
+    display: flex;
+    position: sticky;
+    top: 0;
+    justify-content: space-around;
+    align-items: center;
     padding: 10px 5px;
+    font-size: 12px;
+    z-index: 900;
   }
 
   .guide-menubar a {
@@ -2353,6 +2358,82 @@ nav a.home-link:hover {
     font-size: 16px;
   }
 }
+
+
+
+
+
+
+
+/* Advanced Guide component */
+
+.advanced-guide {
+  max-width: 85%;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  background-color: gray;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.advanced-guide h1 {
+  color: black;
+  font-size: 32px;
+  margin-top: 2px;
+  margin-bottom: 20px;
+}
+
+
+
+
+
+
+
+/* Video Tutorials component */
+
+.video-tutorials {
+  max-width: 85%;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  background-color: gray;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.video-tutorials h1 {
+  color: black;
+  font-size: 32px;
+  margin-top: 2px;
+  margin-bottom: 20px;
+}
+
+
+
+
+
+
+
+/* Community Insight component */
+
+.community-insight {
+  max-width: 85%;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  background-color: gray;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.community-insight h1 {
+  color: black;
+  font-size: 32px;
+  margin-top: 2px;
+  margin-bottom: 20px;
+}
+
 
 
 

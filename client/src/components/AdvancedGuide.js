@@ -2,8 +2,9 @@ import React from 'react';
 
 const AdvancedGuide = () => {
     return (
-        <div>
+        <div className='advanced-guide'>
             <h1>Advanced Guide</h1>
+            <strong>Comming Soon!</strong>
             {/* Content for Advanced Guide */}
         </div>
     );

@@ -119,7 +119,7 @@ const QuickStartGuide = () => {
     ];
 
     return (
-        <div className="guide">
+        <div className="quick-start-guide">
             <h1>Quick Start Guide</h1>
             {guideSteps.map((step, index) => (
                 <div key={index} className="guide-step-container" ref={stepsRef[step.header]}>
