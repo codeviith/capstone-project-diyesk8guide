@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react';
-import { NavLink, Route, Switch } from 'react-router-dom';
+import React, { useState, useContext, useRef, useEffect } from 'react';
+import { NavLink, Route, Switch, useLocation } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 
@@ -34,7 +34,9 @@ const Guide = () => {
                     {dropdownVisible && activeGuide === 'quick-start' && (
                         <div className="guide-dropdown-menu">
                             {QuickStartGuideSteps.map((step, index) => (
-                                <NavLink key={index} to={`/guide/quick-start#${step.header}`}>{step.header}</NavLink>
+                                <NavLink key={index} to={`/guide/quick-start#${encodeURIComponent(step.header)}`}>
+                                    {step.header}
+                                </NavLink>
                             ))}
                         </div>
                     )}
@@ -47,8 +49,8 @@ const Guide = () => {
                 <Switch>
                     <Route path="/guide/quick-start" component={QuickStartGuide} />
                     <Route path="/guide/advanced" component={AdvancedGuide} />
-                    <Route path="/guide/videos" component={() => <Placeholder content="Comming Soon!" />} />
-                    <Route path="/guide/community" component={() => <Placeholder content="Comming Soon!" />} />
+                    <Route path="/guide/videos" component={VideoTutorials} />
+                    <Route path="/guide/community" component={CommunityInsights} />
                 </Switch>
             </div>
         </div>
@@ -56,13 +58,38 @@ const Guide = () => {
 };
 
 const QuickStartGuideSteps = [
-    { header: "Step 1: Create a Game Plan"},
-    { header: "Step 2: Research for Parts", link: "/link-for-step-2" },
-    { header: "Step 3: Prepare a Workspace", link: "/link-for-step-3" },
-    // Add more steps as needed
+    { header: "Step 1: Create a Game Plan" },
+    { header: "Step 2: Research for Parts" },
+    { header: "Step 3: Prepare a Workspace" },
+    { header: "Step 4: Gather Materials & Tools" },
+    { header: "Step 5: Assemble and Secure the Parts" },
+    { header: "Step 6: Install the Battery & Electrical Components" },
+    { header: "Step 7: Establish the wiring connections" },
+    { header: "Step 8: Configure the Electronics" },
+    { header: "Step 9: Test Run and Fine Tuning" }
 ];
 
 const QuickStartGuide = () => {
+    const location = useLocation();
+    const stepsRef = {
+        "Step 1: Create a Game Plan": useRef(null),
+        "Step 2: Research for Parts": useRef(null),
+        "Step 3: Prepare a Workspace": useRef(null),
+        "Step 4: Gather Materials & Tools": useRef(null),
+        "Step 5: Assemble and Secure the Parts": useRef(null),
+        "Step 6: Install the Battery & Electrical Components": useRef(null),
+        "Step 7: Establish the wiring connections": useRef(null),
+        "Step 8: Configure the Electronics": useRef(null),
+        "Step 9: Test Run and Fine Tuning": useRef(null)
+    };
+
+    useEffect(() => {
+        const step = decodeURIComponent(location.hash.replace("#", ""));
+        if (step && stepsRef[step] && stepsRef[step].current) {
+            stepsRef[step].current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }, [location, stepsRef]);
+
     const guideSteps = [
         {
             header: "Step 1: Create a Game Plan",
@@ -147,7 +174,6 @@ const QuickStartGuide = () => {
         }
     ];
 
-
     const guideImages = [
         [require("./images/Step_1_Create_Game_Plan.jpg")],
         [require("./images/Step_2_Research_Parts.jpg")],
@@ -164,7 +190,7 @@ const QuickStartGuide = () => {
         <div className="guide">
             <h1>Quick Start Guide</h1>
             {guideSteps.map((step, index) => (
-                <div key={index} className="guide-step-container">
+                <div key={index} className="guide-step-container" ref={stepsRef[step.header]}>
                     <div className="step-images">
                         {guideImages[index].map((image, imgIndex) => (
                             <img key={imgIndex} src={image} alt={`Step ${index + 1} Image ${imgIndex + 1}`} />
@@ -211,12 +237,28 @@ const AdvancedGuide = () => {
     // future component content here
     return (
         <div>
-            Advanced Guide Content
+            Comming Soon!
         </div>
     )
 }
 
-const Placeholder = ({ content }) => <div>{content}</div>;
+const VideoTutorials = () => {
+    // future component content here
+    return (
+        <div>
+            Comming Soon!
+        </div>
+    )
+}
+
+const CommunityInsights = () => {
+    // future component content here
+    return (
+        <div>
+            Comming Soon!
+        </div>
+    )
+}
 
 export default Guide;
 
