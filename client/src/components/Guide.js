@@ -42,7 +42,7 @@ const Guide = () => {
         { header: "Step 9: Test Run and Fine Tuning" }
     ];
 
-    
+
     return (
         <div className="guide-menubar-container">
             <div className="guide-menubar">
@@ -65,6 +65,7 @@ const Guide = () => {
             </div>
             <div className="guide-menubar-content">
                 <Switch>
+                    <Route path="/guide" exact component={QuickStartGuide} />
                     <Route path="/guide/quick-start" component={QuickStartGuide} />
                     <Route path="/guide/advanced" component={AdvancedGuide} />
                     <Route path="/guide/videos" component={VideoTutorials} />
