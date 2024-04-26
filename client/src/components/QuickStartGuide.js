@@ -25,12 +25,16 @@ const QuickStartGuide = () => {
     const guideSteps = [
         {
             header: "Step 1: Create a Game Plan",
-            description: "Ready to start building your electric skateboard but not sure where to begin? Well, the first step is to make a game plan. " +
-                "This step involves outlining your design, capturing any ideas that spring to mind, and conducting extensive research on electric " +
-                "skateboards. View this phase as a golden opportunity to design a board that not only performs well but also mirrors your personal style " +
-                "and ethos. Having this blueprint is vital—it not only navigates you through the building process but also helps ensure your goals and " +
-                "expectations are achievable.With a clear plan and design ready, you’ll be well- prepared to proceed with the build and select the right " +
-                "parts you need. Starting to feel the excitement? I know I am! Let's get started!",
+            description: "Embarking on building your electric skateboard begins with a solid game plan. This initial step requires you to sketch out your design, brainstorm ideas, and conduct thorough research on electric skateboards. Consider this phase a prime opportunity to craft a board that excels in performance and reflects your personal style and ethos. A well-thought-out plan is crucial—it guides you through the build process and ensures your goals are realistic and achievable. With a clear plan and design in hand, you'll be poised to move forward confidently in selecting the appropriate components. Excited yet? Let's dive in!",
+            
+            
+            
+// "Ready to start building your electric skateboard but not sure where to begin? Well, the first step is to make a game plan. " +
+// "This step involves outlining your design, capturing any ideas that spring to mind, and conducting extensive research on electric " +
+// "skateboards. View this phase as a golden opportunity to design a board that not only performs well but also mirrors your personal style " +
+// "and ethos. Having this blueprint is vital—it not only navigates you through the building process but also helps ensure your goals and " +
+// "expectations are achievable.With a clear plan and design ready, you’ll be well- prepared to proceed with the build and select the right " +
+// "parts you need. Starting to feel the excitement? I know I am! Let's get started!",
             link: "/link-for-step-1"
         },
         {
@@ -91,17 +95,21 @@ const QuickStartGuide = () => {
         },
         {
             header: "Step 7: Establish the wiring connections",
-            description: "Description for Step 7...",
+            description: "As you assemble your electric skateboard, the next crucial step is establishing the wiring connections. This step involves " +
+            "connecting all electrical components, including the motor, ESC (Electronic Speed Controller), battery, and remote receiver, with precision and care. " +
+            "Ensure that all connections are secure and correctly matched to avoid any electrical mishaps. Use heat-shrink tubing and electrical tape to insulate " +
+            "exposed wires, ensuring a clean and safe setup. Correct wiring is not only essential for functionality but also critical for the safety and longevity " +
+            "of your board. A well-organized wiring layout helps in troubleshooting and maintenance down the line.",
             link: "/link-for-step-7"
         },
         {
             header: "Step 8: Configure the Electronics",
-            description: "Description for Step 8...",
+            description: "Now that all physical components are in place and connected, it's time to bring your skateboard's electronics to life. This step involves programming the ESC according to the specific needs of your build, such as setting up the throttle curve, braking strength, and power output. This might require connecting your ESC to a computer and using specialized software provided by the ESC manufacturer. Pay close attention to the settings that match your riding style and the capabilities of your motor and battery. Proper configuration ensures optimal performance, efficiency, and responsiveness of your electric skateboard.",
             link: "/link-for-step-8"
         },
         {
             header: "Step 9: Test Run and Fine Tuning",
-            description: "Description for Step 9...",
+            description: "The final step before you hit the road is a comprehensive test run. First, begin with a static test run to ensure all components function together without issues—flip the board over and check for throttle response, brake operation, and remote connectivity. When the tests passed accordingly, you can then proceed with a low-speed run in a controlled environment to feel the board's dynamics. Adjust the trucks, tune the ESC further if necessary, and ensure the comfort and responsiveness are to your liking. Fine-tuning these elements will enhance your riding experience and safety. Remember, the first ride is about testing, not pushing the limits. After successful tests and adjustments, your electric skateboard is ready for regular use.",
             link: "/link-for-step-9"
         }
     ];
