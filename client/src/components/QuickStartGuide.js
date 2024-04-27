@@ -12,7 +12,7 @@ const QuickStartGuide = () => {
         "Step 6: Install the Battery & Electrical Components": useRef(null),
         "Step 7: Establish the wiring connections": useRef(null),
         "Step 8: Configure the Electronics": useRef(null),
-        "Step 9: Test Run and Fine Tuning": useRef(null)
+        "Step 9: Test Run and Fine Tuning": useRef(null),
     };
 
     useEffect(() => {
@@ -263,7 +263,24 @@ const QuickStartGuide = () => {
         {
             header: "Step 9: Test Run and Fine Tuning",
             description: "The final step before you hit the road is a comprehensive test run. First, begin with a static test run to ensure all components function together without issues—flip the board over and check for throttle response, brake operation, and remote connectivity. When the tests passed accordingly, you can then proceed with a low-speed run in a controlled environment to feel the board's dynamics. Adjust the trucks, tune the ESC further if necessary, and ensure the comfort and responsiveness are to your liking. Fine-tuning these elements will enhance your riding experience and safety. Remember, the first ride is about testing, not pushing the limits. After successful tests and adjustments, your electric skateboard is ready for regular use.",
+            categoriesList: [
+                {
+                    label: "Key things to keep in mind:", ////rephrase
+                    items: [
+                        "When tuning, make sure you make adjustments little by little and one variable at a time.",
+                        "When testing, make sure you log all the data so you know if the adjustments worked.",
+                        ////add more
+                    ]
+                }
+            ],
             link: "/link-for-step-9"
+        },
+        {
+            header: "Step 10: The Open Road Awaits!",
+            description: `Congratulations! You’ve successfully built your very own electric skateboard. Now, the real adventure begins as you take your creation for a spin. As thrilling as it is to ride something you’ve crafted with your own hands, safety must always come first. Always wear a full-faced helmet, knee pads, abrasion-resistant gloves, and a windbreaker jacket to protect against the elements and potential falls. Additionally, consider elbow pads and padded shorts for extra protection.\n\n` +
+            `Before you hit the road, familiarize yourself with local traffic laws to ensure you ride legally and safely. Start in a safe, traffic-free area to get a feel for your board’s dynamics. Practice turning, stopping, and handling at various speeds. Remember, each ride not only offers fun but also an opportunity to fine-tune your board’s performance. And don't be discouraged by falls—they're a normal part of the learning curve. With each tumble, you're one step closer to mastering the art of eboarding, just like seasoned riders.\n\n` +
+            `The beauty of a DIY electric skateboard is the limitless customization. Now that you've built the foundation, you can modify and enhance your board as you see fit. Want more speed or a smoother ride? Consider upgrading your wheels or adjusting your truck settings. Interested in aesthetics? Add LED lights for a personalized touch or custom graphics to make your board visually striking. The possibilities are endless, and the joy of riding something that truly represents your personality and needs is immensely satisfying. For those eager to dive deeper into upgrades and innovative designs, stay tuned for our 'Advanced Guide'—coming soon with detailed steps for taking your board to the next level. Embrace this journey of continual improvement and customization, and revel in the freedom that a DIY skateboard provides. Ride on and keep evolving your board to match your growing skills and unique style!`,
+            link: "/link-for-step-10"
         }
     ];
 
@@ -276,7 +293,8 @@ const QuickStartGuide = () => {
         [require("./images/Step_6_Batt_&_Electronics.jpg")],
         [require("./images/Step_7_Wiring.jpg")],
         [require("./images/ID8.jpeg")],
-        [require("./images/ID9.jpg")]
+        [require("./images/ID9.jpg")],
+        [require("./images/ID10.jpg")],
     ];
 
     return (

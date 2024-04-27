@@ -4,7 +4,7 @@ const CommunityInsights = () => {
     return (
         <div className='community-insight'>
             <h1>Community Insights</h1>
-            <strong>Comming Soon!</strong>
+            <strong>Coming Soon!</strong>
             {/* Content for Community Insights */}
         </div>
     );
