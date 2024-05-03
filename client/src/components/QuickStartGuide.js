@@ -292,8 +292,8 @@ const QuickStartGuide = () => {
         [require("./images/Step_5_Assembly.jpg")],
         [require("./images/Step_6_Batt_&_Electronics.jpg")],
         [require("./images/Step_7_Wiring.jpg")],
-        [require("./images/ID8.jpeg")],
-        [require("./images/ID9.jpg")],
+        [require("./images/Step_8_Config_Electronics.jpg")],
+        [require("./images/Step_9_Test_Fine_Tuning.jpg")],
         [require("./images/ID10.jpg")],
     ];
 
