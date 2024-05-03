@@ -13,6 +13,7 @@ const QuickStartGuide = () => {
         "Step 7: Establish the wiring connections": useRef(null),
         "Step 8: Configure the Electronics": useRef(null),
         "Step 9: Test Run and Fine Tuning": useRef(null),
+        "Step 10: The Open Road Awaits!": useRef(null)
     };
 
     useEffect(() => {
@@ -294,8 +295,9 @@ const QuickStartGuide = () => {
         [require("./images/Step_7_Wiring.jpg")],
         [require("./images/Step_8_Config_Electronics.jpg")],
         [require("./images/Step_9_Test_Fine_Tuning.jpg")],
-        [require("./images/ID10.jpg")],
+        [require("./images/Step_10_Open_Road_Ahead.jpg")],
     ];
+
 
     return (
         <div className="quick-start-guide">
