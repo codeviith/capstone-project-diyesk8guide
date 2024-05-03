@@ -189,9 +189,9 @@ const QuickStartGuide = () => {
             // "board encounter rough terrains. ", // prob need to shorten this and clarify some more stuff.
             categoriesList: [
                 {
-                    label: "Main Assembly", ////rephrase
+                    label: "Battery and Components Installation", ////rephrase
                     items: [
-                        "Install battery and ESC to the deck and secure in place",
+                        "Install the battery and ESC to the deck and secure in place",
                         "Wire the connections",
                         "Use a 12S 60A or higher Toggle Switch to turn the board on and off"
                         ////add more
