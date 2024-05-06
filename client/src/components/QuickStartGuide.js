@@ -37,7 +37,7 @@ const QuickStartGuide = () => {
         },
         {
             header: "Step 2: Research for Parts",
-            description: "Securing the right parts is critical to the success of your electric skateboard. The quality of materials directly affects the board's performance and reliability. Dedicate ample time to research and choose high-quality components. This step is crucial for reducing maintenance and maximizing ride time. We recommend purchasing parts from reputable vendors to ensure quality and support. This meticulous approach will lay a solid foundation for your skateboard.",
+            description: "Securing the right parts is critical to the success of your electric skateboard. The quality of materials directly affects the board's performance and reliability. Dedicate ample time to research and choose high-quality components. This step is crucial for reducing maintenance and maximizing ride time. We recommend purchasing parts from reputable vendors to ensure quality and support. This meticulous approach will lay a solid foundation for your eboard.",
             // "This is one of the most crucial steps in your eboard building process. A top performing " +
             // "and reliable eboard depends on the material that it is built from. This is the step that requires the most time " +
             // "and researh on. Higher quality parts equates to less time spent on fixing breakdowns and more time riding. " +
@@ -92,7 +92,15 @@ const QuickStartGuide = () => {
                 {
                     label: "Machinery", ////rephrase
                     items: [
-                        "Mitter Saw",
+                        "Miter Saw: Used for precise cuts on the deck or any wooden parts",
+                        "Drill Press: Used for accurate, perpendicular holes that are crucial for mounting trucks and components",
+                        "Bench Grinder: Used for sharpening tools and smoothing rough metal edges",
+                        "Belt Sander: Used for smoothing the deck and edges, ensuring a perfect finish",
+                        "Jigsaw: Used for cutting complex shapes, if custom deck shapes are desired",
+                        "Band Saw (optional): Useful for cutting thicker materials or making more precise cuts in wood or metal",
+                        "Router: Used for creating smooth edges on the deck and cutting slots for wiring if needed",
+                        "Air Compressor: Used for powering pneumatic tools and cleaning dust from work surfaces",
+                        "Soldering Station: Used for assembling and repairing electronic components with precision",
                         ////add more
                     ]
                 }
@@ -164,16 +172,25 @@ const QuickStartGuide = () => {
                 {
                     label: "Main Assembly", ////rephrase
                     items: [
-                        "Assemble trucks to the deck",
-                        "Install wheels (urethane or pneumatic) to the trucks"
+                        "Attach trucks to the deck: Ensure that the holes align perfectly and use durable bolts",
+                        "Install wheels to the trucks: Choose the right wheel size and hardness for your intended use",
+                        "Attach the motor mount: Make sure the motor mount is fastened securely to the truck",
+                        "Mount the motor: Secure the motor to the motor mount and ensure it aligns with the drivetrain",
+                        "If you are using a hub motor then feel free to skip the motor mount assembly",
+                        "Fit the drive belt or chain: Adjust tension to avoid slippage or excessive wear",
+                        "Install the battery enclosure: Mount it to the deck, ensuring it does not interfere with riding dynamics, i.e. allowing at least 3-4 inches of clearance from the bottom of the board to the ground.",
+                        "Place the electronic speed controller (ESC) inside the enclosure and ensure adequate cooling",
                         ////add more
                     ]
                 },
                 {
                     label: "Precautions", ////rephrase
                     items: [
-                        "Take note to secure each part of the assemby securely",
-                        "Apply locktite for threaded parts-especially for the trucks and wheels"
+                        "Ensure all hardware is tightened to the manufacturer’s specifications to avoid loosening during rides",
+                        "Use thread-locking compounds, such as Locktite, on all critical fasteners, especially those subjected to road vibrations",
+                        "Double-check the alignment of all drivetrain components to prevent wear and inefficiency, apply some lubricate if necessary",
+                        "Regularly inspect the assembly during initial test runs to adjust and retighten components as necessary",
+                        "Be cautious with electrical connections: Ensure they are insulated and securely fastened to prevent shorts",
                         ////add more
                     ]
                 }
