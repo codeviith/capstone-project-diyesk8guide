@@ -184,7 +184,7 @@ const QuickStartGuide = () => {
                     ]
                 },
                 {
-                    label: "Precautions", ////rephrase
+                    label: "Assembly Precautions", ////rephrase
                     items: [
                         "Ensure all hardware is tightened to the manufacturer’s specifications to avoid loosening during rides",
                         "Use thread-locking compounds, such as Locktite, on all critical fasteners, especially those subjected to road vibrations",
@@ -207,7 +207,7 @@ const QuickStartGuide = () => {
             // "board encounter rough terrains. ", // prob need to shorten this and clarify some more stuff.
             categoriesList: [
                 {
-                    label: "Battery and Components Installation", ////rephrase
+                    label: "Electrical Installation", ////rephrase
                     items: [
                         "Install the battery and ESC to the deck and secure in place",
                         "Wire the connections",
@@ -216,7 +216,7 @@ const QuickStartGuide = () => {
                     ]
                 },
                 {
-                    label: "Precautions", ////rephrase
+                    label: "Electrical Safety", ////rephrase
                     items: [
                         "Take note of the positive and negative terminals",
                         "Make sure all the connection points are properly connected and insulated."
@@ -236,7 +236,7 @@ const QuickStartGuide = () => {
             // "of your board. A well-organized wiring layout helps in troubleshooting and maintenance down the line.",
             categoriesList: [
                 {
-                    label: "Wiring", ////rephrase
+                    label: "Wiring Setup", ////rephrase
                     items: [
                         "Install battery and ESC to the deck and secure in place",
                         "Wire the connections",
@@ -245,7 +245,7 @@ const QuickStartGuide = () => {
                     ]
                 },
                 {
-                    label: "Precautions", ////rephrase
+                    label: "Connection Integrity", ////rephrase
                     items: [
                         "Take special care to not short any connections",
                         "For brushless DC motors, order of the phase wires does not matter. However, the order of the Hall Sensors DOES matter."
@@ -260,7 +260,7 @@ const QuickStartGuide = () => {
             description: "Now that all physical components are in place and connected, it's time to bring your skateboard's electronics to life. This step involves programming the ESC according to the specific needs of your build, such as setting up the throttle curve, braking strength, and power output. This might require connecting your ESC to a computer and using specialized software provided by the ESC manufacturer. Pay close attention to the settings that match your riding style and the capabilities of your motor and battery. Proper configuration ensures optimal performance, efficiency, and responsiveness of your electric skateboard.",
             categoriesList: [
                 {
-                    label: "Main Assembly", ////rephrase
+                    label: "Electronics Configuration", ////rephrase
                     items: [
                         "Install battery and ESC to the deck and secure in place",
                         "Wire the connections",
@@ -269,7 +269,7 @@ const QuickStartGuide = () => {
                     ]
                 },
                 {
-                    label: "Precautions", ////rephrase
+                    label: "Software and Hardware Checks", ////rephrase
                     items: [
                         "Take special care to not short any connections",
                         "For brushless DC motors, order of the phase wires does not matter. However, the order of the Hall Sensors DOES matter."
@@ -283,6 +283,24 @@ const QuickStartGuide = () => {
             header: "Step 9: Test Run and Fine Tuning",
             description: "The final step before you hit the road is a comprehensive test run. First, begin with a static test run to ensure all components function together without issues—flip the board over and check for throttle response, brake operation, and remote connectivity. When the tests passed accordingly, you can then proceed with a low-speed run in a controlled environment to feel the board's dynamics. Adjust the trucks, tune the ESC further if necessary, and ensure the comfort and responsiveness are to your liking. Fine-tuning these elements will enhance your riding experience and safety. Remember, the first ride is about testing, not pushing the limits. After successful tests and adjustments, your electric skateboard is ready for regular use.",
             categoriesList: [
+                {
+                    label: "Testing and Adjustment", ////rephrase
+                    items: [
+                        "Conduct a static test to check all electronic functions",
+                        "Perform a low-speed run to assess board stability and control",
+                        "Make incremental adjustments to trucks, ESC settings, and alignment",
+                        ////add more
+                    ]
+                },
+                {
+                    label: "Initial Runs", ////rephrase
+                    items: [
+                        "Wear appropriate safety gear during all test runs",
+                        "Start testing in a controlled environment with minimal obstacles",
+                        "Monitor board performance closely for any unusual noises or behaviors",
+                        ////add more
+                    ]
+                },
                 {
                     label: "Key things to keep in mind:", ////rephrase
                     items: [
