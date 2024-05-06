@@ -49,7 +49,7 @@ const Guide = () => {
             <div className="guide-menubar">
                 <div onMouseEnter={() => handleMouseEnter('quick-start')}
                     onMouseLeave={handleMouseLeave}>
-                    <NavLink to="/guide/quick-start">Quick Start Guide</NavLink>
+                    <NavLink to="/guide/quick-start">Quick-Start Guide</NavLink>
                     {dropdownVisible && activeGuide === 'quick-start' && (
                         <div className="guide-dropdown-menu">
                             {QuickStartGuideSteps.map((step, index) => (
