@@ -26,7 +26,7 @@ const QuickStartGuide = () => {
     const guideSteps = [
         {
             header: "Step 1: Create a Game Plan",
-            description: "Embarking on building your electric skateboard begins with a solid game plan. This initial step requires you to sketch out your design, brainstorm ideas, and conduct thorough research on electric skateboards. Consider this phase a prime opportunity to craft a board that excels in performance and reflects your personal style and ethos. A well-thought-out plan is crucial—it guides you through the build process and ensures your goals are realistic and achievable. With a clear plan and design in hand, you'll be poised to move forward confidently in selecting the appropriate components. Excited yet? Let's dive in!",
+            description: "Embarking on building your electric skateboard begins with a solid game plan. This initial step requires you to sketch out your design, brainstorm ideas, and conduct thorough research on electric skateboards. Consider this phase a prime opportunity to craft a board that excels in performance and reflects your personal style and ethos. If you find yourself needing additional insights or inspiration during this planning phase, exploring forums and communities for electric skateboard enthusiasts can be incredibly beneficial. These platforms allow you to engage with like-minded builders and share ideas. Additionally, reading articles and watching tutorials on electric skateboard construction can offer a deeper understanding of the technical aspects and design possibilities. For more personalized guidance, consider consulting experienced builders who can offer practical advice and creative tips. A well-informed plan is crucial—it navigates you through the building process and ensures that your goals are realistic and achievable. With a robust plan and enriched design knowledge, you’ll be well-prepared to select the right components and build your board with confidence. Ready to get started? Let’s dive right in!",
             // "Ready to start building your electric skateboard but not sure where to begin? Well, the first step is to make a game plan. " +
             // "This step involves outlining your design, capturing any ideas that spring to mind, and conducting extensive research on electric " +
             // "skateboards. View this phase as a golden opportunity to design a board that not only performs well but also mirrors your personal style " +
@@ -44,27 +44,37 @@ const QuickStartGuide = () => {
             // "We always advice new builders to take this step seriously and purchase the parts from merchants you can trust.",
             categoriesList: [
                 {
-                    label: "Common Parts", ////rephrase
+                    label: "Component Selection", ////rephrase
                     items: [
-                        "Deck",
-                        "Wheels (urathane or pneumatics)",
-                        "Trucks (the wider the truck is, the more stable the board)",
-                        "Motor Controller (aka. Electronic Speed Controller, or ESC)",
-                        "Battery (typically 10s or above)",
-                        "Remote Controller (2.4 Ghz is recommended)",
-                        "Motor and wheel pulleys",
-                        "Motor mount",
-                        "Timing belt",
-                        "Enclosure (carbon fiber for highest durability)"
+                        "Identify and list necessary components like decks, trucks, wheels, and motors",
+                        "Compare specifications and prices from different vendors",
+                        "Check reviews and ratings for reliability and performance",
+                        ["Below is a list of the essential parts to get you started:",
+                            "Deck",
+                            "Wheels (urethane or pneumatics)",
+                            "Trucks (the wider the truck is, the more stable the board)",
+                            "Motor Controller (aka. Electronic Speed Controller, or ESC)",
+                            "Battery (typically 10s or above)",
+                            "Remote Controller (2.4 GHz is recommended)",
+                            "Motor and wheel pulleys",
+                            "Motor mount",
+                            "Timing belt",
+                            "Enclosure (carbon fiber for highest durability)"
+                        ]
                         ////add more
                     ]
                 },
                 {
-                    label: "Common Vendors", ////rephrase
+                    label: "Vendor Verification", ////rephrase
                     items: [
-                        "Evolve",
-                        "Trampa"
-                        ////add more
+                        "Ensure vendors have good customer support and return policies",
+                        "Purchase components from vendors known for quality and authenticity",
+                        "Be wary of unusually cheap parts that may compromise quality",
+                        ["List of trusted vendors:",
+                            "Evolve",
+                            "Trampa"
+                            ////add more
+                        ]
                     ]
                 }
             ],
@@ -82,16 +92,7 @@ const QuickStartGuide = () => {
                 {
                     label: "Machinery", ////rephrase
                     items: [
-                        "Deck",
-                        "Wheels (urathane or pneumatics)",
-                        "Trucks (the wider the truck is, the more stable the board)",
-                        "Motor Controller (aka. Electronic Speed Controller, or ESC)",
-                        "Battery (typically 10s or above)",
-                        "Remote Controller (2.4 Ghz is recommended)",
-                        "Motor and wheel pulleys",
-                        "Motor mount",
-                        "Timing belt",
-                        "Enclosure (carbon fiber for highest durability)"
+                        "Mitter Saw",
                         ////add more
                     ]
                 }
@@ -200,8 +201,8 @@ const QuickStartGuide = () => {
                 {
                     label: "Precautions", ////rephrase
                     items: [
-                        "Take special care to not short any connections",
-                        "Make sure the wiring for ESC and Battery is correct"
+                        "Take note of the positive and negative terminals",
+                        "Make sure all the connection points are properly connected and insulated."
                         ////add more
                     ]
                 }
@@ -209,7 +210,7 @@ const QuickStartGuide = () => {
             link: "/link-for-step-6"
         },
         {
-            header: "Step 7: Establish the wiring connections",
+            header: "Step 7: Establish Wiring Connections",
             description: "This critical step involves meticulously connecting your board's electrical components. Make precise connections between the motor, ESC, battery, and remote receiver. Secure and properly match all connections to prevent electrical issues. Use heat-shrink tubing and electrical tape to safely insulate exposed wires, ensuring both functionality and safety. A well-organized wiring setup aids in maintenance and troubleshooting.",
             // "As you assemble your electric skateboard, the next crucial step is establishing the wiring connections. This step involves " +
             // "connecting all electrical components, including the motor, ESC (Electronic Speed Controller), battery, and remote receiver, with precision and care. " +
@@ -218,7 +219,7 @@ const QuickStartGuide = () => {
             // "of your board. A well-organized wiring layout helps in troubleshooting and maintenance down the line.",
             categoriesList: [
                 {
-                    label: "Main Assembly", ////rephrase
+                    label: "Wiring", ////rephrase
                     items: [
                         "Install battery and ESC to the deck and secure in place",
                         "Wire the connections",
@@ -279,8 +280,8 @@ const QuickStartGuide = () => {
         {
             header: "Step 10: The Open Road Awaits!",
             description: `Congratulations! You’ve successfully built your very own electric skateboard. Now, the real adventure begins as you take your creation for a spin. As thrilling as it is to ride something you’ve crafted with your own hands, safety must always come first. Always wear a full-faced helmet, knee pads, abrasion-resistant gloves, and a windbreaker jacket to protect against the elements and potential falls. Additionally, consider elbow pads and padded shorts for extra protection.\n\n` +
-            `Before you hit the road, familiarize yourself with local traffic laws to ensure you ride legally and safely. Start in a safe, traffic-free area to get a feel for your board’s dynamics. Practice turning, stopping, and handling at various speeds. Remember, each ride not only offers fun but also an opportunity to fine-tune your board’s performance. And don't be discouraged by falls—they're a normal part of the learning curve. With each tumble, you're one step closer to mastering the art of eboarding, just like seasoned riders.\n\n` +
-            `The beauty of a DIY electric skateboard is the limitless customization. Now that you've built the foundation, you can modify and enhance your board as you see fit. Want more speed or a smoother ride? Consider upgrading your wheels or adjusting your truck settings. Interested in aesthetics? Add LED lights for a personalized touch or custom graphics to make your board visually striking. The possibilities are endless, and the joy of riding something that truly represents your personality and needs is immensely satisfying. For those eager to dive deeper into upgrades and innovative designs, stay tuned for our 'Advanced Guide'—coming soon with detailed steps for taking your board to the next level. Embrace this journey of continual improvement and customization, and revel in the freedom that a DIY skateboard provides. Ride on and keep evolving your board to match your growing skills and unique style!`,
+                `Before you hit the road, familiarize yourself with local traffic laws to ensure you ride legally and safely. Start in a safe, traffic-free area to get a feel for your board’s dynamics. Practice turning, stopping, and handling at various speeds. Remember, each ride not only offers fun but also an opportunity to fine-tune your board’s performance. And don't be discouraged by falls—they're a normal part of the learning curve. With each tumble, you're one step closer to mastering the art of eboarding, just like seasoned riders.\n\n` +
+                `The beauty of a DIY electric skateboard is the limitless customization. Now that you've built the foundation, you can modify and enhance your board as you see fit. Want more speed or a smoother ride? Consider upgrading your wheels or adjusting your truck settings. Interested in aesthetics? Add LED lights for a personalized touch or custom graphics to make your board visually striking. The possibilities are endless, and the joy of riding something that truly represents your personality and needs is immensely satisfying. For those eager to dive deeper into upgrades and innovative designs, stay tuned for our 'Advanced Guide'—coming soon with detailed steps for taking your board to the next level. Embrace this journey of continual improvement and customization, and revel in the freedom that a DIY skateboard provides. Ride on and keep evolving your board to match your growing skills and unique style!`,
             link: "/link-for-step-10"
         }
     ];
@@ -322,7 +323,18 @@ const QuickStartGuide = () => {
                                 <h3>{category.label}</h3>
                                 <ul>
                                     {category.items.map((item, itemIndex) => (
-                                        <li key={itemIndex}>{item}</li>
+                                        Array.isArray(item) ? (
+                                            <li key={itemIndex}>
+                                                <span>{item[0]}</span>
+                                                <ul>
+                                                    {item.slice(1).map((subItem, subItemIndex) => (
+                                                        <li key={subItemIndex}>{subItem}</li>
+                                                    ))}
+                                                </ul>
+                                            </li>
+                                        ) : (
+                                            <li key={itemIndex}>{item}</li>
+                                        )
                                     ))}
                                 </ul>
                             </div>
