@@ -10,7 +10,7 @@ const QuickStartGuide = () => {
         "Step 4: Gather Materials & Tools": useRef(null),
         "Step 5: Assemble and Secure the Parts": useRef(null),
         "Step 6: Install the Battery & Electrical Components": useRef(null),
-        "Step 7: Establish the wiring connections": useRef(null),
+        "Step 7: Establish Wiring Connections": useRef(null),
         "Step 8: Configure the Electronics": useRef(null),
         "Step 9: Test Run and Fine Tuning": useRef(null),
         "Step 10: The Open Road Awaits!": useRef(null)
@@ -178,8 +178,6 @@ const QuickStartGuide = () => {
                         "Mount the motor: Secure the motor to the motor mount and ensure it aligns with the drivetrain",
                         "If you are using a hub motor then feel free to skip the motor mount assembly",
                         "Fit the drive belt or chain: Adjust tension to avoid slippage or excessive wear",
-                        "Install the battery enclosure: Mount it to the deck, ensuring it does not interfere with riding dynamics, i.e. allowing at least 3-4 inches of clearance from the bottom of the board to the ground.",
-                        "Place the electronic speed controller (ESC) inside the enclosure and ensure adequate cooling",
                         ////add more
                     ]
                 },
@@ -190,7 +188,6 @@ const QuickStartGuide = () => {
                         "Use thread-locking compounds, such as Locktite, on all critical fasteners, especially those subjected to road vibrations",
                         "Double-check the alignment of all drivetrain components to prevent wear and inefficiency, apply some lubricate if necessary",
                         "Regularly inspect the assembly during initial test runs to adjust and retighten components as necessary",
-                        "Be cautious with electrical connections: Ensure they are insulated and securely fastened to prevent shorts",
                         ////add more
                     ]
                 }
@@ -209,17 +206,22 @@ const QuickStartGuide = () => {
                 {
                     label: "Electrical Installation", ////rephrase
                     items: [
-                        "Install the battery and ESC to the deck and secure in place",
-                        "Wire the connections",
-                        "Use a 12S 60A or higher Toggle Switch to turn the board on and off"
+                        "Mount the battery enclosure: Mount it to the deck, ensuring it does not interfere with riding dynamics, i.e. allowing at least 3-4 inches of clearance from the bottom of the board to the ground.",
+                        "Install the battery: Securely mount the battery in its enclosure on the deck, ensuring it does not shift during movement",
+                        "Position the ESC: Place the Electronic Speed Controller close to the battery but ensure adequate space for heat dissipation",
+                        "Include the power switch: Install a high-amperage toggle switch in an accessible area for easy operation",
+                        "Setup the charging port: Integrate a charging port that matches your battery's requirements and ensure it is easily accessible",
+                        "Connect the motor to ESC: Use high-quality, durable wires to connect the motor to the ESC, ensuring secure and clean soldering points",
                         ////add more
                     ]
                 },
                 {
-                    label: "Electrical Safety", ////rephrase
+                    label: "Electrical Safety & Precautions", ////rephrase
                     items: [
-                        "Take note of the positive and negative terminals",
-                        "Make sure all the connection points are properly connected and insulated."
+                        "Check for insulation: Ensure all wiring connections are properly insulated to prevent short circuits",
+                        "Secure wiring: Use cable management clips to secure wiring along the board, avoiding loose wires that could catch or disconnect",
+                        "Battery management: Install a battery management system (BMS) for lithium-ion batteries to ensure balanced charging and discharging",
+                        "Regular inspection: Make it a routine to check all electrical connections and components before and after rides for any signs of wear or loose connections",
                         ////add more
                     ]
                 }

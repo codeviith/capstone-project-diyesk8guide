@@ -37,7 +37,7 @@ const Guide = () => {
         { header: "Step 4: Gather Materials & Tools" },
         { header: "Step 5: Assemble and Secure the Parts" },
         { header: "Step 6: Install the Battery & Electrical Components" },
-        { header: "Step 7: Establish the wiring connections" },
+        { header: "Step 7: Establish Wiring Connections" },
         { header: "Step 8: Configure the Electronics" },
         { header: "Step 9: Test Run and Fine Tuning" },
         { header: "Step 10: The Open Road Awaits!" }
