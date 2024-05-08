@@ -23,6 +23,13 @@ const QuickStartGuide = () => {
         }
     }, [location]);
 
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    };
+
     const guideSteps = [
         {
             header: "Step 1: Create a Game Plan",
@@ -34,7 +41,7 @@ const QuickStartGuide = () => {
             description: "Securing the right parts is critical to the success of your electric skateboard. The quality of materials directly affects the board's performance and reliability. Dedicate ample time to research and choose high-quality components. This step is crucial for reducing maintenance and maximizing ride time. We recommend purchasing parts from reputable vendors to ensure quality and support. This meticulous approach will lay a solid foundation for your eboard.",
             categoriesList: [
                 {
-                    label: "Component Selection", ////rephrase
+                    label: "Component Selection",
                     items: [
                         "Identify and list necessary components like decks, trucks, wheels, and motors",
                         "Compare specifications and prices from different vendors",
@@ -55,7 +62,7 @@ const QuickStartGuide = () => {
                     ]
                 },
                 {
-                    label: "Vendor Verification", ////rephrase
+                    label: "Vendor Verification",
                     items: [
                         "Ensure vendors have good customer support and return policies",
                         "Purchase components from vendors known for quality and authenticity",
@@ -75,7 +82,7 @@ const QuickStartGuide = () => {
             description: "The next step is setting up a dedicated workspace. After finalizing your design and acquiring the necessary parts, create a conducive environment for assembly. This space should ideally be distraction-free, equipped with a large tabletop, a rolling stool, and easy access to tools and machinery. Prioritize good ventilation to handle dust and fumes safely. Remember, maintaining a safe work environment is paramount throughout the building process.",
             categoriesList: [
                 {
-                    label: "Machinery", ////rephrase
+                    label: "Machinery",
                     items: [
                         "Miter Saw: Used for precise cuts on the deck or any wooden parts",
                         "Drill Press: Used for accurate, perpendicular holes that are crucial for mounting trucks and components",
@@ -147,7 +154,7 @@ const QuickStartGuide = () => {
             description: "Now comes the exciting part—assembly! It's time to bring your ideas to life. Assembling your board correctly is crucial; ensure each component is securely fastened. Use high-quality fasteners like machine screws or nuts and bolts, and for extra security, apply thread-locking fluid or use nylon nuts. These measures help maintain the integrity of your board against the vibrations of the road, minimizing potential breakdowns.",
             categoriesList: [
                 {
-                    label: "Main Assembly", ////rephrase
+                    label: "Main Assembly",
                     items: [
                         "Attach trucks to the deck: Ensure that the holes align perfectly and use durable bolts",
                         "Install wheels to the trucks: Choose the right wheel size and hardness for your intended use",
@@ -159,7 +166,7 @@ const QuickStartGuide = () => {
                     ]
                 },
                 {
-                    label: "Assembly Precautions", ////rephrase
+                    label: "Assembly Precautions",
                     items: [
                         "Ensure all hardware is tightened to the manufacturer’s specifications to avoid loosening during rides",
                         "Use thread-locking compounds, such as Locktite, on all critical fasteners, especially those subjected to road vibrations",
@@ -176,7 +183,7 @@ const QuickStartGuide = () => {
             description: "With the structure nearly complete, your focus will shift to installing the battery and electrical components. It's essential to handle these components with care, ensuring they're securely housed within a durable enclosure—preferably made of materials like carbon fiber to withstand any impacts from rough terrains. Proper installation safeguards the battery and electronics, paving the way for reliable performance.",
             categoriesList: [
                 {
-                    label: "Electrical Installation", ////rephrase
+                    label: "Electrical Installation",
                     items: [
                         "Mount the battery enclosure: Mount it to the deck, ensuring it does not interfere with riding dynamics, i.e. allowing at least 3-4 inches of clearance from the bottom of the board to the ground.",
                         "Install the battery: Securely mount the battery in its enclosure on the deck, ensuring it does not shift during movement",
@@ -188,7 +195,7 @@ const QuickStartGuide = () => {
                     ]
                 },
                 {
-                    label: "Electrical Safety & Precautions", ////rephrase
+                    label: "Electrical Safety & Precautions",
                     items: [
                         "Check for insulation: Ensure all wiring connections are properly insulated to prevent short circuits",
                         "Secure wiring: Use cable management clips to secure wiring along the board, avoiding loose wires that could catch or disconnect",
@@ -205,7 +212,7 @@ const QuickStartGuide = () => {
             description: "This critical step involves meticulously connecting your board's electrical components. Make precise connections between the motor, ESC, battery, and remote receiver. Secure and properly match all connections to prevent electrical issues. Use heat-shrink tubing and electrical tape to safely insulate exposed wires, ensuring both functionality and safety. A well-organized wiring setup aids in maintenance and troubleshooting.",
             categoriesList: [
                 {
-                    label: "Wiring Setup", ////rephrase
+                    label: "Wiring Setup",
                     items: [
                         "Organize your wiring layout: Plan and lay out your wires to keep the setup tidy and functional, reducing the chance of entanglements or damage",
                         "Color-code your wiring: Use different colors for different connections (e.g., red for positive, black for negative) to avoid confusion",
@@ -215,7 +222,7 @@ const QuickStartGuide = () => {
                     ]
                 },
                 {
-                    label: "Connection Integrity", ////rephrase
+                    label: "Connection Integrity",
                     items: [
                         "Double check the terminals: Make sure the poitive and negative terminals are connected properly to avoid frying the electronics and potentially starting a fire",
                         "Test each connection: Before finalizing installations, use a multimeter to test each connection for correct voltage and secure contacts",
@@ -234,7 +241,7 @@ const QuickStartGuide = () => {
             description: "Now that all physical components are in place and connected, it's time to bring your skateboard's electronics to life. This step involves programming the ESC according to the specific needs of your build, such as setting up the throttle curve, braking strength, and power output. This might require connecting your ESC to a computer and using specialized software provided by the ESC manufacturer. Pay close attention to the settings that match your riding style and the capabilities of your motor and battery. Proper configuration ensures optimal performance, efficiency, and responsiveness of your electric skateboard.",
             categoriesList: [
                 {
-                    label: "Electronics Configuration", ////rephrase
+                    label: "Electronics Configuration",
                     items: [
                         "Program the ESC: Use a compatible interface (USB or Bluetooth) to connect the ESC to a computer or smartphone for programming",
                         "Adjust throttle and brake settings: Customize the throttle curve and braking power to match your riding style and comfort",
@@ -244,7 +251,7 @@ const QuickStartGuide = () => {
                     ]
                 },
                 {
-                    label: "Software and Hardware Checks", ////rephrase
+                    label: "Software and Hardware Checks",
                     items: [
                         "Firmware updates: Regularly update the ESC firmware to ensure you have the latest features and optimal performance",
                         "Sensor calibration: If using a sensor-equipped motor, perform calibrations to ensure accurate motor behavior and responsiveness",
@@ -261,7 +268,7 @@ const QuickStartGuide = () => {
             description: "The final step before you hit the road is a comprehensive test run. First, begin with a static test run to ensure all components function together without issues—flip the board over and check for throttle response, brake operation, and remote connectivity. When the tests passed accordingly, you can then proceed with a low-speed run in a controlled environment to feel the board's dynamics. Adjust the trucks, tune the ESC further if necessary, and ensure the comfort and responsiveness are to your liking. Fine-tuning these elements will enhance your riding experience and safety. Remember, the first ride is about testing, not pushing the limits. After successful tests and adjustments, your electric skateboard is ready for regular use.",
             categoriesList: [
                 {
-                    label: "Testing and Adjustment", ////rephrase
+                    label: "Testing and Adjustment",
                     items: [
                         "Conduct a bench test: Perform a static test with the skateboard raised to check wheel and motor operation without load",
                         "Low-speed tests: Start with low-speed runs to assess the general performance and stability of the skateboard",
@@ -271,7 +278,7 @@ const QuickStartGuide = () => {
                     ]
                 },
                 {
-                    label: "Initial Runs", ////rephrase
+                    label: "Initial Runs",
                     items: [
                         "Safety gear: Always wear appropriate safety gear during test runs, including a helmet, knee pads, and elbow pads",
                         "Controlled environment: Choose a smooth, flat area for initial tests to safely evaluate the skateboard's handling and response",
@@ -282,7 +289,7 @@ const QuickStartGuide = () => {
                     ]
                 },
                 {
-                    label: "Key things to keep in mind:", ////rephrase
+                    label: "Key things to keep in mind:",
                     items: [
                         "Gradual Adjustments: When tuning, make sure you make adjustments little by little and one variable at a time to isolate the effects of each change. This methodical approach helps in accurately determining which adjustments improve performance and stability",
                         "Data Logging: During testing, ensure to log all performance data, such as speed, battery life, and response times. This information is vital for analyzing the board's behavior under various conditions and making informed adjustments",
@@ -379,6 +386,7 @@ const QuickStartGuide = () => {
                     </div>
                 </div>
             ))}
+            <button className="scrollToTopButton" onClick={scrollToTop}>Top</button>
             <div className="footer-bottom">
                 <NavLink className="footer-bottom-link" to="/about">About</NavLink>
                 <NavLink className="footer-bottom-link" to="/contact-us">Contact Us</NavLink>
