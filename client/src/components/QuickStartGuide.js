@@ -46,6 +46,7 @@ const QuickStartGuide = () => {
                         "Identify and list necessary components like decks, trucks, wheels, and motors",
                         "Compare specifications and prices from different vendors",
                         "Check reviews and ratings for reliability and performance",
+                        "Check availability for parts warranties",
                         ["Below is a list of the essential parts to get you started:",
                             "Deck",
                             "Wheels (urethane or pneumatics)",
@@ -67,6 +68,7 @@ const QuickStartGuide = () => {
                         "Ensure vendors have good customer support and return policies",
                         "Purchase components from vendors known for quality and authenticity",
                         "Be wary of unusually cheap parts that may compromise quality",
+                        "Review return and exchange policies",
                         ["List of trusted vendors:",
                             "Evolve",
                             "Trampa"
@@ -107,18 +109,19 @@ const QuickStartGuide = () => {
                 {
                     label: "Mechanical Tools",
                     items: [
-                        "Screwdrivers (Phillips and Flathead) - For various screws and adjustments.",
+                        "Screwdrivers (Phillips and/or Flathead) - For various screws and adjustments.",
                         "Allen Wrench Set - For hex bolts commonly used in skateboard assemblies.",
-                        "Wrench Set (Adjustable and Fixed Sizes) - Needed for tightening and loosening nuts and bolts.",
+                        "Wrench Set (Adjustable and/or Fixed Sizes) - Needed for tightening and loosening nuts and bolts.",
                         "Socket Wrench Set - Useful for specific skateboard hardware that may require deep sockets.",
-                        "Pliers (Needle Nose and Standard) - For gripping and bending small parts.",
+                        "Pliers (Needle Nose and/or Standard) - For gripping and bending small parts.",
                         "Wire Strippers - Essential for preparing electrical wires.",
                         "Wire Cutters - For cutting wires to the correct length.",
                         "Soldering Iron and Solder - For making secure electrical connections.",
                         "Heat Gun - For shrinking heat-shrink tubing over soldered connections.",
                         "Calipers or a Ruler - For precise measurements.",
                         "Drill and Drill Bits - For making holes for mounting components.",
-                        "Tape Measure - For general measurement tasks."
+                        "Tape Measure - For general measurement tasks.",
+                        "Lubricants (WD-40, Petrolatum Jelly, etc.) - For reducing friction on moving parts."
                     ]
                 },
                 {
@@ -160,8 +163,9 @@ const QuickStartGuide = () => {
                         "Install wheels to the trucks: Choose the right wheel size and hardness for your intended use",
                         "Attach the motor mount: Make sure the motor mount is fastened securely to the truck",
                         "Mount the motor: Secure the motor to the motor mount and ensure it aligns with the drivetrain",
-                        "If you are using a hub motor then feel free to skip the motor mount assembly",
+                        "Note: If you are using a hub motor then feel free to skip the motor mount assembly",
                         "Fit the drive belt or chain: Adjust tension to avoid slippage or excessive wear",
+                        "Verify component compatibility: Ensure that each of your purchased components are compatible with one another before assembly"
                         ////add more
                     ]
                 },
@@ -171,7 +175,7 @@ const QuickStartGuide = () => {
                         "Ensure all hardware is tightened to the manufacturer’s specifications to avoid loosening during rides",
                         "Use thread-locking compounds, such as Locktite, on all critical fasteners, especially those subjected to road vibrations",
                         "Double-check the alignment of all drivetrain components to prevent wear and inefficiency, apply some lubricate if necessary",
-                        "Regularly inspect the assembly during initial test runs to adjust and retighten components as necessary",
+                        "Regularly inspect the assembly during initial test runs to adjust and re-tighten components as necessary",
                         ////add more
                     ]
                 }
