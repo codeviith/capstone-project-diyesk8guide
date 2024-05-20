@@ -70,8 +70,7 @@ const QuickStartGuide = () => {
                         "Be wary of unusually cheap parts that may compromise quality",
                         "Review return and exchange policies",
                         ["List of trusted vendors:",
-                            "Evolve",
-                            "Trampa"
+                            "Coming Soon (contract pending)"
                             ////add more
                         ]
                     ]
@@ -303,7 +302,7 @@ const QuickStartGuide = () => {
                         "Feedback Collection: If possible, get feedback from other riders who test your skateboard. Different perspectives can provide insights into how the board handles for various styles and weights of riders",
                         "Follow Safety Protocols: Always adhere to safety protocols during testing. This includes not only wearing the proper gear but also ensuring that all electronic systems are shut down properly after testing to avoid accidents or damage",
                         "Emergency Preparedness: Have an emergency plan in place in case of mechanical failure or accidents during test runs. This includes knowing basic first aid and having emergency contact numbers readily available",
-                        "Spare Parts: Keep spare parts handy for quick replacements during testing, especially for components that are prone to wear or damage like belts, wheels, and connectors",
+                        "Spare Parts: Keep spare parts handy for quick replacements during testing, especially for components that are prone to wear and tear like belts, wheels, and connectors",
                         ////add more
                     ]
                 }
@@ -312,9 +311,16 @@ const QuickStartGuide = () => {
         },
         {
             header: "Step 10: The Open Road Awaits!",
-            description: `Congratulations! You’ve successfully built your very own electric skateboard. Now, the real adventure begins as you take your creation for a spin. As thrilling as it is to ride something you’ve crafted with your own hands, safety must always come first. Always wear a full-faced helmet, knee pads, abrasion-resistant gloves, and a windbreaker jacket to protect against the elements and potential falls. Additionally, consider elbow pads and padded shorts for extra protection.\n\n` +
-                `Before you hit the road, familiarize yourself with local traffic laws to ensure you ride legally and safely. Start in a safe, traffic-free area to get a feel for your board’s dynamics. Practice turning, stopping, and handling at various speeds. Remember, each ride not only offers fun but also an opportunity to fine-tune your board’s performance. And don't be discouraged by falls—they're a normal part of the learning curve. With each tumble, you're one step closer to mastering the art of eboarding, just like seasoned riders.\n\n` +
-                `The beauty of a DIY electric skateboard is the limitless customization. Now that you've built the foundation, you can modify and enhance your board as you see fit. Want more speed or a smoother ride? Consider upgrading your wheels or adjusting your truck settings. Interested in aesthetics? Add LED lights for a personalized touch or custom graphics to make your board visually striking. The possibilities are endless, and the joy of riding something that truly represents your personality and needs is immensely satisfying. For those eager to dive deeper into upgrades and innovative designs, stay tuned for our 'Advanced Guide'—coming soon with detailed steps for taking your board to the next level. Embrace this journey of continual improvement and customization, and revel in the freedom that a DIY skateboard provides. Ride on and keep evolving your board to match your growing skills and unique style!`,
+            description: (
+                <>
+                    <p>Congratulations! You’ve successfully built your very own electric skateboard. Now, the real adventure begins as you take your creation for a spin. As thrilling as it is to ride something you’ve crafted with your own hands, safety must always come first. Always wear a full-faced helmet, knee pads, abrasion-resistant gloves, and a windbreaker jacket to protect against the elements and potential falls. Additionally, consider elbow pads and padded shorts for extra protection.</p>
+                    <p>Before you hit the road, familiarize yourself with local traffic laws to ensure you ride legally and safely. Start in a safe, traffic-free area to get a feel for your board’s dynamics. Practice turning, stopping, and handling at various speeds. Remember, each ride not only offers fun but also an opportunity to fine-tune your board’s performance. And don't be discouraged by falls—they're a normal part of the learning curve. With each tumble, you're one step closer to mastering the art of eboarding, just like seasoned riders.</p>
+                    <p>The beauty of a DIY electric skateboard is the limitless customization. Now that you've built the foundation, you can modify and enhance your board as you see fit. Want more speed or a smoother ride? Consider upgrading your wheels or adjusting your truck settings. Interested in aesthetics? Add LED lights for a personalized touch or custom graphics to make your board visually striking. The possibilities are endless, and the joy of riding something that truly represents your personality and needs is immensely satisfying. For those eager to dive deeper into upgrades and innovative designs, stay tuned for our <NavLink to="/guide/advanced">'Advanced Guide'</NavLink> with detailed steps for taking your board to the next level. Embrace this journey of continual improvement and customization, and revel in the freedom that a DIY skateboard provides. Ride on and keep evolving your board to match your growing skills and unique style!</p>
+                </>
+            ),
+            // `Congratulations! You’ve successfully built your very own electric skateboard. Now, the real adventure begins as you take your creation for a spin. As thrilling as it is to ride something you’ve crafted with your own hands, safety must always come first. Always wear a full-faced helmet, knee pads, abrasion-resistant gloves, and a windbreaker jacket to protect against the elements and potential falls. Additionally, consider elbow pads and padded shorts for extra protection.\n\n` +
+            //     `Before you hit the road, familiarize yourself with local traffic laws to ensure you ride legally and safely. Start in a safe, traffic-free area to get a feel for your board’s dynamics. Practice turning, stopping, and handling at various speeds. Remember, each ride not only offers fun but also an opportunity to fine-tune your board’s performance. And don't be discouraged by falls—they're a normal part of the learning curve. With each tumble, you're one step closer to mastering the art of eboarding, just like seasoned riders.\n\n` +
+            //     `The beauty of a DIY electric skateboard is the limitless customization. Now that you've built the foundation, you can modify and enhance your board as you see fit. Want more speed or a smoother ride? Consider upgrading your wheels or adjusting your truck settings. Interested in aesthetics? Add LED lights for a personalized touch or custom graphics to make your board visually striking. The possibilities are endless, and the joy of riding something that truly represents your personality and needs is immensely satisfying. For those eager to dive deeper into upgrades and innovative designs, stay tuned for our 'Advanced Guide'—coming soon with detailed steps for taking your board to the next level. Embrace this journey of continual improvement and customization, and revel in the freedom that a DIY skateboard provides. Ride on and keep evolving your board to match your growing skills and unique style!`,
             // link: "/link-for-step-10"
         }
     ];
@@ -345,12 +351,9 @@ const QuickStartGuide = () => {
                     </div>
                     <div className="guide-step">
                         <h2>{step.header}</h2>
-                        <p>{step.description.split('\n').map((line, index) => (
-                            <React.Fragment key={index}>
-                                {line}<br />
-                            </React.Fragment>
-                        ))}
-                        </p>
+                        <div>
+                            {step.description}
+                        </div>
                         {step.categoriesList && step.categoriesList.map((category, catIndex) => (
                             <div key={catIndex}>
                                 <h3>{category.label}</h3>

@@ -47,13 +47,13 @@ const Guide = () => {
     return (
         <div className="guide-menubar-container">
             <div className="guide-menubar">
-                <div onMouseEnter={() => handleMouseEnter('quick-start')}
+                <div onMouseEnter={() => handleMouseEnter('basic')}
                     onMouseLeave={handleMouseLeave}>
-                    <NavLink to="/guide/quick-start">Basic Guide</NavLink>
-                    {dropdownVisible && activeGuide === 'quick-start' && (
+                    <NavLink to="/guide/basic">Basic Guide</NavLink>
+                    {dropdownVisible && activeGuide === 'basic' && (
                         <div className="guide-dropdown-menu">
                             {QuickStartGuideSteps.map((step, index) => (
-                                <NavLink key={index} to={`/guide/quick-start#${encodeURIComponent(step.header)}`}>
+                                <NavLink key={index} to={`/guide/basic#${encodeURIComponent(step.header)}`}>
                                     {step.header}
                                 </NavLink>
                             ))}
@@ -67,7 +67,7 @@ const Guide = () => {
             <div className="guide-menubar-content">
                 <Switch>
                     <Route path="/guide" exact component={QuickStartGuide} />
-                    <Route path="/guide/quick-start" component={QuickStartGuide} />
+                    <Route path="/guide/basic" component={QuickStartGuide} />
                     <Route path="/guide/advanced" component={AdvancedGuide} />
                     <Route path="/guide/videos" component={VideoTutorials} />
                     <Route path="/guide/community" component={CommunityInsights} />
