@@ -46,6 +46,7 @@ const QuickStartGuide = () => {
                         "Identify and list necessary components like decks, trucks, wheels, and motors",
                         "Compare specifications and prices from different vendors",
                         "Check reviews and ratings for reliability and performance",
+                        "Ensure parts compatibility for a smooth assembly and operation.",
                         "Check availability for parts warranties",
                         ["Below is a list of the essential parts to get you started:",
                             "Deck",
@@ -70,7 +71,7 @@ const QuickStartGuide = () => {
                         "Be wary of unusually cheap parts that may compromise quality",
                         "Review return and exchange policies",
                         ["List of trusted vendors:",
-                            "Coming Soon (contract pending)"
+                            "Coming Soon (contract pending)" // Placeholder text
                             ////add more
                         ]
                     ]
@@ -85,15 +86,15 @@ const QuickStartGuide = () => {
                 {
                     label: "Machinery",
                     items: [
-                        "Miter Saw: Used for precise cuts on the deck or any wooden parts",
-                        "Drill Press: Used for accurate, perpendicular holes that are crucial for mounting trucks and components",
-                        "Bench Grinder: Used for sharpening tools and smoothing rough metal edges",
-                        "Belt Sander: Used for smoothing the deck and edges, ensuring a perfect finish",
-                        "Jigsaw: Used for cutting complex shapes, if custom deck shapes are desired",
-                        "Band Saw (optional): Useful for cutting thicker materials or making more precise cuts in wood or metal",
-                        "Router: Used for creating smooth edges on the deck and cutting slots for wiring if needed",
-                        "Air Compressor: Used for powering pneumatic tools and cleaning dust from work surfaces",
-                        "Soldering Station: Used for assembling and repairing electronic components with precision",
+                        "Miter Saw: Used for precise cuts on the deck or any wooden parts.",
+                        "Drill Press: Used for accurate, perpendicular holes that are crucial for mounting trucks and components.",
+                        "Bench Grinder: Used for sharpening tools and smoothing rough metal edges.",
+                        "Belt Sander: Used for smoothing the deck and edges, ensuring a perfect finish.",
+                        "Jigsaw: Used for cutting complex shapes, if custom deck shapes are desired.",
+                        "Band Saw (optional): Useful for cutting thicker materials or making more precise cuts in wood or metal.",
+                        "Router: Used for creating smooth edges on the deck and cutting slots for wiring if needed.",
+                        "Air Compressor: Used for powering pneumatic tools and cleaning dust from work surfaces.",
+                        "Soldering Station: Used for assembling and repairing electronic components with precision."
                         ////add more
                     ]
                 }
@@ -126,7 +127,7 @@ const QuickStartGuide = () => {
                 {
                     label: "Electrical Tools",
                     items: [
-                        "Multimeter",
+                        "Multimeter - For checking electrical continuity and diagnosing electrical issues.",
                         "Battery Charger (specific to the type of battery used) - For charging and maintaining the skateboard’s battery.",
                         "JST-XH Connector Kit - Often used for balancing lithium battery cells",
                         "Assorted Electrical Connectors - Including bullet connectors, spade connectors, and others depending on your design.",
@@ -162,7 +163,7 @@ const QuickStartGuide = () => {
                         "Install wheels to the trucks: Choose the right wheel size and hardness for your intended use",
                         "Attach the motor mount: Make sure the motor mount is fastened securely to the truck",
                         "Mount the motor: Secure the motor to the motor mount and ensure it aligns with the drivetrain",
-                        "Note: If you are using a hub motor then feel free to skip the motor mount assembly",
+                        "**Note: If you are using a hub motor then feel free to skip the motor mount assembly",
                         "Fit the drive belt or chain: Adjust tension to avoid slippage or excessive wear",
                         "Verify component compatibility: Ensure that each of your purchased components are compatible with one another before assembly"
                         ////add more
@@ -232,7 +233,7 @@ const QuickStartGuide = () => {
                         "Use heat shrink tubing: Apply heat shrink tubing to all soldered connections to enhance durability and electrical insulation",
                         "Check motor phase wires: Ensure the motor phase wires are securely connected to the ESC, as incorrect or loose connections can cause motor malfunctions",
                         "Order of phase wires: Generally speaking, the order of the phase wires does not matter for brushless DC motors. This mean they can be connected to the ESC in any order. However, the order of the HALL Sensors DOES matter",
-                        "Verify sensor connections: For motors with HALL Sensors, double-check the sensor wire connections for accuracy as they are crucial for a smooth rolling start, without the need for the initial push kick",
+                        "Verify sensor connections: For motors with HALL Sensors, double-check the sensor wire connections for accuracy as they are crucial for a smooth rolling start, without the need of an initial push kick",
                         ////add more
                     ]
                 }
@@ -318,9 +319,6 @@ const QuickStartGuide = () => {
                     <p>The beauty of a DIY electric skateboard is the limitless customization. Now that you've built the foundation, you can modify and enhance your board as you see fit. Want more speed or a smoother ride? Consider upgrading your wheels or adjusting your truck settings. Interested in aesthetics? Add LED lights for a personalized touch or custom graphics to make your board visually striking. The possibilities are endless, and the joy of riding something that truly represents your personality and needs is immensely satisfying. For those eager to dive deeper into upgrades and innovative designs, stay tuned for our <NavLink to="/guide/advanced">'Advanced Guide'</NavLink> with detailed steps for taking your board to the next level. Embrace this journey of continual improvement and customization, and revel in the freedom that a DIY skateboard provides. Ride on and keep evolving your board to match your growing skills and unique style!</p>
                 </>
             ),
-            // `Congratulations! You’ve successfully built your very own electric skateboard. Now, the real adventure begins as you take your creation for a spin. As thrilling as it is to ride something you’ve crafted with your own hands, safety must always come first. Always wear a full-faced helmet, knee pads, abrasion-resistant gloves, and a windbreaker jacket to protect against the elements and potential falls. Additionally, consider elbow pads and padded shorts for extra protection.\n\n` +
-            //     `Before you hit the road, familiarize yourself with local traffic laws to ensure you ride legally and safely. Start in a safe, traffic-free area to get a feel for your board’s dynamics. Practice turning, stopping, and handling at various speeds. Remember, each ride not only offers fun but also an opportunity to fine-tune your board’s performance. And don't be discouraged by falls—they're a normal part of the learning curve. With each tumble, you're one step closer to mastering the art of eboarding, just like seasoned riders.\n\n` +
-            //     `The beauty of a DIY electric skateboard is the limitless customization. Now that you've built the foundation, you can modify and enhance your board as you see fit. Want more speed or a smoother ride? Consider upgrading your wheels or adjusting your truck settings. Interested in aesthetics? Add LED lights for a personalized touch or custom graphics to make your board visually striking. The possibilities are endless, and the joy of riding something that truly represents your personality and needs is immensely satisfying. For those eager to dive deeper into upgrades and innovative designs, stay tuned for our 'Advanced Guide'—coming soon with detailed steps for taking your board to the next level. Embrace this journey of continual improvement and customization, and revel in the freedom that a DIY skateboard provides. Ride on and keep evolving your board to match your growing skills and unique style!`,
             // link: "/link-for-step-10"
         }
     ];
