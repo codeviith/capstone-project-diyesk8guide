@@ -53,7 +53,7 @@ const QuickStartGuide = () => {
                             "Wheels (urethane or pneumatics)",
                             "Trucks (the wider the truck is, the more stable the board)",
                             "Motor Controller (aka. Electronic Speed Controller, or ESC)",
-                            "Battery (typically 10s or above)",
+                            "Battery (typically 10s4p or above ['s' stands for series, 'p' stands for parallel]; the higher the serie (i.e 12s or above), the faster the speed; the higher the parallel (i.e 8p or above), the further the range per charge)",
                             "Remote Controller (2.4 GHz is recommended)",
                             "Motor and wheel pulleys",
                             "Motor mount",
@@ -316,7 +316,7 @@ const QuickStartGuide = () => {
                 <>
                     <p>Congratulations! You’ve successfully built your very own electric skateboard. Now, the real adventure begins as you take your creation for a spin. As thrilling as it is to ride something you’ve crafted with your own hands, safety must always come first. Always wear a full-faced helmet, knee pads, abrasion-resistant gloves, and a windbreaker jacket to protect against the elements and potential falls. Additionally, consider elbow pads and padded shorts for extra protection.</p>
                     <p>Before you hit the road, familiarize yourself with local traffic laws to ensure you ride legally and safely. Start in a safe, traffic-free area to get a feel for your board’s dynamics. Practice turning, stopping, and handling at various speeds. Remember, each ride not only offers fun but also an opportunity to fine-tune your board’s performance. And don't be discouraged by falls—they're a normal part of the learning curve. With each tumble, you're one step closer to mastering the art of eboarding, just like seasoned riders.</p>
-                    <p>The beauty of a DIY electric skateboard is the limitless customization. Now that you've built the foundation, you can modify and enhance your board as you see fit. Want more speed or a smoother ride? Consider upgrading your wheels or adjusting your truck settings. Interested in aesthetics? Add LED lights for a personalized touch or custom graphics to make your board visually striking. The possibilities are endless, and the joy of riding something that truly represents your personality and needs is immensely satisfying. For those eager to dive deeper into upgrades and innovative designs, stay tuned for our <NavLink to="/guide/advanced">'Advanced Guide'</NavLink> with detailed steps for taking your board to the next level. Embrace this journey of continual improvement and customization, and revel in the freedom that a DIY skateboard provides. Ride on and keep evolving your board to match your growing skills and unique style!</p>
+                    <p>The beauty of a DIY electric skateboard is the limitless customization. Now that you've built the foundation, you can modify and enhance your board as you see fit. Want more speed or a smoother ride? Consider upgrading your wheels or adjusting your truck settings. Interested in aesthetics? Add LED lights for a personalized touch or custom graphics to make your board visually striking. The possibilities are endless, and the joy of riding something that truly represents your personality and needs is immensely satisfying. For those eager to learn more about the electronics working behind the scenes, or to dive deeper into upgrades and innovative designs, stay tuned for our <NavLink to="/guide/advanced">'Advanced Guide'</NavLink> with detailed steps that takes your board to the next level. Embrace this journey of continual improvement and customization, and revel in the freedom that a DIY skateboard provides. Ride on and keep evolving your board to match your growing skills and unique style!</p>
                 </>
             ),
             // link: "/link-for-step-10"
@@ -327,12 +327,12 @@ const QuickStartGuide = () => {
         [require("./images/Step_1_Create_Game_Plan.jpg")],
         [require("./images/Step_2_Research_Parts.jpg")],
         [require("./images/Step_3_Workspace.jpg")],
-        [require("./images/Step_4_Mats_&_Tools.jpg")],
+        [require("./images/Step_4_Mats_&_Tools_pt.1.jpg"), require("./images/Step_4_Mats_&_Tools_pt.2.jpg")],
         [require("./images/Step_5_Assembly.jpg")],
         [require("./images/Step_6_Batt_&_Electronics.jpg")],
-        [require("./images/Step_7_Wiring.jpg")],
+        [require("./images/Step_7_Wiring_pt.1.jpg"), require("./images/Step_7_Wiring_pt.2.png")],
         [require("./images/Step_8_Config_Electronics.jpg")],
-        [require("./images/Step_9_Test_Fine_Tuning.jpg")],
+        [require("./images/Step_9_Test_Fine_Tuning_pt.1.jpg"), require("./images/Step_9_Test_Fine_Tuning_pt.2.jpg"), require("./images/Step_9_Test_Fine_Tuning_pt.3.jpg")],
         [require("./images/Step_10_Open_Road_Ahead.jpg")],
     ];
 
@@ -349,13 +349,13 @@ const QuickStartGuide = () => {
                     </div>
                     <div className="guide-step">
                         <h2>{step.header}</h2>
-                        <div>
+                        <div className="step-description">
                             {step.description}
                         </div>
                         {step.categoriesList && step.categoriesList.map((category, catIndex) => (
                             <div key={catIndex}>
                                 <h3>{category.label}</h3>
-                                <ul>
+                                <ul className="category-list">
                                     {category.items.map((item, itemIndex) => (
                                         Array.isArray(item) ? (
                                             <li key={itemIndex}>
@@ -374,7 +374,7 @@ const QuickStartGuide = () => {
                             </div>
                         ))}
                         {step.list && (
-                            <ul>
+                            <ul className="step-list">
                                 {step.list.map((item, itemIndex) => (
                                     <li key={itemIndex}>{item}</li>
                                 ))}

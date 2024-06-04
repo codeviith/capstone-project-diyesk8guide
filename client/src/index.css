@@ -2181,6 +2181,18 @@ nav a.home-link:hover {
   align-items: center;
 }
 
+.step-description {
+  text-align: justify;
+}
+
+.category-list {
+  text-align: justify;
+}
+
+.step-list {
+  text-align: justify;
+}
+
 .step-images img {
   max-width: 85%;
   height: auto;
@@ -2383,7 +2395,7 @@ nav a.home-link:hover {
 
 
 
-/* Advanced Guide component */
+/* Advanced Guide sub-component */
 
 .advanced-guide {
   max-width: 85%;
@@ -2408,7 +2420,7 @@ nav a.home-link:hover {
 
 
 
-/* Video Tutorials component */
+/* Video Tutorials sub-component */
 
 .video-tutorials {
   max-width: 85%;
@@ -2433,7 +2445,7 @@ nav a.home-link:hover {
 
 
 
-/* Community Insight component */
+/* Community Insight sub-component */
 
 .community-insight {
   max-width: 85%;
