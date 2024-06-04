@@ -33,7 +33,7 @@ const QuickStartGuide = () => {
     const guideSteps = [
         {
             header: "Step 1: Create a Game Plan",
-            description: "Embarking on building your electric skateboard begins with a solid game plan. This initial step requires you to sketch out your design, brainstorm ideas, and conduct thorough research on electric skateboards. Consider this phase a prime opportunity to craft a board that excels in performance and reflects your personal style and ethos. If you find yourself needing additional insights or inspiration during this planning phase, exploring forums and communities for electric skateboard enthusiasts can be incredibly beneficial. These platforms allow you to engage with like-minded builders and share ideas. Additionally, reading articles and watching tutorials on electric skateboard construction can offer a deeper understanding of the technical aspects and design possibilities. For more personalized guidance, consider consulting experienced builders who can offer practical advice and creative tips. A well-informed plan is crucial—it navigates you through the building process and ensures that your goals are realistic and achievable. With a robust plan and enriched design knowledge, you’ll be well-prepared to select the right components and build your board with confidence. Ready to get started? Let’s dive right in!",
+            description: "Embarking on building your electric skateboard begins with a solid game plan. This initial step requires you to sketch out your design, brainstorm ideas, and conduct thorough research on electric skateboards. Consider this phase a prime opportunity to craft a board that excels in performance and reflects your personal style and ethos. If you find yourself needing additional insights or inspiration during this planning phase, exploring forums and communities for electric skateboard enthusiasts can be incredibly beneficial. These platforms allow you to engage with like-minded builders and share ideas. Additionally, reading articles and watching tutorials on electric skateboard construction can offer a deeper understanding of the technical aspects and design possibilities. For more personalized guidance, consider consulting experienced builders who can offer practical advice and creative tips. A well-informed plan is crucial—it navigates you through the building process and ensures that your goals are realistic and achievable. With a robust plan and enriched design knowledge, you’ll be well-prepared to select the right components and build your board with confidence. Ready to get started? LET'S DO THIS!",
             // link: "/link-for-step-1"
         },
         {
@@ -49,16 +49,18 @@ const QuickStartGuide = () => {
                         "Ensure parts compatibility for a smooth assembly and operation.",
                         "Check availability for parts warranties",
                         ["Below is a list of the essential parts to get you started:",
-                            "Deck",
-                            "Wheels (urethane or pneumatics)",
-                            "Trucks (the wider the truck is, the more stable the board)",
-                            "Motor Controller (aka. Electronic Speed Controller, or ESC)",
-                            "Battery (typically 10s4p or above ['s' stands for series, 'p' stands for parallel]; the higher the serie (i.e 12s or above), the faster the speed; the higher the parallel (i.e 8p or above), the further the range per charge)",
-                            "Remote Controller (2.4 GHz is recommended)",
-                            "Motor and wheel pulleys",
-                            "Motor mount",
-                            "Timing belt",
-                            "Enclosure (carbon fiber for highest durability)"
+                            "<strong>Deck</strong> - 9 PLY is a good balance between stiffness and flexibility. 39+ inch in length recommended to allow for space to mount the enclosure that house the electronics",
+                            "<strong>Wheels</strong> - Urethane for more range but require smooth paved roads; pneumatics for all terrain conditions but reduced range",
+                            "<strong>Trucks</strong> - The wider the truck, the more stable the ride but with less turning radius",
+                            "<strong>Electronic Speed Controller, or ESC</strong> - Typically any R/C car ESC with ABS braking would do; most common and reliable is the Vedder ESC, or VESC",
+                            "<strong>Battery</strong> - Typically 10s4p or above ['s' stands for series, 'p' stands for parallel]; the higher the serie (i.e 12s or above), the faster the speed; the higher the parallel (i.e 8p or above), the further the range per charge",
+                            "<strong>Remote Controller</strong> - 2.4 GHz is recommended; 3 channel is typically enough but 4+ channels allow for extra controls",
+                            "<strong>Motor</strong> - 53mm motor is good for speed; 63mm motor is good for torque; the higher the Kv, the greater the torque (vice versa)",
+                            "<strong>Hub motors (optional)</strong> - 70-80 Kv is a good start",
+                            "<strong>Motor mount</strong> - Typically compatible with 53 or 63mm motors but need to make sure it is compatible with the type of truck you have",
+                            "<strong>Wheel pulleys</strong> - These will depend on the type and size of wheels you have. Urethanes: typically 36T; Pneumatics: typically 72T",
+                            "<strong>Timing belt</strong> - These will depend on three things: motor pulley, wheel pulley, and length of motor mount. For best practice, this should be ordered last and after assembly of the drive gear",
+                            "<strong>Enclosure</strong> - ABS plastic enclosures are typically good enought. For the highest durability, carbon fiber is recommended"
                         ]
                         ////add more
                     ]
@@ -70,7 +72,7 @@ const QuickStartGuide = () => {
                         "Purchase components from vendors known for quality and authenticity",
                         "Be wary of unusually cheap parts that may compromise quality",
                         "Review return and exchange policies",
-                        ["List of trusted vendors:",
+                        ["List of trusted vendors (with links):",
                             "Coming Soon (contract pending)" // Placeholder text
                             ////add more
                         ]
@@ -86,15 +88,15 @@ const QuickStartGuide = () => {
                 {
                     label: "Machinery",
                     items: [
-                        "Miter Saw: Used for precise cuts on the deck or any wooden parts.",
-                        "Drill Press: Used for accurate, perpendicular holes that are crucial for mounting trucks and components.",
-                        "Bench Grinder: Used for sharpening tools and smoothing rough metal edges.",
-                        "Belt Sander: Used for smoothing the deck and edges, ensuring a perfect finish.",
-                        "Jigsaw: Used for cutting complex shapes, if custom deck shapes are desired.",
-                        "Band Saw (optional): Useful for cutting thicker materials or making more precise cuts in wood or metal.",
-                        "Router: Used for creating smooth edges on the deck and cutting slots for wiring if needed.",
-                        "Air Compressor: Used for powering pneumatic tools and cleaning dust from work surfaces.",
-                        "Soldering Station: Used for assembling and repairing electronic components with precision."
+                        "<strong>Miter Saw</strong>: Used for precise cuts on the deck or any wooden parts.",
+                        "<strong>Drill Press</strong>: Used for accurate, perpendicular holes that are crucial for mounting trucks and components.",
+                        "<strong>Bench Grinder</strong>: Used for sharpening tools and smoothing rough metal edges.",
+                        "<strong>Belt Sander</strong>: Used for smoothing the deck and edges, ensuring a perfect finish.",
+                        "<strong>Jigsaw</strong>: Used for cutting complex shapes, if custom deck shapes are desired.",
+                        "<strong>Band Saw (optional)</strong>: Useful for cutting thicker materials or making more precise cuts in wood or metal.",
+                        "<strong>Router</strong>: Used for creating smooth edges on the deck and cutting slots for wiring if needed.",
+                        "<strong>Air Compressor</strong>: Used for powering pneumatic tools and cleaning dust from work surfaces.",
+                        "<strong>Soldering Station</strong>: Used for assembling and repairing electronic components with precision."
                         ////add more
                     ]
                 }
@@ -109,44 +111,44 @@ const QuickStartGuide = () => {
                 {
                     label: "Mechanical Tools",
                     items: [
-                        "Screwdrivers (Phillips and/or Flathead) - For various screws and adjustments.",
-                        "Allen Wrench Set - For hex bolts commonly used in skateboard assemblies.",
-                        "Wrench Set (Adjustable and/or Fixed Sizes) - Needed for tightening and loosening nuts and bolts.",
-                        "Socket Wrench Set - Useful for specific skateboard hardware that may require deep sockets.",
-                        "Pliers (Needle Nose and/or Standard) - For gripping and bending small parts.",
-                        "Wire Strippers - Essential for preparing electrical wires.",
-                        "Wire Cutters - For cutting wires to the correct length.",
-                        "Soldering Iron and Solder - For making secure electrical connections.",
-                        "Heat Gun - For shrinking heat-shrink tubing over soldered connections.",
-                        "Calipers or a Ruler - For precise measurements.",
-                        "Drill and Drill Bits - For making holes for mounting components.",
-                        "Tape Measure - For general measurement tasks.",
-                        "Lubricants (WD-40, Petrolatum Jelly, etc.) - For reducing friction on moving parts."
+                        "<strong>Screwdrivers (Phillips and/or Flathead)</strong> - For various screws and adjustments.",
+                        "<strong>Allen Wrench Set</strong> - For hex bolts commonly used in skateboard assemblies.",
+                        "<strong>Wrench Set (Adjustable and/or Fixed Sizes)</strong> - Needed for tightening and loosening nuts and bolts.",
+                        "<strong>Socket Wrench Set</strong> - Useful for specific skateboard hardware that may require deep sockets.",
+                        "<strong>Pliers (Needle Nose and/or Standard)</strong> - For gripping and bending small parts.",
+                        "<strong>Wire Strippers</strong> - Essential for preparing electrical wires.",
+                        "<strong>Wire Cutters</strong> - For cutting wires to the correct length.",
+                        "<strong>Soldering Iron and Solder</strong> - For making secure electrical connections.",
+                        "<strong>Heat Gun</strong> - For shrinking heat-shrink tubing over soldered connections.",
+                        "<strong>Calipers or a Ruler</strong> - For precise measurements.",
+                        "<strong>Drill and Drill Bits</strong> - For making holes for mounting components.",
+                        "<strong>Tape Measure</strong> - For general measurement tasks.",
+                        "<strong>Lubricants (WD-40, Petrolatum Jelly, etc.)</strong> - For reducing friction on moving parts."
                     ]
                 },
                 {
                     label: "Electrical Tools",
                     items: [
-                        "Multimeter - For checking electrical continuity and diagnosing electrical issues.",
-                        "Battery Charger (specific to the type of battery used) - For charging and maintaining the skateboard’s battery.",
-                        "JST-XH Connector Kit - Often used for balancing lithium battery cells",
-                        "Assorted Electrical Connectors - Including bullet connectors, spade connectors, and others depending on your design.",
-                        "Screw Terminal Blocks - For easy connection and disconnection of wires in your setup.",
-                        "Cable Ties - For managing and securing wiring."
+                        "<strong>Multimeter</strong> - For checking electrical continuity and diagnosing electrical issues.",
+                        "<strong>Battery Charger (specific to the type of battery used)</strong> - For charging and maintaining the skateboard’s battery.",
+                        "<strong>JST-XH Connector Kit</strong> - Often used for balancing lithium battery cells",
+                        "<strong>Assorted Electrical Connectors</strong> - Including bullet connectors, spade connectors, and others depending on your design.",
+                        "<strong>Screw Terminal Blocks</strong> - For easy connection and disconnection of wires in your setup.",
+                        "<strong>Cable Ties</strong> - For managing and securing wiring."
                     ]
                 },
                 {
                     label: "Safety and Miscellaneous Tools",
                     items: [
-                        "Safety Glasses - To protect your eyes from flying debris or solder splashes.",
-                        "Work Gloves - To protect your hands while working with sharp or hot components.",
-                        "Work Light - For better visibility in poorly lit conditions.",
-                        "Vice or Clamps - To hold parts securely while working on them.",
-                        "Electric Tape - For insulating and protecting wired connections.",
-                        "Heat Shrink Tubing - For protecting wired connections against shorts.",
-                        "Masking Tape - Useful for marking and temporarily securing parts.",
-                        "Sandpaper - For smoothing rough edges on metal or wood parts.",
-                        "File Set - For fine shaping and deburring of cut metal parts.",
+                        "<strong>Safety Glasses</strong> - To protect your eyes from flying debris or solder splashes.",
+                        "<strong>Work Gloves</strong> - To protect your hands while working with sharp or hot components.",
+                        "<strong>Work Light</strong> - For better visibility in poorly lit conditions.",
+                        "<strong>Vice or Clamps</strong> - To hold parts securely while working on them.",
+                        "<strong>Electric Tape</strong> - For insulating and protecting wired connections.",
+                        "<strong>Heat Shrink Tubing</strong> - For protecting wired connections against shorts.",
+                        "<strong>Masking Tape</strong> - Useful for marking and temporarily securing parts.",
+                        "<strong>Sandpaper</strong> - For smoothing rough edges on metal or wood parts.",
+                        "<strong>File Set</strong> - For fine shaping and deburring of cut metal parts.",
                     ]
                 }
             ],
@@ -159,23 +161,23 @@ const QuickStartGuide = () => {
                 {
                     label: "Main Assembly",
                     items: [
-                        "Attach trucks to the deck: Ensure that the holes align perfectly and use durable bolts",
-                        "Install wheels to the trucks: Choose the right wheel size and hardness for your intended use",
-                        "Attach the motor mount: Make sure the motor mount is fastened securely to the truck",
-                        "Mount the motor: Secure the motor to the motor mount and ensure it aligns with the drivetrain",
-                        "**Note: If you are using a hub motor then feel free to skip the motor mount assembly",
-                        "Fit the drive belt or chain: Adjust tension to avoid slippage or excessive wear",
-                        "Verify component compatibility: Ensure that each of your purchased components are compatible with one another before assembly"
+                        "<strong>Attach trucks to the deck</strong>: Ensure that the holes align perfectly and use durable bolts",
+                        "<strong>Install wheels to the trucks</strong>: Choose the right wheel size and hardness for your intended use",
+                        "<strong>Attach the motor mount</strong>: Make sure the motor mount is fastened securely to the truck",
+                        "<strong>Mount the motor</strong>: Secure the motor to the motor mount and ensure it aligns with the drivetrain",
+                        "<strong>Fit the drive belt or chain</strong>: Adjust tension to avoid slippage or excessive wear",
+                        "<strong>Verify component compatibility</strong>: Ensure that each of your purchased components are compatible with one another before assembly",
+                        "<strong>**Note: If you are using a hub motor then feel free to skip the motor mount assembly</strong>"
                         ////add more
                     ]
                 },
                 {
                     label: "Assembly Precautions",
                     items: [
-                        "Ensure all hardware is tightened to the manufacturer’s specifications to avoid loosening during rides",
-                        "Use thread-locking compounds, such as Locktite, on all critical fasteners, especially those subjected to road vibrations",
-                        "Double-check the alignment of all drivetrain components to prevent wear and inefficiency, apply some lubricate if necessary",
-                        "Regularly inspect the assembly during initial test runs to adjust and re-tighten components as necessary",
+                        "<strong>Ensure</strong> all hardware is tightened to the manufacturer’s specifications to avoid loosening during rides",
+                        "<strong>Use</strong> thread-locking compounds, such as Locktite, on all <i><u><strong>critical</strong></u></i> fasteners, especially those subjected to road vibrations",
+                        "<strong>Double-check</strong> the alignment of all drivetrain components to prevent wear and inefficiency, apply some lubricate if necessary",
+                        "<strong>Regularly inspect</strong> the assembly during initial test runs to adjust and re-tighten components as necessary",
                         ////add more
                     ]
                 }
@@ -189,22 +191,22 @@ const QuickStartGuide = () => {
                 {
                     label: "Electrical Installation",
                     items: [
-                        "Mount the battery enclosure: Mount it to the deck, ensuring it does not interfere with riding dynamics, i.e. allowing at least 3-4 inches of clearance from the bottom of the board to the ground.",
-                        "Install the battery: Securely mount the battery in its enclosure on the deck, ensuring it does not shift during movement",
-                        "Position the ESC: Place the Electronic Speed Controller close to the battery but ensure adequate space for heat dissipation",
-                        "Include the power switch: Install a high-amperage toggle switch in an accessible area for easy operation",
-                        "Setup the charging port: Integrate a charging port that matches your battery's requirements and ensure it is easily accessible",
-                        "Connect the motor to ESC: Use high-quality, durable wires to connect the motor to the ESC, ensuring secure and clean soldering points",
+                        "<strong>Mount the battery enclosure</strong>: Mount it to the deck, ensuring it does not interfere with riding dynamics, i.e. allowing at least 3-4 inches of clearance from the bottom of the board to the ground.",
+                        "<strong>Install the battery</strong>: Securely mount the battery in its enclosure on the deck, ensuring it does not shift during movement",
+                        "<strong>Position the ESC</strong>: Place the Electronic Speed Controller close to the battery but ensure adequate space for heat dissipation",
+                        "<strong>Include the power switch</strong>: Install a high-amperage toggle switch in an accessible area for easy operation",
+                        "<strong>Setup the charging port</strong>: Integrate a charging port that matches your battery's requirements and ensure it is easily accessible",
+                        "<strong>Connect the motor to ESC</strong>: Use high-quality, durable wires to connect the motor to the ESC, ensuring secure and clean soldering points",
                         ////add more
                     ]
                 },
                 {
                     label: "Electrical Safety & Precautions",
                     items: [
-                        "Check for insulation: Ensure all wiring connections are properly insulated to prevent short circuits",
-                        "Secure wiring: Use cable management clips to secure wiring along the board, avoiding loose wires that could catch or disconnect",
-                        "Battery management: Install a battery management system (BMS) for lithium-ion batteries to ensure balanced charging and discharging",
-                        "Regular inspection: Make it a routine to check all electrical connections and components before and after rides for any signs of wear or loose connections",
+                        "<strong>Check for insulation</strong>: Ensure all wiring connections are properly insulated to prevent short circuits",
+                        "<strong>Secure wiring</strong>: Use cable management clips to secure wiring along the board, avoiding loose wires that could catch or disconnect",
+                        "<strong>Battery management</strong>: Install a battery management system (BMS) for lithium-ion batteries to ensure balanced charging and discharging",
+                        "<strong>Regular inspection</strong>: Make it a routine to check all electrical connections and components before and after rides for any signs of wear or loose connections",
                         ////add more
                     ]
                 }
@@ -218,22 +220,22 @@ const QuickStartGuide = () => {
                 {
                     label: "Wiring Setup",
                     items: [
-                        "Organize your wiring layout: Plan and lay out your wires to keep the setup tidy and functional, reducing the chance of entanglements or damage",
-                        "Color-code your wiring: Use different colors for different connections (e.g., red for positive, black for negative) to avoid confusion",
-                        "Use quality connectors: Opt for high-quality connectors that can withstand the vibrations and stresses of skateboard operation",
-                        "Secure the remote receiver: Place the remote receiver in a position where it is protected from impact but still in range of the remote control",
+                        "<strong>Organize your wiring layout</strong>: Plan and lay out your wires to keep the setup tidy and functional, reducing the chance of entanglements or damage",
+                        "<strong>Color-code your wiring</strong>: Use different colors for different connections (e.g., red for positive, black for negative) to avoid confusion",
+                        "<strong>Use quality connectors</strong>: Opt for high-quality connectors that can withstand the vibrations and stresses of skateboard operation",
+                        "<strong>Secure the remote receiver</strong>: Place the remote receiver in a position where it is protected from impact but still in range of the remote control",
                         ////add more
                     ]
                 },
                 {
                     label: "Connection Integrity",
                     items: [
-                        "Double check the terminals: Make sure the poitive and negative terminals are connected properly to avoid frying the electronics and potentially starting a fire",
-                        "Test each connection: Before finalizing installations, use a multimeter to test each connection for correct voltage and secure contacts",
-                        "Use heat shrink tubing: Apply heat shrink tubing to all soldered connections to enhance durability and electrical insulation",
-                        "Check motor phase wires: Ensure the motor phase wires are securely connected to the ESC, as incorrect or loose connections can cause motor malfunctions",
-                        "Order of phase wires: Generally speaking, the order of the phase wires does not matter for brushless DC motors. This mean they can be connected to the ESC in any order. However, the order of the HALL Sensors DOES matter",
-                        "Verify sensor connections: For motors with HALL Sensors, double-check the sensor wire connections for accuracy as they are crucial for a smooth rolling start, without the need of an initial push kick",
+                        "<strong>Double check the terminals</strong>: Make sure the poitive and negative terminals are connected properly to avoid frying the electronics and potentially starting a fire",
+                        "<strong>Test each connection</strong>: Before finalizing installations, use a multimeter to test each connection for correct voltage and secure contacts",
+                        "<strong>Use heat shrink tubing</strong>: Apply heat shrink tubing to all soldered connections to enhance durability and electrical insulation",
+                        "<strong>Check motor phase wires</strong>: Ensure the motor phase wires are securely connected to the ESC, as incorrect or loose connections can cause motor malfunctions",
+                        "<strong>Order of phase wires</strong>: Generally speaking, the order of the phase wires does not matter for brushless DC motors. This mean they can be connected to the ESC in any order. However, the order of the HALL Sensors DOES matter",
+                        "<strong>Verify sensor connections</strong>: For motors with HALL Sensors, double-check the sensor wire connections for accuracy as they are crucial for a smooth rolling start, without the need of an initial push kick",
                         ////add more
                     ]
                 }
@@ -247,20 +249,20 @@ const QuickStartGuide = () => {
                 {
                     label: "Electronics Configuration",
                     items: [
-                        "Program the ESC: Use a compatible interface (USB or Bluetooth) to connect the ESC to a computer or smartphone for programming",
-                        "Adjust throttle and brake settings: Customize the throttle curve and braking power to match your riding style and comfort",
-                        "Set power limits: Configure power settings according to your motor and battery specifications to prevent overheating and overloading",
-                        "Calibrate the remote: Ensure the remote control is fully calibrated with the ESC to ensure responsive control over the skateboard",
+                        "<strong>Program the ESC</strong>: Use a compatible interface (USB or Bluetooth) to connect the ESC to a computer or smartphone for programming",
+                        "<strong>Adjust throttle and brake settings</strong>: Customize the throttle curve and braking power to match your riding style and comfort",
+                        "<strong>Set power limits</strong>: Configure power settings according to your motor and battery specifications to prevent overheating and overloading",
+                        "<strong>Calibrate the remote</strong>: Ensure the remote control is fully calibrated with the ESC to ensure responsive control over the skateboard",
                         ////add more
                     ]
                 },
                 {
                     label: "Software and Hardware Checks",
                     items: [
-                        "Firmware updates: Regularly update the ESC firmware to ensure you have the latest features and optimal performance",
-                        "Sensor calibration: If using a sensor-equipped motor, perform calibrations to ensure accurate motor behavior and responsiveness",
-                        "Battery health monitoring: Utilize software tools to monitor the health and performance of your battery pack over time",
-                        "Safety audits: Regularly review your electronic settings and configurations to ensure they remain safe and within operational parameters",
+                        "<strong>Firmware updates</strong>: Regularly update the ESC firmware to ensure you have the latest features and optimal performance",
+                        "<strong>Sensor calibration</strong>: If using a sensor-equipped motor, perform calibrations to ensure accurate motor behavior and responsiveness",
+                        "<strong>Battery health monitoring</strong>: Utilize software tools to monitor the health and performance of your battery pack over time",
+                        "<strong>Safety audits</strong>: Regularly review your electronic settings and configurations to ensure they remain safe and within operational parameters",
                         ////add more
                     ]
                 }
@@ -274,36 +276,36 @@ const QuickStartGuide = () => {
                 {
                     label: "Testing and Adjustment",
                     items: [
-                        "Conduct a bench test: Perform a static test with the skateboard raised to check wheel and motor operation without load",
-                        "Low-speed tests: Start with low-speed runs to assess the general performance and stability of the skateboard",
-                        "High-speed tests: Gradually increase speed under controlled conditions to test the skateboard's performance at higher speeds",
-                        "Adjust as needed: Fine-tune the truck tightness, wheel alignment, and ESC settings based on test ride feedback",
+                        "<strong>Conduct a bench test</strong>: Perform a static test with the skateboard raised to check wheel and motor operation without load",
+                        "<strong>Low-speed tests</strong>: Start with low-speed runs to assess the general performance and stability of the skateboard",
+                        "<strong>High-speed tests</strong>: Gradually increase speed under controlled conditions to test the skateboard's performance at higher speeds",
+                        "<strong>Adjust as needed</strong>: Fine-tune the truck tightness, wheel alignment, and ESC settings based on test ride feedback",
                         ////add more
                     ]
                 },
                 {
                     label: "Initial Runs",
                     items: [
-                        "Safety gear: Always wear appropriate safety gear during test runs, including a helmet, knee pads, and elbow pads",
-                        "Controlled environment: Choose a smooth, flat area for initial tests to safely evaluate the skateboard's handling and response",
-                        "Obstacle navigation: Practice maneuvering around obstacles to ensure the skateboard's responsiveness and your comfort with its controls",
-                        "Range testing: Conduct a range test to determine how far your skateboard can go on a single charge under normal riding conditions",
-                        "Monitoring: Closely monitor the board's performance for any unusual noises or behaviors. A properly functioning drive system should emit a smooth revving sound that increases in pitch with increased speed. Any irregularities, such as cracking sounds, significant pitch fluctuations, or unusual vibrations, could indicate an improperly adjusted drive mechanism, incorrectly configured ESC motor parameters, or other mechanical issues. Addressing these early can prevent further complications."
+                        "<strong>Safety gear</strong>: Always wear appropriate safety gear during test runs, including a helmet, knee pads, and elbow pads",
+                        "<strong>Controlled environment</strong>: Choose a smooth, flat area for initial tests to safely evaluate the skateboard's handling and response",
+                        "<strong>Obstacle navigation</strong>: Practice maneuvering around obstacles to ensure the skateboard's responsiveness and your comfort with its controls",
+                        "<strong>Range testing</strong>: Conduct a range test to determine how far your skateboard can go on a single charge under normal riding conditions",
+                        "<strong>Monitoring</strong>: Closely monitor the board's performance for any unusual noises or behaviors. A properly functioning drive system should emit a smooth revving sound that increases in pitch with increased speed. Any irregularities, such as cracking sounds, significant pitch fluctuations, or unusual vibrations, could indicate an improperly adjusted drive mechanism, incorrectly configured ESC motor parameters, or other mechanical issues. Addressing these early can prevent further complications."
                         ////add more
                     ]
                 },
                 {
                     label: "Key things to keep in mind:",
                     items: [
-                        "Gradual Adjustments: When tuning, make sure you make adjustments little by little and one variable at a time to isolate the effects of each change. This methodical approach helps in accurately determining which adjustments improve performance and stability",
-                        "Data Logging: During testing, ensure to log all performance data, such as speed, battery life, and response times. This information is vital for analyzing the board's behavior under various conditions and making informed adjustments",
-                        "Weather Conditions: Always consider the weather conditions during your test runs. Wet or slippery conditions can affect the board’s handling and braking significantly, and adjustments may need to be made to accommodate different environments",
-                        "Check for Wear and Tear: Regularly inspect your skateboard for any signs of wear or mechanical degradation. Pay special attention to the wheels, bearings, and deck integrity, especially after rigorous test sessions",
-                        "Battery Health Monitoring: Keep an eye on the battery's performance and health, noting any unusual depletion rates or heating issues. Regular checks ensure the battery maintains optimal performance and longevity",
-                        "Feedback Collection: If possible, get feedback from other riders who test your skateboard. Different perspectives can provide insights into how the board handles for various styles and weights of riders",
-                        "Follow Safety Protocols: Always adhere to safety protocols during testing. This includes not only wearing the proper gear but also ensuring that all electronic systems are shut down properly after testing to avoid accidents or damage",
-                        "Emergency Preparedness: Have an emergency plan in place in case of mechanical failure or accidents during test runs. This includes knowing basic first aid and having emergency contact numbers readily available",
-                        "Spare Parts: Keep spare parts handy for quick replacements during testing, especially for components that are prone to wear and tear like belts, wheels, and connectors",
+                        "<strong>Gradual Adjustments</strong>: When tuning, make sure you make adjustments little by little and one variable at a time to isolate the effects of each change. This methodical approach helps in accurately determining which adjustments improve performance and stability",
+                        "<strong>Data Logging</strong>: During testing, ensure to log all performance data, such as speed, battery life, and response times. This information is vital for analyzing the board's behavior under various conditions and making informed adjustments",
+                        "<strong>Weather Conditions</strong>: Always consider the weather conditions during your test runs. Wet or slippery conditions can affect the board’s handling and braking significantly, and adjustments may need to be made to accommodate different environments",
+                        "<strong>Check for Wear and Tear</strong>: Regularly inspect your skateboard for any signs of wear or mechanical degradation. Pay special attention to the wheels, bearings, and deck integrity, especially after rigorous test sessions",
+                        "<strong>Battery Health Monitoring</strong>: Keep an eye on the battery's performance and health, noting any unusual depletion rates or heating issues. Regular checks ensure the battery maintains optimal performance and longevity",
+                        "<strong>Feedback Collection</strong>: If possible, get feedback from other riders who test your skateboard. Different perspectives can provide insights into how the board handles for various styles and weights of riders",
+                        "<strong>Follow Safety Protocols</strong>: Always adhere to safety protocols during testing. This includes not only wearing the proper gear but also ensuring that all electronic systems are shut down properly after testing to avoid accidents or damage",
+                        "<strong>Emergency Preparedness</strong>: Have an emergency plan in place in case of mechanical failure or accidents during test runs. This includes knowing basic first aid and having emergency contact numbers readily available",
+                        "<strong>Spare Parts</strong>: Keep spare parts handy for quick replacements during testing, especially for components that are prone to wear and tear like belts, wheels, and connectors",
                         ////add more
                     ]
                 }
@@ -314,9 +316,9 @@ const QuickStartGuide = () => {
             header: "Step 10: The Open Road Awaits!",
             description: (
                 <>
-                    <p>Congratulations! You’ve successfully built your very own electric skateboard. Now, the real adventure begins as you take your creation for a spin. As thrilling as it is to ride something you’ve crafted with your own hands, safety must always come first. Always wear a full-faced helmet, knee pads, abrasion-resistant gloves, and a windbreaker jacket to protect against the elements and potential falls. Additionally, consider elbow pads and padded shorts for extra protection.</p>
+                    <p>CONGRATULATIONS! You’ve successfully built your very own electric skateboard. Now, the real adventure begins as you take your creation for a spin. As thrilling as it is to ride something you’ve crafted with your own hands, safety must always come first. Always wear a full-faced helmet, knee pads, abrasion-resistant gloves, and a windbreaker jacket to protect against the elements and potential falls. Additionally, consider elbow pads and padded shorts for extra protection.</p>
                     <p>Before you hit the road, familiarize yourself with local traffic laws to ensure you ride legally and safely. Start in a safe, traffic-free area to get a feel for your board’s dynamics. Practice turning, stopping, and handling at various speeds. Remember, each ride not only offers fun but also an opportunity to fine-tune your board’s performance. And don't be discouraged by falls—they're a normal part of the learning curve. With each tumble, you're one step closer to mastering the art of eboarding, just like seasoned riders.</p>
-                    <p>The beauty of a DIY electric skateboard is the limitless customization. Now that you've built the foundation, you can modify and enhance your board as you see fit. Want more speed or a smoother ride? Consider upgrading your wheels or adjusting your truck settings. Interested in aesthetics? Add LED lights for a personalized touch or custom graphics to make your board visually striking. The possibilities are endless, and the joy of riding something that truly represents your personality and needs is immensely satisfying. For those eager to learn more about the electronics working behind the scenes, or to dive deeper into upgrades and innovative designs, stay tuned for our <NavLink to="/guide/advanced">'Advanced Guide'</NavLink> with detailed steps that takes your board to the next level. Embrace this journey of continual improvement and customization, and revel in the freedom that a DIY skateboard provides. Ride on and keep evolving your board to match your growing skills and unique style!</p>
+                    <p>The beauty of a DIY electric skateboard is the limitless customization. Now that you've built the foundation, you can modify and enhance your board as you see fit. Want more speed or a smoother ride? Consider upgrading your wheels or adjusting your truck settings. Interested in aesthetics? Add LED lights for a personalized touch or custom graphics to make your board visually striking. The possibilities are endless, and the joy of riding something that truly represents your personality and needs is immensely satisfying. For those eager to learn more about the electronics working behind the scenes, or to dive deeper into upgrades and innovative designs, stay tuned for our <NavLink to="/guide/advanced">'ADVANCED GUIDE'</NavLink> with detailed steps that takes your board to the next level. Embrace this journey of continual improvement and customization, and revel in the freedom that a DIY skateboard provides. Ride on and keep evolving your board to match your growing skills and unique style!</p>
                 </>
             ),
             // link: "/link-for-step-10"
@@ -325,7 +327,7 @@ const QuickStartGuide = () => {
 
     const guideImages = [
         [require("./images/Step_1_Create_Game_Plan.jpg")],
-        [require("./images/Step_2_Research_Parts.jpg")],
+        [require("./images/Step_2_Research_Parts_pt.1.jpg"), require("./images/Step_2_Research_Parts_pt.2.jpg")],
         [require("./images/Step_3_Workspace.jpg")],
         [require("./images/Step_4_Mats_&_Tools_pt.1.jpg"), require("./images/Step_4_Mats_&_Tools_pt.2.jpg")],
         [require("./images/Step_5_Assembly.jpg")],
@@ -359,15 +361,14 @@ const QuickStartGuide = () => {
                                     {category.items.map((item, itemIndex) => (
                                         Array.isArray(item) ? (
                                             <li key={itemIndex}>
-                                                <span>{item[0]}</span>
                                                 <ul>
                                                     {item.slice(1).map((subItem, subItemIndex) => (
-                                                        <li key={subItemIndex}>{subItem}</li>
+                                                        <li key={subItemIndex} dangerouslySetInnerHTML={{ __html: subItem }}></li>
                                                     ))}
                                                 </ul>
                                             </li>
                                         ) : (
-                                            <li key={itemIndex}>{item}</li>
+                                            <li key={itemIndex} dangerouslySetInnerHTML={{ __html: item }}></li>
                                         )
                                     ))}
                                 </ul>
@@ -376,7 +377,7 @@ const QuickStartGuide = () => {
                         {step.list && (
                             <ul className="step-list">
                                 {step.list.map((item, itemIndex) => (
-                                    <li key={itemIndex}>{item}</li>
+                                    <li key={itemIndex} dangerouslySetInnerHTML={{ __html: item }}></li>
                                 ))}
                             </ul>
                         )}
