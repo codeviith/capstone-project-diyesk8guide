@@ -335,7 +335,7 @@ const QuickStartGuide = () => {
         [require("./images/Step_7_Wiring_pt.1.jpg"), require("./images/Step_7_Wiring_pt.2.png")],
         [require("./images/Step_8_Config_Electronics.jpg")],
         [require("./images/Step_9_Test_Fine_Tuning_pt.1.jpg"), require("./images/Step_9_Test_Fine_Tuning_pt.2.jpg"), require("./images/Step_9_Test_Fine_Tuning_pt.3.jpg")],
-        [require("./images/Step_10_Open_Road_Ahead.jpg")],
+        [require("./images/Step_10_Open_Road_Ahead.jpg")]
     ];
 
 
