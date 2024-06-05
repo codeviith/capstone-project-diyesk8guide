@@ -401,8 +401,8 @@ def signup():
         new_user = User(email=email, fname=fname, lname=lname, rider_stance=rider_stance, boards_owned=boards_owned)
         new_user.password_hash = password  ### Sets the password hash
 
-        # db.session.add(new_user)      ##### Temporarily commented out for welcome email debugging
-        # db.session.commit()           ##### Temporarily commented out for welcome email debugging
+        db.session.add(new_user)
+        db.session.commit()
 
         send_welcome_email(email, fname)  # Send welcome email after committing the user data
         return jsonify({'message': 'Account created successfully'}), 201
