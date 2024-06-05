@@ -417,7 +417,9 @@ def signup():
 @app.route('/contact_us', methods=['POST'])
 def contact_form():
     try:
+        app.logger.debug(f"Session before contact form submission: {session}")
         if 'user_id' not in session:
+            app.logger.debug(f"Session not found: {session}")
             return jsonify({'error': 'Authentication required.'}), 401
     
         user_id = session['user_id']
@@ -440,6 +442,7 @@ def contact_form():
         return jsonify({'message': 'Your message has been successfully submitted'}), 200
 
     except Exception as e:
+        app.logger.error(f"Error processing contact form: {str(e)}")
         print(str(e))
         return jsonify({'error': 'An error occurred while processing your request'}), 500
     
@@ -452,11 +455,12 @@ def send_contact_email(data):
         )
         msg.body = f"""
         You have received a new message from {data['firstName']}.
+        Message: {data['message']}
 
+        Sender Contact:
         First Name: {data['firstName']}
         Last Name: {data['lastName']}
         Email: {data['email']}
-        Message: {data['message']}
         """
         mail.send(msg)
     except Exception as e:
