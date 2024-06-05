@@ -696,7 +696,7 @@ def contact_form():
         db.session.commit()
 
         # Send form information to support email
-        send_contact_email(data)
+        # send_contact_email(data)
 
         return jsonify({'message': 'Your message has been successfully submitted'}), 200
 
@@ -704,25 +704,25 @@ def contact_form():
         print(str(e))
         return jsonify({'error': 'An error occurred while processing your request'}), 500
     
-def send_contact_email(data):
-    try:
-        msg = Message(
-            "New Contact Us Message",
-            sender=os.environ.get('FLASK_MAIL_NAME'),
-            recipients=["support@diyesk8guide.com"]
-        )
-        msg.body = f"""
-        You have received a new message from {data['firstName']}.
+# def send_contact_email(data):
+#     try:
+#         msg = Message(
+#             "New Contact Us Message",
+#             sender=os.environ.get('FLASK_MAIL_NAME'),
+#             recipients=["support@diyesk8guide.com"]
+#         )
+#         msg.body = f"""
+#         You have received a new message from {data['firstName']}.
 
-        First Name: {data['firstName']}
-        Last Name: {data['lastName']}
-        Email: {data['email']}
-        Message: {data['message']}
-        """
-        mail.send(msg)
-    except Exception as e:
-        app.logger.error("An error has occurred while sending message to email: %s", str(e))
-        print("Error details:", str(e))
+#         First Name: {data['firstName']}
+#         Last Name: {data['lastName']}
+#         Email: {data['email']}
+#         Message: {data['message']}
+#         """
+#         mail.send(msg)
+#     except Exception as e:
+#         app.logger.error("An error has occurred while sending message to email: %s", str(e))
+#         print("Error details:", str(e))
 
 ### ------------------ GALLERY ------------------ ###
 
