@@ -54,7 +54,8 @@ function ContactUs() {
                     body: JSON.stringify(formData),
                     headers: {
                         'Content-Type': 'application/json'
-                    }
+                    },
+                    credentials: 'include' // this ensures that cookies are sent with the request
                 });
 
                 if (response.ok) {
