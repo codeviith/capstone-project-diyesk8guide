@@ -55,7 +55,7 @@ function ContactUs() {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    credentials: 'include' // this ensures that cookies are sent with the request
+                    credentials: 'include' // this ensures that cookies are sent with the request -> a MUST if you are using session and check session
                 });
 
                 if (response.ok) {
