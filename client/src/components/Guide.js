@@ -22,13 +22,13 @@ const Guide = () => {
         setDropdownVisible(false);
     }
 
-    if (!isLoggedIn) {
-        return (
-            <div className="login-prompt-container">
-                <p>Please <NavLink to="/login">log in</NavLink> to access the Guide.</p>
-            </div>
-        );
-    }
+    // if (!isLoggedIn) {
+    //     return (
+    //         <div className="login-prompt-container">
+    //             <p>Please <NavLink to="/login">log in</NavLink> to access the Guide.</p>
+    //         </div>
+    //     );
+    // }
 
     const QuickStartGuideSteps = [
         { header: "Step 1: Create a Game Plan" },

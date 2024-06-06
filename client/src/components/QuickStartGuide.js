@@ -72,10 +72,9 @@ const QuickStartGuide = () => {
                         "Purchase components from vendors known for quality and authenticity",
                         "Be wary of unusually cheap parts that may compromise quality",
                         "Review return and exchange policies",
-                        ["List of trusted vendors (with links):",
-                            "Coming Soon (contract pending)" // Placeholder text
-                            ////add more
-                        ]
+                        // ["<strong>List of trusted vendors (with links):</strong>",
+                            // "Coming Soon (contract pending)" // Placeholder text
+                        // ]
                     ]
                 }
             ],
@@ -361,6 +360,7 @@ const QuickStartGuide = () => {
                                     {category.items.map((item, itemIndex) => (
                                         Array.isArray(item) ? (
                                             <li key={itemIndex}>
+                                                <span dangerouslySetInnerHTML={{ __html: item[0] }}></span>
                                                 <ul>
                                                     {item.slice(1).map((subItem, subItemIndex) => (
                                                         <li key={subItemIndex} dangerouslySetInnerHTML={{ __html: subItem }}></li>
