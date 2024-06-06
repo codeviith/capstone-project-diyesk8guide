@@ -47,7 +47,7 @@ app.config['MAIL_SERVER'] = 'smtp.office365.com'  ### HAVE to use the SMTP serve
 app.config['MAIL_PORT'] = 587   ### TLS authentication: 587, SSL authentication: 465, no TLS or SSL authentication: 80
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
-app.config['MAIL_USERNAME'] = os.environ.get('FLASK_MAIL_NAME')
+app.config['MAIL_USERNAME'] = os.environ.get('FLASK_MAIL_NAME_ADMIN')
 app.config['MAIL_PASSWORD'] = os.environ.get('FLASK_MAIL_KEY')
 
 # Initialize Flask-Mail
@@ -314,7 +314,7 @@ def logout():
 
 def send_welcome_email(email, fname):
     msg = Message("Welcome to DIYeSk8Guide!",
-                sender=os.environ.get('FLASK_MAIL_NAME'),
+                sender=os.environ.get('FLASK_MAIL_NAME_ADMIN'),
                 recipients=[email])
     msg.body = f"""
         Hi {fname},
@@ -450,12 +450,12 @@ def send_contact_email(data):
     try:
         msg = Message(
             "New Contact Us Message",
-            sender=os.environ.get('FLASK_MAIL_NAME'),
-            recipients=["support@diyesk8guide.com"]
+            sender=os.environ.get('FLASK_MAIL_NAME_ADMIN'),
+            recipients=os.environ.get('FLASK_MAIL_NAME_SUPPORT'),
         )
         msg.body = f"""
         You have received a new message from {data['firstName']}.
-        
+
         Message: {data['message']}
 
         Sender Contact:
