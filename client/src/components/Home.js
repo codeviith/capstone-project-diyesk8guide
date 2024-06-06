@@ -16,7 +16,7 @@ const Home = () => {
     <div className="home">
       <div className="intro">
         <h1>
-          Welcome to DIYesk8Guide
+          Welcome to DIYeSk8Guide
         </h1>
         <span style={{ whiteSpace: "pre-wrap" }}>
           Are you ready to elevate your skateboarding experience to a whole new

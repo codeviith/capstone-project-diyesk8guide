@@ -8,9 +8,9 @@ function RulesAndPolicies() {
                 Rules & Policies{'\n'}{'\n'}
             </h1>
             <span style={{ whiteSpace: 'pre-wrap' }}>
-                Welcome to DIYesk8Guide! Our platform is designed to empower and inspire builders of electric skateboards by providing resources,
+                Welcome to DIYeSk8Guide! Our platform is designed to empower and inspire builders of electric skateboards by providing resources,
                 tools, and a community for sharing experiences and creations. To ensure a positive and safe experience for all users, we have
-                established the following rules and policies. By accessing and using DIYesk8Guide, you agree to comply with these
+                established the following rules and policies. By accessing and using DIYeSk8Guide, you agree to comply with these
                 guidelines.{'\n'}
             </span>
             <p className="section-title">

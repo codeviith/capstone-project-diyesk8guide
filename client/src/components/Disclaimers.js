@@ -11,7 +11,7 @@ function Disclaimers() {
                 General Disclaimer
             </strong>
             <span style={{ whiteSpace: 'pre-wrap' }}>
-                The information provided by DIYesk8Guide ("we," "us," or "our") on [diyesk8guide.com] (the "Site") is for general informational and
+                The information provided by DIYeSk8Guide ("we," "us," or "our") on [diyesk8guide.com] (the "Site") is for general informational and
                 educational purposes only. All information on the Site is provided in good faith, however, we make no representation or warranty of
                 any kind, expressed or implied, regarding the accuracy, adequacy, validity, reliability, availability, or completeness of any
                 information on the Site.{'\n'}{'\n'}
@@ -40,9 +40,9 @@ function Disclaimers() {
                 Gallery Content
             </strong>
             <span style={{ whiteSpace: 'pre-wrap' }}>
-                The Gallery is a community space for sharing and inspiration. By uploading images to the Gallery, you grant DIYesk8Guide a non-exclusive,
+                The Gallery is a community space for sharing and inspiration. By uploading images to the Gallery, you grant DIYeSk8Guide a non-exclusive,
                 royalty-free license to use, display, and share your content on our platform and in related promotional materials. You retain all ownership
-                rights to your content, but agree to allow it to be made public and accessible to other users and for the purposes of promoting DIYesk8Guide.
+                rights to your content, but agree to allow it to be made public and accessible to other users and for the purposes of promoting DIYeSk8Guide.
                 You confirm that you own the rights to the content or have obtained necessary permissions. You also agree not to post any content that is
                 unlawful, offensive, or infringes on the rights of others. The Site reserves the right to remove any content deemed inappropriate or that
                 has been reported by users.{'\n'}{'\n'}
@@ -61,7 +61,7 @@ function Disclaimers() {
             </strong>
             <span style={{ whiteSpace: 'pre-wrap' }}>
                 Users are solely responsible for ensuring that their electric skateboard builds comply with all local, state, and national laws,
-                regulations, and safety standards. DIYesk8Guide does not guarantee that the information provided will ensure compliance with such
+                regulations, and safety standards. DIYeSk8Guide does not guarantee that the information provided will ensure compliance with such
                 laws and standards. Users should conduct thorough research and consult with legal and safety experts to ensure their builds are
                 lawful and safe.{'\n'}{'\n'}
             </span>
@@ -69,7 +69,7 @@ function Disclaimers() {
                 Intellectual Property
             </strong>
             <span style={{ whiteSpace: 'pre-wrap' }}>
-                Content provided on the Site, including but not limited to text, graphics, images, and logos, are the property of DIYesk8Guide or
+                Content provided on the Site, including but not limited to text, graphics, images, and logos, are the property of DIYeSk8Guide or
                 used with permission. You may not reproduce, distribute, modify, or use the Site's content without our written permission.
                 {'\n'}{'\n'}
             </span>
@@ -77,9 +77,9 @@ function Disclaimers() {
                 Third-Party Links
             </strong>
             <span style={{ whiteSpace: 'pre-wrap' }}>
-                Our Site may contain links to third-party websites or services that are not owned or controlled by DIYesk8Guide. DIYesk8Guide has
+                Our Site may contain links to third-party websites or services that are not owned or controlled by DIYeSk8Guide. DIYeSk8Guide has
                 no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third-party websites or
-                services. You further acknowledge and agree that DIYesk8Guide shall not be responsible or liable, directly or indirectly, for any
+                services. You further acknowledge and agree that DIYeSk8Guide shall not be responsible or liable, directly or indirectly, for any
                 damage or loss caused or alleged to be caused by or in connection with the use of or reliance on any such content, goods, or
                 services available on or through any such websites or services.{'\n'}{'\n'}
             </span>
@@ -87,8 +87,8 @@ function Disclaimers() {
                 Modification and Interruption of Service
             </strong>
             <span style={{ whiteSpace: 'pre-wrap' }}>
-                DIYesk8Guide reserves the right to modify or discontinue, temporarily or permanently, the Service (or any part thereof) with or
-                without notice at any time. You agree that DIYesk8Guide shall not be liable to you or to any third party for any modification,
+                DIYeSk8Guide reserves the right to modify or discontinue, temporarily or permanently, the Service (or any part thereof) with or
+                without notice at any time. You agree that DIYeSk8Guide shall not be liable to you or to any third party for any modification,
                 suspension, or discontinuance of the Service.{'\n'}{'\n'}
             </span>
             <strong>
