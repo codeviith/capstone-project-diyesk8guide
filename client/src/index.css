@@ -44,7 +44,7 @@ body::before {
   z-index: -1;
   /* background: url('/home/codeviith/Development/code/phase-5/capstone-project/diyesk8guide/client/src/components/images/main_background.jpg') center center fixed; */
   /* background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.wallpapersden.com%2Fimage%2Fdownload%2Fblack-and-red-hexagon_a25qZmWUmZqaraWkpJRmbmdlrWZlbWU.jpg&f=1&nofb=1&ipt=633d7d1d7d3e651478cbdaf66914a349f667cdd3d8c9b0456e92be63257d95b1&ipo=images') center center fixed; */
-  background: url('https://www.innerloc.com/wp-content/uploads/2017/03/bigstock-Black-Carbon-Fiber-Hexagon-Pat-176134867.jpg') center center fixed;
+  background: url('/Black-Carbon-Fiber-Hexagon-BG.jpg') center center fixed;
   /* background: url('https://wallpaperaccess.com/full/2024271.jpg') center center fixed; */
   /* background: url('jpg') center center fixed; */
   /* background: url('jpg') center center fixed; */
@@ -59,7 +59,7 @@ body::before {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: url('https://www.innerloc.com/wp-content/uploads/2017/03/bigstock-Black-Carbon-Fiber-Hexagon-Pat-176134867.jpg') center center;
+    background: url('/Black-Carbon-Fiber-Hexagon-BG.jpg') center center;
     background-size: cover;
     z-index: -1; /* Keep it behind all other content */
     opacity: 0.95;
